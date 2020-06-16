@@ -23,6 +23,7 @@ android {
 }
 
 dependencies {
+
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation files('libs\\android-support-v4.jar')
     implementation files('libs\\mpandroidchartlibrary-2-1-5.jar')
