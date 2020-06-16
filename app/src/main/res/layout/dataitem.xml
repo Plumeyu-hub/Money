@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:id="@+id/tv_dataitem_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:visibility="gone" />
+    <TextView
+        android:id="@+id/tv_dataitem_daytime"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="2020-03-03"
+        android:textColor="#333333"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/tv_dataite_category"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="奖金"
+        android:textColor="#333333"
+        android:textSize="22sp" />
+
+    <TextView
+        android:id="@+id/tv_dataitem_money"
+        android:layout_width="0dp"
+        android:layout_height="70dp"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="+2100.000"
+        android:textColor="#333333"
+        android:textSize="22sp" />
+
+</LinearLayout>

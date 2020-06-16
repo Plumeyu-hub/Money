@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#fff" >
+
+    <LinearLayout
+        android:id="@+id/lin_addincal"
+        android:layout_width="match_parent"
+        android:layout_height="246.5dp"
+        android:layout_alignParentBottom="true"
+        android:background="#b0000000"
+        android:orientation="vertical" >
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#D8D9D9" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#F2F3F5" >
+
+            <View
+                android:id="@+id/addinv1"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:background="#D8D9D9" />
+
+            <View
+                android:id="@+id/addinv2"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="#D8D9D9" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/addinv2"
+                android:layout_toRightOf="@id/addinv1"
+                android:orientation="horizontal" >
+
+                <RelativeLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" >
+
+                    <ImageView
+                        android:id="@+id/iv_addinmo"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/mo" />
+
+                    <TextView
+                        android:id="@+id/tv_addinmotext"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="3dp"
+                        android:layout_toRightOf="@id/iv_addinmo"
+                        android:text="金额:"
+                        android:textColor="#333333"
+                        android:textSize="16sp" />
+
+                    <Button
+                        android:id="@+id/bt_ains"
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerInParent="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="5dp"
+                        android:background="@drawable/delete"
+                        android:clickable="true"
+                        android:onClick="clickinnum" />
+
+                    <EditText
+                        android:id="@+id/et_ainmoney"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_toLeftOf="@id/bt_ains"
+                        android:layout_toRightOf="@id/tv_addinmotext"
+                        android:background="#F2F3F5"
+                        android:editable="false"
+                        android:gravity="center_vertical"
+                        android:hint="请输入金额"
+                        android:paddingLeft="5dp"
+                        android:textColor="#333333"
+                        android:textSize="18sp" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="#D8D9D9" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/mhome" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:text="选择账户:"
+                        android:textColor="#333333"
+                        android:textSize="16sp" />
+
+                    <Spinner
+                        android:id="@+id/sp_addinaccount"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="10dp"
+                        android:background="#F2F3F5" >
+                    </Spinner>
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#D8D9D9" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#F2F3F5" >
+
+            <View
+                android:id="@+id/addinv3"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:background="#D8D9D9" />
+
+            <View
+                android:id="@+id/addinv4"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="#D8D9D9" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/addinv4"
+                android:layout_toRightOf="@id/addinv3"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/theme" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:text="备注:"
+                        android:textColor="#333333"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/et_addincaltext"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="#F2F3F5"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:gravity="center_vertical"
+                        android:hint="点击写备注..."
+                        android:onClick="click"
+                        android:paddingLeft="5dp"
+                        android:textColor="#333333"
+                        android:textSize="18sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="#D8D9D9" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        android:layout_width="25dp"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="5dp"
+                        android:background="@drawable/day" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="3dp"
+                        android:text="选择日期:"
+                        android:textColor="#333333"
+                        android:textSize="16sp" />
+
+                    <EditText
+                        android:id="@+id/et_addinshowdate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:background="#F2F3F5"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:text="2020-4-5"
+                        android:textColor="#333333" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#D8D9D9" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="165dp"
+            android:background="#F2F3F5" >
+
+            <View
+                android:id="@+id/addinv5"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:background="#D8D9D9" />
+
+            <View
+                android:id="@+id/addinv6"
+                android:layout_width="0.5dp"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:background="#D8D9D9" />
+
+            <View
+                android:id="@+id/addinv7"
+                android:layout_width="match_parent"
+                android:layout_height="0.5dp"
+                android:layout_alignParentBottom="true"
+                android:background="#D8D9D9" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/addinv7"
+                android:layout_toLeftOf="@id/addinv6"
+                android:layout_toRightOf="@id/addinv5"
+                android:orientation="horizontal" >
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:orientation="vertical" >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal" >
+
+                        <Button
+                            android:id="@+id/bt_ain1"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="#F2F3F5"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:onClick="clickinnum"
+                            android:text="1"
+                            android:textColor="#333333"
+                            android:textSize="25sp" />
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"
+                            android:background="#D8D9D9" />
+
+                        <Button
+                            android:id="@+id/bt_ain2"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="#F2F3F5"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:onClick="clickinnum"
+                            android:text="2"
+                            android:textColor="#333333"
+                            android:textSize="25sp" />
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"
+                            android:background="#D8D9D9" />
+
+                        <Button
+                            android:id="@+id/bt_ain3"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="#F2F3F5"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:onClick="clickinnum"
+                            android:text="3"
+                            android:textColor="#333333"
+                            android:textSize="25sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#D8D9D9" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal" >
+
+                        <Button
+                            android:id="@+id/bt_ain4"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="#F2F3F5"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:onClick="clickinnum"
+                            android:text="4"
+                            android:textColor="#333333"
+                            android:textSize="25sp" />
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"
+                            android:background="#D8D9D9" />
+
+                        <Button
+                            android:id="@+id/bt_ain5"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="#F2F3F5"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:onClick="clickinnum"
+                            android:text="5"
+                            android:textColor="#333333"
+                            android:textSize="25sp" />
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"
+                            android:background="#D8D9D9" />
+
+                        <Button
+                            android:id="@+id/bt_ain6"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="#F2F3F5"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:onClick="clickinnum"
+                            android:text="6"
+                            android:textColor="#333333"
+                            android:textSize="25sp" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#D8D9D9" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal" >
+
+                        <Button
+                            android:id="@+id/bt_ain7"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="#F2F3F5"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:onClick="clickinnum"
+                            android:text="7"
+                            android:textColor="#333333"
+                            android:textSize="25sp" />
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"
+                            android:background="#D8D9D9" />
+
+                        <Button
+                            android:id="@+id/bt_ain8"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="#F2F3F5"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:onClick="clickinnum"
+                            android:text="8"
+                            android:textColor="#333333"
+                            android:textSize="25sp" />
+
+                        <View
+                            android:layout_width="0.5dp"
+                            android:layout_height="match_parent"
+                            android:background="#D8D9D9" />
+
+                        <Button
+                            android:id="@+id/bt_ain9"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:background="#F2F3F5"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:onClick="clickinnum"
+                            android:text="9"
+                            android:textColor="#333333"
+                            android:textSize="25sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="match_parent"
+                    android:background="#D8D9D9" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical" >
+
+                    <Button
+                        android:id="@+id/bt_aind"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="#F2F3F5"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:onClick="clickinnum"
+                        android:text="·"
+                        android:textColor="#333333"
+                        android:textSize="35sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#D8D9D9" />
+
+                    <Button
+                        android:id="@+id/bt_ain0"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="#F2F3F5"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:onClick="clickinnum"
+                        android:text="0"
+                        android:textColor="#333333"
+                        android:textSize="25sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.5dp"
+                        android:background="#D8D9D9" />
+
+                    <Button
+                        android:id="@+id/bt_ainyes"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:background="#FF6B6A"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:onClick="click"
+                        android:text="完成"
+                        android:textColor="#fff"
+                        android:textSize="25sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <GridView
+        android:id="@+id/gv_addin"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/lin_addincal"
+        android:horizontalSpacing="10dp"
+        android:listSelector="@android:color/transparent"
+        android:numColumns="4"
+        android:paddingTop="10dp"
+        android:verticalSpacing="10dp" >
+    </GridView>
+
+</RelativeLayout>

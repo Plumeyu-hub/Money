@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/re_add"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF6B6A"
+    android:clickable="true" >
+
+    <LinearLayout
+        android:id="@+id/lin_lintop"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tv_addexit"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/exit_fff"
+                android:clickable="true"
+                android:onClick="click" />
+
+            <TextView
+                android:id="@+id/tv_addout"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="支出"
+                android:textColor="#333333"
+                android:textSize="24sp" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tv_addin"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="收入"
+                android:textColor="#333333"
+                android:textSize="24sp" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/scrollbar"
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:layout_below="@id/lin_lintop"
+        android:layout_centerInParent="true"
+        android:scaleType="matrix"
+        android:src="@drawable/underline" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/scrollbar" >
+    </android.support.v4.view.ViewPager>
+
+</RelativeLayout>

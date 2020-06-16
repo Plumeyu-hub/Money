@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.money" >
+
+    <!-- 这个权限用于进行写入扩展存储，向扩展卡写入数据 -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/logo"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.Light.NoTitleBar" >
+        <activity
+            android:name="com.example.money.WelcomeActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity android:name="com.example.money.MainActivity" >
+        </activity>
+        <activity android:name="com.example.money.DetailsActivity" >
+        </activity>
+        <activity android:name="com.example.money.AddActivity" >
+        </activity>
+        <activity android:name="com.example.money.GraphActivity" >
+        </activity>
+        <activity android:name="com.example.money.MessageActivity" >
+        </activity>
+        <activity android:name="com.example.money.RemindActivity" >
+        </activity>
+        <activity android:name="com.example.money.SetActivity" >
+        </activity>
+        <activity android:name="com.example.money.HelpActivity" >
+        </activity>
+        <activity android:name="com.example.money.AboutActivity" >
+        </activity>
+        <activity android:name="com.example.money.LoginActivity" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.example.money.RegisteredActivity" >
+        </activity>
+        <activity android:name="com.example.money.AddintextActivity" >
+        </activity>
+        <activity android:name="com.example.money.DatainformationActivity" >
+        </activity>
+        <activity android:name="com.example.money.AddouttextActivity" >
+        </activity>
+        <activity android:name="com.example.money.SearchActivity" >
+        </activity>
+        <activity android:name="com.example.money.ExportActivity" >
+        </activity>
+        <activity android:name="com.example.money.ClearActivity" >
+        </activity>
+        <activity android:name="com.example.money.ModifypwActivity" >
+        </activity>
+        <activity android:name="com.example.money.MineActivity" >
+        </activity>
+        <activity android:name="com.example.money.RetrievepwActivity" >
+        </activity>
+        <activity android:name="com.example.money.BudgetActivity" >
+        </activity>
+        <activity android:name="com.example.money.AddbudgetActivity" >
+        </activity>
+
+        <receiver android:name=".MyReceiver" >
+        </receiver>
+    </application>
+
+</manifest>
