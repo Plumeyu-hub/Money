@@ -11,60 +11,60 @@
         android:label="@string/app_name"
         android:theme="@android:style/Theme.Light.NoTitleBar" >
         <activity
-            android:name="com.example.money.WelcomeActivity"
+            android:name="com.example.ui.login.WelcomeActivity"
             android:label="@string/app_name" >
         </activity>
         <activity android:name="com.example.money.MainActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.add.DetailsActivity" >
+        <activity android:name="com.example.ui.account.DetailsActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.add.AddActivity" >
+        <activity android:name="com.example.ui.account.AddActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.add.GraphActivity" >
+        <activity android:name="com.example.ui.account.GraphActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.my.MessageActivity" >
+        <activity android:name="com.example.ui.my.MessageActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.my.RemindActivity" >
+        <activity android:name="com.example.ui.my.RemindActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.my.SetActivity" >
+        <activity android:name="com.example.ui.my.SetActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.my.HelpActivity" >
+        <activity android:name="com.example.ui.my.HelpActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.my.AboutActivity" >
+        <activity android:name="com.example.ui.my.AboutActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.login.LoginActivity" >
+        <activity android:name="com.example.ui.login.LoginActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.money.com.example.ui.login.RegisteredActivity" >
+        <activity android:name="com.example.ui.login.RegisteredActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.add.AddintextActivity" >
+        <activity android:name="com.example.ui.account.AddintextActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.add.DatainformationActivity" >
+        <activity android:name="com.example.ui.account.DatainformationActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.add.AddouttextActivity" >
+        <activity android:name="com.example.ui.account.AddouttextActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.others.SearchActivity" >
+        <activity android:name="com.example.ui.account.SearchActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.my.ExportActivity" >
+        <activity android:name="com.example.ui.my.ExportActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.my.ClearActivity" >
+        <activity android:name="com.example.ui.my.ClearActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.my.ModifypwActivity" >
+        <activity android:name="com.example.ui.my.ModifypwActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.my.MineActivity" >
+        <activity android:name="com.example.ui.my.MineActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.login.RetrievepwActivity" >
+        <activity android:name="com.example.ui.login.RetrievepwActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.budget.BudgetActivity" >
+        <activity android:name="com.example.ui.budget.BudgetActivity" >
         </activity>
-        <activity android:name="com.example.money.com.example.ui.budget.AddbudgetActivity" >
+        <activity android:name="com.example.ui.budget.AddbudgetActivity" >
         </activity>
 
-        <receiver android:name="com.example.utils.MyReceiver" >
+        <receiver android:name="com.example.ui.my.MyReceiver" >
         </receiver>
     </application>
 

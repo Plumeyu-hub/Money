@@ -1,4 +1,4 @@
-package com.example.utils;
+package com.example.ui.my;
 
 import android.app.Notification;
 import android.app.NotificationManager;

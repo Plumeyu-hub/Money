@@ -14,7 +14,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.money.R;
-import com.example.utils.MyReceiver;
 
 import java.util.Calendar;
 
