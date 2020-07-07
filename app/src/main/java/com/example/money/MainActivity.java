@@ -11,6 +11,10 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.example.ui.account.AddActivity;
+import com.example.ui.account.DetailsActivity;
+import com.example.ui.account.GraphActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 
