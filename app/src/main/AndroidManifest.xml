@@ -13,6 +13,11 @@
         <activity
             android:name="com.example.ui.login.WelcomeActivity"
             android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name="com.example.money.MainActivity" >
         </activity>
@@ -33,19 +38,15 @@
         <activity android:name="com.example.ui.my.AboutActivity" >
         </activity>
         <activity android:name="com.example.ui.login.LoginActivity" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="com.example.ui.login.RegisteredActivity" >
         </activity>
-        <activity android:name="com.example.ui.account.AddintextActivity" >
+        <activity android:name="com.example.ui.account.AddInTextActivity" >
         </activity>
-        <activity android:name="com.example.ui.account.DatainformationActivity" >
+        <activity android:name="com.example.ui.account.DataInformationActivity" >
         </activity>
-        <activity android:name="com.example.ui.account.AddouttextActivity" >
+        <activity android:name="com.example.ui.account.AddOutTextActivity" >
         </activity>
         <activity android:name="com.example.ui.account.SearchActivity" >
         </activity>
@@ -53,15 +54,15 @@
         </activity>
         <activity android:name="com.example.ui.my.ClearActivity" >
         </activity>
-        <activity android:name="com.example.ui.my.ModifypwActivity" >
+        <activity android:name="com.example.ui.my.ModifyPwActivity" >
         </activity>
         <activity android:name="com.example.ui.my.MineActivity" >
         </activity>
-        <activity android:name="com.example.ui.login.RetrievepwActivity" >
+        <activity android:name="com.example.ui.login.RetrievePwActivity" >
         </activity>
         <activity android:name="com.example.ui.budget.BudgetActivity" >
         </activity>
-        <activity android:name="com.example.ui.budget.AddbudgetActivity" >
+        <activity android:name="com.example.ui.budget.AddBudgetActivity" >
         </activity>
 
         <receiver android:name="com.example.ui.my.MyReceiver" >

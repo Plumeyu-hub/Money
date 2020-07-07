@@ -68,6 +68,71 @@ public class LoginActivity extends Activity {
 		editor_user = sp_user.edit();
 		if (bool_login == false) {// 未登录
 
+// 数据库
+			// 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
+			db = this.openOrCreateDatabase("data.db", MODE_PRIVATE, null);
+			db.execSQL("create table if not exists user (userid integer primary key,username text,password text,problem text,answer text)");
+
+			tv_login.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View arg0) {
+					// TODO Auto-generated method stub
+					String username = et_username.getText().toString().trim();
+					String password = et_password.getText().toString().trim();
+					// 判断字符串为空
+					// if(zhanghao==null || zhanghao.equals("")){
+					if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+						Toast.makeText(LoginActivity.this, "账号或者密码为空",
+								Toast.LENGTH_LONG).show();
+					} else {
+						// 查找数据库是否存在相同的用户名
+						cs = db.query("user", new String[] { "userid", "username",
+										"password" }, "username=?",
+								new String[] { username }, null, null, null);
+
+						if (cs != null) {
+							while (cs.moveToNext()) {
+								usernamesql = cs.getString(cs
+										.getColumnIndex("username"));
+								passwordsql = cs.getString(cs
+										.getColumnIndex("password"));
+								useridsql = cs.getInt(cs.getColumnIndex("userid"));
+							}
+
+							if (username.equals(usernamesql)
+									&& password.equals(passwordsql)) {
+								Toast.makeText(LoginActivity.this, "登录成功",
+										Toast.LENGTH_LONG).show();
+								bool_login = true;
+								editor_login.putBoolean("isLoad", bool_login);
+								editor_login.commit();
+
+								editor_user.clear();
+								editor_user.putString("username", usernamesql);
+								// System.out.println(usernamesql);
+								editor_user.putInt("userid", useridsql);
+								// System.out.println(useridsql);
+								editor_user.commit();
+
+								Intent i = new Intent(LoginActivity.this,
+										MainActivity.class);
+								startActivity(i);
+								finish();
+							} else {
+								Toast.makeText(LoginActivity.this, "您输入的密码有误",
+										Toast.LENGTH_LONG).show();
+							}
+
+						} else {
+							Toast.makeText(LoginActivity.this, "当前账号不存在",
+									Toast.LENGTH_LONG).show();
+						}
+
+					}
+				}
+			});
+
 		} else {// 登录
 				// 进度条
 			if (Pdialog == null) {
@@ -83,73 +148,10 @@ public class LoginActivity extends Activity {
 			// 设置一次闹钟
 			manager.set(AlarmManager.RTC_WAKEUP, 1 * 1000, pIntent);
 			Pdialog.dismiss();
-			finish();
+			//finish();
 
 		}
-		// 数据库
-		// 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
-		db = this.openOrCreateDatabase("data.db", MODE_PRIVATE, null);
-		db.execSQL("create table if not exists user (userid integer primary key,username text,password text,problem text,answer text)");
 
-		tv_login.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
-				String username = et_username.getText().toString().trim();
-				String password = et_password.getText().toString().trim();
-				// 判断字符串为空
-				// if(zhanghao==null || zhanghao.equals("")){
-				if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
-					Toast.makeText(LoginActivity.this, "账号或者密码为空",
-							Toast.LENGTH_LONG).show();
-				} else {
-					// 查找数据库是否存在相同的用户名
-					cs = db.query("user", new String[] { "userid", "username",
-							"password" }, "username=?",
-							new String[] { username }, null, null, null);
-
-					if (cs != null) {
-						while (cs.moveToNext()) {
-							usernamesql = cs.getString(cs
-									.getColumnIndex("username"));
-							passwordsql = cs.getString(cs
-									.getColumnIndex("password"));
-							useridsql = cs.getInt(cs.getColumnIndex("userid"));
-						}
-
-						if (username.equals(usernamesql)
-								&& password.equals(passwordsql)) {
-							Toast.makeText(LoginActivity.this, "登录成功",
-									Toast.LENGTH_LONG).show();
-							bool_login = true;
-							editor_login.putBoolean("isLoad", bool_login);
-							editor_login.commit();
-
-							editor_user.clear();
-							editor_user.putString("username", usernamesql);
-							// System.out.println(usernamesql);
-							editor_user.putInt("userid", useridsql);
-							// System.out.println(useridsql);
-							editor_user.commit();
-
-							Intent i = new Intent(LoginActivity.this,
-									MainActivity.class);
-							startActivity(i);
-							finish();
-						} else {
-							Toast.makeText(LoginActivity.this, "您输入的密码有误",
-									Toast.LENGTH_LONG).show();
-						}
-
-					} else {
-						Toast.makeText(LoginActivity.this, "当前账号不存在",
-								Toast.LENGTH_LONG).show();
-					}
-
-				}
-			}
-		});
 
 	}
 
@@ -161,7 +163,7 @@ public class LoginActivity extends Activity {
 			startActivity(i1);
 			break;
 		case R.id.tv_login_forgetpw:
-			Intent i2 = new Intent(this, RetrievepwActivity.class);
+			Intent i2 = new Intent(this, RetrievePwActivity.class);
 			startActivity(i2);
 			break;
 

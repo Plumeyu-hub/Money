@@ -37,7 +37,7 @@ public class MineActivity extends Activity {
 
 		btn_modifypw.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View source) {
-				Intent i = new Intent(MineActivity.this, ModifypwActivity.class);
+				Intent i = new Intent(MineActivity.this, ModifyPwActivity.class);
 				startActivity(i);
 			}
 		});

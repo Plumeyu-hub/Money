@@ -19,7 +19,7 @@ import com.example.money.R;
 
 import java.util.Calendar;
 
-public class AddbudgetActivity extends Activity {
+public class AddBudgetActivity extends Activity {
 	private EditText et_addbudget_money, et_addbudget_daytime,
 			et_addbudget_remarks;
 	private String addb_money, addb_daytime, addb_remarks;
@@ -95,15 +95,15 @@ public class AddbudgetActivity extends Activity {
 		addb_remarks = et_addbudget_remarks.getText().toString();
 
 		if (TextUtils.isEmpty(addb_money)) {
-			Toast.makeText(AddbudgetActivity.this, "请输入金额", Toast.LENGTH_LONG)
+			Toast.makeText(AddBudgetActivity.this, "请输入金额", Toast.LENGTH_LONG)
 					.show();
 			return;
 		} else if (addb_money.indexOf('.') == 0) {
-			Toast.makeText(AddbudgetActivity.this, "请输入正确的金额",
+			Toast.makeText(AddBudgetActivity.this, "请输入正确的金额",
 					Toast.LENGTH_LONG).show();
 			return;
 		} else if (addb_money.lastIndexOf('.') == (addb_money.length() - 1)) {
-			Toast.makeText(AddbudgetActivity.this, "请输入正确的金额",
+			Toast.makeText(AddBudgetActivity.this, "请输入正确的金额",
 					Toast.LENGTH_LONG).show();
 			return;
 		} else {
@@ -144,7 +144,7 @@ public class AddbudgetActivity extends Activity {
 		cv.put("remarks", addb_remarks);
 		cv.put("userid", uid);
 		// 插入数据，成功返回当前行号，失败返回0
-		num = (int) db.insert("budget", null, cv);
+		num = (int) db.insert("ic_budget", null, cv);
 		if (num > 0) {
 			Toast.makeText(this, "预算保存成功" + num, Toast.LENGTH_SHORT).show();
 			finish();

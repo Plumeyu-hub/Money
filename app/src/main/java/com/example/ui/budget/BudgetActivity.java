@@ -98,7 +98,7 @@ public class BudgetActivity extends Activity {
 								// 删除指定数据
 								int num;
 								// 删除数据，成功返回删除的数据的行数，失败返回0
-								num = db.delete("budget", "id=? and userid=?",
+								num = db.delete("ic_budget", "id=? and userid=?",
 										new String[] { id + "", uid + "" });
 								if (num > 0) {
 									Toast.makeText(BudgetActivity.this,
@@ -138,7 +138,7 @@ public class BudgetActivity extends Activity {
 		BudgetBean bData;
 		String btime = null, bmoney = null;
 		String cid = "";
-		cs = db.query("budget", new String[] { "id", "money", "time",
+		cs = db.query("ic_budget", new String[] { "id", "money", "time",
 				"remarks", "userid" }, "userid=?", new String[] { uid + "" },
 				null, null, "time ASC");
 		if (cs != null) {
@@ -203,7 +203,7 @@ public class BudgetActivity extends Activity {
 			finish();
 			break;
 		case R.id.budget_add:
-			Intent i1 = new Intent(BudgetActivity.this, AddbudgetActivity.class);
+			Intent i1 = new Intent(BudgetActivity.this, AddBudgetActivity.class);
 			startActivity(i1);
 			break;
 		case R.id.budget_refresh:

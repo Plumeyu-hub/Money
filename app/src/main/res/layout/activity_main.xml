@@ -35,7 +35,7 @@
                     android:id="@+id/tv_details_img"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:background="@drawable/details_no" />
+                    android:background="@drawable/ic_details_nor" />
 
                 <TextView
                     android:id="@+id/tv_details_txt"
@@ -60,7 +60,7 @@
                 <TextView
                     android:layout_width="26dp"
                     android:layout_height="26dp"
-                    android:background="@drawable/add" />
+                    android:background="@drawable/ic_add" />
 
                 <TextView
                     android:layout_width="wrap_content"

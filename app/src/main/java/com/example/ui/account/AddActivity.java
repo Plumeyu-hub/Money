@@ -63,7 +63,7 @@ public class AddActivity extends Activity {
 
 	// 支出
 	private GridView ao_gridView;
-	private AddoutGridviewAdapter addoutGridviewAdapter;
+	private AddOutGridviewAdapter addoutGridviewAdapter;
 	private String[] iconName_out = { "餐厅", "食材", "外卖", "水果", "零食", "烟酒茶饮料",
 			"住房", "水电煤", "交通", "汽车", "购物", "快递", "通讯", "鞋饰服", "日用品", "美容",
 			"还款", "投资", "工作", "数码", "学习", "运动", "娱乐", "医疗药品", "维修", "旅行", "社交",
@@ -102,15 +102,15 @@ public class AddActivity extends Activity {
 			"投资回收", "投资收益", "礼金", "其他" };
 	// 数据库类别名字
 	private String[] sqliconName_in = {};
-	private int[] icon_inno = { R.drawable.wages_no, R.drawable.bonus_no,
-			R.drawable.part_no, R.drawable.mis_no, R.drawable.collect_no,
-			R.drawable.borrow_no, R.drawable.sell_no, R.drawable.financial_no,
-			R.drawable.gifts_no, R.drawable.aiother_no };
-	private int[] icon_inyes = { R.drawable.wages_yes, R.drawable.bonus_yes,
-			R.drawable.part_yes, R.drawable.mis_yes, R.drawable.collect_yes,
-			R.drawable.borrow_yes, R.drawable.sell_yes,
+	private int[] icon_inno = { R.drawable.wages_no, R.drawable.ic_bonus_nor,
+			R.drawable.part_no, R.drawable.mis_no, R.drawable.ic_collect_nor,
+			R.drawable.ic_borrow_nor, R.drawable.sell_no, R.drawable.financial_no,
+			R.drawable.gifts_no, R.drawable.ic_aiother_nor};
+	private int[] icon_inyes = { R.drawable.wages_yes, R.drawable.ic_bonus_sel,
+			R.drawable.part_yes, R.drawable.mis_yes, R.drawable.ic_collect_sel,
+			R.drawable.ic_borrow_sel, R.drawable.sell_yes,
 			R.drawable.financial_yes, R.drawable.gifts_yes,
-			R.drawable.aiother_yes };
+			R.drawable.ic_aiother_sel};
 	// GV的上次变量变化
 	int ai_last = 0;
 
@@ -258,7 +258,7 @@ public class AddActivity extends Activity {
 		// 支出
 		// GV控件
 		ao_gridView = (GridView) view1.findViewById(R.id.gv_addout);
-		addoutGridviewAdapter = new AddoutGridviewAdapter(this);
+		addoutGridviewAdapter = new AddOutGridviewAdapter(this);
 		ao_gridView.setAdapter(addoutGridviewAdapter);// 通过设置适配器实现网格内布局
 		ao_gridView// 为每个单元格（item）添加单击事件
 				.setOnItemClickListener(new OnItemClickListener() {
@@ -414,10 +414,10 @@ public class AddActivity extends Activity {
 		ai_adapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// 下面的可以直接用适配器添加item(需要把数组适配器最后一个参数去掉)
-		// adapter.add("java");
-		// adapter.add("android");
-		// adapter.add("dotnet");
-		// adapter.add("php");
+		// adapter.ic_add("java");
+		// adapter.ic_add("android");
+		// adapter.ic_add("dotnet");
+		// adapter.ic_add("php");
 
 		// 设置下拉列表的条目被选择监听器
 		ai_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -568,7 +568,7 @@ public class AddActivity extends Activity {
 		// 支出
 		case R.id.et_addoutcaltext:// 跳转到第二个界面并返回数据
 			// 第一步:通过startActivityForResult跳转到第二个界面
-			Intent iouttext = new Intent(this, AddouttextActivity.class);
+			Intent iouttext = new Intent(this, AddOutTextActivity.class);
 			startActivityForResult(iouttext, 0);
 			break;
 		case R.id.bt_aoutyes:
@@ -668,7 +668,7 @@ public class AddActivity extends Activity {
 		// 收入
 		case R.id.et_addincaltext:// 跳转到第二个界面并返回数据
 			// 第一步:通过startActivityForResult跳转到第二个界面
-			Intent iintext = new Intent(this, AddintextActivity.class);
+			Intent iintext = new Intent(this, AddInTextActivity.class);
 			startActivityForResult(iintext, 0);
 			break;
 		case R.id.bt_ainyes:

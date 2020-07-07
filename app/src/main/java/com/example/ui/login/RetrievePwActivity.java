@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.example.money.R;
 
-public class RetrievepwActivity extends Activity {
+public class RetrievePwActivity extends Activity {
 	private EditText et_retrievepw_username, et_retrievepw_problem,
 			et_retrievepw_answer;
 	private TextView tv_repw;
@@ -55,7 +55,7 @@ public class RetrievepwActivity extends Activity {
 				if (username == null || username.length() == 0
 						|| problem == null || problem.length() == 0
 						|| answer == null || answer.length() == 0) {
-					Toast.makeText(RetrievepwActivity.this, "对不起，请填写完整的注册信息",
+					Toast.makeText(RetrievePwActivity.this, "对不起，请填写完整的注册信息",
 							Toast.LENGTH_LONG).show();
 				} else {
 					// 查找数据库是否存在相同的用户名
@@ -73,16 +73,16 @@ public class RetrievepwActivity extends Activity {
 						}
 						if (problem.equals(problemsql)
 								&& answer.equals(answersql)) {
-							Toast.makeText(RetrievepwActivity.this, "已查询到您的密码",
+							Toast.makeText(RetrievePwActivity.this, "已查询到您的密码",
 									Toast.LENGTH_LONG).show();
 							tv_repw.setText("您的密码为：" + passwordsql);
 						} else {
-							Toast.makeText(RetrievepwActivity.this,
+							Toast.makeText(RetrievePwActivity.this,
 									"您输入的密保信息有误", Toast.LENGTH_LONG).show();
 							tv_repw.setText(" ");
 						}
 					} else {
-						Toast.makeText(RetrievepwActivity.this, "未查询到该用户",
+						Toast.makeText(RetrievePwActivity.this, "未查询到该用户",
 								Toast.LENGTH_LONG).show();
 					}
 

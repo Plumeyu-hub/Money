@@ -12,13 +12,13 @@ import com.example.money.R;
 
 import java.util.List;
 
-public class addListAdapter extends BaseAdapter {
+public class AddListAdapter extends BaseAdapter {
 	private Context context;
 	private List<AddBean> list;
 
 	// SQLiteDatabase db;// 数据库对象
 
-	public addListAdapter(Context context, List<AddBean> list) {
+	public AddListAdapter(Context context, List<AddBean> list) {
 		this.context = context;
 		this.list = list;
 	}
@@ -64,7 +64,7 @@ public class addListAdapter extends BaseAdapter {
 				.findViewById(R.id.tv_dataite_category);
 		TextView money = (TextView) convertView
 				.findViewById(R.id.tv_dataitem_money);
-		// LinearLayout delete = (LinearLayout) convertView
+		// LinearLayout ic_delete = (LinearLayout) convertView
 		// .findViewById(R.id.lin_dataitem_delete);
 		AddBean aidata = list.get(position);
 		if (aidata != null) {
@@ -73,7 +73,7 @@ public class addListAdapter extends BaseAdapter {
 			category.setText(aidata.getCategory());
 			money.setText(aidata.getMoney());
 
-			// delete.setOnClickListener(new OnClickListener() {
+			// ic_delete.setOnClickListener(new OnClickListener() {
 			//
 			// public void onClick(View arg0) {
 			// // TODO Auto-generated method stub
@@ -85,7 +85,7 @@ public class addListAdapter extends BaseAdapter {
 			// int num = 0;
 			// // 删除指定数据
 			// // 删除数据，成功返回删除的数据的行数，失败返回0
-			// num = db.delete("user", "id=?", new String[] { 4 + "" });
+			// num = db.ic_delete("user", "id=?", new String[] { 4 + "" });
 			// if (num > 0) {
 			// Toast.makeText(context, "删除成功" + num,
 			// Toast.LENGTH_SHORT).show();

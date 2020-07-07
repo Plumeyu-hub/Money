@@ -214,7 +214,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
-                android:background="@drawable/budget" />
+                android:background="@drawable/ic_budget" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -294,7 +294,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
-                android:background="@drawable/clear" />
+                android:background="@drawable/ic_clear" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -414,7 +414,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
-                android:background="@drawable/about" />
+                android:background="@drawable/ic_about" />
 
             <TextView
                 android:layout_width="wrap_content"

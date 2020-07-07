@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.example.money.R;
 
-public class ModifypwActivity extends Activity {
+public class ModifyPwActivity extends Activity {
 	String pwone, pwtow;
 	EditText et_modifypw_password, et_modifypw_passwordtwo;
 	Button btn_modifypw_yes;
@@ -83,10 +83,10 @@ public class ModifypwActivity extends Activity {
 			public void onClick(DialogInterface dialog, int which) {
 				if (pwone == null || pwone.length() == 0 || pwtow == null
 						|| pwtow.length() == 0) {
-					Toast.makeText(ModifypwActivity.this,
+					Toast.makeText(ModifyPwActivity.this,
 							"对不起，您输入的密码或确认密码不能为空", Toast.LENGTH_LONG).show();
 				} else if (pwone.equals(pwtow) == false) {
-					Toast.makeText(ModifypwActivity.this, "对不起，您输入的密码和确认密码不一致",
+					Toast.makeText(ModifyPwActivity.this, "对不起，您输入的密码和确认密码不一致",
 							Toast.LENGTH_LONG).show();
 				} else {
 					String uid = String.valueOf(userid);
@@ -98,10 +98,10 @@ public class ModifypwActivity extends Activity {
 					num = db.update("user", cv, "userid=?", new String[] { uid
 							+ "" });
 					if (num > 0) {
-						Toast.makeText(ModifypwActivity.this, "修改成功",
+						Toast.makeText(ModifyPwActivity.this, "修改成功",
 								Toast.LENGTH_SHORT).show();
 					} else {
-						Toast.makeText(ModifypwActivity.this, "修改失败",
+						Toast.makeText(ModifyPwActivity.this, "修改失败",
 								Toast.LENGTH_SHORT).show();
 					}
 

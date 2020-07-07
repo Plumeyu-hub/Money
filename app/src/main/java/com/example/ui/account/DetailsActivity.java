@@ -56,7 +56,7 @@ public class DetailsActivity extends Activity {
 	// list
 	private ListView lv;
 	private List<AddBean> list;
-	private addListAdapter adapter;
+	private AddListAdapter adapter;
 
 	// 侧边栏
 	ImageView iv_my;
@@ -103,7 +103,7 @@ public class DetailsActivity extends Activity {
 		// 第二步:初始化数据
 		list = new ArrayList<AddBean>();
 		// 实例化适配器
-		adapter = new addListAdapter(this, list);
+		adapter = new AddListAdapter(this, list);
 		// listview设置适配器
 		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(new OnItemClickListener() {
@@ -114,7 +114,7 @@ public class DetailsActivity extends Activity {
 				// TODO Auto-generated method stub
 				AddBean showdata = list.get(position);
 				Intent i = new Intent(DetailsActivity.this,
-						DatainformationActivity.class);
+						DataInformationActivity.class);
 				i.putExtra("showdata", showdata);
 				i.putExtra("position", position);
 				startActivityForResult(i, 0);

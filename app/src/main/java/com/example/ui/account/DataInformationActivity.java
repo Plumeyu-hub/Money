@@ -27,7 +27,7 @@ import com.example.money.R;
 
 import java.util.Calendar;
 
-public class DatainformationActivity extends Activity {
+public class DataInformationActivity extends Activity {
 	TextView tv_id, tv_category, tv_symoney;
 	EditText et_money, et_remarks, et_daytime;
 	Spinner sp_account;
@@ -104,15 +104,15 @@ public class DatainformationActivity extends Activity {
 				up_daytime = et_daytime.getText().toString();
 				up_remarks = et_remarks.getText().toString();
 				if (TextUtils.isEmpty(updmoney)) {
-					Toast.makeText(DatainformationActivity.this, "请输入金额",
+					Toast.makeText(DataInformationActivity.this, "请输入金额",
 							Toast.LENGTH_LONG).show();
 					return;
 				} else if (updmoney.indexOf('.') == 0) {
-					Toast.makeText(DatainformationActivity.this, "请输入正确的金额",
+					Toast.makeText(DataInformationActivity.this, "请输入正确的金额",
 							Toast.LENGTH_LONG).show();
 					return;
 				} else if (updmoney.lastIndexOf('.') == (updmoney.length() - 1)) {
-					Toast.makeText(DatainformationActivity.this, "请输入正确的金额",
+					Toast.makeText(DataInformationActivity.this, "请输入正确的金额",
 							Toast.LENGTH_LONG).show();
 					return;
 				} else {
@@ -159,7 +159,7 @@ public class DatainformationActivity extends Activity {
 					num = db.update("expenditure", cv, "aoid=? and aouserid=?",
 							new String[] { up_id + "", uid + "" });
 					if (num > 0) {
-						Toast.makeText(DatainformationActivity.this,
+						Toast.makeText(DataInformationActivity.this,
 								"修改成功" + num, Toast.LENGTH_SHORT).show();
 						AddBean updata = new AddBean(up_category, up_money,
 								up_account, up_remarks, up_daytime, up_id,
@@ -170,7 +170,7 @@ public class DatainformationActivity extends Activity {
 						setResult(102, i);
 						finish();
 					} else {
-						Toast.makeText(DatainformationActivity.this,
+						Toast.makeText(DataInformationActivity.this,
 								"修改失败" + num, Toast.LENGTH_SHORT).show();
 					}
 				} else if ((tv_symoney.getText().toString()).equals("+")) {
@@ -186,7 +186,7 @@ public class DatainformationActivity extends Activity {
 					num = db.update("income", cv, "aiid=? and aiuserid=?",
 							new String[] { up_id + "", uid + "" });
 					if (num > 0) {
-						Toast.makeText(DatainformationActivity.this,
+						Toast.makeText(DataInformationActivity.this,
 								"修改成功" + num, Toast.LENGTH_SHORT).show();
 						AddBean updata = new AddBean(up_category, up_money,
 								up_account, up_remarks, up_daytime, up_id,
@@ -197,11 +197,11 @@ public class DatainformationActivity extends Activity {
 						setResult(102, i);
 						finish();
 					} else {
-						Toast.makeText(DatainformationActivity.this,
+						Toast.makeText(DataInformationActivity.this,
 								"修改失败" + num, Toast.LENGTH_SHORT).show();
 					}
 				} else {
-					Toast.makeText(DatainformationActivity.this, "修改失败",
+					Toast.makeText(DataInformationActivity.this, "修改失败",
 							Toast.LENGTH_SHORT).show();
 				}
 			}
@@ -232,7 +232,7 @@ public class DatainformationActivity extends Activity {
 		et_daytime.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				new DatePickerDialog(DatainformationActivity.this,
+				new DatePickerDialog(DataInformationActivity.this,
 						AlertDialog.THEME_HOLO_LIGHT,
 						new DatePickerDialog.OnDateSetListener() {
 							@Override

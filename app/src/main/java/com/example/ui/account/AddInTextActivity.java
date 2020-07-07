@@ -10,30 +10,30 @@ import android.widget.Toast;
 
 import com.example.money.R;
 
-public class AddouttextActivity extends Activity {
+public class AddInTextActivity extends Activity {
 	EditText et;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.addoutcal_text);
-		et = (EditText) findViewById(R.id.et_addoutcaltext);
+		setContentView(R.layout.addincal_text);
+		et = (EditText) findViewById(R.id.et_addincaltext);
 	}
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.addoutcaltext_left:
+		case R.id.addincaltext_left:
 			finish();
 			break;
-		case R.id.bt_addoutcaltext:// 把编辑框的内容返回上个界面
-			String ao_str = et.getText().toString().trim();
-			if (TextUtils.isEmpty(ao_str)) {
+		case R.id.bt_addincaltext:// 把编辑框的内容返回上个界面
+			String ai_str = et.getText().toString().trim();
+			if (TextUtils.isEmpty(ai_str)) {
 				Toast.makeText(this, "编辑框内容不能为空", Toast.LENGTH_SHORT).show();
 
 			} else {
 				// 第二步：用setResult()方法返回数据
 				Intent i = new Intent();// Intent不要设置跳转的界面
-				i.putExtra("ao_str", ao_str);
+				i.putExtra("ai_str", ai_str);
 				this.setResult(1, i);
 				finish();
 			}

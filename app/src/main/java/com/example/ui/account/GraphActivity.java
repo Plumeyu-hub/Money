@@ -308,8 +308,8 @@ public class GraphActivity extends Activity {
 
 		xValues.add("收入");
 		xValues.add("支出");
-		// xValues.add("水费");
-		// xValues.add("管理费");
+		// xValues.ic_add("水费");
+		// xValues.ic_add("管理费");
 
 		ArrayList<Entry> yValues = new ArrayList<Entry>(); // yVals用来表示封装每个饼块的实际数据
 
@@ -329,8 +329,8 @@ public class GraphActivity extends Activity {
 		float quarterly2 = outnum;
 		yValues.add(new Entry(innum, 0));
 		yValues.add(new Entry(outnum, 1));
-		// yValues.add(new Entry(quarterly3, 2));
-		// yValues.add(new Entry(quarterly4, 3));
+		// yValues.ic_add(new Entry(quarterly3, 2));
+		// yValues.ic_add(new Entry(quarterly4, 3));
 
 		// y轴的集合
 		PieDataSet pieDataSet = new PieDataSet(yValues, "");
@@ -341,8 +341,8 @@ public class GraphActivity extends Activity {
 		// 饼图颜色
 		colors.add(Color.rgb(74, 144, 226));
 		colors.add(Color.rgb(9, 175, 169));
-		// colors.add(Color.rgb(244, 185, 19));
-		// colors.add(Color.rgb(126, 211, 33));
+		// colors.ic_add(Color.rgb(244, 185, 19));
+		// colors.ic_add(Color.rgb(126, 211, 33));
 
 		pieDataSet.setColors(colors);
 
