@@ -13,8 +13,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.support.v4.view.ViewPager.LayoutParams;
-import android.support.v4.widget.DrawerLayout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +28,8 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -354,8 +354,8 @@ public class DetailsActivity extends Activity {
 			// 获取圆角对话框布局View，背景设为圆角
 			view.setBackgroundResource(R.drawable.round);
 			// 实例化弹窗
-			pop = new PopupWindow(view, LayoutParams.WRAP_CONTENT,
-					LayoutParams.WRAP_CONTENT);
+			pop = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT,
+					ViewGroup.LayoutParams.WRAP_CONTENT);
 			// 创建弹出对话框，设置弹出对话框的背景为圆角
 			pop.setBackgroundDrawable(getResources().getDrawable(
 					R.drawable.round));
