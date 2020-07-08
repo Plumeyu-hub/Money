@@ -29,12 +29,12 @@ public class MyReceiver extends BroadcastReceiver {
 		/* start another activity - MyAlarm to display the alarm */
 
 		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
-				R.drawable.logo);
+				R.drawable.ic_logo);
 		Intent intent1 = new Intent(context, AddActivity.class);
 		pIntent = PendingIntent.getActivity(context, 0, intent1, 0);
 
 		notify = new Notification.Builder(context)
-				.setSmallIcon(R.drawable.logo) // 设置状态栏中的小图片，尺寸一般建议在24×24
+				.setSmallIcon(R.drawable.ic_logo) // 设置状态栏中的小图片，尺寸一般建议在24×24
 				.setLargeIcon(bitmap) // 这里也可以设置大图标
 				.setTicker("记账提醒") // 设置显示的提示文字
 				.setContentTitle("记账提醒") // 设置显示的标题
@@ -54,7 +54,7 @@ public class MyReceiver extends BroadcastReceiver {
 		// context);
 		// builder.setDefaults(NotificationCompat.DEFAULT_ALL);
 		// builder.setContentTitle("记账提醒");// 预览标题
-		// builder.setSmallIcon(R.drawable.logo);
+		// builder.setSmallIcon(R.drawable.ic_logo);
 		// builder.setContentText("Money提醒您：快来记账啦！");
 		// Intent intent1 = new Intent(context, AddActivity.class);
 		// pIntent = PendingIntent.getActivity(context, 0, intent1,

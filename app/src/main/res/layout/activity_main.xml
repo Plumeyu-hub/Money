@@ -85,7 +85,7 @@
                     android:id="@+id/tv_graph_img"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
-                    android:background="@drawable/graph_no" />
+                    android:background="@drawable/ic_graph_nor" />
 
                 <TextView
                     android:id="@+id/tv_graph_txt"

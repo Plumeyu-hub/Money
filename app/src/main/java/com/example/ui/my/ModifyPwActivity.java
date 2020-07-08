@@ -93,7 +93,7 @@ public class ModifyPwActivity extends Activity {
 					// 修改数据
 					// 在存储工具类里面存储要操作的数据，以键值对的方式存储，键表示标的列名，值就是要操作的值
 					cv = new ContentValues();
-					cv.put("password", pwone);
+					cv.put("ic_password", pwone);
 					// 修改数据，返回修改成功的行数，失败则返回0
 					num = db.update("user", cv, "userid=?", new String[] { uid
 							+ "" });

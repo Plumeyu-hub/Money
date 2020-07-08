@@ -59,13 +59,13 @@ public class RetrievePwActivity extends Activity {
 							Toast.LENGTH_LONG).show();
 				} else {
 					// 查找数据库是否存在相同的用户名
-					cs = db.query("user", new String[] { "username",
-							"password", "problem", "answer" }, "username=?",
+					cs = db.query("user", new String[] { "ic_username",
+							"ic_password", "problem", "answer" }, "ic_username=?",
 							new String[] { username }, null, null, null);
 					if (cs != null) {
 						while (cs.moveToNext()) {
 							passwordsql = cs.getString(cs
-									.getColumnIndex("password"));
+									.getColumnIndex("ic_password"));
 							problemsql = cs.getString(cs
 									.getColumnIndex("problem"));
 							answersql = cs.getString(cs

@@ -14,7 +14,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/left"
+            android:background="@drawable/ic_left"
             android:clickable="true"
             android:onClick="click" />
 
@@ -54,7 +54,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:background="@drawable/modifypw" />
+            android:background="@drawable/ic_modifypw" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -79,7 +79,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
-            android:background="@drawable/exituser" />
+            android:background="@drawable/ic_exituser" />
     </RelativeLayout>
 
 </LinearLayout>

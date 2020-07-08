@@ -38,10 +38,10 @@ public class RemindActivity extends Activity {
 		sharedPreferences = this.getSharedPreferences("userInfo", MODE_PRIVATE);
 		editor = sharedPreferences.edit();
 		bool = sharedPreferences.getBoolean("remember", false);
-		if (bool == false) {// off
-			tv_remind_turn.setBackgroundResource(R.drawable.off);
+		if (bool == false) {// ic_switch_nor
+			tv_remind_turn.setBackgroundResource(R.drawable.ic_switch_nor);
 		} else {// on
-			tv_remind_turn.setBackgroundResource(R.drawable.open);
+			tv_remind_turn.setBackgroundResource(R.drawable.ic_switch_sel);
 		}
 
 		calendar = Calendar.getInstance();// 初始化，以当前系统时间填充
@@ -65,10 +65,10 @@ public class RemindActivity extends Activity {
 			finish();
 			break;
 		case R.id.tv_remind_turn:
-			if (bool == false) {// off
+			if (bool == false) {// ic_switch_nor
 				setAlarm();
 			} else {// on
-				tv_remind_turn.setBackgroundResource(R.drawable.off);
+				tv_remind_turn.setBackgroundResource(R.drawable.ic_switch_nor);
 				bool = false;
 				editor.putBoolean("remember", bool);
 				editor.commit();
@@ -99,7 +99,7 @@ public class RemindActivity extends Activity {
 						calendar.set(Calendar.SECOND, 0);// 设置秒数
 
 						// 设置一次闹钟
-						// manager.set(AlarmManager.RTC_WAKEUP,
+						// manager.ic_set(AlarmManager.RTC_WAKEUP,
 						// calendar.getTimeInMillis(), pIntent);
 						// tv.setText("设置了一次闹钟，时间为"+nowHour+":"+nowMin);
 
@@ -108,7 +108,7 @@ public class RemindActivity extends Activity {
 								calendar.getTimeInMillis(),
 								10 * 1000, pIntent);
 
-						tv_remind_turn.setBackgroundResource(R.drawable.open);
+						tv_remind_turn.setBackgroundResource(R.drawable.ic_switch_sel);
 						bool = true;
 						editor.putBoolean("remember", bool);
 						editor.commit();

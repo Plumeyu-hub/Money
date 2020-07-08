@@ -22,7 +22,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="10dp"
-                android:background="@drawable/logo" />
+                android:background="@drawable/ic_logo" />
 
             <TextView
                 android:id="@+id/tv_details_search"
@@ -31,7 +31,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/search"
+                android:background="@drawable/ic_search"
                 android:clickable="true"
                 android:onClick="click" />
 
@@ -69,7 +69,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/empty_data" />
+                android:background="@drawable/ic_dataempty" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="15dp"
-                android:background="@drawable/my_no" />
+                android:background="@drawable/ic_my_nor" />
 
             <TextView
                 android:id="@+id/tv_username"
@@ -123,7 +123,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="15dp"
-                android:background="@drawable/my_yes" />
+                android:background="@drawable/ic_my_sel" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -136,7 +136,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/mine_background"
+            android:background="@drawable/bg_mine"
             android:gravity="center"
             android:orientation="horizontal" >
 
@@ -154,7 +154,7 @@
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/mes" />
+                    android:src="@drawable/ic_mes" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -183,7 +183,7 @@
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:src="@drawable/remind" />
+                    android:src="@drawable/ic_remind" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -231,7 +231,7 @@
                 android:layout_height="38dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/right" />
+                android:background="@drawable/ic_right" />
         </RelativeLayout>
 
         <View
@@ -254,7 +254,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
-                android:background="@drawable/export" />
+                android:background="@drawable/ic_export" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -271,7 +271,7 @@
                 android:layout_height="38dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/right" />
+                android:background="@drawable/ic_right" />
         </RelativeLayout>
 
         <View
@@ -311,7 +311,7 @@
                 android:layout_height="38dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/right" />
+                android:background="@drawable/ic_right" />
         </RelativeLayout>
 
         <View
@@ -334,7 +334,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
-                android:background="@drawable/set" />
+                android:background="@drawable/ic_set" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -351,7 +351,7 @@
                 android:layout_height="38dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/right" />
+                android:background="@drawable/ic_right" />
         </RelativeLayout>
 
         <View
@@ -374,7 +374,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
-                android:background="@drawable/help" />
+                android:background="@drawable/ic_help" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -391,7 +391,7 @@
                 android:layout_height="38dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/right" />
+                android:background="@drawable/ic_right" />
         </RelativeLayout>
 
         <View
@@ -431,7 +431,7 @@
                 android:layout_height="38dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/right" />
+                android:background="@drawable/ic_right" />
         </RelativeLayout>
 
         <View
@@ -454,7 +454,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
-                android:background="@drawable/exit" />
+                android:background="@drawable/ic_exit" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -471,7 +471,7 @@
                 android:layout_height="38dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:background="@drawable/right" />
+                android:background="@drawable/ic_right" />
         </RelativeLayout>
 
         <View

@@ -87,11 +87,11 @@ public class MainActivity extends ActivityGroup {
 
 	}
 
-	// int[] imgs_yes = { R.drawable.ic_details_sel, R.drawable.graph_yes };
-	// int[] imgs_no = { R.drawable.ic_details_nor, R.drawable.graph_no };
+	// int[] imgs_yes = { R.drawable.ic_details_sel, R.drawable.ic_graph_sel };
+	// int[] imgs_no = { R.drawable.ic_details_nor, R.drawable.ic_graph_nor };
 
 	int[] imgs = { R.drawable.ic_details_nor, R.drawable.ic_details_sel,
-			R.drawable.graph_no, R.drawable.graph_yes };
+			R.drawable.ic_graph_nor, R.drawable.ic_graph_sel};
 
 	public void setBackgroup(int id) {
 		int n = 0;

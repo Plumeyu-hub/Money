@@ -89,9 +89,9 @@ public class DetailsActivity extends Activity {
 		editoruser = spuser.edit();
 		if (spuser != null) {// 判断文件是否存在
 			// 使用getString方法获得value，注意第2个参数是value的默认值
-			username = spuser.getString("username", "");
+			username = spuser.getString("ic_username", "");
 			userid = spuser.getInt("userid", 0);
-			// System.out.println(username);
+			// System.out.println(ic_username);
 			tv_username = (TextView) findViewById(R.id.tv_username);
 			tv_username.setText(username);
 			// System.out.println(userid);
@@ -364,13 +364,13 @@ public class DetailsActivity extends Activity {
 			View view = LayoutInflater.from(this)
 					.inflate(R.layout.dialog, null);
 			// 获取圆角对话框布局View，背景设为圆角
-			view.setBackgroundResource(R.drawable.round);
+			view.setBackgroundResource(R.drawable.bg_eeeeee_rl_corner_20);
 			// 实例化弹窗
 			pop = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT,
 					ViewGroup.LayoutParams.WRAP_CONTENT);
 			// 创建弹出对话框，设置弹出对话框的背景为圆角
 			pop.setBackgroundDrawable(getResources().getDrawable(
-					R.drawable.round));
+					R.drawable.bg_eeeeee_rl_corner_20));
 			pop.setFocusable(true);// 获取焦点（把焦点集中在pop上面）
 			pop.setBackgroundDrawable(new BitmapDrawable());// 设置点击pop外面的窗口时是否弹窗
 			// 这两句话是防止软键盘遮挡弹窗
@@ -384,7 +384,7 @@ public class DetailsActivity extends Activity {
 				public void onClick(View arg0) {
 					// TODO Auto-generated method stub
 					finish();
-					// System.exit(0);
+					// System.ic_exit(0);
 				}
 			});
 			TextView tv_no = (TextView) view.findViewById(R.id.tv_no);

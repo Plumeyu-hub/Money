@@ -33,7 +33,7 @@ public class MyOpenhelper extends SQLiteOpenHelper {
 		// TODO Auto-generated method stub
 		// 可以修改或者删除重建数据库
 		// sdb.execSQL("drop table if exists user");
-		// sdb.execSQL("drop table if exists search");
+		// sdb.execSQL("drop table if exists ic_search");
 		// onCreate(sdb);
 	}
 

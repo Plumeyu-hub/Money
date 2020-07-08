@@ -14,7 +14,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/left"
+            android:background="@drawable/ic_left"
             android:clickable="true"
             android:onClick="click" />
 
@@ -43,7 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/yes"
+        android:background="@drawable/ic_yes"
         android:clickable="true"
         android:onClick="click" />
 

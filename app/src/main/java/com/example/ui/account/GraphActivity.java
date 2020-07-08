@@ -101,7 +101,7 @@ public class GraphActivity extends Activity {
 		switch (v.getId()) {
 		case R.id.tv_graph_shownum:
 			if (tv_state == 1) {// 可见
-				tv_graph_shownum.setBackgroundResource(R.drawable.visible);
+				tv_graph_shownum.setBackgroundResource(R.drawable.ic_eye_nor);
 				tv_state = 0;
 
 				tv_graph_countnumgone.setVisibility(View.GONE);
@@ -114,7 +114,7 @@ public class GraphActivity extends Activity {
 				tv_graph_innum.setVisibility(View.VISIBLE);
 
 			} else {// 隐藏
-				tv_graph_shownum.setBackgroundResource(R.drawable.invisible);
+				tv_graph_shownum.setBackgroundResource(R.drawable.ic_eye_sel);
 				tv_state = 1;
 
 				tv_graph_countnumgone.setVisibility(View.VISIBLE);

@@ -121,16 +121,16 @@ public class LoginActivity extends Activity {
 							Toast.LENGTH_LONG).show();
 				} else {
 					// 查找数据库是否存在相同的用户名
-					cs = db.query("user", new String[]{"userid", "username",
-									"password"}, "username=?",
+					cs = db.query("user", new String[]{"userid", "ic_username",
+									"ic_password"}, "ic_username=?",
 							new String[]{username}, null, null, null);
 
 					if (cs != null) {
 						while (cs.moveToNext()) {
 							usernamesql = cs.getString(cs
-									.getColumnIndex("username"));
+									.getColumnIndex("ic_username"));
 							passwordsql = cs.getString(cs
-									.getColumnIndex("password"));
+									.getColumnIndex("ic_password"));
 							useridsql = cs.getInt(cs.getColumnIndex("userid"));
 						}
 
@@ -143,7 +143,7 @@ public class LoginActivity extends Activity {
 							editor_login.commit();
 
 							editor_user.clear();
-							editor_user.putString("username", usernamesql);
+							editor_user.putString("ic_username", usernamesql);
 							// System.out.println(usernamesql);
 							editor_user.putInt("userid", useridsql);
 							// System.out.println(useridsql);

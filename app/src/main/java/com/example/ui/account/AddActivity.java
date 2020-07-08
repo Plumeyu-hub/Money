@@ -102,14 +102,14 @@ public class AddActivity extends Activity {
 			"投资回收", "投资收益", "礼金", "其他" };
 	// 数据库类别名字
 	private String[] sqliconName_in = {};
-	private int[] icon_inno = { R.drawable.wages_no, R.drawable.ic_bonus_nor,
-			R.drawable.part_no, R.drawable.mis_no, R.drawable.ic_collect_nor,
-			R.drawable.ic_borrow_nor, R.drawable.sell_no, R.drawable.financial_no,
-			R.drawable.gifts_no, R.drawable.ic_aiother_nor};
-	private int[] icon_inyes = { R.drawable.wages_yes, R.drawable.ic_bonus_sel,
-			R.drawable.part_yes, R.drawable.mis_yes, R.drawable.ic_collect_sel,
-			R.drawable.ic_borrow_sel, R.drawable.sell_yes,
-			R.drawable.financial_yes, R.drawable.gifts_yes,
+	private int[] icon_inno = { R.drawable.ic_wages_nor, R.drawable.ic_bonus_nor,
+			R.drawable.ic_part_nor, R.drawable.ic_mis_nor, R.drawable.ic_collect_nor,
+			R.drawable.ic_borrow_nor, R.drawable.ic_sell_nor, R.drawable.ic_financial_nor,
+			R.drawable.ic_gifts_nor, R.drawable.ic_aiother_nor};
+	private int[] icon_inyes = { R.drawable.ic_wages_sel, R.drawable.ic_bonus_sel,
+			R.drawable.ic_part_sel, R.drawable.ic_mis_sel, R.drawable.ic_collect_sel,
+			R.drawable.ic_borrow_sel, R.drawable.ic_sell_sel,
+			R.drawable.ic_financial_sel, R.drawable.ic_gifts_sel,
 			R.drawable.ic_aiother_sel};
 	// GV的上次变量变化
 	int ai_last = 0;
@@ -239,7 +239,7 @@ public class AddActivity extends Activity {
 				WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		// 获取滚动条的宽度
 		bmpW = BitmapFactory.decodeResource(getResources(),
-				R.drawable.underline).getWidth();
+				R.drawable.bg_underline).getWidth();
 		// 为了获取屏幕宽度，新建一个DisplayMetrics对象
 		DisplayMetrics displayMetrics = new DisplayMetrics();
 		// 将当前窗口的一些信息放在DisplayMetrics类中

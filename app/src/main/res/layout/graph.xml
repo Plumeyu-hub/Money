@@ -71,7 +71,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="35dp"
                 android:layout_toRightOf="@+id/linearLayout1"
-                android:background="@drawable/visible"
+                android:background="@drawable/ic_eye_nor"
                 android:clickable="true"
                 android:onClick="click" />
         </RelativeLayout>

@@ -55,7 +55,7 @@
                         android:layout_alignParentLeft="true"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="5dp"
-                        android:background="@drawable/mo" />
+                        android:background="@drawable/ic_mo" />
 
                     <TextView
                         android:id="@+id/tv_addinmotext"
@@ -112,7 +112,7 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginLeft="5dp"
-                        android:background="@drawable/mhome" />
+                        android:background="@drawable/ic_mhome" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -175,7 +175,7 @@
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_marginLeft="5dp"
-                        android:background="@drawable/theme" />
+                        android:background="@drawable/ic_theme" />
 
                     <TextView
                         android:layout_width="wrap_content"

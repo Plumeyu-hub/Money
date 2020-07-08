@@ -69,14 +69,14 @@ public class RegisteredActivity extends Activity {
 				} else {
 
 					// 查找数据库是否存在相同的用户名
-					cs = db.query("user", new String[] { "username" },
-							"username like ? ", new String[] { username },
+					cs = db.query("user", new String[] { "ic_username" },
+							"ic_username like ? ", new String[] { username },
 							null, null, null);
 
 					if (cs != null) {
 						while (cs.moveToNext()) {
 							usernamesql = cs.getString(cs
-									.getColumnIndex("username"));
+									.getColumnIndex("ic_username"));
 						}
 					}
 
@@ -86,10 +86,10 @@ public class RegisteredActivity extends Activity {
 					} else {
 						// 在存储工具类里面存储要操作的数据，以键值对的方式存储，键表示标的列名，值就是要操作的值
 						cv = new ContentValues();
-						cv.put("password", password);
+						cv.put("ic_password", password);
 						cv.put("problem", problem);
 						cv.put("answer", answer);
-						cv.put("username", username);
+						cv.put("ic_username", username);
 						// 插入数据，成功返回当前行号，失败返回0
 						num = (int) db.insert("user", null, cv);
 						if (num > 0) {

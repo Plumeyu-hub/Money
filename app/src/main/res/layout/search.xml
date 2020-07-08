@@ -18,7 +18,7 @@
             android:layout_centerInParent="true"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="15dp"
-            android:background="@drawable/exit_fff"
+            android:background="@drawable/ic_fffexit"
             android:clickable="true"
             android:onClick="click" />
 
@@ -51,7 +51,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="8dp"
-                android:background="@drawable/delete_gray"
+                android:background="@drawable/ic_graydelete"
                 android:clickable="true"
                 android:gravity="center_vertical"
                 android:onClick="click" />
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/empty_data" />
+            android:background="@drawable/ic_dataempty" />
 
         <TextView
             android:layout_width="wrap_content"

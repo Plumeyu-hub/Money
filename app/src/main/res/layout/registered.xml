@@ -13,7 +13,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/left"
+            android:background="@drawable/ic_left"
             android:clickable="true"
             android:onClick="click" />
 
@@ -42,7 +42,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginLeft="35dp"
-            android:background="@drawable/username" />
+            android:background="@drawable/ic_username" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -77,7 +77,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginLeft="35dp"
-            android:background="@drawable/password" />
+            android:background="@drawable/ic_password" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -112,7 +112,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginLeft="35dp"
-            android:background="@drawable/password" />
+            android:background="@drawable/ic_password" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -147,7 +147,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginLeft="35dp"
-            android:background="@drawable/safety" />
+            android:background="@drawable/ic_safety" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -182,7 +182,7 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_marginLeft="35dp"
-            android:background="@drawable/safety" />
+            android:background="@drawable/ic_safety" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -212,6 +212,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dp"
-        android:background="@drawable/registered" />
+        android:background="@drawable/ic_registered" />
 
 </LinearLayout>
