@@ -13,7 +13,7 @@
         android:orientation="vertical" >
 
         <EditText
-            android:id="@+id/et_graph_month"
+            android:id="@+id/graphmonth_edit"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_gravity="center"
@@ -29,14 +29,14 @@
             android:layout_height="wrap_content" >
 
             <LinearLayout
-                android:id="@+id/linearLayout1"
+                android:id="@+id/balance_lin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/tv_graph_countnum"
+                    android:id="@+id/balancenum_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -45,7 +45,7 @@
                     android:textSize="30sp" />
 
                 <TextView
-                    android:id="@+id/tv_graph_countnumgone"
+                    android:id="@+id/balancegone_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -55,7 +55,7 @@
                     android:visibility="gone" />
 
                 <TextView
-                    android:id="@+id/tv_graph_counttext"
+                    android:id="@+id/balancetext_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
@@ -65,12 +65,12 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/tv_graph_shownum"
+                android:id="@+id/eyenor_tv"
                 android:layout_width="35dp"
                 android:layout_height="25dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="35dp"
-                android:layout_toRightOf="@+id/linearLayout1"
+                android:layout_toRightOf="@+id/balance_lin"
                 android:background="@drawable/ic_eye_nor"
                 android:clickable="true"
                 android:onClick="click" />
@@ -91,7 +91,7 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/tv_graph_outnum"
+                    android:id="@+id/outnum_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -100,7 +100,7 @@
                     android:textSize="26sp" />
 
                 <TextView
-                    android:id="@+id/tv_graph_outnumgone"
+                    android:id="@+id/outgone_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -110,7 +110,7 @@
                     android:visibility="gone" />
 
                 <TextView
-                    android:id="@+id/tv_graph_outtext"
+                    android:id="@+id/outtext_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -132,7 +132,7 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/tv_graph_innum"
+                    android:id="@+id/innum_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -141,7 +141,7 @@
                     android:textSize="26sp" />
 
                 <TextView
-                    android:id="@+id/tv_graph_innumgone"
+                    android:id="@+id/ingone_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -151,7 +151,7 @@
                     android:visibility="gone" />
 
                 <TextView
-                    android:id="@+id/tv_graph_intext"
+                    android:id="@+id/intext_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -163,7 +163,7 @@
     </LinearLayout>
 
     <com.github.mikephil.charting.charts.PieChart
-        android:id="@+id/spread_pie_chart"
+        android:id="@+id/piechart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#293E53"

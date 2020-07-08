@@ -312,42 +312,42 @@ public class DetailsActivity extends Activity {
 			Intent i1 = new Intent(DetailsActivity.this, MineActivity.class);
 			startActivity(i1);
 			break;
-		case R.id.mes:
+		case R.id.mes_lin:
 			Intent i2 = new Intent(DetailsActivity.this, MessageActivity.class);
 			startActivity(i2);
 			break;
-		case R.id.remind:
+		case R.id.remind_lin:
 			Intent i3 = new Intent(DetailsActivity.this, RemindActivity.class);
 			startActivity(i3);
 			break;
-		case R.id.set:
+		case R.id.set_lin:
 			Intent i4 = new Intent(DetailsActivity.this, SetActivity.class);
 			startActivity(i4);
 			break;
-		case R.id.help:
+		case R.id.help_lin:
 			Intent i5 = new Intent(DetailsActivity.this, HelpActivity.class);
 			startActivity(i5);
 			break;
-		case R.id.about:
+		case R.id.about_lin:
 			Intent i6 = new Intent(DetailsActivity.this, AboutActivity.class);
 			startActivity(i6);
 			break;
-		case R.id.exit:
+		case R.id.exit_lin:
 			createPopWindow();
 			break;
 		case R.id.detailssearch_tv:
 			Intent i7 = new Intent(DetailsActivity.this, SearchActivity.class);
 			startActivity(i7);
 			break;
-		case R.id.export:
+		case R.id.export_lin:
 			Intent i8 = new Intent(DetailsActivity.this, ExportActivity.class);
 			startActivity(i8);
 			break;
-		case R.id.clear:
+		case R.id.clear_lin:
 			Intent i10 = new Intent(DetailsActivity.this, ClearActivity.class);
 			startActivity(i10);
 			break;
-		case R.id.budget:
+		case R.id.budget_lin:
 			Intent i11 = new Intent(DetailsActivity.this, BudgetActivity.class);
 			startActivity(i11);
 			break;

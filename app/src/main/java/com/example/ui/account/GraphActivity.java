@@ -70,19 +70,19 @@ public class GraphActivity extends Activity {
         // 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
         DB = this.openOrCreateDatabase("data.db", MODE_PRIVATE, null);
 
-        tv_graph_countnum = (TextView) findViewById(R.id.tv_graph_countnum);
-        tv_graph_counttext = (TextView) findViewById(R.id.tv_graph_counttext);
-        tv_graph_outnum = (TextView) findViewById(R.id.tv_graph_outnum);
-        tv_graph_outtext = (TextView) findViewById(R.id.tv_graph_outtext);
-        tv_graph_innum = (TextView) findViewById(R.id.tv_graph_innum);
-        tv_graph_intext = (TextView) findViewById(R.id.tv_graph_intext);
-        tv_graph_shownum = (TextView) findViewById(R.id.tv_graph_shownum);
-        tv_graph_countnumgone = (TextView) findViewById(R.id.tv_graph_countnumgone);
-        tv_graph_outnumgone = (TextView) findViewById(R.id.tv_graph_outnumgone);
-        tv_graph_innumgone = (TextView) findViewById(R.id.tv_graph_innumgone);
+        tv_graph_countnum = (TextView) findViewById(R.id.balancenum_tv);
+        tv_graph_counttext = (TextView) findViewById(R.id.balancetext_tv);
+        tv_graph_outnum = (TextView) findViewById(R.id.outnum_tv);
+        tv_graph_outtext = (TextView) findViewById(R.id.outtext_tv);
+        tv_graph_innum = (TextView) findViewById(R.id.innum_tv);
+        tv_graph_intext = (TextView) findViewById(R.id.intext_tv);
+        tv_graph_shownum = (TextView) findViewById(R.id.eyenor_tv);
+        tv_graph_countnumgone = (TextView) findViewById(R.id.balancegone_tv);
+        tv_graph_outnumgone = (TextView) findViewById(R.id.outgone_tv);
+        tv_graph_innumgone = (TextView) findViewById(R.id.ingone_tv);
         // 时间
         // 获取对象
-        monthtime = (EditText) findViewById(R.id.et_graph_month);
+        monthtime = (EditText) findViewById(R.id.graphmonth_edit);
         // 点击"日期"按钮布局 设置日期
         monthtime.setOnClickListener(new OnClickListener() {
             @Override
@@ -92,14 +92,14 @@ public class GraphActivity extends Activity {
             }
         });
         // 绘图
-        mChart = (PieChart) findViewById(R.id.spread_pie_chart);
+        mChart = (PieChart) findViewById(R.id.piechart);
 
     }
 
     // 外
     public void click(View v) {
         switch (v.getId()) {
-            case R.id.tv_graph_shownum:
+            case R.id.eyenor_tv:
                 if (tv_state == 1) {// 可见
                     tv_graph_shownum.setBackgroundResource(R.drawable.ic_eye_nor);
                     tv_state = 0;
@@ -215,7 +215,7 @@ public class GraphActivity extends Activity {
             String uid = String.valueOf(userid);
             cs = DB.rawQuery(
                     "select sum(aomoney) from expenditure where aotime like ? and aouserid=?",
-                    new String[]{condition + "%", uid + ""});
+                    new String[] { condition + "%", uid + "" });
 
             if (cs != null) {
                 if (cs.moveToFirst()) {
@@ -235,7 +235,7 @@ public class GraphActivity extends Activity {
 
             cs = DB.rawQuery(
                     "select sum(aimoney) from income where aitime like ? and aiuserid=?",
-                    new String[]{condition + "%", uid + ""});
+                    new String[] { condition + "%", uid + "" });
 
             if (cs != null) {
                 if (cs.moveToFirst()) {
@@ -306,8 +306,8 @@ public class GraphActivity extends Activity {
 
         //xValues.add("收入");
         //xValues.add("支出");
-        // xValues.ic_add("水费");
-        // xValues.ic_add("管理费");
+        // xValues.add("水费");
+        // xValues.add("管理费");
         ArrayList<PieEntry> yValues = new ArrayList<>();
         //ArrayList<Entry> yValues = new ArrayList<Entry>(); // yVals用来表示封装每个饼块的实际数据
 
@@ -328,8 +328,8 @@ public class GraphActivity extends Activity {
         //设置左下角的图示
         yValues.add(new PieEntry(innum, "收入"));
         yValues.add(new PieEntry(outnum, "支出"));
-        // yValues.ic_add(new Entry(quarterly3, 2));
-        // yValues.ic_add(new Entry(quarterly4, 3));
+        // yValues.add(new Entry(quarterly3, 2));
+        // yValues.add(new Entry(quarterly4, 3));
 
         // y轴的集合
         PieDataSet pieDataSet = new PieDataSet(yValues, "");
@@ -340,8 +340,8 @@ public class GraphActivity extends Activity {
         // 饼图颜色
         colors.add(Color.rgb(74, 144, 226));
         colors.add(Color.rgb(9, 175, 169));
-        // colors.ic_add(Color.rgb(244, 185, 19));
-        // colors.ic_add(Color.rgb(126, 211, 33));
+        // colors.add(Color.rgb(244, 185, 19));
+        // colors.add(Color.rgb(126, 211, 33));
 
         pieDataSet.setColors(colors);
 

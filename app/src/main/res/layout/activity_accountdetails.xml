@@ -112,7 +112,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/yeslogin_lin"
             android:layout_width="match_parent"
             android:layout_height="120dp"
             android:gravity="center_horizontal"
@@ -141,7 +140,7 @@
             android:orientation="horizontal" >
 
             <LinearLayout
-                android:id="@+id/mes"
+                android:id="@+id/mes_lin"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -170,7 +169,7 @@
                 android:background="#a3a3a3" />
 
             <LinearLayout
-                android:id="@+id/remind"
+                android:id="@+id/remind_lin"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -200,7 +199,7 @@
             android:background="#a3a3a3" />
 
         <RelativeLayout
-            android:id="@+id/budget"
+            android:id="@+id/budget_lin"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="#fff"
@@ -210,7 +209,7 @@
             android:paddingRight="10dp" >
 
             <TextView
-                android:id="@+id/my_budget_img"
+                android:id="@+id/mybudget_tv"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
@@ -219,7 +218,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@id/my_budget_img"
+                android:layout_toRightOf="@id/mybudget_tv"
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:text="预算"
@@ -240,7 +239,7 @@
             android:background="#a3a3a3" />
 
         <RelativeLayout
-            android:id="@+id/export"
+            android:id="@+id/export_lin"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="#fff"
@@ -250,7 +249,7 @@
             android:paddingRight="10dp" >
 
             <TextView
-                android:id="@+id/my_export_img"
+                android:id="@+id/myexport_tv"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
@@ -259,7 +258,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@id/my_export_img"
+                android:layout_toRightOf="@id/myexport_tv"
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:text="导出账目"
@@ -280,7 +279,7 @@
             android:background="#a3a3a3" />
 
         <RelativeLayout
-            android:id="@+id/clear"
+            android:id="@+id/clear_lin"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="#fff"
@@ -290,7 +289,7 @@
             android:paddingRight="10dp" >
 
             <TextView
-                android:id="@+id/my_clear_img"
+                android:id="@+id/myclear_tv"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
@@ -299,7 +298,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@id/my_clear_img"
+                android:layout_toRightOf="@id/myclear_tv"
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:text="数据库数据清除"
@@ -320,7 +319,7 @@
             android:background="#a3a3a3" />
 
         <RelativeLayout
-            android:id="@+id/set"
+            android:id="@+id/set_lin"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="#fff"
@@ -330,7 +329,7 @@
             android:paddingRight="10dp" >
 
             <TextView
-                android:id="@+id/my_set_img"
+                android:id="@+id/myset_tv"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
@@ -339,7 +338,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@id/my_set_img"
+                android:layout_toRightOf="@id/myset_tv"
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:text="设置"
@@ -360,7 +359,7 @@
             android:background="#a3a3a3" />
 
         <RelativeLayout
-            android:id="@+id/help"
+            android:id="@+id/help_lin"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="#fff"
@@ -370,7 +369,7 @@
             android:paddingRight="10dp" >
 
             <TextView
-                android:id="@+id/my_help_img"
+                android:id="@+id/myhelp_tv"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
@@ -379,7 +378,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@id/my_help_img"
+                android:layout_toRightOf="@id/myhelp_tv"
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:text="帮助"
@@ -400,7 +399,7 @@
             android:background="#a3a3a3" />
 
         <RelativeLayout
-            android:id="@+id/about"
+            android:id="@+id/about_lin"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="#fff"
@@ -410,7 +409,7 @@
             android:paddingRight="10dp" >
 
             <TextView
-                android:id="@+id/my_about_img"
+                android:id="@+id/myabout_tv"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
@@ -419,7 +418,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@id/my_about_img"
+                android:layout_toRightOf="@id/myabout_tv"
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:text="关于"
@@ -440,7 +439,7 @@
             android:background="#a3a3a3" />
 
         <RelativeLayout
-            android:id="@+id/exit"
+            android:id="@+id/exit_lin"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:background="#fff"
@@ -450,7 +449,7 @@
             android:paddingRight="10dp" >
 
             <TextView
-                android:id="@+id/my_exit_img"
+                android:id="@+id/myexit_tv"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_centerVertical="true"
@@ -459,7 +458,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toRightOf="@id/my_exit_img"
+                android:layout_toRightOf="@id/myexit_tv"
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:text="退出应用"
