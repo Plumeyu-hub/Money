@@ -20,10 +20,9 @@ import android.widget.TextView;
 import com.example.money.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
-import com.github.mikephil.charting.components.Legend.LegendPosition;
-import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
+import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -264,12 +263,12 @@ public class GraphActivity extends Activity {
 
 	// 绘图
 	private void showChart(PieChart pieChart, PieData pieData) {
-		pieChart.setHoleColorTransparent(true);
-
+		//pieChart.setHoleColorTransparent(true);//旧版，设置中间空心圆孔的颜色
+		pieChart.setHoleColor(Color.WHITE);//饼状图中间的圆的绘制颜色
 		pieChart.setHoleRadius(60f); // 半径
 
 		// pieChart.setDescription("109笔收入记录");//饼图右下角的提示
-		pieChart.setDescriptionColor(getResources().getColor(color.white));
+		//pieChart.setDescriptionColor(getResources().getColor(color.white));
 		mChart.setDrawSliceText(false);// 设置隐藏饼图上文字，只显示百分比
 		pieChart.setDrawCenterText(true); // 饼状图中间可以添加文字
 		pieChart.setCenterTextColor(getResources().getColor(color.white));
@@ -288,7 +287,7 @@ public class GraphActivity extends Activity {
 		pieChart.setData(pieData);
 
 		Legend mLegend = pieChart.getLegend(); // 设置比例图
-		mLegend.setPosition(LegendPosition.ABOVE_CHART_LEFT); // 最右边显示
+		//mLegend.setPosition(LegendPosition.ABOVE_CHART_LEFT); // 最右边显示
 		mLegend.setXEntrySpace(2f);
 		mLegend.setYEntrySpace(2f);
 		mLegend.setTextColor(getResources().getColor(color.white));
@@ -297,21 +296,21 @@ public class GraphActivity extends Activity {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param count
 	 *            分成几部分
 	 * @param range
 	 */
 	private PieData getPieData(int count, float range) {
 
-		ArrayList<String> xValues = new ArrayList<String>(); // xVals用来表示每个饼块上的内容
+		//ArrayList<String> xValues = new ArrayList<String>(); // xVals用来表示每个饼块上的内容
 
-		xValues.add("收入");
-		xValues.add("支出");
+		//xValues.add("收入");
+		//xValues.add("支出");
 		// xValues.ic_add("水费");
 		// xValues.ic_add("管理费");
-
-		ArrayList<Entry> yValues = new ArrayList<Entry>(); // yVals用来表示封装每个饼块的实际数据
+		ArrayList<PieEntry> yValues = new ArrayList<>();
+		//ArrayList<Entry> yValues = new ArrayList<Entry>(); // yVals用来表示封装每个饼块的实际数据
 
 		// 饼图数据
 		/**
@@ -327,8 +326,9 @@ public class GraphActivity extends Activity {
 		// float quarterly4 = 3.1f;
 		float quarterly1 = innum;
 		float quarterly2 = outnum;
-		yValues.add(new Entry(innum, 0));
-		yValues.add(new Entry(outnum, 1));
+		//设置左下角的图示
+		yValues.add(new PieEntry(innum,"收入"));
+		yValues.add(new PieEntry(outnum, "支出"));
 		// yValues.ic_add(new Entry(quarterly3, 2));
 		// yValues.ic_add(new Entry(quarterly4, 3));
 
@@ -350,7 +350,7 @@ public class GraphActivity extends Activity {
 		float px = 5 * (metrics.densityDpi / 160f);
 		pieDataSet.setSelectionShift(px); // 选中态多出的长度
 
-		PieData pieData = new PieData(xValues, pieDataSet);
+		PieData pieData = new PieData(pieDataSet);
 		pieData.setValueTextColor(getResources().getColor(color.white));
 
 		return pieData;
