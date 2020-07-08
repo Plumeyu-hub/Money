@@ -1,15 +1,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff" >
+    android:background="#ffffff">
 
     <LinearLayout
-        android:id="@+id/re_lin"
+        android:id="@+id/navigation_lin"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:background="#efefef"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <View
             android:layout_width="match_parent"
@@ -19,26 +19,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="49.5dp"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:id="@+id/lin_details"
+                android:id="@+id/details_lin"
                 android:layout_width="0dp"
                 android:layout_height="49.5dp"
                 android:layout_weight="1"
                 android:clickable="true"
                 android:gravity="center"
                 android:onClick="click"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_details_img"
+                    android:id="@+id/detailsimg_tv"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/ic_details_nor" />
 
                 <TextView
-                    android:id="@+id/tv_details_txt"
+                    android:id="@+id/detailstxt_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
@@ -48,14 +48,14 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/main_add"
+                android:id="@+id/addaccount_lin"
                 android:layout_width="0dp"
                 android:layout_height="49.5dp"
                 android:layout_weight="1"
                 android:clickable="true"
                 android:gravity="center"
                 android:onClick="click"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="26dp"
@@ -72,23 +72,23 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/lin_graph"
+                android:id="@+id/graph_lin"
                 android:layout_width="0dp"
                 android:layout_height="49.5dp"
                 android:layout_weight="1"
                 android:clickable="true"
                 android:gravity="center"
                 android:onClick="click"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_graph_img"
+                    android:id="@+id/graphimg_tv"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
                     android:background="@drawable/ic_graph_nor" />
 
                 <TextView
-                    android:id="@+id/tv_graph_txt"
+                    android:id="@+id/graphtxt_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
@@ -100,10 +100,9 @@
     </LinearLayout>
 
     <FrameLayout
-        android:id="@+id/re_frame"
+        android:id="@+id/main_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/re_lin" >
-    </FrameLayout>
+        android:layout_above="@id/navigation_lin"></FrameLayout>
 
 </RelativeLayout>

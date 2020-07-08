@@ -10,7 +10,7 @@
         android:layout_height="50dp" >
 
         <TextView
-            android:id="@+id/remind_left"
+            android:id="@+id/remindleft_tv"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -48,7 +48,7 @@
         </TextView>
 
         <TextView
-            android:id="@+id/tv_remind_turn"
+            android:id="@+id/remindturn_tv"
             android:layout_width="40dp"
             android:layout_height="35dp"
             android:layout_alignParentRight="true"

@@ -6,13 +6,13 @@
     android:orientation="vertical" >
 
     <ImageView
-        android:id="@+id/iv_additem"
+        android:id="@+id/additem_iv"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:src="@drawable/ic_launcher" />
 
     <TextView
-        android:id="@+id/tv_additem"
+        android:id="@+id/additem_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"

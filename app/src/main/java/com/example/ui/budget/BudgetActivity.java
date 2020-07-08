@@ -50,14 +50,14 @@ public class BudgetActivity extends Activity {
 			userid = spuser.getInt("userid", 0);
 		}
 
-		tv_bitem_money = (TextView) findViewById(R.id.tv_bitem_money);
+		tv_bitem_money = (TextView) findViewById(R.id.budgetitemmoney_tv);
 
 		// 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
 		db = this.openOrCreateDatabase("data.db", MODE_PRIVATE, null);
 
 		// lv
 		// 第一步:listview控件实例化
-		blv = (ListView) findViewById(R.id.lv_budget);
+		blv = (ListView) findViewById(R.id.budget_lv);
 		// 第二步:初始化数据
 		blist = new ArrayList<BudgetBean>();
 		// 实例化适配器
@@ -80,7 +80,7 @@ public class BudgetActivity extends Activity {
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 					final int arg2, long arg3) {
 				// 获取所点击项的_id
-				TextView tv_id = (TextView) arg1.findViewById(R.id.tv_bitem_id);
+				TextView tv_id = (TextView) arg1.findViewById(R.id.budgetitemid_tv);
 				final String id = tv_id.getText().toString();
 
 				// 通过Dialog提示是否删除
@@ -98,7 +98,7 @@ public class BudgetActivity extends Activity {
 								// 删除指定数据
 								int num;
 								// 删除数据，成功返回删除的数据的行数，失败返回0
-								num = db.delete("ic_budget", "id=? and userid=?",
+								num = db.delete("budget", "id=? and userid=?",
 										new String[] { id + "", uid + "" });
 								if (num > 0) {
 									Toast.makeText(BudgetActivity.this,
@@ -138,7 +138,7 @@ public class BudgetActivity extends Activity {
 		BudgetBean bData;
 		String btime = null, bmoney = null;
 		String cid = "";
-		cs = db.query("ic_budget", new String[] { "id", "money", "time",
+		cs = db.query("budget", new String[] { "id", "money", "time",
 				"remarks", "userid" }, "userid=?", new String[] { uid + "" },
 				null, null, "time ASC");
 		if (cs != null) {
@@ -199,14 +199,14 @@ public class BudgetActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.budget_left:
+		case R.id.budgetleft_tv:
 			finish();
 			break;
-		case R.id.budget_add:
+		case R.id.budgetadd_tv:
 			Intent i1 = new Intent(BudgetActivity.this, AddBudgetActivity.class);
 			startActivity(i1);
 			break;
-		case R.id.budget_refresh:
+		case R.id.budgetrefresh_tv:
 			refresh();
 			break;
 		default:

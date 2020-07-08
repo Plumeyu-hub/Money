@@ -10,7 +10,7 @@
         android:layout_height="50dp" >
 
         <TextView
-            android:id="@+id/export_left"
+            android:id="@+id/exportleft_tv"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -48,7 +48,7 @@
         </TextView>
 
         <Button
-            android:id="@+id/btn_ex"
+            android:id="@+id/export_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentRight="true"

@@ -10,7 +10,7 @@
         android:layout_height="50dp" >
 
         <TextView
-            android:id="@+id/addbudget_left"
+            android:id="@+id/addbudgetleft_tv"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -57,7 +57,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/et_addbudget_money"
+                android:id="@+id/addbudgetmoney_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -91,7 +91,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/et_addbudget_daytime"
+                android:id="@+id/addbudgetdaytime_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -126,7 +126,7 @@
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/et_addbudget_remarks"
+                android:id="@+id/addbudgetremarks_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -146,7 +146,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/btn_addbudget_yes"
+        android:id="@+id/addbudgetyes_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

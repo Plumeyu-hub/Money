@@ -15,7 +15,7 @@ public class MessageActivity extends Activity {
 	
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.message_left:
+		case R.id.messageleft_tv:
 			finish();
 			break;
 

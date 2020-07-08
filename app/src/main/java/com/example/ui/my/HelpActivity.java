@@ -15,7 +15,7 @@ public class HelpActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.help_left:
+		case R.id.helpleft_tv:
 			finish();
 			break;
 

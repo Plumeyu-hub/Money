@@ -51,9 +51,9 @@ public class AddBudgetActivity extends Activity {
 		if (spuser != null) {// 判断文件是否存在
 			userid = spuser.getInt("userid", 0);
 		}
-		et_addbudget_money = (EditText) findViewById(R.id.et_addbudget_money);
-		et_addbudget_daytime = (EditText) findViewById(R.id.et_addbudget_daytime);
-		et_addbudget_remarks = (EditText) findViewById(R.id.et_addbudget_remarks);
+		et_addbudget_money = (EditText) findViewById(R.id.addbudgetmoney_et);
+		et_addbudget_daytime = (EditText) findViewById(R.id.addbudgetdaytime_et);
+		et_addbudget_remarks = (EditText) findViewById(R.id.addbudgetremarks_et);
 
 		// 数据库
 		// 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
@@ -77,10 +77,10 @@ public class AddBudgetActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.addbudget_left:
+		case R.id.addbudgetleft_tv:
 			finish();
 			break;
-		case R.id.btn_addbudget_yes:
+		case R.id.addbudgetyes_btn:
 			addbudget();
 			break;
 		default:
@@ -144,8 +144,8 @@ public class AddBudgetActivity extends Activity {
 		cv.put("remarks", addb_remarks);
 		cv.put("userid", uid);
 		// 插入数据，成功返回当前行号，失败返回0
-		num = (int) db.insert("ic_budget", null, cv);
-		if (num > 0) {
+		num = (int) db.insert("budget", null, cv);
+			if (num > 0) {
 			Toast.makeText(this, "预算保存成功" + num, Toast.LENGTH_SHORT).show();
 			finish();
 		} else {

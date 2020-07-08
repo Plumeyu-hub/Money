@@ -37,19 +37,19 @@ public class MainActivity extends ActivityGroup {
 		sp = getSharedPreferences("data", MODE_PRIVATE);
 		//MODE_APPEND
 		list_lin = new ArrayList<LinearLayout>();
-		list_lin.add((LinearLayout) findViewById(R.id.lin_details));
-		list_lin.add((LinearLayout) findViewById(R.id.lin_graph));
+		list_lin.add((LinearLayout) findViewById(R.id.details_lin));
+		list_lin.add((LinearLayout) findViewById(R.id.graph_lin));
 
 		list_img = new ArrayList<Integer>();
-		list_img.add(R.id.tv_details_img);
-		list_img.add(R.id.tv_graph_img);
+		list_img.add(R.id.detailsimg_tv);
+		list_img.add(R.id.graphimg_tv);
 
 		list_tv = new ArrayList<Integer>();
-		list_tv.add(R.id.tv_details_txt);
-		list_tv.add(R.id.tv_graph_txt);
+		list_tv.add(R.id.detailstxt_tv);
+		list_tv.add(R.id.graphtxt_tv);
 
 		manager = this.getLocalActivityManager();
-		frame = (FrameLayout) this.findViewById(R.id.re_frame);
+		frame = (FrameLayout) this.findViewById(R.id.main_frame);
 
 		i1 = new Intent(this, DetailsActivity.class);
 		i2 = new Intent(this, GraphActivity.class);
@@ -60,22 +60,22 @@ public class MainActivity extends ActivityGroup {
 		frame.addView(v2);
 		frame.addView(v1);
 
-		setBackgroup(R.id.lin_details);
+		setBackgroup(R.id.details_lin);
 	}
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.lin_details:
+		case R.id.details_lin:
 			setBackgroup(v.getId());
 			frame.bringChildToFront(v1);// 把v1调到前台
 			frame.invalidate();// 刷新
 			break;
-		case R.id.lin_graph:
+		case R.id.graph_lin:
 			setBackgroup(v.getId());
 			frame.bringChildToFront(v2);// 把v2调到前台
 			frame.invalidate();// 刷新
 			break;
-		case R.id.main_add:
+		case R.id.addaccount_lin:
 			Intent i11 = new Intent(MainActivity.this, AddActivity.class);
 			startActivity(i11);
 			break;

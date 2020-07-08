@@ -10,7 +10,7 @@
         android:layout_height="50dp" >
 
         <TextView
-            android:id="@+id/retrievepw_left"
+            android:id="@+id/retrievepwleft_tv"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -51,7 +51,7 @@
             android:orientation="vertical" >
 
             <EditText
-                android:id="@+id/et_retrievepw_username"
+                android:id="@+id/retrievepwusername_et"
                 android:layout_width="wrap_content"
                 android:layout_height="34dp"
                 android:layout_marginLeft="12dp"
@@ -86,7 +86,7 @@
             android:orientation="vertical" >
 
             <EditText
-                android:id="@+id/et_retrievepw_problem"
+                android:id="@+id/retrievepwproblem_et"
                 android:layout_width="wrap_content"
                 android:layout_height="34dp"
                 android:layout_marginLeft="12dp"
@@ -121,7 +121,7 @@
             android:orientation="vertical" >
 
             <EditText
-                android:id="@+id/et_retrievepw_answer"
+                android:id="@+id/retrievepwanswer_et"
                 android:layout_width="wrap_content"
                 android:layout_height="34dp"
                 android:layout_marginLeft="12dp"
@@ -138,7 +138,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_retrievepw_yes"
+        android:id="@+id/retrievepwyes_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -148,7 +148,7 @@
         android:textSize="25sp" />
 
     <TextView
-        android:id="@+id/tv_repw"
+        android:id="@+id/datareturned_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"

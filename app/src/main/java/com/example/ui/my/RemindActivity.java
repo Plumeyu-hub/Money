@@ -32,7 +32,7 @@ public class RemindActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_remind);
-		tv_remind_turn = (TextView) findViewById(R.id.tv_remind_turn);
+		tv_remind_turn = (TextView) findViewById(R.id.remindturn_tv);
 
 		//记住上次选择状态
 		sharedPreferences = this.getSharedPreferences("userInfo", MODE_PRIVATE);
@@ -61,10 +61,10 @@ public class RemindActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.remind_left:
+		case R.id.remindleft_tv:
 			finish();
 			break;
-		case R.id.tv_remind_turn:
+		case R.id.remindturn_tv:
 			if (bool == false) {// ic_switch_nor
 				setAlarm();
 			} else {// on

@@ -83,13 +83,13 @@ public class DataInformationActivity extends Activity {
 		// 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
 		db = this.openOrCreateDatabase("data.db", MODE_PRIVATE, null);
 
-		tv_category = (TextView) findViewById(R.id.tv_datainformation_category);
-		tv_symoney = (TextView) findViewById(R.id.tv_datainformation_symoney);
-		et_money = (EditText) findViewById(R.id.et_datainformation_money);
-		et_daytime = (EditText) findViewById(R.id.et_datainformation_daytime);
-		sp_account = (Spinner) findViewById(R.id.sp_datainformation_account);
-		et_remarks = (EditText) findViewById(R.id.et_datainformation_remarks);
-		lin_update = (LinearLayout) findViewById(R.id.lin_datainformationbottom_update);
+		tv_category = (TextView) findViewById(R.id.datainformationcategory_tv);
+		tv_symoney = (TextView) findViewById(R.id.datainformationsymbol_tv);
+		et_money = (EditText) findViewById(R.id.datainformationmoney_et);
+		et_daytime = (EditText) findViewById(R.id.datainformationdaytime_et);
+		sp_account = (Spinner) findViewById(R.id.datainformationaccount_sp);
+		et_remarks = (EditText) findViewById(R.id.datainformationremarks_et);
+		lin_update = (LinearLayout) findViewById(R.id.datainformationbottomupdate_lin);
 
 		getData();// 获取传递过来的数据并显示
 
@@ -262,7 +262,7 @@ public class DataInformationActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.datainformation_left:
+		case R.id.datainformationleft_tv:
 			finish();
 			break;
 

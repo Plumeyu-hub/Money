@@ -57,13 +57,13 @@ public class BudgetAdapter extends BaseAdapter {
 
 		}
 
-		TextView id = (TextView) convertView.findViewById(R.id.tv_bitem_id);
+		TextView id = (TextView) convertView.findViewById(R.id.budgetitemid_tv);
 		TextView daytime = (TextView) convertView
-				.findViewById(R.id.tv_bitem_daytime);
+				.findViewById(R.id.budgetitemdaytime_tv);
 		TextView money = (TextView) convertView
-				.findViewById(R.id.tv_bitem_money);
+				.findViewById(R.id.budgetitemmoney_tv);
 		TextView remarks = (TextView) convertView
-				.findViewById(R.id.tv_bitem_remarks);
+				.findViewById(R.id.budgetitemremarks_tv);
 		BudgetBean bdata = list.get(position);
 
 		if (bdata != null) {

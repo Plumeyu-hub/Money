@@ -26,8 +26,8 @@ public class MineActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_minemgs);
 
-		btn_modifypw = (Button) findViewById(R.id.btn_modifypw);
-		btn_exituser = (Button) findViewById(R.id.btn_exituser);
+		btn_modifypw = (Button) findViewById(R.id.modifypw_btn);
+		btn_exituser = (Button) findViewById(R.id.exituser_btn);
 
 		sp_login = this.getSharedPreferences("userLogin", MODE_PRIVATE);
 		editor_login = sp_login.edit();
@@ -50,7 +50,7 @@ public class MineActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.mine_left:
+		case R.id.mineleft_tv:
 			finish();
 			break;
 

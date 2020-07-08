@@ -76,8 +76,8 @@ public class AddOutGridviewAdapter extends BaseAdapter {
 		// 通过布局填充器LayoutInflater填充网格单元格内的布局
 		View v = layoutInflater.inflate(R.layout.grid_item_addaccount, null);
 		// 使用findViewById分别找到单元格内布局的图片以及文字
-		ImageView iv = (ImageView) v.findViewById(R.id.iv_additem);
-		TextView tv = (TextView) v.findViewById(R.id.tv_additem);
+		ImageView iv = (ImageView) v.findViewById(R.id.additem_iv);
+		TextView tv = (TextView) v.findViewById(R.id.additem_tv);
 		// 引用数组内元素设置布局内图片以及文字的内容
 		iv.setImageResource(icon_outno[position]);
 		tv.setText(iconName_out[position]);

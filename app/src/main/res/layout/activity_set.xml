@@ -10,7 +10,7 @@
         android:layout_height="50dp" >
 
         <TextView
-            android:id="@+id/set_left"
+            android:id="@+id/setleft_tv"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"

@@ -160,11 +160,11 @@ public class DetailsActivity extends Activity {
 					final int arg2, long arg3) {
 				// 获取所点击项的_id
 				TextView tv_id = (TextView) arg1
-						.findViewById(R.id.tv_dataitem_id);
+						.findViewById(R.id.dataitemid_tv);
 				final String id = tv_id.getText().toString();
 
 				TextView tv_sy = (TextView) arg1
-						.findViewById(R.id.tv_dataitem_money);
+						.findViewById(R.id.dataitemmoney_tv);
 				final String sy = tv_sy.getText().toString().substring(0, 1);
 
 				// 通过Dialog提示是否删除
@@ -377,7 +377,7 @@ public class DetailsActivity extends Activity {
 			// pop.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
 			// pop.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
-			TextView tv_yes = (TextView) view.findViewById(R.id.tv_yes);
+			TextView tv_yes = (TextView) view.findViewById(R.id.dialogyes_tv);
 			tv_yes.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -387,7 +387,7 @@ public class DetailsActivity extends Activity {
 					// System.ic_exit(0);
 				}
 			});
-			TextView tv_no = (TextView) view.findViewById(R.id.tv_no);
+			TextView tv_no = (TextView) view.findViewById(R.id.dialogno_tv);
 			tv_no.setOnClickListener(new OnClickListener() {
 
 				@Override

@@ -10,7 +10,7 @@
         android:layout_height="50dp" >
 
         <TextView
-            android:id="@+id/mine_left"
+            android:id="@+id/mineleft_tv"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -48,7 +48,7 @@
         </TextView>
 
         <Button
-            android:id="@+id/btn_modifypw"
+            android:id="@+id/modifypw_btn"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
@@ -73,7 +73,7 @@
         </TextView>
 
         <Button
-            android:id="@+id/btn_exituser"
+            android:id="@+id/exituser_btn"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"

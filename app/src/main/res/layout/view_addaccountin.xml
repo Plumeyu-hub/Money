@@ -5,7 +5,7 @@
     android:background="#fff" >
 
     <LinearLayout
-        android:id="@+id/lin_addincal"
+        android:id="@+id/addincal_lin"
         android:layout_width="match_parent"
         android:layout_height="246.5dp"
         android:layout_alignParentBottom="true"
@@ -186,7 +186,7 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/et_addincaltext"
+                        android:id="@+id/addincaltext_et"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#F2F3F5"
@@ -533,7 +533,7 @@
         android:id="@+id/gv_addin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/lin_addincal"
+        android:layout_above="@id/addincal_lin"
         android:horizontalSpacing="10dp"
         android:listSelector="@android:color/transparent"
         android:numColumns="4"

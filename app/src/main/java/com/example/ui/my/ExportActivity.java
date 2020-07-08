@@ -46,7 +46,7 @@ public class ExportActivity extends Activity {
 		// 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
 		db = this.openOrCreateDatabase("data.db", MODE_PRIVATE, null);
 
-		btn_ex = (Button) findViewById(R.id.btn_ex);
+		btn_ex = (Button) findViewById(R.id.export_btn);
 		btn_ex.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View source) {
 				showNormalDialog();
@@ -57,7 +57,7 @@ public class ExportActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.export_left:
+		case R.id.exportleft_tv:
 			finish();
 			break;
 

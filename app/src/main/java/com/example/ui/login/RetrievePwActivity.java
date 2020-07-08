@@ -30,14 +30,14 @@ public class RetrievePwActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_retrievepw);
 		et_retrievepw_username = (EditText) this
-				.findViewById(R.id.et_retrievepw_username);
+				.findViewById(R.id.retrievepwusername_et);
 		et_retrievepw_problem = (EditText) this
-				.findViewById(R.id.et_retrievepw_problem);
+				.findViewById(R.id.retrievepwproblem_et);
 		et_retrievepw_answer = (EditText) this
-				.findViewById(R.id.et_retrievepw_answer);
-		tv_repw = (TextView) this.findViewById(R.id.tv_repw);
+				.findViewById(R.id.retrievepwanswer_et);
+		tv_repw = (TextView) this.findViewById(R.id.datareturned_tv);
 		btn_retrievepw_yes = (Button) this
-				.findViewById(R.id.btn_retrievepw_yes);
+				.findViewById(R.id.retrievepwyes_btn);
 
 		// 数据库
 		// 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
@@ -94,7 +94,7 @@ public class RetrievePwActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.retrievepw_left:
+		case R.id.retrievepwleft_tv:
 			finish();
 			break;
 

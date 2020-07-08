@@ -51,8 +51,8 @@ public class LoginActivity extends Activity {
 		db = this.openOrCreateDatabase("data.db", MODE_PRIVATE, null);
 		db.execSQL("create table if not exists user (userid integer primary key,username text,password text,problem text,answer text)");
 
-		et_username = (EditText) this.findViewById(R.id.et_login_username);
-		et_password = (EditText) this.findViewById(R.id.et_login_password);
+		et_username = (EditText) this.findViewById(R.id.username_et);
+		et_password = (EditText) this.findViewById(R.id.password_et);
 
 		// sharedPerference sp=this.getSharedPerference();
 		// boolean bool=sp.getBoolean("isLoad",false);
@@ -99,11 +99,11 @@ public class LoginActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-			case R.id.tv_login_registered:
+			case R.id.registered_tv:
 				Intent i1 = new Intent(this, RegisteredActivity.class);
 				startActivity(i1);
 				break;
-			case R.id.tv_login_forgetpw:
+			case R.id.forgetpw_tv:
 				Intent i2 = new Intent(this, RetrievePwActivity.class);
 				startActivity(i2);
 				break;

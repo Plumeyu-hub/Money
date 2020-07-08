@@ -15,7 +15,7 @@ public class SetActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.set_left:
+		case R.id.setleft_tv:
 			finish();
 			break;
 

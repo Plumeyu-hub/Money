@@ -186,16 +186,16 @@ public class AddActivity extends Activity {
 		db.execSQL("create table if not exists expenditure (aoid integer primary key,aocategory text,aomoney text,aotime text,aoaccount text,aoremarks text,aouserid integer)");
 		db.execSQL("create table if not exists income (aiid integer primary key,aicategory text,aimoney text,aitime text,aiaccount text,airemarks text,aiuserid integer)");
 
-		viewPager = (ViewPager) findViewById(R.id.viewPager);
+		viewPager = (ViewPager) findViewById(R.id.addaccount_vp);
 		// 查找布局文件用LayoutInflater.inflate
 		LayoutInflater inflater = getLayoutInflater();
 		View view1 = inflater.inflate(R.layout.view_addaccountout, null);
 		View view2 = inflater.inflate(R.layout.view_addaccountin, null);
-		appoutLayout = (TextView) findViewById(R.id.tv_addout);
-		appinLayout = (TextView) findViewById(R.id.tv_addin);
-		scrollbar = (ImageView) findViewById(R.id.scrollbar);
-		findViewById(R.id.tv_addout).setOnClickListener(onClickListener);
-		findViewById(R.id.tv_addin).setOnClickListener(onClickListener);
+		appoutLayout = (TextView) findViewById(R.id.addaccountout_tv);
+		appinLayout = (TextView) findViewById(R.id.addaccountin_tv);
+		scrollbar = (ImageView) findViewById(R.id.scrollbar_iv);
+		findViewById(R.id.addaccountout_tv).setOnClickListener(onClickListener);
+		findViewById(R.id.addaccountin_tv).setOnClickListener(onClickListener);
 
 		pageview = new ArrayList<View>();
 		// 添加想要切换的界面
@@ -306,7 +306,7 @@ public class AddActivity extends Activity {
 		ao_spinner.setAdapter(ao_adapter);
 
 		// 备注
-		aoet_remarks = (EditText) view1.findViewById(R.id.et_addoutcaltext);
+		aoet_remarks = (EditText) view1.findViewById(R.id.addoutcaltext_et);
 		// cal
 		aoet_money = (EditText) view1.findViewById(R.id.et_aoutmoney);
 
@@ -367,7 +367,7 @@ public class AddActivity extends Activity {
 		ai_datalist = new ArrayList<Map<String, Object>>();
 		ai_sim_adapter = new SimpleAdapter(this, ai_getdata(),
 				R.layout.grid_item_addaccount, new String[] { "image", "text" }, new int[] {
-						R.id.iv_additem, R.id.tv_additem });
+						R.id.additem_iv, R.id.additem_tv });
 		ai_gridView.setAdapter(ai_sim_adapter);
 		// Android中取消GridView默认的点击背景色
 		ai_gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
@@ -444,7 +444,7 @@ public class AddActivity extends Activity {
 		ai_spinner.setAdapter(ai_adapter);
 
 		// 备注
-		aiet_remarks = (EditText) view2.findViewById(R.id.et_addincaltext);
+		aiet_remarks = (EditText) view2.findViewById(R.id.addincaltext_et);
 		// cal
 		aiet_money = (EditText) view2.findViewById(R.id.et_ainmoney);
 
@@ -547,11 +547,11 @@ public class AddActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case R.id.tv_addout:
+			case R.id.addaccountout_tv:
 				// 点击时切换到第一页
 				viewPager.setCurrentItem(0);
 				break;
-			case R.id.tv_addin:
+			case R.id.addaccountin_tv:
 				// 点击时切换的第二页
 				viewPager.setCurrentItem(1);
 				break;
@@ -562,11 +562,11 @@ public class AddActivity extends Activity {
 	public void click(View v) {
 		Intent iGBadd = new Intent();
 		switch (v.getId()) {
-		case R.id.tv_addexit:
+		case R.id.addaccountexit_tv:
 			finish();
 			break;
 		// 支出
-		case R.id.et_addoutcaltext:// 跳转到第二个界面并返回数据
+		case R.id.addoutcaltext_et:// 跳转到第二个界面并返回数据
 			// 第一步:通过startActivityForResult跳转到第二个界面
 			Intent iouttext = new Intent(this, AddOutTextActivity.class);
 			startActivityForResult(iouttext, 0);
@@ -666,7 +666,7 @@ public class AddActivity extends Activity {
 			break;
 
 		// 收入
-		case R.id.et_addincaltext:// 跳转到第二个界面并返回数据
+		case R.id.addincaltext_et:// 跳转到第二个界面并返回数据
 			// 第一步:通过startActivityForResult跳转到第二个界面
 			Intent iintext = new Intent(this, AddInTextActivity.class);
 			startActivityForResult(iintext, 0);

@@ -17,15 +17,15 @@ public class AddOutTextActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_addaccountoutcaltext);
-		et = (EditText) findViewById(R.id.et_addoutcaltext);
+		et = (EditText) findViewById(R.id.addoutcaltext_et);
 	}
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.addoutcaltext_left:
+		case R.id.addoutcaltextleft_tv:
 			finish();
 			break;
-		case R.id.bt_addoutcaltext:// 把编辑框的内容返回上个界面
+		case R.id.addoutcaltext_btn:// 把编辑框的内容返回上个界面
 			String ao_str = et.getText().toString().trim();
 			if (TextUtils.isEmpty(ao_str)) {
 				Toast.makeText(this, "编辑框内容不能为空", Toast.LENGTH_SHORT).show();

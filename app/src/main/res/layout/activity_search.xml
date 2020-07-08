@@ -11,7 +11,7 @@
         android:background="@color/color_FF6B6A" >
 
         <TextView
-            android:id="@+id/search_left"
+            android:id="@+id/searchleft_tv"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_alignParentLeft="true"
@@ -23,11 +23,10 @@
             android:onClick="click" />
 
         <TextView
-            android:id="@+id/tv_sreach_yes"
+            android:id="@+id/sreachyes_tv"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
-            android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:clickable="true"
             android:gravity="center"
@@ -40,14 +39,14 @@
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:layout_centerInParent="true"
-            android:layout_toLeftOf="@id/tv_sreach_yes"
-            android:layout_toRightOf="@id/search_left"
+            android:layout_toLeftOf="@id/sreachyes_tv"
+            android:layout_toRightOf="@id/searchleft_tv"
             android:background="@drawable/bg_f0f0f0_corner_50" >
 
             <TextView
-                android:id="@+id/tv_search_delete"
-                android:layout_width="15dp"
-                android:layout_height="15dp"
+                android:id="@+id/searchdelete_tv"
+                android:layout_width="13dp"
+                android:layout_height="10dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="8dp"
@@ -57,11 +56,11 @@
                 android:onClick="click" />
 
             <EditText
-                android:id="@+id/et_search_text"
+                android:id="@+id/searchtext_et"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginRight="8dp"
-                android:layout_toLeftOf="@id/tv_search_delete"
+                android:layout_toLeftOf="@id/searchdelete_tv"
                 android:background="@null"
                 android:gravity="center"
                 android:hint="类型/金额/时间/账户/备注"
@@ -77,7 +76,7 @@
     </ListView>
 
     <LinearLayout
-        android:id="@+id/lin_search_empty"
+        android:id="@+id/searchempty_lin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"

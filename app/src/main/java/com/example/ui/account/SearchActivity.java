@@ -48,7 +48,7 @@ public class SearchActivity extends Activity {
 			userid = spuser.getInt("userid", 0);
 		}
 
-		et_search_text = (EditText) findViewById(R.id.et_search_text);
+		et_search_text = (EditText) findViewById(R.id.searchtext_et);
 
 		// lv
 		// 第一步:listview控件实例化
@@ -97,21 +97,21 @@ public class SearchActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.search_left:
+		case R.id.searchleft_tv:
 			finish();
 			break;
-		case R.id.tv_sreach_yes:
+		case R.id.sreachyes_tv:
 			String search_text = et_search_text.getText().toString().trim();
 			if (TextUtils.isEmpty(search_text)) {
 				list.clear();
 				// 设置空列表的时候，显示为一张图片
-				search_lv.setEmptyView(findViewById(R.id.lin_search_empty));
+				search_lv.setEmptyView(findViewById(R.id.searchempty_lin));
 			} else {
 				// 展示关联的数据
 				setAdapter(1, search_text);
 			}
 			break;
-		case R.id.tv_search_delete:
+		case R.id.searchdelete_tv:
 			et_search_text.setText("");
 			break;
 		default:
@@ -193,7 +193,7 @@ public class SearchActivity extends Activity {
 			});
 			adapter.notifyDataSetChanged();
 			// 设置空列表的时候，显示为一张图片
-			search_lv.setEmptyView(findViewById(R.id.lin_search_empty));
+			search_lv.setEmptyView(findViewById(R.id.searchempty_lin));
 		}
 	}
 }

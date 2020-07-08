@@ -10,7 +10,7 @@
         android:layout_height="50dp" >
 
         <TextView
-            android:id="@+id/addoutcaltext_left"
+            android:id="@+id/addoutcaltextleft_tv"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -33,13 +33,13 @@
         android:background="#a3a3a3" />
 
     <EditText
-        android:id="@+id/et_addoutcaltext"
+        android:id="@+id/addoutcaltext_et"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="10dp" />
 
     <Button
-        android:id="@+id/bt_addoutcaltext"
+        android:id="@+id/addoutcaltext_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

@@ -36,7 +36,7 @@ public class ClearActivity extends Activity {
 		// 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
 		DB = this.openOrCreateDatabase("data.db", MODE_PRIVATE, null);
 
-		btn_clear = (Button) findViewById(R.id.btn_clear);
+		btn_clear = (Button) findViewById(R.id.clear_btn);
 		btn_clear.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View source) {
 				showNormalDialog();
@@ -46,7 +46,7 @@ public class ClearActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.clear_left:
+		case R.id.clearleft_tv:
 			finish();
 			break;
 

@@ -44,9 +44,9 @@ public class ModifyPwActivity extends Activity {
 		// 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
 		db = this.openOrCreateDatabase("data.db", MODE_PRIVATE, null);
 
-		et_modifypw_password = (EditText) findViewById(R.id.et_modifypw_password);
-		et_modifypw_passwordtwo = (EditText) findViewById(R.id.et_modifypw_passwordtwo);
-		btn_modifypw_yes = (Button) findViewById(R.id.btn_modifypw_yes);
+		et_modifypw_password = (EditText) findViewById(R.id.modifypwpassword_et);
+		et_modifypw_passwordtwo = (EditText) findViewById(R.id.modifypwpasswordtwo_et);
+		btn_modifypw_yes = (Button) findViewById(R.id.modifypwyes_btn);
 		btn_modifypw_yes.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View source) {
 
@@ -61,7 +61,7 @@ public class ModifyPwActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.modifypw_left:
+		case R.id.modifypwleft_tv:
 			finish();
 			break;
 

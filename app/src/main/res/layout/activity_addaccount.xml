@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/re_add"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/color_FF6B6A"
     android:clickable="true" >
 
     <LinearLayout
-        android:id="@+id/lin_lintop"
+        android:id="@+id/addaccounttop_lin"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
@@ -20,7 +19,7 @@
             android:layout_weight="1" >
 
             <TextView
-                android:id="@+id/tv_addexit"
+                android:id="@+id/addaccountexit_tv"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentLeft="true"
@@ -31,7 +30,7 @@
                 android:onClick="click" />
 
             <TextView
-                android:id="@+id/tv_addout"
+                android:id="@+id/addaccountout_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
@@ -48,7 +47,7 @@
             android:layout_weight="1" >
 
             <TextView
-                android:id="@+id/tv_addin"
+                android:id="@+id/addaccountin_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
@@ -61,19 +60,19 @@
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/scrollbar"
+        android:id="@+id/scrollbar_iv"
         android:layout_width="match_parent"
         android:layout_height="8dp"
-        android:layout_below="@id/lin_lintop"
+        android:layout_below="@id/addaccounttop_lin"
         android:layout_centerInParent="true"
         android:scaleType="matrix"
         android:src="@drawable/bg_underline" />
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewPager"
+        android:id="@+id/addaccount_vp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/scrollbar" >
+        android:layout_below="@id/scrollbar_iv" >
     </androidx.viewpager.widget.ViewPager>
 
 </RelativeLayout>

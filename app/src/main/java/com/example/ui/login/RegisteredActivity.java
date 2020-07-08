@@ -30,12 +30,12 @@ public class RegisteredActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_registered);
-		et_re_username = (EditText) findViewById(R.id.et_registered_username);
-		et_re_password = (EditText) findViewById(R.id.et_registered_password);
-		et_re_passwordtwo = (EditText) findViewById(R.id.et_registered_passwordtwo);
-		et_re_problem = (EditText) findViewById(R.id.et_registered_problem);
-		et_re_answer = (EditText) findViewById(R.id.et_registered_answer);
-		btn_registered = (Button) this.findViewById(R.id.btn_re_registered);
+		et_re_username = (EditText) findViewById(R.id.registeredusername_et);
+		et_re_password = (EditText) findViewById(R.id.registeredpassword_et);
+		et_re_passwordtwo = (EditText) findViewById(R.id.registeredpasswordtwo_et);
+		et_re_problem = (EditText) findViewById(R.id.registeredproblem_et);
+		et_re_answer = (EditText) findViewById(R.id.registeredanswer_et);
+		btn_registered = (Button) this.findViewById(R.id.registered_btn);
 
 		// 数据库
 		// 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
@@ -111,7 +111,7 @@ public class RegisteredActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.registered_left:
+		case R.id.registeredleft_tv:
 			finish();
 			break;
 

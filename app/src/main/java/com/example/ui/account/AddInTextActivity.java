@@ -17,15 +17,15 @@ public class AddInTextActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_addaccountincaltext);
-		et = (EditText) findViewById(R.id.et_addincaltext);
+		et = (EditText) findViewById(R.id.addincaltext_et);
 	}
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.addincaltext_left:
+		case R.id.addincaltextleft_tv:
 			finish();
 			break;
-		case R.id.bt_addincaltext:// 把编辑框的内容返回上个界面
+		case R.id.addincaltext_btn:// 把编辑框的内容返回上个界面
 			String ai_str = et.getText().toString().trim();
 			if (TextUtils.isEmpty(ai_str)) {
 				Toast.makeText(this, "编辑框内容不能为空", Toast.LENGTH_SHORT).show();

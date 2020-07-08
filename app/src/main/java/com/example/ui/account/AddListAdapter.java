@@ -57,13 +57,13 @@ public class AddListAdapter extends BaseAdapter {
 					R.layout.list_item_data, null);
 
 		}
-		TextView id = (TextView) convertView.findViewById(R.id.tv_dataitem_id);
+		TextView id = (TextView) convertView.findViewById(R.id.dataitemid_tv);
 		TextView daytime = (TextView) convertView
-				.findViewById(R.id.tv_dataitem_daytime);
+				.findViewById(R.id.dataitemdaytime_tv);
 		TextView category = (TextView) convertView
-				.findViewById(R.id.tv_dataite_category);
+				.findViewById(R.id.tv_dataitemcategory);
 		TextView money = (TextView) convertView
-				.findViewById(R.id.tv_dataitem_money);
+				.findViewById(R.id.dataitemmoney_tv);
 		// LinearLayout ic_delete = (LinearLayout) convertView
 		// .findViewById(R.id.lin_dataitem_delete);
 		AddBean aidata = list.get(position);
