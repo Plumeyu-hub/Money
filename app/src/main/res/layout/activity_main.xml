@@ -14,7 +14,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="0.5dp"
-            android:background="#FF6B6A" />
+            android:background="@color/color_FF6B6A" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,7 +43,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:text="明细"
-                    android:textColor="#707070"
+                    android:textColor="@color/color_707070"
                     android:textSize="9sp" />
             </LinearLayout>
 
@@ -67,7 +67,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:text="记账"
-                    android:textColor="#707070"
+                    android:textColor="@color/color_707070"
                     android:textSize="12sp" />
             </LinearLayout>
 
@@ -93,7 +93,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:text="图表"
-                    android:textColor="#707070"
+                    android:textColor="@color/color_707070"
                     android:textSize="9sp" />
             </LinearLayout>
         </LinearLayout>

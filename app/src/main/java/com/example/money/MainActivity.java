@@ -4,7 +4,6 @@ import android.app.ActivityGroup;
 import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -109,10 +108,12 @@ public class MainActivity extends ActivityGroup {
 			TextView tv = (TextView) findViewById(list_tv.get(i));
 			if (i == n) {
 				tv_img.setBackgroundResource(imgs[i * 2 + 1]);
-				tv.setTextColor(Color.parseColor("#FF6B6A"));
+				//tv.setTextColor(Color.parseColor("#FF6B6A"));
+				tv.setTextColor(getResources().getColor(R.color.color_FF6B6A));
 			} else {
 				tv_img.setBackgroundResource(imgs[i * 2]);
-				tv.setTextColor(Color.parseColor("#707070"));
+				//tv.setTextColor(Color.parseColor("#707070"));
+				tv.setTextColor(getResources().getColor(R.color.color_707070));
 			}
 		}
 

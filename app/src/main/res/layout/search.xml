@@ -8,7 +8,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/logo" >
+        android:background="@color/color_FF6B6A" >
 
         <TextView
             android:id="@+id/search_left"
@@ -42,7 +42,7 @@
             android:layout_centerInParent="true"
             android:layout_toLeftOf="@id/tv_sreach_yes"
             android:layout_toRightOf="@id/search_left"
-            android:background="@drawable/sbackground" >
+            android:background="@drawable/bg_f0f0f0_corner_50" >
 
             <TextView
                 android:id="@+id/tv_search_delete"
@@ -93,7 +93,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="无数据"
-            android:textColor="@color/logo"
+            android:textColor="@color/color_FF6B6A"
             android:textSize="18sp" />
     </LinearLayout>
 

@@ -65,7 +65,7 @@
                         android:layout_marginLeft="3dp"
                         android:layout_toRightOf="@id/iv_addoutmo"
                         android:text="金额:"
-                        android:textColor="#333333"
+                        android:textColor="@color/color_333333"
                         android:textSize="16sp" />
 
                     <Button
@@ -92,7 +92,7 @@
                         android:gravity="center_vertical"
                         android:hint="请输入金额"
                         android:paddingLeft="5dp"
-                        android:textColor="#333333"
+                        android:textColor="@color/color_333333"
                         android:textSize="18sp" />
                 </RelativeLayout>
 
@@ -119,7 +119,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:text="选择账户:"
-                        android:textColor="#333333"
+                        android:textColor="@color/color_333333"
                         android:textSize="16sp" />
 
                     <Spinner
@@ -182,7 +182,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:text="备注:"
-                        android:textColor="#333333"
+                        android:textColor="@color/color_333333"
                         android:textSize="16sp" />
 
                     <EditText
@@ -197,7 +197,7 @@
                         android:hint="点击写备注..."
                         android:onClick="click"
                         android:paddingLeft="5dp"
-                        android:textColor="#333333"
+                        android:textColor="@color/color_333333"
                         android:textSize="18sp" />
                 </LinearLayout>
 
@@ -224,7 +224,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="3dp"
                         android:text="选择日期:"
-                        android:textColor="#333333"
+                        android:textColor="@color/color_333333"
                         android:textSize="16sp" />
 
                     <EditText
@@ -236,7 +236,7 @@
                         android:editable="false"
                         android:focusable="false"
                         android:text="2020-4-5"
-                        android:textColor="#333333" />
+                        android:textColor="@color/color_333333" />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
@@ -302,7 +302,7 @@
                             android:gravity="center"
                             android:onClick="clickoutnum"
                             android:text="1"
-                            android:textColor="#333333"
+                            android:textColor="@color/color_333333"
                             android:textSize="25sp" />
 
                         <View
@@ -320,7 +320,7 @@
                             android:gravity="center"
                             android:onClick="clickoutnum"
                             android:text="2"
-                            android:textColor="#333333"
+                            android:textColor="@color/color_333333"
                             android:textSize="25sp" />
 
                         <View
@@ -338,7 +338,7 @@
                             android:gravity="center"
                             android:onClick="clickoutnum"
                             android:text="3"
-                            android:textColor="#333333"
+                            android:textColor="@color/color_333333"
                             android:textSize="25sp" />
                     </LinearLayout>
 
@@ -363,7 +363,7 @@
                             android:gravity="center"
                             android:onClick="clickoutnum"
                             android:text="4"
-                            android:textColor="#333333"
+                            android:textColor="@color/color_333333"
                             android:textSize="25sp" />
 
                         <View
@@ -381,7 +381,7 @@
                             android:gravity="center"
                             android:onClick="clickoutnum"
                             android:text="5"
-                            android:textColor="#333333"
+                            android:textColor="@color/color_333333"
                             android:textSize="25sp" />
 
                         <View
@@ -399,7 +399,7 @@
                             android:gravity="center"
                             android:onClick="clickoutnum"
                             android:text="6"
-                            android:textColor="#333333"
+                            android:textColor="@color/color_333333"
                             android:textSize="25sp" />
                     </LinearLayout>
 
@@ -424,7 +424,7 @@
                             android:gravity="center"
                             android:onClick="clickoutnum"
                             android:text="7"
-                            android:textColor="#333333"
+                            android:textColor="@color/color_333333"
                             android:textSize="25sp" />
 
                         <View
@@ -442,7 +442,7 @@
                             android:gravity="center"
                             android:onClick="clickoutnum"
                             android:text="8"
-                            android:textColor="#333333"
+                            android:textColor="@color/color_333333"
                             android:textSize="25sp" />
 
                         <View
@@ -460,7 +460,7 @@
                             android:gravity="center"
                             android:onClick="clickoutnum"
                             android:text="9"
-                            android:textColor="#333333"
+                            android:textColor="@color/color_333333"
                             android:textSize="25sp" />
                     </LinearLayout>
                 </LinearLayout>
@@ -486,7 +486,7 @@
                         android:gravity="center"
                         android:onClick="clickoutnum"
                         android:text="·"
-                        android:textColor="#333333"
+                        android:textColor="@color/color_333333"
                         android:textSize="35sp" />
 
                     <View
@@ -504,7 +504,7 @@
                         android:gravity="center"
                         android:onClick="clickoutnum"
                         android:text="0"
-                        android:textColor="#333333"
+                        android:textColor="@color/color_333333"
                         android:textSize="25sp" />
 
                     <View
@@ -517,7 +517,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:background="#FF6B6A"
+                        android:background="@color/color_FF6B6A"
                         android:clickable="true"
                         android:gravity="center"
                         android:onClick="click"

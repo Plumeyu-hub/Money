@@ -11,14 +11,15 @@
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:visibility="gone" />
-    <TextView
+
+    <TextView
         android:id="@+id/tv_dataitem_daytime"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_weight="1"
         android:gravity="center"
         android:text="2020-03-03"
-        android:textColor="#333333"
+        android:textColor="@color/color_333333"
         android:textSize="22sp" />
 
     <TextView
@@ -28,7 +29,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="奖金"
-        android:textColor="#333333"
+        android:textColor="@color/color_333333"
         android:textSize="22sp" />
 
     <TextView
@@ -38,7 +39,7 @@
         android:layout_weight="1"
         android:gravity="center"
         android:text="+2100.000"
-        android:textColor="#333333"
+        android:textColor="@color/color_333333"
         android:textSize="22sp" />
 
 </LinearLayout>

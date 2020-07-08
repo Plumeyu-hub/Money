@@ -44,14 +44,14 @@
                 android:editable="false"
                 android:focusable="false"
                 android:text="请点击选择账单年月"
-                android:textColor="#666666"
+                android:textColor="@color/color_666666"
                 android:textSize="22sp" />
         </RelativeLayout>
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
-            android:background="@color/logo" />
+            android:background="@color/color_FF6B6A" />
 
         <ListView
             android:id="@+id/lv_details"
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="无数据"
-                android:textColor="@color/logo"
+                android:textColor="@color/color_FF6B6A"
                 android:textSize="18sp" />
         </LinearLayout>
     </LinearLayout>
@@ -84,7 +84,7 @@
         android:layout_width="320dp"
         android:layout_height="match_parent"
         android:layout_gravity="left"
-        android:background="#FF6B6A"
+        android:background="@color/color_FF6B6A"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -160,7 +160,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="消息"
-                    android:textColor="#333333"
+                    android:textColor="@color/color_333333"
                     android:textSize="15sp" />
             </LinearLayout>
 
@@ -189,7 +189,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="定时记账"
-                    android:textColor="#333333"
+                    android:textColor="@color/color_333333"
                     android:textSize="15sp" />
             </LinearLayout>
         </LinearLayout>
@@ -223,7 +223,7 @@
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:text="预算"
-                android:textColor="#333333"
+                android:textColor="@color/color_333333"
                 android:textSize="16sp" />
 
             <TextView
@@ -263,7 +263,7 @@
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:text="导出账目"
-                android:textColor="#333333"
+                android:textColor="@color/color_333333"
                 android:textSize="16sp" />
 
             <TextView
@@ -303,7 +303,7 @@
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:text="数据库数据清除"
-                android:textColor="#333333"
+                android:textColor="@color/color_333333"
                 android:textSize="16sp" />
 
             <TextView
@@ -343,7 +343,7 @@
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:text="设置"
-                android:textColor="#333333"
+                android:textColor="@color/color_333333"
                 android:textSize="16sp" />
 
             <TextView
@@ -383,7 +383,7 @@
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:text="帮助"
-                android:textColor="#333333"
+                android:textColor="@color/color_333333"
                 android:textSize="16sp" />
 
             <TextView
@@ -423,7 +423,7 @@
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:text="关于"
-                android:textColor="#333333"
+                android:textColor="@color/color_333333"
                 android:textSize="16sp" />
 
             <TextView
@@ -463,7 +463,7 @@
                 android:gravity="center"
                 android:paddingLeft="20dp"
                 android:text="退出应用"
-                android:textColor="#333333"
+                android:textColor="@color/color_333333"
                 android:textSize="16sp" />
 
             <TextView

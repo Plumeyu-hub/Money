@@ -35,7 +35,7 @@ public class AddOutGridviewAdapter extends BaseAdapter {
 	private int[] icon_outyes = { R.drawable.ic_restaurant_sel,
 			R.drawable.ic_cook_sel, R.drawable.ic_takeaway_sel, R.drawable.ic_fruit_sel,
 			R.drawable.ic_snacks_sel, R.drawable.ic_wine_sel, R.drawable.ic_home_sel,
-			R.drawable.ic_house_sel, R.drawable.traffic_ye, R.drawable.ic_car_sel,
+			R.drawable.ic_house_sel, R.drawable.ic_traffic_sel, R.drawable.ic_car_sel,
 			R.drawable.ic_shopping_sel, R.drawable.ic_ex_sel,
 			R.drawable.ic_communication_sel, R.drawable.ic_clothing_sel,
 			R.drawable.ic_daily_sel, R.drawable.ic_beauty_sel,
@@ -84,7 +84,7 @@ public class AddOutGridviewAdapter extends BaseAdapter {
 
 		if (clickTemp == position) { // 根据点击的Item当前状态设置背景
 			iv.setImageResource(icon_outyes[position]);
-			tv.setTextColor(context.getResources().getColor(R.color.addoutyes));
+			tv.setTextColor(context.getResources().getColor(R.color.color_FF6B6A));
 		}
 		return v;
 	}

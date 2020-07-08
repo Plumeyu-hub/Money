@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="预算"
-            android:textColor="#333333"
+            android:textColor="@color/color_333333"
             android:textSize="20dp" />
 
         <LinearLayout

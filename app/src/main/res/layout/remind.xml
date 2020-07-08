@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="定时记账"
-            android:textColor="#333333"
+            android:textColor="@color/color_333333"
             android:textSize="20dp" />
     </RelativeLayout>
 
@@ -43,7 +43,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="15dp"
             android:text="提醒我记账"
-            android:textColor="@color/blackone"
+            android:textColor="@color/color_333333"
             android:textSize="18sp" >
         </TextView>
 

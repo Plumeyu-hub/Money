@@ -391,7 +391,7 @@ public class AddActivity extends Activity {
 
 				}
 				// 设置text变颜色
-				inText.setTextColor(getResources().getColor(R.color.addinyes));
+				inText.setTextColor(getResources().getColor(R.color.color_60B8FF));
 
 				// 保存最新的上次ID
 				ai_last = position;
@@ -883,7 +883,7 @@ public class AddActivity extends Activity {
 		TextView lastinText = (TextView) lastinLayout.getChildAt(1);
 		ImageView lastinImage = (ImageView) lastinLayout.getChildAt(0);
 
-		lastinText.setTextColor(this.getResources().getColor(R.color.addno));
+		lastinText.setTextColor(this.getResources().getColor(R.color.color_707070));
 		// 设置背景改变
 		for (int k = 0; k < icon_inno.length; k++) {
 			lastinImage.setImageResource(icon_inno[ai_last]);

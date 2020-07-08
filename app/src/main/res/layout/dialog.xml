@@ -15,14 +15,14 @@
             android:layout_height="55dp"
             android:padding="10dp"
             android:text="提示"
-            android:textColor="#FF6B6A"
+            android:textColor="@color/color_FF6B6A"
             android:textSize="25sp" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#999999" />
+        android:background="@color/color_999999" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,14 +37,14 @@
             android:gravity="center"
             android:padding="5dp"
             android:text="确定退出此应用吗？"
-            android:textColor="#333333"
+            android:textColor="@color/color_333333"
             android:textSize="20sp" />
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.5dp"
-        android:background="#999999" />
+        android:background="@color/color_999999" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -62,13 +62,13 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="确定"
-                android:textColor="#333333"
+                android:textColor="@color/color_333333"
                 android:textSize="20sp" />
 
             <View
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:background="#999999" />
+                android:background="@color/color_999999" />
 
             <TextView
                 android:id="@+id/tv_no"
@@ -77,7 +77,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="取消"
-                android:textColor="#333333"
+                android:textColor="@color/color_333333"
                 android:textSize="20sp" />
         </LinearLayout>
     </RelativeLayout>

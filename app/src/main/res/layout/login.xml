@@ -14,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="登录"
-            android:textColor="#333333"
+            android:textColor="@color/color_333333"
             android:textSize="20dp" />
     </RelativeLayout>
 
@@ -110,7 +110,7 @@
         android:clickable="true"
         android:onClick="click"
         android:text="忘记密码？"
-        android:textColor="#999999"
+        android:textColor="@color/color_999999"
         android:textSize="15sp" />
 
     <LinearLayout

@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:text="设置预算"
-            android:textColor="#333333"
+            android:textColor="@color/color_333333"
             android:textSize="20dp" />
     </RelativeLayout>
 
@@ -53,7 +53,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="金额"
-                android:textColor="#666666"
+                android:textColor="@color/color_666666"
                 android:textSize="18sp" />
 
             <EditText
@@ -65,7 +65,7 @@
                 android:hint="请点击输入金额..."
                 android:inputType="number|numberDecimal"
                 android:maxLength="7"
-                android:textColor="#333333"
+                android:textColor="@color/color_333333"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="日期"
-                android:textColor="#666666"
+                android:textColor="@color/color_666666"
                 android:textSize="18sp" />
 
             <EditText
@@ -99,7 +99,7 @@
                 android:editable="false"
                 android:focusable="false"
                 android:text="2020-03"
-                android:textColor="#333333"
+                android:textColor="@color/color_333333"
                 android:textSize="18sp" />
         </LinearLayout>
 
@@ -122,7 +122,7 @@
                 android:layout_height="40dp"
                 android:gravity="center"
                 android:text="备注"
-                android:textColor="#666666"
+                android:textColor="@color/color_666666"
                 android:textSize="18sp" />
 
             <EditText
@@ -133,7 +133,7 @@
                 android:background="#fff"
                 android:hint="请点击输入备注..."
                 android:maxLength="6"
-                android:textColor="#333333"
+                android:textColor="@color/color_333333"
                 android:textSize="18sp" />
         </LinearLayout>
 

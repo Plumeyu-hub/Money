@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="logo">#FF6B6A</color>
-    <color name="addinyes">#60B8FF</color>
-    <color name="addoutyes">#FF6B6A</color>
-    <color name="addno">#707070</color>
-    <color name="blackone">#333333</color>
-    <color name="blacktwo">#666666</color>
-    <color name="blackthree">#999999</color>
-    <color name="white">#ffffff</color>
+    <color name="color_FF6B6A">#FF6B6A</color>
+    <color name="color_60B8FF">#60B8FF</color>
+    <color name="color_707070">#707070</color>
+    <color name="color_333333">#333333</color>
+    <color name="color_666666">#666666</color>
+    <color name="color_999999">#999999</color>
 
 </resources>

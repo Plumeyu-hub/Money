@@ -271,7 +271,7 @@ public class DetailsActivity extends Activity {
 					} else {
 						monthtime.setText("请点击选择账单年月");
 						monthtime.setTextColor(getResources().getColor(
-								R.color.blackthree));
+								R.color.color_999999));
 						list.clear();
 						list.add(adddata);
 						adapter.notifyDataSetChanged();
@@ -364,13 +364,13 @@ public class DetailsActivity extends Activity {
 			View view = LayoutInflater.from(this)
 					.inflate(R.layout.dialog, null);
 			// 获取圆角对话框布局View，背景设为圆角
-			view.setBackgroundResource(R.drawable.bg_eeeeee_rl_corner_20);
+			view.setBackgroundResource(R.drawable.bg_eeeeee_corner_20);
 			// 实例化弹窗
 			pop = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT,
 					ViewGroup.LayoutParams.WRAP_CONTENT);
 			// 创建弹出对话框，设置弹出对话框的背景为圆角
 			pop.setBackgroundDrawable(getResources().getDrawable(
-					R.drawable.bg_eeeeee_rl_corner_20));
+					R.drawable.bg_eeeeee_corner_20));
 			pop.setFocusable(true);// 获取焦点（把焦点集中在pop上面）
 			pop.setBackgroundDrawable(new BitmapDrawable());// 设置点击pop外面的窗口时是否弹窗
 			// 这两句话是防止软键盘遮挡弹窗
@@ -466,7 +466,7 @@ public class DetailsActivity extends Activity {
 			monthtime.setText(new StringBuilder().append(year).append("年")
 					.append((month + 1) < 10 ? "0" + (month + 1) : (month + 1))
 					.append("月"));
-			monthtime.setTextColor(getResources().getColor(R.color.blackone));
+			monthtime.setTextColor(getResources().getColor(R.color.color_333333));
 
 			// 条件
 			String years = String.valueOf(year);

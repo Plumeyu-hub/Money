@@ -213,7 +213,7 @@ public class AddBudgetActivity extends Activity {
 							.append((month + 1) < 10 ? "0" + (month + 1)
 									: (month + 1)));
 			et_addbudget_daytime.setTextColor(getResources().getColor(
-					R.color.blackone));
+					R.color.color_333333));
 		}
 
 	};
