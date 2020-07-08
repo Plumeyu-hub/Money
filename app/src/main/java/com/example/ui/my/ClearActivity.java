@@ -24,7 +24,7 @@ public class ClearActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.clear);
+		setContentView(R.layout.activity_clear);
 
 		// 操作用户名
 		spuser = getSharedPreferences("user", MODE_PRIVATE);

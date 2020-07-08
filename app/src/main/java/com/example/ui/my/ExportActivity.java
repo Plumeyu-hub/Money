@@ -34,7 +34,7 @@ public class ExportActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.export);
+		setContentView(R.layout.activity_export);
 
 		// 操作用户名
 		spuser = getSharedPreferences("user", MODE_PRIVATE);

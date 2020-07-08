@@ -39,7 +39,7 @@ public class SearchActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.search);
+		setContentView(R.layout.activity_search);
 
 		// 操作用户名
 		spuser = getSharedPreferences("user", MODE_PRIVATE);

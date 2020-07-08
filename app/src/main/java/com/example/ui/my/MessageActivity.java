@@ -10,7 +10,7 @@ public class MessageActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.message);
+		setContentView(R.layout.activity_message);
 	}
 	
 	public void click(View v) {

@@ -54,7 +54,7 @@ public class AddListAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		if (convertView == null) {
 			convertView = LayoutInflater.from(context).inflate(
-					R.layout.dataitem, null);
+					R.layout.list_item_data, null);
 
 		}
 		TextView id = (TextView) convertView.findViewById(R.id.tv_dataitem_id);

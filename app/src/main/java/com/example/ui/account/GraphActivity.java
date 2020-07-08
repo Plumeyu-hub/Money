@@ -58,7 +58,7 @@ public class GraphActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.graph);
+        setContentView(R.layout.activity_accountgraph);
 
         // 操作用户名
         spuser = getSharedPreferences("user", MODE_PRIVATE);

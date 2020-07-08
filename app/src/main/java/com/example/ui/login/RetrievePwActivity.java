@@ -28,7 +28,7 @@ public class RetrievePwActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.retrievepw);
+		setContentView(R.layout.activity_retrievepw);
 		et_retrievepw_username = (EditText) this
 				.findViewById(R.id.et_retrievepw_username);
 		et_retrievepw_problem = (EditText) this

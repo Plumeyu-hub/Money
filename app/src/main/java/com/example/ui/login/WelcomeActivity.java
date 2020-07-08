@@ -16,7 +16,7 @@ public class WelcomeActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.welcome);
+		setContentView(R.layout.activity_welcome);
 		handler.sendEmptyMessageDelayed(0, 3000);
 	}
 

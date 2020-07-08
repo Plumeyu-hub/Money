@@ -10,7 +10,7 @@ public class SetActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.set);
+		setContentView(R.layout.activity_set);
 	}
 
 	public void click(View v) {

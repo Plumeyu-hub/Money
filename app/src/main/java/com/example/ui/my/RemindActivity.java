@@ -31,7 +31,7 @@ public class RemindActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.remind);
+		setContentView(R.layout.activity_remind);
 		tv_remind_turn = (TextView) findViewById(R.id.tv_remind_turn);
 
 		//记住上次选择状态

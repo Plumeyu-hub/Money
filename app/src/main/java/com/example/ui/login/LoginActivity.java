@@ -47,7 +47,7 @@ public class LoginActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.login);
+		setContentView(R.layout.activity_login);
 		db = this.openOrCreateDatabase("data.db", MODE_PRIVATE, null);
 		db.execSQL("create table if not exists user (userid integer primary key,username text,password text,problem text,answer text)");
 

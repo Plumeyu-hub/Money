@@ -43,7 +43,7 @@ public class AddBudgetActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.addbudget);
+		setContentView(R.layout.activity_addbudget);
 
 		// 操作用户名
 		spuser = getSharedPreferences("user", MODE_PRIVATE);

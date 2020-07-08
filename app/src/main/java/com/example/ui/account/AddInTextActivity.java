@@ -16,7 +16,7 @@ public class AddInTextActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.addincal_text);
+		setContentView(R.layout.view_addaccountincaltext);
 		et = (EditText) findViewById(R.id.et_addincaltext);
 	}
 

@@ -29,7 +29,7 @@ public class RegisteredActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.registered);
+		setContentView(R.layout.activity_registered);
 		et_re_username = (EditText) findViewById(R.id.et_registered_username);
 		et_re_password = (EditText) findViewById(R.id.et_registered_password);
 		et_re_passwordtwo = (EditText) findViewById(R.id.et_registered_passwordtwo);

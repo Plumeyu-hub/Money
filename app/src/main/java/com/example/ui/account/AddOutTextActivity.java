@@ -16,7 +16,7 @@ public class AddOutTextActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.addoutcal_text);
+		setContentView(R.layout.view_addaccountoutcaltext);
 		et = (EditText) findViewById(R.id.et_addoutcaltext);
 	}
 

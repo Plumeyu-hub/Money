@@ -53,7 +53,7 @@ public class BudgetAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		if (convertView == null) {
 			convertView = LayoutInflater.from(context).inflate(
-					R.layout.budgetitem, null);
+					R.layout.list_item_budget, null);
 
 		}
 

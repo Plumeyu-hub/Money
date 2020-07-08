@@ -70,7 +70,7 @@ public class DataInformationActivity extends Activity {
 		// 软键盘会覆盖在屏幕上面，而不会把你的布局顶上去
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-		setContentView(R.layout.datainformation);
+		setContentView(R.layout.activity_datainformation);
 
 		// 操作用户名
 		spuser = getSharedPreferences("user", MODE_PRIVATE);

@@ -24,7 +24,7 @@ public class MineActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.mine);
+		setContentView(R.layout.activity_minemgs);
 
 		btn_modifypw = (Button) findViewById(R.id.btn_modifypw);
 		btn_exituser = (Button) findViewById(R.id.btn_exituser);

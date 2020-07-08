@@ -82,7 +82,7 @@ public class DetailsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.details);
+		setContentView(R.layout.activity_accountdetails);
 
 		// 用户名存储
 		spuser = getSharedPreferences("user", MODE_PRIVATE);
@@ -362,7 +362,7 @@ public class DetailsActivity extends Activity {
 	public void createPopWindow() {
 		if (pop == null) {
 			View view = LayoutInflater.from(this)
-					.inflate(R.layout.dialog, null);
+					.inflate(R.layout.dialog_exit, null);
 			// 获取圆角对话框布局View，背景设为圆角
 			view.setBackgroundResource(R.drawable.bg_eeeeee_corner_20);
 			// 实例化弹窗

@@ -18,7 +18,7 @@
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
     </style>
 
-    <!-- dialog -->
+    <!-- dialog_exit -->
     <style name="DialogTheme" parent="@android:style/Theme.Dialog">
 
         <!-- 边框 -->

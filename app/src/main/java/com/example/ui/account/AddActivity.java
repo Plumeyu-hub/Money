@@ -157,7 +157,7 @@ public class AddActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.add);
+		setContentView(R.layout.activity_addaccount);
 
 		// 操作用户名
 		spuser = getSharedPreferences("user", MODE_PRIVATE);
@@ -189,8 +189,8 @@ public class AddActivity extends Activity {
 		viewPager = (ViewPager) findViewById(R.id.viewPager);
 		// 查找布局文件用LayoutInflater.inflate
 		LayoutInflater inflater = getLayoutInflater();
-		View view1 = inflater.inflate(R.layout.addout, null);
-		View view2 = inflater.inflate(R.layout.addin, null);
+		View view1 = inflater.inflate(R.layout.view_addaccountout, null);
+		View view2 = inflater.inflate(R.layout.view_addaccountin, null);
 		appoutLayout = (TextView) findViewById(R.id.tv_addout);
 		appinLayout = (TextView) findViewById(R.id.tv_addin);
 		scrollbar = (ImageView) findViewById(R.id.scrollbar);
@@ -366,7 +366,7 @@ public class AddActivity extends Activity {
 		// 4.GridView配置事件监听器(OnItemClickListener)
 		ai_datalist = new ArrayList<Map<String, Object>>();
 		ai_sim_adapter = new SimpleAdapter(this, ai_getdata(),
-				R.layout.additem, new String[] { "image", "text" }, new int[] {
+				R.layout.grid_item_addaccount, new String[] { "image", "text" }, new int[] {
 						R.id.iv_additem, R.id.tv_additem });
 		ai_gridView.setAdapter(ai_sim_adapter);
 		// Android中取消GridView默认的点击背景色

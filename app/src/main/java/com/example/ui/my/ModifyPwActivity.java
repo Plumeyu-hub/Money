@@ -32,7 +32,7 @@ public class ModifyPwActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.modifypw);
+		setContentView(R.layout.activity_modifypw);
 
 		// 操作用户名
 		spuser = getSharedPreferences("user", MODE_PRIVATE);
