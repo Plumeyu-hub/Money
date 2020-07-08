@@ -89,17 +89,17 @@ public class DetailsActivity extends Activity {
 		editoruser = spuser.edit();
 		if (spuser != null) {// 判断文件是否存在
 			// 使用getString方法获得value，注意第2个参数是value的默认值
-			username = spuser.getString("ic_username", "");
+			username = spuser.getString("username", "");
 			userid = spuser.getInt("userid", 0);
-			// System.out.println(ic_username);
-			tv_username = (TextView) findViewById(R.id.tv_username);
+			// System.out.println(username);
+			tv_username = (TextView) findViewById(R.id.username_tv);
 			tv_username.setText(username);
 			// System.out.println(userid);
 		}
 
 		// lv
 		// 第一步:listview控件实例化
-		lv = (ListView) findViewById(R.id.lv_details);
+		lv = (ListView) findViewById(R.id.details_lv);
 		// 第二步:初始化数据
 		list = new ArrayList<AddBean>();
 		// 实例化适配器
@@ -126,9 +126,9 @@ public class DetailsActivity extends Activity {
 
 		// 侧边栏
 		/* 重点，获取点击弹出侧边栏的组件 */
-		iv_my = (ImageView) findViewById(R.id.iv_details_my);
+		iv_my = (ImageView) findViewById(R.id.detailslogo_img);
 		/* 重点，获取主界面的布局 */
-		drawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout_details);
+		drawerLayout = (DrawerLayout) findViewById(R.id.accountdetails_dl);
 		iv_my.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -141,7 +141,7 @@ public class DetailsActivity extends Activity {
 
 		// 时间
 		// 获取对象
-		monthtime = (EditText) findViewById(R.id.et_details_month);
+		monthtime = (EditText) findViewById(R.id.detailsmonth_edit);
 		// 点击"日期"按钮布局 设置日期
 		monthtime.setOnClickListener(new OnClickListener() {
 			@Override
@@ -308,7 +308,7 @@ public class DetailsActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.login_no:
+		case R.id.nologin_lin:
 			Intent i1 = new Intent(DetailsActivity.this, MineActivity.class);
 			startActivity(i1);
 			break;
@@ -335,7 +335,7 @@ public class DetailsActivity extends Activity {
 		case R.id.exit:
 			createPopWindow();
 			break;
-		case R.id.tv_details_search:
+		case R.id.detailssearch_tv:
 			Intent i7 = new Intent(DetailsActivity.this, SearchActivity.class);
 			startActivity(i7);
 			break;
@@ -553,7 +553,7 @@ public class DetailsActivity extends Activity {
 			});
 			adapter.notifyDataSetChanged();
 			// 设置空列表的时候，显示为一张图片
-			lv.setEmptyView(findViewById(R.id.lin_details_empty));
+			lv.setEmptyView(findViewById(R.id.detailsempty_lin));
 		}
 	};
 }

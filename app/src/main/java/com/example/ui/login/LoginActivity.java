@@ -53,9 +53,6 @@ public class LoginActivity extends Activity {
 
 		et_username = (EditText) this.findViewById(R.id.et_login_username);
 		et_password = (EditText) this.findViewById(R.id.et_login_password);
-		tv_login = (TextView) this.findViewById(R.id.tv_login);
-		tv_login_forgetpw = (TextView) this
-				.findViewById(R.id.tv_login_forgetpw);
 
 		// sharedPerference sp=this.getSharedPerference();
 		// boolean bool=sp.getBoolean("isLoad",false);
@@ -102,7 +99,6 @@ public class LoginActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-
 			case R.id.tv_login_registered:
 				Intent i1 = new Intent(this, RegisteredActivity.class);
 				startActivity(i1);
@@ -111,7 +107,7 @@ public class LoginActivity extends Activity {
 				Intent i2 = new Intent(this, RetrievePwActivity.class);
 				startActivity(i2);
 				break;
-			case R.id.tv_login:
+			case R.id.login_tv:
 				String username = et_username.getText().toString().trim();
 				String password = et_password.getText().toString().trim();
 				// 判断字符串为空
@@ -121,16 +117,16 @@ public class LoginActivity extends Activity {
 							Toast.LENGTH_LONG).show();
 				} else {
 					// 查找数据库是否存在相同的用户名
-					cs = db.query("user", new String[]{"userid", "ic_username",
-									"ic_password"}, "ic_username=?",
-							new String[]{username}, null, null, null);
+					cs = db.query("user", new String[] { "userid", "username",
+									"password" }, "username=?",
+							new String[] { username }, null, null, null);
 
 					if (cs != null) {
 						while (cs.moveToNext()) {
 							usernamesql = cs.getString(cs
-									.getColumnIndex("ic_username"));
+									.getColumnIndex("username"));
 							passwordsql = cs.getString(cs
-									.getColumnIndex("ic_password"));
+									.getColumnIndex("password"));
 							useridsql = cs.getInt(cs.getColumnIndex("userid"));
 						}
 
@@ -143,7 +139,7 @@ public class LoginActivity extends Activity {
 							editor_login.commit();
 
 							editor_user.clear();
-							editor_user.putString("ic_username", usernamesql);
+							editor_user.putString("username", usernamesql);
 							// System.out.println(usernamesql);
 							editor_user.putInt("userid", useridsql);
 							// System.out.println(useridsql);

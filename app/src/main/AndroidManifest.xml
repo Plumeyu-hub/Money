@@ -38,7 +38,6 @@
         <activity android:name="com.example.ui.my.AboutActivity" >
         </activity>
         <activity android:name="com.example.ui.login.LoginActivity" >
-
         </activity>
         <activity android:name="com.example.ui.login.RegisteredActivity" >
         </activity>

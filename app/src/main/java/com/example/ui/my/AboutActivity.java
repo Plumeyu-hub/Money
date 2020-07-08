@@ -15,7 +15,7 @@ public class AboutActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.about_left:
+		case R.id.aboutleft_tv:
 			finish();
 			break;
 
