@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.example.ui.account.AddActivity;
+import com.example.ui.account.AddAccountActivity;
 import com.example.ui.account.DetailsActivity;
 import com.example.ui.account.GraphActivity;
 
@@ -76,7 +76,7 @@ public class MainActivity extends ActivityGroup {
 			frame.invalidate();// 刷新
 			break;
 		case R.id.addaccount_lin:
-			Intent i11 = new Intent(MainActivity.this, AddActivity.class);
+			Intent i11 = new Intent(MainActivity.this, AddAccountActivity.class);
 			startActivity(i11);
 			break;
 

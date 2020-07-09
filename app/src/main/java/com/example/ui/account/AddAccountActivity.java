@@ -38,7 +38,7 @@ import android.widget.Toast;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.bean.AddBean;
+import com.example.bean.AccountBean;
 import com.example.money.R;
 
 import java.util.ArrayList;
@@ -47,7 +47,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AddActivity extends Activity {
+public class AddAccountActivity extends Activity {
 	private ViewPager viewPager;
 	private ArrayList<View> pageview;
 	private TextView appoutLayout;
@@ -63,7 +63,7 @@ public class AddActivity extends Activity {
 
 	// 支出
 	private GridView ao_gridView;
-	private AddOutGridviewAdapter addoutGridviewAdapter;
+	private AddAccountOutGridviewAdapter addoutGridviewAdapterAccount;
 	private String[] iconName_out = { "餐厅", "食材", "外卖", "水果", "零食", "烟酒茶饮料",
 			"住房", "水电煤", "交通", "汽车", "购物", "快递", "通讯", "鞋饰服", "日用品", "美容",
 			"还款", "投资", "工作", "数码", "学习", "运动", "娱乐", "医疗药品", "维修", "旅行", "社交",
@@ -157,7 +157,7 @@ public class AddActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_addaccount);
+		setContentView(R.layout.activity_add_account);
 
 		// 操作用户名
 		spuser = getSharedPreferences("user", MODE_PRIVATE);
@@ -189,8 +189,8 @@ public class AddActivity extends Activity {
 		viewPager = (ViewPager) findViewById(R.id.addaccount_vp);
 		// 查找布局文件用LayoutInflater.inflate
 		LayoutInflater inflater = getLayoutInflater();
-		View view1 = inflater.inflate(R.layout.view_addaccountout, null);
-		View view2 = inflater.inflate(R.layout.view_addaccountin, null);
+		View view1 = inflater.inflate(R.layout.view_add_account_out, null);
+		View view2 = inflater.inflate(R.layout.view_add_account_in, null);
 		appoutLayout = (TextView) findViewById(R.id.addaccountout_tv);
 		appinLayout = (TextView) findViewById(R.id.addaccountin_tv);
 		scrollbar = (ImageView) findViewById(R.id.scrollbar_iv);
@@ -258,17 +258,17 @@ public class AddActivity extends Activity {
 		// 支出
 		// GV控件
 		ao_gridView = (GridView) view1.findViewById(R.id.gv_addout);
-		addoutGridviewAdapter = new AddOutGridviewAdapter(this);
-		ao_gridView.setAdapter(addoutGridviewAdapter);// 通过设置适配器实现网格内布局
+		addoutGridviewAdapterAccount = new AddAccountOutGridviewAdapter(this);
+		ao_gridView.setAdapter(addoutGridviewAdapterAccount);// 通过设置适配器实现网格内布局
 		ao_gridView// 为每个单元格（item）添加单击事件
 				.setOnItemClickListener(new OnItemClickListener() {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
-						addoutGridviewAdapter.setSeclection(position);
+						addoutGridviewAdapterAccount.setSeclection(position);
 						// 保存当前类别的名字
 						ao_category = iconName_out[position];
-						addoutGridviewAdapter.notifyDataSetChanged();
+						addoutGridviewAdapterAccount.notifyDataSetChanged();
 					}
 				});
 
@@ -291,7 +291,7 @@ public class AddActivity extends Activity {
 				// 设置显示当前选择的项
 				arg0.setVisibility(View.VISIBLE);
 				ao_account = ao_items[arg2];
-				// Toast.makeText(AddActivity.this, items[arg2], 0).show();
+				// Toast.makeText(AddAccountActivity.this, items[arg2], 0).show();
 				// 注意： 这句话的作用是当下拉列表刚显示出来的时候，数组中第0个文本不会显示Toast
 				// 如果没有这句话，当下拉列表刚显示出来的时候，数组中第0个文本会显示Toast
 				// arg0.setVisibility(View.VISIBLE);
@@ -318,7 +318,7 @@ public class AddActivity extends Activity {
 		aoet_daytime.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				new DatePickerDialog(AddActivity.this,
+				new DatePickerDialog(AddAccountActivity.this,
 						AlertDialog.THEME_HOLO_LIGHT,
 						new DatePickerDialog.OnDateSetListener() {
 							@Override
@@ -366,7 +366,7 @@ public class AddActivity extends Activity {
 		// 4.GridView配置事件监听器(OnItemClickListener)
 		ai_datalist = new ArrayList<Map<String, Object>>();
 		ai_sim_adapter = new SimpleAdapter(this, ai_getdata(),
-				R.layout.grid_item_addaccount, new String[] { "image", "text" }, new int[] {
+				R.layout.grid_item_add_account, new String[] { "image", "text" }, new int[] {
 						R.id.additem_iv, R.id.additem_tv });
 		ai_gridView.setAdapter(ai_sim_adapter);
 		// Android中取消GridView默认的点击背景色
@@ -428,7 +428,7 @@ public class AddActivity extends Activity {
 				// 设置显示当前选择的项
 				arg0.setVisibility(View.VISIBLE);
 				ai_account = ai_items[arg2];
-				// Toast.makeText(AddActivity.this, items[arg2], 0).show();
+				// Toast.makeText(AddAccountActivity.this, items[arg2], 0).show();
 				// 注意： 这句话的作用是当下拉列表刚显示出来的时候，数组中第0个文本不会显示Toast
 				// 如果没有这句话，当下拉列表刚显示出来的时候，数组中第0个文本会显示Toast
 				// arg0.setVisibility(View.VISIBLE);
@@ -444,7 +444,7 @@ public class AddActivity extends Activity {
 		ai_spinner.setAdapter(ai_adapter);
 
 		// 备注
-		aiet_remarks = (EditText) view2.findViewById(R.id.addincaltext_et);
+		aiet_remarks = (EditText) view2.findViewById(R.id.submit_remark_text_et);
 		// cal
 		aiet_money = (EditText) view2.findViewById(R.id.et_ainmoney);
 
@@ -456,7 +456,7 @@ public class AddActivity extends Activity {
 		aiet_daytime.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				new DatePickerDialog(AddActivity.this,
+				new DatePickerDialog(AddAccountActivity.this,
 						AlertDialog.THEME_HOLO_LIGHT,
 						new DatePickerDialog.OnDateSetListener() {
 							@Override
@@ -568,7 +568,7 @@ public class AddActivity extends Activity {
 		// 支出
 		case R.id.addoutcaltext_et:// 跳转到第二个界面并返回数据
 			// 第一步:通过startActivityForResult跳转到第二个界面
-			Intent iouttext = new Intent(this, AddOutTextActivity.class);
+			Intent iouttext = new Intent(this, SubmitRemarkActivity.class);
 			startActivityForResult(iouttext, 0);
 			break;
 		case R.id.bt_aoutyes:
@@ -585,27 +585,27 @@ public class AddActivity extends Activity {
 				}
 			}
 			if (TextUtils.isEmpty(ao_money) && TextUtils.isEmpty(ao_category)) {
-				Toast.makeText(AddActivity.this, "请完善账单信息", Toast.LENGTH_LONG)
+				Toast.makeText(AddAccountActivity.this, "请完善账单信息", Toast.LENGTH_LONG)
 						.show();
 				return;
 			} else if (TextUtils.isEmpty(ao_money)) {
-				Toast.makeText(AddActivity.this, "请输入账单金额", Toast.LENGTH_LONG)
+				Toast.makeText(AddAccountActivity.this, "请输入账单金额", Toast.LENGTH_LONG)
 						.show();
 				return;
 			} else if (TextUtils.isEmpty(ao_category)) {
-				Toast.makeText(AddActivity.this, "请选择账单类别", Toast.LENGTH_LONG)
+				Toast.makeText(AddAccountActivity.this, "请选择账单类别", Toast.LENGTH_LONG)
 						.show();
 				return;
 			} else if (ao_dotnum > 1) {
-				Toast.makeText(AddActivity.this, "请输入正确的金额", Toast.LENGTH_LONG)
+				Toast.makeText(AddAccountActivity.this, "请输入正确的金额", Toast.LENGTH_LONG)
 						.show();
 				return;
 			} else if (ao_money.indexOf('.') == 0) {
-				Toast.makeText(AddActivity.this, "请输入正确的金额", Toast.LENGTH_LONG)
+				Toast.makeText(AddAccountActivity.this, "请输入正确的金额", Toast.LENGTH_LONG)
 						.show();
 				return;
 			} else if (ao_money.lastIndexOf('.') == (ao_money.length() - 1)) {
-				Toast.makeText(AddActivity.this, "请输入正确的金额", Toast.LENGTH_LONG)
+				Toast.makeText(AddAccountActivity.this, "请输入正确的金额", Toast.LENGTH_LONG)
 						.show();
 				return;
 			} else {
@@ -648,7 +648,7 @@ public class AddActivity extends Activity {
 			num = (int) db.insert("expenditure", null, cv);
 			if (num > 0) {
 				Toast.makeText(this, "数据保存成功" + num, Toast.LENGTH_SHORT).show();
-				AddBean addoutdata = new AddBean(ao_category, ao_symoney,
+				AccountBean addoutdata = new AccountBean(ao_category, ao_symoney,
 						ao_account, ao_remarks, ao_daytime, num, userid);
 				System.out.println(userid);
 				// 设置广播的名字（设置Action）
@@ -666,9 +666,9 @@ public class AddActivity extends Activity {
 			break;
 
 		// 收入
-		case R.id.addincaltext_et:// 跳转到第二个界面并返回数据
+		case R.id.submit_remark_text_et:// 跳转到第二个界面并返回数据
 			// 第一步:通过startActivityForResult跳转到第二个界面
-			Intent iintext = new Intent(this, AddInTextActivity.class);
+			Intent iintext = new Intent(this, SubmitRemarkActivity.class);
 			startActivityForResult(iintext, 0);
 			break;
 		case R.id.bt_ainyes:
@@ -700,27 +700,27 @@ public class AddActivity extends Activity {
 			}
 
 			if (TextUtils.isEmpty(ai_money) && TextUtils.isEmpty(ai_category)) {
-				Toast.makeText(AddActivity.this, "请完善账单信息", Toast.LENGTH_LONG)
+				Toast.makeText(AddAccountActivity.this, "请完善账单信息", Toast.LENGTH_LONG)
 						.show();
 				return;
 			} else if (TextUtils.isEmpty(ai_money)) {
-				Toast.makeText(AddActivity.this, "请输入账单金额", Toast.LENGTH_LONG)
+				Toast.makeText(AddAccountActivity.this, "请输入账单金额", Toast.LENGTH_LONG)
 						.show();
 				return;
 			} else if (TextUtils.isEmpty(ai_category)) {
-				Toast.makeText(AddActivity.this, "请选择账单类别", Toast.LENGTH_LONG)
+				Toast.makeText(AddAccountActivity.this, "请选择账单类别", Toast.LENGTH_LONG)
 						.show();
 				return;
 			} else if (ai_dotnum > 1) {
-				Toast.makeText(AddActivity.this, "请输入正确的金额", Toast.LENGTH_LONG)
+				Toast.makeText(AddAccountActivity.this, "请输入正确的金额", Toast.LENGTH_LONG)
 						.show();
 				return;
 			} else if (ai_money.indexOf('.') == 0) {
-				Toast.makeText(AddActivity.this, "请输入正确的金额", Toast.LENGTH_LONG)
+				Toast.makeText(AddAccountActivity.this, "请输入正确的金额", Toast.LENGTH_LONG)
 						.show();
 				return;
 			} else if (ai_money.lastIndexOf('.') == (ai_money.length() - 1)) {
-				Toast.makeText(AddActivity.this, "请输入正确的金额", Toast.LENGTH_LONG)
+				Toast.makeText(AddAccountActivity.this, "请输入正确的金额", Toast.LENGTH_LONG)
 						.show();
 				return;
 			} else {
@@ -764,7 +764,7 @@ public class AddActivity extends Activity {
 			if (num > 0) {
 				Toast.makeText(this, "数据保存成功" + num, Toast.LENGTH_SHORT).show();
 
-				AddBean addindata = new AddBean(ai_category, ai_symoney,
+				AccountBean addindata = new AccountBean(ai_category, ai_symoney,
 						ai_account, ai_remarks, ai_daytime, num, userid);
 				// 设置广播的名字（设置Action）
 				iGBadd.setAction("GBadd");
@@ -952,10 +952,9 @@ public class AddActivity extends Activity {
 		if (intent != null) {
 			if (requestCode == 0 && resultCode == 1) {
 				// 知道当前是从第二个界面返回过来
-				String ai_str = intent.getStringExtra("ai_str");
+				String ai_str = intent.getStringExtra("submit_remark");
 				aiet_remarks.setText(ai_str);
-				String ao_str = intent.getStringExtra("ao_str");
-				aoet_remarks.setText(ao_str);
+				aoet_remarks.setText(ai_str);
 			}
 		}
 	}

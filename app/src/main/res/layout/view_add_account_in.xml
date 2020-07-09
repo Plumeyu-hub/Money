@@ -186,7 +186,7 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/addincaltext_et"
+                        android:id="@+id/submit_remark_text_et"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#F2F3F5"

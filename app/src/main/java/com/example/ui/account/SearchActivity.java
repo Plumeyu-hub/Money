@@ -13,7 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
 import android.widget.ListView;
 
-import com.example.bean.AddBean;
+import com.example.bean.AccountBean;
 import com.example.money.R;
 
 import java.util.ArrayList;
@@ -28,8 +28,8 @@ public class SearchActivity extends Activity {
 	EditText et_search_text;
 
 	private ListView search_lv;
-	private List<AddBean> list;
-	private AddListAdapter adapter;
+	private List<AccountBean> list;
+	private AddAcountListAdapter adapter;
 
 	// 操作用户名
 	private SharedPreferences spuser;
@@ -54,9 +54,9 @@ public class SearchActivity extends Activity {
 		// 第一步:listview控件实例化
 		search_lv = (ListView) findViewById(R.id.search_lv);
 		// 第二步:初始化数据
-		list = new ArrayList<AddBean>();
+		list = new ArrayList<AccountBean>();
 		// 实例化适配器
-		adapter = new AddListAdapter(this, list);
+		adapter = new AddAcountListAdapter(this, list);
 		// listview设置适配器
 		search_lv.setAdapter(adapter);
 		search_lv.setOnItemClickListener(new OnItemClickListener() {
@@ -65,9 +65,9 @@ public class SearchActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 				// TODO Auto-generated method stub
-				AddBean showdata = list.get(position);
+				AccountBean showdata = list.get(position);
 				Intent i = new Intent(SearchActivity.this,
-						DataInformationActivity.class);
+						AccountInformationActivity.class);
 				i.putExtra("showdata", showdata);
 				i.putExtra("position", position);
 				startActivityForResult(i, 0);
@@ -85,7 +85,7 @@ public class SearchActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, intent);
 		if (intent != null) {
 			if (resultCode == 102) {
-				AddBean updata = (AddBean) intent
+				AccountBean updata = (AccountBean) intent
 						.getSerializableExtra("updata");
 				int position = intent.getIntExtra("position", 0);
 				list.set(position, updata);
@@ -122,7 +122,7 @@ public class SearchActivity extends Activity {
 	public void setAdapter(int n, String str) {
 		if (n == 1) {
 			list.clear();
-			AddBean data;
+			AccountBean data;
 			String uid = String.valueOf(userid);
 			cs = db.query(
 					"expenditure",
@@ -144,7 +144,7 @@ public class SearchActivity extends Activity {
 							.getColumnIndex("aoaccount"));
 					String aoremarks = cs.getString(cs
 							.getColumnIndex("aoremarks"));
-					data = new AddBean(aocategory, aomoney, aoaccount,
+					data = new AccountBean(aocategory, aomoney, aoaccount,
 							aoremarks, aotime, aoid, userid);
 					list.add(data);
 				}
@@ -169,16 +169,16 @@ public class SearchActivity extends Activity {
 								.getColumnIndex("aiaccount"));
 						String airemarks = cs.getString(cs
 								.getColumnIndex("airemarks"));
-						data = new AddBean(aicategory, aimoney, aiaccount,
+						data = new AccountBean(aicategory, aimoney, aiaccount,
 								airemarks, aitime, aiid, userid);
 						list.add(data);
 					}
 				}
 			}
-			Collections.sort(list, new Comparator<AddBean>() {
+			Collections.sort(list, new Comparator<AccountBean>() {
 
 				@Override
-				public int compare(AddBean lhs, AddBean rhs) {
+				public int compare(AccountBean lhs, AccountBean rhs) {
 					// TODO Auto-generated method stub
 					int a = Integer.parseInt(lhs.getDaytime());
 					int b = Integer.parseInt(rhs.getDaytime());

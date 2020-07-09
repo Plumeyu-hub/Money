@@ -12,7 +12,7 @@ import android.widget.Button;
 import com.example.money.R;
 import com.example.ui.login.LoginActivity;
 
-public class MineActivity extends Activity {
+public class MyActivity extends Activity {
 	Button btn_modifypw, btn_exituser;
 
 	// sp
@@ -24,7 +24,7 @@ public class MineActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_minemgs);
+		setContentView(R.layout.activity_my);
 
 		btn_modifypw = (Button) findViewById(R.id.modifypw_btn);
 		btn_exituser = (Button) findViewById(R.id.exituser_btn);
@@ -37,7 +37,7 @@ public class MineActivity extends Activity {
 
 		btn_modifypw.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View source) {
-				Intent i = new Intent(MineActivity.this, ModifyPwActivity.class);
+				Intent i = new Intent(MyActivity.this, ModifyPasswordActivity.class);
 				startActivity(i);
 			}
 		});
@@ -78,7 +78,7 @@ public class MineActivity extends Activity {
 				editor_user.clear();
 				editor_user.commit();
 
-				Intent i1 = new Intent(MineActivity.this, LoginActivity.class);
+				Intent i1 = new Intent(MyActivity.this, LoginActivity.class);
 				startActivity(i1);
 			}
 

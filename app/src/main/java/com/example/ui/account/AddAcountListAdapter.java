@@ -7,18 +7,18 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.bean.AddBean;
+import com.example.bean.AccountBean;
 import com.example.money.R;
 
 import java.util.List;
 
-public class AddListAdapter extends BaseAdapter {
+public class AddAcountListAdapter extends BaseAdapter {
 	private Context context;
-	private List<AddBean> list;
+	private List<AccountBean> list;
 
 	// SQLiteDatabase db;// 数据库对象
 
-	public AddListAdapter(Context context, List<AddBean> list) {
+	public AddAcountListAdapter(Context context, List<AccountBean> list) {
 		this.context = context;
 		this.list = list;
 	}
@@ -41,11 +41,11 @@ public class AddListAdapter extends BaseAdapter {
 		return position;
 	}
 
-	public List<AddBean> getList() {
+	public List<AccountBean> getList() {
 		return list;
 	}
 
-	public void setList(List<AddBean> list) {
+	public void setList(List<AccountBean> list) {
 		this.list = list;
 	}
 
@@ -54,7 +54,7 @@ public class AddListAdapter extends BaseAdapter {
 		// TODO Auto-generated method stub
 		if (convertView == null) {
 			convertView = LayoutInflater.from(context).inflate(
-					R.layout.list_item_data, null);
+					R.layout.list_item_account, null);
 
 		}
 		TextView id = (TextView) convertView.findViewById(R.id.dataitemid_tv);
@@ -66,7 +66,7 @@ public class AddListAdapter extends BaseAdapter {
 				.findViewById(R.id.dataitemmoney_tv);
 		// LinearLayout ic_delete = (LinearLayout) convertView
 		// .findViewById(R.id.lin_dataitem_delete);
-		AddBean aidata = list.get(position);
+		AccountBean aidata = list.get(position);
 		if (aidata != null) {
 			id.setText(Integer.toString(aidata.getId()));
 			daytime.setText(aidata.getDaytime());

@@ -10,7 +10,7 @@
         android:layout_height="50dp" >
 
         <TextView
-            android:id="@+id/addincaltextleft_tv"
+            android:id="@+id/submit_remark_left_tv"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
@@ -33,13 +33,13 @@
         android:background="#a3a3a3" />
 
     <EditText
-        android:id="@+id/addincaltext_et"
+        android:id="@+id/submit_remark_text_et"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="10dp" />
 
     <Button
-        android:id="@+id/addincaltext_btn"
+        android:id="@+id/submit_remark_yes_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

@@ -47,7 +47,7 @@ public class RemindActivity extends Activity {
 		calendar = Calendar.getInstance();// 初始化，以当前系统时间填充
 		manager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
 
-		// Intent i = new Intent(this, AddActivity.class);
+		// Intent i = new Intent(this, AddAccountActivity.class);
 		// pIntent = PendingIntent.getActivity(this, 0, i,
 		// PendingIntent.FLAG_UPDATE_CURRENT);
 
@@ -56,7 +56,7 @@ public class RemindActivity extends Activity {
 		// pIntent = PendingIntent.getBroadcast(RemindActivity.this, 0x102,
 		// intent, 0);
 		pIntent = PendingIntent.getBroadcast(RemindActivity.this, 0,
-				new Intent(this, MyReceiver.class), 0);
+				new Intent(this, RemindReceiver.class), 0);
 	}
 
 	public void click(View v) {

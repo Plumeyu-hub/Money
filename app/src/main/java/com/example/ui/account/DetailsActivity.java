@@ -31,7 +31,7 @@ import android.widget.Toast;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.example.bean.AddBean;
+import com.example.bean.AccountBean;
 import com.example.money.R;
 import com.example.ui.budget.BudgetActivity;
 import com.example.ui.my.AboutActivity;
@@ -39,7 +39,7 @@ import com.example.ui.my.ClearActivity;
 import com.example.ui.my.ExportActivity;
 import com.example.ui.my.HelpActivity;
 import com.example.ui.my.MessageActivity;
-import com.example.ui.my.MineActivity;
+import com.example.ui.my.MyActivity;
 import com.example.ui.my.RemindActivity;
 import com.example.ui.my.SetActivity;
 
@@ -55,8 +55,8 @@ public class DetailsActivity extends Activity {
 
 	// list
 	private ListView lv;
-	private List<AddBean> list;
-	private AddListAdapter adapter;
+	private List<AccountBean> list;
+	private AddAcountListAdapter adapter;
 
 	// 侧边栏
 	ImageView iv_my;
@@ -82,7 +82,7 @@ public class DetailsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_accountdetails);
+		setContentView(R.layout.activity_details);
 
 		// 用户名存储
 		spuser = getSharedPreferences("user", MODE_PRIVATE);
@@ -101,9 +101,9 @@ public class DetailsActivity extends Activity {
 		// 第一步:listview控件实例化
 		lv = (ListView) findViewById(R.id.details_lv);
 		// 第二步:初始化数据
-		list = new ArrayList<AddBean>();
+		list = new ArrayList<AccountBean>();
 		// 实例化适配器
-		adapter = new AddListAdapter(this, list);
+		adapter = new AddAcountListAdapter(this, list);
 		// listview设置适配器
 		lv.setAdapter(adapter);
 		lv.setOnItemClickListener(new OnItemClickListener() {
@@ -112,9 +112,9 @@ public class DetailsActivity extends Activity {
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
 				// TODO Auto-generated method stub
-				AddBean showdata = list.get(position);
+				AccountBean showdata = list.get(position);
 				Intent i = new Intent(DetailsActivity.this,
-						DataInformationActivity.class);
+						AccountInformationActivity.class);
 				i.putExtra("showdata", showdata);
 				i.putExtra("position", position);
 				startActivityForResult(i, 0);
@@ -260,7 +260,7 @@ public class DetailsActivity extends Activity {
 				// "接收到广播一" + intent.getStringExtra("hhh"),
 				// Toast.LENGTH_SHORT).show();
 				// 接收到广播，取出里面携带的数据
-				AddBean adddata = (AddBean) intent
+				AccountBean adddata = (AccountBean) intent
 						.getSerializableExtra("adddata");
 				if (adddata != null) {
 					// tv.setText(aidata.getMoney());
@@ -296,7 +296,7 @@ public class DetailsActivity extends Activity {
 		super.onActivityResult(requestCode, resultCode, intent);
 		if (intent != null) {
 			if (resultCode == 102) {
-				AddBean updata = (AddBean) intent
+				AccountBean updata = (AccountBean) intent
 						.getSerializableExtra("updata");
 				int position = intent.getIntExtra("position", 0);
 				list.set(position, updata);
@@ -309,7 +309,7 @@ public class DetailsActivity extends Activity {
 	public void click(View v) {
 		switch (v.getId()) {
 		case R.id.nologin_lin:
-			Intent i1 = new Intent(DetailsActivity.this, MineActivity.class);
+			Intent i1 = new Intent(DetailsActivity.this, MyActivity.class);
 			startActivity(i1);
 			break;
 		case R.id.mes_lin:
@@ -482,7 +482,7 @@ public class DetailsActivity extends Activity {
 
 			list.clear();
 			String uid = String.valueOf(userid);
-			AddBean addBean;
+			AccountBean accountBean;
 			cs = DB.query("expenditure",
 					new String[] { "aoid", "aocategory", "aomoney", "aotime",
 							"aoaccount", "aoremarks", "aouserid" },
@@ -503,9 +503,9 @@ public class DetailsActivity extends Activity {
 							.getColumnIndex("aoaccount"));
 					String aoremarks = cs.getString(cs
 							.getColumnIndex("aoremarks"));
-					addBean = new AddBean(aocategory, aomoney, aoaccount,
+					accountBean = new AccountBean(aocategory, aomoney, aoaccount,
 							aoremarks, aotime, aoid, aouserid);
-					list.add(addBean);
+					list.add(accountBean);
 					// adapter.notifyDataSetChanged();
 				}
 			}
@@ -517,7 +517,7 @@ public class DetailsActivity extends Activity {
 							condition + "%", uid + "" }, null, null,
 					"aitime ASC");
 			if (cs != null) {
-				// AddBean addBean;
+				// AccountBean accountBean;
 				while (cs.moveToNext()) {
 					int aiid = cs.getInt(cs.getColumnIndex("aiid"));// 得到列名id对于的值
 					int aiuserid = cs.getInt(cs.getColumnIndex("aiuserid"));
@@ -530,15 +530,15 @@ public class DetailsActivity extends Activity {
 							.getColumnIndex("aiaccount"));
 					String airemarks = cs.getString(cs
 							.getColumnIndex("airemarks"));
-					addBean = new AddBean(aicategory, aimoney, aiaccount,
+					accountBean = new AccountBean(aicategory, aimoney, aiaccount,
 							airemarks, aitime, aiid, aiuserid);
-					list.add(addBean);
+					list.add(accountBean);
 				}
 			}
-			Collections.sort(list, new Comparator<AddBean>() {
+			Collections.sort(list, new Comparator<AccountBean>() {
 
 				@Override
-				public int compare(AddBean lhs, AddBean rhs) {
+				public int compare(AccountBean lhs, AccountBean rhs) {
 					// TODO Auto-generated method stub
 					int a = Integer.parseInt(lhs.getDaytime());
 					int b = Integer.parseInt(rhs.getDaytime());

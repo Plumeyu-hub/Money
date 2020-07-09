@@ -10,12 +10,12 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 
 import com.example.money.R;
-import com.example.ui.account.AddActivity;
+import com.example.ui.account.AddAccountActivity;
 
 /**
  * Receive the broadcast and start the activity that will show the alarm
  */
-public class MyReceiver extends BroadcastReceiver {
+public class RemindReceiver extends BroadcastReceiver {
 	/**
 	 * called when the BroadcastReceiver is receiving an Intent broadcast.
 	 */
@@ -30,7 +30,7 @@ public class MyReceiver extends BroadcastReceiver {
 
 		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
 				R.drawable.ic_logo);
-		Intent intent1 = new Intent(context, AddActivity.class);
+		Intent intent1 = new Intent(context, AddAccountActivity.class);
 		pIntent = PendingIntent.getActivity(context, 0, intent1, 0);
 
 		notify = new Notification.Builder(context)
@@ -56,7 +56,7 @@ public class MyReceiver extends BroadcastReceiver {
 		// builder.setContentTitle("记账提醒");// 预览标题
 		// builder.setSmallIcon(R.drawable.ic_logo);
 		// builder.setContentText("Money提醒您：快来记账啦！");
-		// Intent intent1 = new Intent(context, AddActivity.class);
+		// Intent intent1 = new Intent(context, AddAccountActivity.class);
 		// pIntent = PendingIntent.getActivity(context, 0, intent1,
 		// PendingIntent.FLAG_UPDATE_CURRENT);
 

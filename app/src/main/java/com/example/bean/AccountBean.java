@@ -2,7 +2,7 @@ package com.example.bean;
 
 import java.io.Serializable;
 
-public class AddBean implements Serializable {
+public class AccountBean implements Serializable {
 	private String category;// 类别
 	private String money;// 金额
 	private String account;// 账户
@@ -11,8 +11,8 @@ public class AddBean implements Serializable {
 	private int id;
 	private int userid;
 
-	public AddBean(String category, String money, String account,
-				   String remarks, String daytime, int num, int useridnum) {
+	public AccountBean(String category, String money, String account,
+					   String remarks, String daytime, int num, int useridnum) {
 		super();
 		this.category = category;
 		this.money = money;

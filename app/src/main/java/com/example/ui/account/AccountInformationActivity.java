@@ -22,12 +22,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.bean.AddBean;
+import com.example.bean.AccountBean;
 import com.example.money.R;
 
 import java.util.Calendar;
 
-public class DataInformationActivity extends Activity {
+public class AccountInformationActivity extends Activity {
 	TextView tv_id, tv_category, tv_symoney;
 	EditText et_money, et_remarks, et_daytime;
 	Spinner sp_account;
@@ -70,7 +70,7 @@ public class DataInformationActivity extends Activity {
 		// 软键盘会覆盖在屏幕上面，而不会把你的布局顶上去
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-		setContentView(R.layout.activity_datainformation);
+		setContentView(R.layout.activity_account_information);
 
 		// 操作用户名
 		spuser = getSharedPreferences("user", MODE_PRIVATE);
@@ -104,15 +104,15 @@ public class DataInformationActivity extends Activity {
 				up_daytime = et_daytime.getText().toString();
 				up_remarks = et_remarks.getText().toString();
 				if (TextUtils.isEmpty(updmoney)) {
-					Toast.makeText(DataInformationActivity.this, "请输入金额",
+					Toast.makeText(AccountInformationActivity.this, "请输入金额",
 							Toast.LENGTH_LONG).show();
 					return;
 				} else if (updmoney.indexOf('.') == 0) {
-					Toast.makeText(DataInformationActivity.this, "请输入正确的金额",
+					Toast.makeText(AccountInformationActivity.this, "请输入正确的金额",
 							Toast.LENGTH_LONG).show();
 					return;
 				} else if (updmoney.lastIndexOf('.') == (updmoney.length() - 1)) {
-					Toast.makeText(DataInformationActivity.this, "请输入正确的金额",
+					Toast.makeText(AccountInformationActivity.this, "请输入正确的金额",
 							Toast.LENGTH_LONG).show();
 					return;
 				} else {
@@ -159,9 +159,9 @@ public class DataInformationActivity extends Activity {
 					num = db.update("expenditure", cv, "aoid=? and aouserid=?",
 							new String[] { up_id + "", uid + "" });
 					if (num > 0) {
-						Toast.makeText(DataInformationActivity.this,
+						Toast.makeText(AccountInformationActivity.this,
 								"修改成功" + num, Toast.LENGTH_SHORT).show();
-						AddBean updata = new AddBean(up_category, up_money,
+						AccountBean updata = new AccountBean(up_category, up_money,
 								up_account, up_remarks, up_daytime, up_id,
 								userid);
 						Intent i = new Intent();
@@ -170,7 +170,7 @@ public class DataInformationActivity extends Activity {
 						setResult(102, i);
 						finish();
 					} else {
-						Toast.makeText(DataInformationActivity.this,
+						Toast.makeText(AccountInformationActivity.this,
 								"修改失败" + num, Toast.LENGTH_SHORT).show();
 					}
 				} else if ((tv_symoney.getText().toString()).equals("+")) {
@@ -186,9 +186,9 @@ public class DataInformationActivity extends Activity {
 					num = db.update("income", cv, "aiid=? and aiuserid=?",
 							new String[] { up_id + "", uid + "" });
 					if (num > 0) {
-						Toast.makeText(DataInformationActivity.this,
+						Toast.makeText(AccountInformationActivity.this,
 								"修改成功" + num, Toast.LENGTH_SHORT).show();
-						AddBean updata = new AddBean(up_category, up_money,
+						AccountBean updata = new AccountBean(up_category, up_money,
 								up_account, up_remarks, up_daytime, up_id,
 								userid);
 						Intent i = new Intent();
@@ -197,11 +197,11 @@ public class DataInformationActivity extends Activity {
 						setResult(102, i);
 						finish();
 					} else {
-						Toast.makeText(DataInformationActivity.this,
+						Toast.makeText(AccountInformationActivity.this,
 								"修改失败" + num, Toast.LENGTH_SHORT).show();
 					}
 				} else {
-					Toast.makeText(DataInformationActivity.this, "修改失败",
+					Toast.makeText(AccountInformationActivity.this, "修改失败",
 							Toast.LENGTH_SHORT).show();
 				}
 			}
@@ -232,7 +232,7 @@ public class DataInformationActivity extends Activity {
 		et_daytime.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				new DatePickerDialog(DataInformationActivity.this,
+				new DatePickerDialog(AccountInformationActivity.this,
 						AlertDialog.THEME_HOLO_LIGHT,
 						new DatePickerDialog.OnDateSetListener() {
 							@Override
@@ -274,7 +274,7 @@ public class DataInformationActivity extends Activity {
 	public void getData() {
 		Intent i = this.getIntent();
 		if (i != null) {
-			AddBean aidata = (AddBean) i.getSerializableExtra("showdata");
+			AccountBean aidata = (AccountBean) i.getSerializableExtra("showdata");
 			up_id = aidata.getId();
 			System.out.println(up_id);
 			tv_category.setText(aidata.getCategory());

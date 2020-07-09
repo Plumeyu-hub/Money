@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.example.money.R;
 
 //自定义适配器（通过继承BaseAdapter）
-public class AddOutGridviewAdapter extends BaseAdapter {
+public class AddAccountOutGridviewAdapter extends BaseAdapter {
 	Context context;// 声明适配器中引用的上下文
 	// 将需要引用的图片和文字分别封装成数组
 	private String[] iconName_out = { "餐厅", "食材", "外卖", "水果", "零食", "烟酒茶饮料",
@@ -50,7 +50,7 @@ public class AddOutGridviewAdapter extends BaseAdapter {
 	private LayoutInflater layoutInflater;
 
 	// 通过构造方法初始化上下文
-	public AddOutGridviewAdapter(Context context) {
+	public AddAccountOutGridviewAdapter(Context context) {
 		this.context = context;
 		layoutInflater = LayoutInflater.from(context);
 	}
@@ -74,7 +74,7 @@ public class AddOutGridviewAdapter extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 
 		// 通过布局填充器LayoutInflater填充网格单元格内的布局
-		View v = layoutInflater.inflate(R.layout.grid_item_addaccount, null);
+		View v = layoutInflater.inflate(R.layout.grid_item_add_account, null);
 		// 使用findViewById分别找到单元格内布局的图片以及文字
 		ImageView iv = (ImageView) v.findViewById(R.id.additem_iv);
 		TextView tv = (TextView) v.findViewById(R.id.additem_tv);

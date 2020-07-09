@@ -23,7 +23,7 @@
         </activity>
         <activity android:name="com.example.ui.account.DetailsActivity" >
         </activity>
-        <activity android:name="com.example.ui.account.AddActivity" >
+        <activity android:name="com.example.ui.account.AddAccountActivity" >
         </activity>
         <activity android:name="com.example.ui.account.GraphActivity" >
         </activity>
@@ -41,11 +41,9 @@
         </activity>
         <activity android:name="com.example.ui.login.RegisteredActivity" >
         </activity>
-        <activity android:name="com.example.ui.account.AddInTextActivity" >
+        <activity android:name="com.example.ui.account.SubmitRemarkActivity" >
         </activity>
-        <activity android:name="com.example.ui.account.DataInformationActivity" >
-        </activity>
-        <activity android:name="com.example.ui.account.AddOutTextActivity" >
+        <activity android:name="com.example.ui.account.AccountInformationActivity" >
         </activity>
         <activity android:name="com.example.ui.account.SearchActivity" >
         </activity>
@@ -53,18 +51,18 @@
         </activity>
         <activity android:name="com.example.ui.my.ClearActivity" >
         </activity>
-        <activity android:name="com.example.ui.my.ModifyPwActivity" >
+        <activity android:name="com.example.ui.my.ModifyPasswordActivity" >
         </activity>
-        <activity android:name="com.example.ui.my.MineActivity" >
+        <activity android:name="com.example.ui.my.MyActivity" >
         </activity>
-        <activity android:name="com.example.ui.login.RetrievePwActivity" >
+        <activity android:name="com.example.ui.login.RetrievePasswordActivity" >
         </activity>
         <activity android:name="com.example.ui.budget.BudgetActivity" >
         </activity>
         <activity android:name="com.example.ui.budget.AddBudgetActivity" >
         </activity>
 
-        <receiver android:name="com.example.ui.my.MyReceiver" >
+        <receiver android:name="com.example.ui.my.RemindReceiver" >
         </receiver>
     </application>
 
