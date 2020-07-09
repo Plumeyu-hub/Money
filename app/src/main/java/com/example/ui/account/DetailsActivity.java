@@ -110,7 +110,7 @@ public class DetailsActivity extends Activity {
 
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
-					int position, long arg3) {
+									int position, long arg3) {
 				// TODO Auto-generated method stub
 				AccountBean showdata = list.get(position);
 				Intent i = new Intent(DetailsActivity.this,
@@ -157,7 +157,7 @@ public class DetailsActivity extends Activity {
 
 			@Override
 			public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
-					final int arg2, long arg3) {
+										   final int arg2, long arg3) {
 				// 获取所点击项的_id
 				TextView tv_id = (TextView) arg1
 						.findViewById(R.id.dataitemid_tv);
@@ -177,7 +177,7 @@ public class DetailsActivity extends Activity {
 
 							@Override
 							public void onClick(DialogInterface dialog,
-									int which) {
+												int which) {
 								String uid = String.valueOf(userid);
 								// 删除指定数据
 								int num;
@@ -231,7 +231,7 @@ public class DetailsActivity extends Activity {
 
 							@Override
 							public void onClick(DialogInterface dialog,
-									int which) {
+												int which) {
 								dialog.dismiss();
 							}
 						});
@@ -291,7 +291,7 @@ public class DetailsActivity extends Activity {
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode,
-			Intent intent) {
+									Intent intent) {
 		// TODO Auto-generated method stub
 		super.onActivityResult(requestCode, resultCode, intent);
 		if (intent != null) {
@@ -308,51 +308,51 @@ public class DetailsActivity extends Activity {
 
 	public void click(View v) {
 		switch (v.getId()) {
-		case R.id.nologin_lin:
-			Intent i1 = new Intent(DetailsActivity.this, MyActivity.class);
-			startActivity(i1);
-			break;
-		case R.id.mes_lin:
-			Intent i2 = new Intent(DetailsActivity.this, MessageActivity.class);
-			startActivity(i2);
-			break;
-		case R.id.remind_lin:
-			Intent i3 = new Intent(DetailsActivity.this, RemindActivity.class);
-			startActivity(i3);
-			break;
-		case R.id.set_lin:
-			Intent i4 = new Intent(DetailsActivity.this, SetActivity.class);
-			startActivity(i4);
-			break;
-		case R.id.help_lin:
-			Intent i5 = new Intent(DetailsActivity.this, HelpActivity.class);
-			startActivity(i5);
-			break;
-		case R.id.about_lin:
-			Intent i6 = new Intent(DetailsActivity.this, AboutActivity.class);
-			startActivity(i6);
-			break;
-		case R.id.exit_lin:
-			createPopWindow();
-			break;
-		case R.id.detailssearch_tv:
-			Intent i7 = new Intent(DetailsActivity.this, SearchActivity.class);
-			startActivity(i7);
-			break;
-		case R.id.export_lin:
-			Intent i8 = new Intent(DetailsActivity.this, ExportActivity.class);
-			startActivity(i8);
-			break;
-		case R.id.clear_lin:
-			Intent i10 = new Intent(DetailsActivity.this, ClearActivity.class);
-			startActivity(i10);
-			break;
-		case R.id.budget_lin:
-			Intent i11 = new Intent(DetailsActivity.this, BudgetActivity.class);
-			startActivity(i11);
-			break;
-		default:
-			break;
+			case R.id.nologin_lin:
+				Intent i1 = new Intent(DetailsActivity.this, MyActivity.class);
+				startActivity(i1);
+				break;
+			case R.id.mes_lin:
+				Intent i2 = new Intent(DetailsActivity.this, MessageActivity.class);
+				startActivity(i2);
+				break;
+			case R.id.remind_lin:
+				Intent i3 = new Intent(DetailsActivity.this, RemindActivity.class);
+				startActivity(i3);
+				break;
+			case R.id.set_lin:
+				Intent i4 = new Intent(DetailsActivity.this, SetActivity.class);
+				startActivity(i4);
+				break;
+			case R.id.help_lin:
+				Intent i5 = new Intent(DetailsActivity.this, HelpActivity.class);
+				startActivity(i5);
+				break;
+			case R.id.about_lin:
+				Intent i6 = new Intent(DetailsActivity.this, AboutActivity.class);
+				startActivity(i6);
+				break;
+			case R.id.exit_lin:
+				createPopWindow();
+				break;
+			case R.id.detailssearch_tv:
+				Intent i7 = new Intent(DetailsActivity.this, SearchActivity.class);
+				startActivity(i7);
+				break;
+			case R.id.export_lin:
+				Intent i8 = new Intent(DetailsActivity.this, ExportActivity.class);
+				startActivity(i8);
+				break;
+			case R.id.clear_lin:
+				Intent i10 = new Intent(DetailsActivity.this, ClearActivity.class);
+				startActivity(i10);
+				break;
+			case R.id.budget_lin:
+				Intent i11 = new Intent(DetailsActivity.this, BudgetActivity.class);
+				startActivity(i11);
+				break;
+			default:
+				break;
 		}
 	}
 
@@ -400,7 +400,7 @@ public class DetailsActivity extends Activity {
 		pop.showAtLocation(
 				LayoutInflater.from(this).inflate(R.layout.activity_main, null),
 				Gravity.CENTER, 0, 0);// 在父控件LayoutInflater.from(this).inflate(R.layout.activity_main,
-										// null)的中间显示出来
+		// null)的中间显示出来
 	}
 
 	// 获取当前日期
@@ -449,7 +449,7 @@ public class DetailsActivity extends Activity {
 		 */
 		@Override
 		public void onDateSet(DatePicker view, int myyear, int monthOfYear,
-				int dayOfMonth) {
+							  int dayOfMonth) {
 
 			// 修改year、month、day的变量值，以便以后单击按钮时，DatePickerDialog上显示上一次修改后的值
 			year = myyear;

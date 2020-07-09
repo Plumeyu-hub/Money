@@ -5,7 +5,7 @@
     android:background="#fff" >
 
     <LinearLayout
-        android:id="@+id/addincal_lin"
+        android:id="@+id/add_in_bottom_lin"
         android:layout_width="match_parent"
         android:layout_height="246.5dp"
         android:layout_alignParentBottom="true"
@@ -23,14 +23,14 @@
             android:background="#F2F3F5" >
 
             <View
-                android:id="@+id/addinv1"
+                android:id="@+id/add_in_view1"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:background="#D8D9D9" />
 
             <View
-                android:id="@+id/addinv2"
+                android:id="@+id/add_in_view2"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -39,8 +39,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toLeftOf="@id/addinv2"
-                android:layout_toRightOf="@id/addinv1"
+                android:layout_toLeftOf="@id/add_in_view2"
+                android:layout_toRightOf="@id/add_in_view1"
                 android:orientation="horizontal" >
 
                 <RelativeLayout
@@ -49,27 +49,27 @@
                     android:layout_weight="1" >
 
                     <ImageView
-                        android:id="@+id/iv_addinmo"
+                        android:id="@+id/add_in_money_iv"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_alignParentLeft="true"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="5dp"
-                        android:background="@drawable/ic_mo" />
+                        android:background="@drawable/ic_money" />
 
                     <TextView
-                        android:id="@+id/tv_addinmotext"
+                        android:id="@+id/add_in_money_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="3dp"
-                        android:layout_toRightOf="@id/iv_addinmo"
+                        android:layout_toRightOf="@id/add_in_money_iv"
                         android:text="金额:"
                         android:textColor="@color/color_333333"
                         android:textSize="16sp" />
 
                     <Button
-                        android:id="@+id/bt_ains"
+                        android:id="@+id/add_in_money_btn"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_alignParentRight="true"
@@ -81,12 +81,12 @@
                         android:onClick="clickinnum" />
 
                     <EditText
-                        android:id="@+id/et_ainmoney"
+                        android:id="@+id/add_in_money_edit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:layout_toLeftOf="@id/bt_ains"
-                        android:layout_toRightOf="@id/tv_addinmotext"
+                        android:layout_toLeftOf="@id/add_in_money_btn"
+                        android:layout_toRightOf="@id/add_in_money_tv"
                         android:background="#F2F3F5"
                         android:editable="false"
                         android:gravity="center_vertical"
@@ -123,7 +123,7 @@
                         android:textSize="16sp" />
 
                     <Spinner
-                        android:id="@+id/sp_addinaccount"
+                        android:id="@+id/add_in_account_sp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
@@ -144,14 +144,14 @@
             android:background="#F2F3F5" >
 
             <View
-                android:id="@+id/addinv3"
+                android:id="@+id/add_in_view3"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:background="#D8D9D9" />
 
             <View
-                android:id="@+id/addinv4"
+                android:id="@+id/add_in_view4"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -160,8 +160,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toLeftOf="@id/addinv4"
-                android:layout_toRightOf="@id/addinv3"
+                android:layout_toLeftOf="@id/add_in_view4"
+                android:layout_toRightOf="@id/add_in_view3"
                 android:orientation="horizontal" >
 
                 <LinearLayout
@@ -186,7 +186,7 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/submit_remark_text_et"
+                        android:id="@+id/add_in_remark_edit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#F2F3F5"
@@ -228,7 +228,7 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/et_addinshowdate"
+                        android:id="@+id/add_in_daytime_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -252,21 +252,21 @@
             android:background="#F2F3F5" >
 
             <View
-                android:id="@+id/addinv5"
+                android:id="@+id/add_in_view5"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:background="#D8D9D9" />
 
             <View
-                android:id="@+id/addinv6"
+                android:id="@+id/add_in_view6"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:background="#D8D9D9" />
 
             <View
-                android:id="@+id/addinv7"
+                android:id="@+id/add_in_view7"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_alignParentBottom="true"
@@ -275,9 +275,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/addinv7"
-                android:layout_toLeftOf="@id/addinv6"
-                android:layout_toRightOf="@id/addinv5"
+                android:layout_above="@id/add_in_view7"
+                android:layout_toLeftOf="@id/add_in_view6"
+                android:layout_toRightOf="@id/add_in_view5"
                 android:orientation="horizontal" >
 
                 <LinearLayout
@@ -293,7 +293,7 @@
                         android:orientation="horizontal" >
 
                         <Button
-                            android:id="@+id/bt_ain1"
+                            android:id="@+id/add_in_one_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -311,7 +311,7 @@
                             android:background="#D8D9D9" />
 
                         <Button
-                            android:id="@+id/bt_ain2"
+                            android:id="@+id/add_in_two_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -329,7 +329,7 @@
                             android:background="#D8D9D9" />
 
                         <Button
-                            android:id="@+id/bt_ain3"
+                            android:id="@+id/add_in_three_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -354,7 +354,7 @@
                         android:orientation="horizontal" >
 
                         <Button
-                            android:id="@+id/bt_ain4"
+                            android:id="@+id/add_in_four_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -372,7 +372,7 @@
                             android:background="#D8D9D9" />
 
                         <Button
-                            android:id="@+id/bt_ain5"
+                            android:id="@+id/add_in_five_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -390,7 +390,7 @@
                             android:background="#D8D9D9" />
 
                         <Button
-                            android:id="@+id/bt_ain6"
+                            android:id="@+id/add_in_six_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -415,7 +415,7 @@
                         android:orientation="horizontal" >
 
                         <Button
-                            android:id="@+id/bt_ain7"
+                            android:id="@+id/add_in_seven_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -433,7 +433,7 @@
                             android:background="#D8D9D9" />
 
                         <Button
-                            android:id="@+id/bt_ain8"
+                            android:id="@+id/add_in_eight_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -451,7 +451,7 @@
                             android:background="#D8D9D9" />
 
                         <Button
-                            android:id="@+id/bt_ain9"
+                            android:id="@+id/add_in_nine_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -477,7 +477,7 @@
                     android:orientation="vertical" >
 
                     <Button
-                        android:id="@+id/bt_aind"
+                        android:id="@+id/add_in_dot_btn"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -495,7 +495,7 @@
                         android:background="#D8D9D9" />
 
                     <Button
-                        android:id="@+id/bt_ain0"
+                        android:id="@+id/add_in_zero_btn"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -513,7 +513,7 @@
                         android:background="#D8D9D9" />
 
                     <Button
-                        android:id="@+id/bt_ainyes"
+                        android:id="@+id/add_in_yes_btn"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -530,10 +530,10 @@
     </LinearLayout>
 
     <GridView
-        android:id="@+id/gv_addin"
+        android:id="@+id/add_in_gv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/addincal_lin"
+        android:layout_above="@id/add_in_bottom_lin"
         android:horizontalSpacing="10dp"
         android:listSelector="@android:color/transparent"
         android:numColumns="4"

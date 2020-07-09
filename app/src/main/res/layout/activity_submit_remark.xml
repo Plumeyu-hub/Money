@@ -33,7 +33,7 @@
         android:background="#a3a3a3" />
 
     <EditText
-        android:id="@+id/submit_remark_text_et"
+        android:id="@+id/add_in_remark_edit"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="10dp" />

@@ -17,7 +17,7 @@ public class SubmitRemarkActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_submit_remark);
-		et = (EditText) findViewById(R.id.submit_remark_text_et);
+		et = (EditText) findViewById(R.id.add_in_remark_edit);
 	}
 
 	public void click(View v) {

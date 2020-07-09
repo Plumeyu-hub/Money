@@ -48,56 +48,54 @@ import java.util.List;
 import java.util.Map;
 
 public class AddAccountActivity extends Activity {
-	private ViewPager viewPager;
-	private ArrayList<View> pageview;
-	private TextView appoutLayout;
-	private TextView appinLayout;
+	private ViewPager mAddAccountVp;
+	private ArrayList<View> mPageView;
 	// 滚动条图片
-	private ImageView scrollbar;
+	private ImageView mScrollbarIv;
 	// 滚动条初始偏移量
-	private int offset = 0;
+	private int mOffset = 0;
 	// 滚动条宽度
-	private int bmpW;
+	private int mScrollWide;
 	// 一倍滚动量
-	private int one;
+	private int mRoll;
 
 	// 支出
-	private GridView ao_gridView;
-	private AddAccountOutGridviewAdapter addoutGridviewAdapterAccount;
-	private String[] iconName_out = { "餐厅", "食材", "外卖", "水果", "零食", "烟酒茶饮料",
+	private GridView mGridViewOut;
+	private AddAccountOutGridviewAdapter mAddAccountOutGridviewAdapter;
+	private String[] mIconNameOut = { "餐厅", "食材", "外卖", "水果", "零食", "烟酒茶饮料",
 			"住房", "水电煤", "交通", "汽车", "购物", "快递", "通讯", "鞋饰服", "日用品", "美容",
 			"还款", "投资", "工作", "数码", "学习", "运动", "娱乐", "医疗药品", "维修", "旅行", "社交",
 			"公益捐赠", "宠物", "孩子", "长辈", "其他" };
 
 	// sp账户选择框
-	private Spinner ao_spinner;
+	private Spinner mAddOutAccountSp;
 	// 备注
-	EditText aoet_remarks;
+	EditText mAddOutRemarkEdit;
 	// 时间
-	private EditText aoet_daytime;
+	private EditText mAddOutDaytimeEdit;
 	// 定义显示时间控件
-	private Calendar ao_calendar; // 通过Calendar获取系统时间
-	private int ao_mYear;
-	private int ao_mMonth;
-	int ao_mDay;
+	private Calendar mCalendar= Calendar.getInstance();; // 通过Calendar获取系统时间
+	private int mYear;
+	private int mMonth;
+	int mDay;
 
 	// cal金额
 	Button aobt_ainyes;// 确认按钮
-	EditText aoet_money;// 金额
+	EditText mAddOutMoneyEdit;// 金额
 	String aostr_money = "";
 
 	// 数据
 	String ao_category = "";// 类别
 	String ao_money;// 金额
-	String ao_account = "支付宝";// 账户
+	String mAddOutAccount = "支付宝";// 账户
 	String ao_remarks;// 备注
 	String ao_daytime;// 时间
 
 	// 收入
 	// GV控件
-	private GridView ai_gridView;
-	private List<Map<String, Object>> ai_datalist;
-	private SimpleAdapter ai_sim_adapter;
+	private GridView mAddInGv;
+	private List<Map<String, Object>> mAddInDataList;
+	private SimpleAdapter mAddInSimpleAdapter;
 	private String[] iconName_in = { "工资", "奖金", "兼职收入", "意外所得", "收债", "借入",
 			"投资回收", "投资收益", "礼金", "其他" };
 	// 数据库类别名字
@@ -150,9 +148,9 @@ public class AddAccountActivity extends Activity {
 	// private List<Object> list = null;
 
 	// 操作用户名
-	private SharedPreferences spuser;
-	private SharedPreferences.Editor editoruser;
-	private int userid;
+	private SharedPreferences mSharedPreferences;
+	private SharedPreferences.Editor mEditor;
+	private int mUserId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -160,10 +158,11 @@ public class AddAccountActivity extends Activity {
 		setContentView(R.layout.activity_add_account);
 
 		// 操作用户名
-		spuser = getSharedPreferences("user", MODE_PRIVATE);
-		editoruser = spuser.edit();
-		if (spuser != null) {// 判断文件是否存在
-			userid = spuser.getInt("userid", 0);
+		mSharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
+		mEditor = mSharedPreferences.edit();
+		mEditor.apply();
+		if (mSharedPreferences != null) {// 判断文件是否存在
+			mUserId = mSharedPreferences.getInt("userid", 0);
 		}
 
 		// // 收入类别数据库
@@ -186,21 +185,19 @@ public class AddAccountActivity extends Activity {
 		db.execSQL("create table if not exists expenditure (aoid integer primary key,aocategory text,aomoney text,aotime text,aoaccount text,aoremarks text,aouserid integer)");
 		db.execSQL("create table if not exists income (aiid integer primary key,aicategory text,aimoney text,aitime text,aiaccount text,airemarks text,aiuserid integer)");
 
-		viewPager = (ViewPager) findViewById(R.id.addaccount_vp);
+		mAddAccountVp = (ViewPager) findViewById(R.id.add_account_vp);
 		// 查找布局文件用LayoutInflater.inflate
-		LayoutInflater inflater = getLayoutInflater();
-		View view1 = inflater.inflate(R.layout.view_add_account_out, null);
-		View view2 = inflater.inflate(R.layout.view_add_account_in, null);
-		appoutLayout = (TextView) findViewById(R.id.addaccountout_tv);
-		appinLayout = (TextView) findViewById(R.id.addaccountin_tv);
-		scrollbar = (ImageView) findViewById(R.id.scrollbar_iv);
-		findViewById(R.id.addaccountout_tv).setOnClickListener(onClickListener);
-		findViewById(R.id.addaccountin_tv).setOnClickListener(onClickListener);
+		LayoutInflater mLayoutInflater = getLayoutInflater();
+		View mViewAddAccountOut = mLayoutInflater.inflate(R.layout.view_add_account_out, null);
+		View mViewAddAccountIn = mLayoutInflater.inflate(R.layout.view_add_account_in, null);
+		mScrollbarIv = (ImageView) findViewById(R.id.scrollbar_iv);
+		findViewById(R.id.add_account_out_tv).setOnClickListener(onClickListener);
+		findViewById(R.id.add_account_in_tv).setOnClickListener(onClickListener);
 
-		pageview = new ArrayList<View>();
+		mPageView = new ArrayList<View>();
 		// 添加想要切换的界面
-		pageview.add(view1);
-		pageview.add(view2);
+		mPageView.add(mViewAddAccountOut);
+		mPageView.add(mViewAddAccountIn);
 		// 数据适配器
 		PagerAdapter mPagerAdapter = new PagerAdapter() {
 
@@ -208,7 +205,7 @@ public class AddAccountActivity extends Activity {
 			// 获取当前窗体界面数
 			public int getCount() {
 				// TODO Auto-generated method stub
-				return pageview.size();
+				return mPageView.size();
 			}
 
 			@Override
@@ -220,77 +217,77 @@ public class AddAccountActivity extends Activity {
 
 			// 使从ViewGroup中移出当前View
 			public void destroyItem(View arg0, int arg1, Object arg2) {
-				((ViewPager) arg0).removeView(pageview.get(arg1));
+				((ViewPager) arg0).removeView(mPageView.get(arg1));
 			}
 
 			// 返回一个对象，这个对象表明了PagerAdapter适配器选择哪个对象放在当前的ViewPager中
 			public Object instantiateItem(View arg0, int arg1) {
-				((ViewPager) arg0).addView(pageview.get(arg1));
-				return pageview.get(arg1);
+				((ViewPager) arg0).addView(mPageView.get(arg1));
+				return mPageView.get(arg1);
 			}
 		};
 		// 绑定适配器
-		viewPager.setAdapter(mPagerAdapter);
+		mAddAccountVp.setAdapter(mPagerAdapter);
 		// 设置viewPager的初始界面为第一个界面
-		viewPager.setCurrentItem(0);
+		mAddAccountVp.setCurrentItem(0);
 		// 添加切换界面的监听器
-		viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
+		mAddAccountVp.addOnPageChangeListener(new MyOnPageChangeListener());
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 		// 获取滚动条的宽度
-		bmpW = BitmapFactory.decodeResource(getResources(),
+		mScrollWide = BitmapFactory.decodeResource(getResources(),
 				R.drawable.bg_underline).getWidth();
 		// 为了获取屏幕宽度，新建一个DisplayMetrics对象
-		DisplayMetrics displayMetrics = new DisplayMetrics();
+		DisplayMetrics mDisplayMetrics = new DisplayMetrics();
 		// 将当前窗口的一些信息放在DisplayMetrics类中
-		getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+		getWindowManager().getDefaultDisplay().getMetrics(mDisplayMetrics);
 		// 得到屏幕的宽度
-		int screenW = displayMetrics.widthPixels;
+		int mScreenWide = mDisplayMetrics.widthPixels;
 		// 计算出滚动条初始的偏移量
-		offset = (screenW / 2 - bmpW) / 2;
+		mOffset = (mScreenWide / 2 - mScrollWide) / 2;
 		// 计算出切换一个界面时，滚动条的位移量
-		one = offset * 2 + bmpW;
-		Matrix matrix = new Matrix();
-		matrix.postTranslate(offset, 0);
+		mRoll = mOffset * 2 + mScrollWide;
+		Matrix mMatrix = new Matrix();
+		mMatrix.postTranslate(mOffset, 0);
 		// 将滚动条的初始位置设置成与左边界间隔一个offset
-		scrollbar.setImageMatrix(matrix);
+		mScrollbarIv.setImageMatrix(mMatrix);
 
 		// 支出
 		// GV控件
-		ao_gridView = (GridView) view1.findViewById(R.id.gv_addout);
-		addoutGridviewAdapterAccount = new AddAccountOutGridviewAdapter(this);
-		ao_gridView.setAdapter(addoutGridviewAdapterAccount);// 通过设置适配器实现网格内布局
-		ao_gridView// 为每个单元格（item）添加单击事件
+		mGridViewOut = (GridView) mViewAddAccountOut.findViewById(R.id.add_out_gv);
+		this.mAddAccountOutGridviewAdapter = new AddAccountOutGridviewAdapter(this);
+		mGridViewOut.setAdapter(this.mAddAccountOutGridviewAdapter);// 通过设置适配器实现网格内布局
+		mGridViewOut// 为每个单元格（item）添加单击事件
 				.setOnItemClickListener(new OnItemClickListener() {
 					@Override
 					public void onItemClick(AdapterView<?> parent, View view,
 							int position, long id) {
-						addoutGridviewAdapterAccount.setSeclection(position);
+						AddAccountActivity.this.mAddAccountOutGridviewAdapter.setSeclection(position);
 						// 保存当前类别的名字
-						ao_category = iconName_out[position];
-						addoutGridviewAdapterAccount.notifyDataSetChanged();
+						ao_category = mIconNameOut[position];
+						AddAccountActivity.this.mAddAccountOutGridviewAdapter.notifyDataSetChanged();
 					}
 				});
 
 		// sp账户
-		ao_spinner = (Spinner) view1.findViewById(R.id.sp_addoutaccount);
+		mAddOutAccountSp = (Spinner) mViewAddAccountOut.findViewById(R.id.add_out_account_sp);
 		// 定义一个字符串数组来存储下拉框每个item要显示的文本
-		final String[] ao_items = { "支付宝", "微信", "银行卡", "信用卡", "其他" };
+		final String[] mAccountSpItemOut = { "支付宝", "微信", "银行卡", "信用卡", "其他" };
 		// 定义数组适配器，利用系统布局文件
-		ArrayAdapter<String> ao_adapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_spinner_item, ao_items);
+		ArrayAdapter<String> mAddAccountOutGridviewAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_spinner_item, mAccountSpItemOut);
 		// 定义下拉框的样式
-		ao_adapter
+		mAddAccountOutGridviewAdapter
 				.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 		// 设置下拉列表的条目被选择监听器
-		ao_spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+		mAddOutAccountSp.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> arg0, View arg1,
 					int arg2, long arg3) {
 				// 设置显示当前选择的项
 				arg0.setVisibility(View.VISIBLE);
-				ao_account = ao_items[arg2];
+				mAddOutAccount = mAccountSpItemOut[arg2];
 				// Toast.makeText(AddAccountActivity.this, items[arg2], 0).show();
 				// 注意： 这句话的作用是当下拉列表刚显示出来的时候，数组中第0个文本不会显示Toast
 				// 如果没有这句话，当下拉列表刚显示出来的时候，数组中第0个文本会显示Toast
@@ -303,19 +300,18 @@ public class AddAccountActivity extends Activity {
 
 			}
 		});
-		ao_spinner.setAdapter(ao_adapter);
+		mAddOutAccountSp.setAdapter(mAddAccountOutGridviewAdapter);
 
 		// 备注
-		aoet_remarks = (EditText) view1.findViewById(R.id.addoutcaltext_et);
+		mAddOutRemarkEdit = (EditText) mViewAddAccountOut.findViewById(R.id.add_out_remark_edit);
 		// cal
-		aoet_money = (EditText) view1.findViewById(R.id.et_aoutmoney);
+		mAddOutMoneyEdit = (EditText) mViewAddAccountOut.findViewById(R.id.add_out_money_edit);
 
 		// 时间
 		// 获取对象
-		aoet_daytime = (EditText) view1.findViewById(R.id.et_addoutshowdate);
-		ao_calendar = Calendar.getInstance();
+		mAddOutDaytimeEdit = (EditText) mViewAddAccountOut.findViewById(R.id.add_out_daytime_edit);
 		// 点击"日期"按钮布局 设置日期
-		aoet_daytime.setOnClickListener(new OnClickListener() {
+		mAddOutDaytimeEdit.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				new DatePickerDialog(AddAccountActivity.this,
@@ -325,65 +321,65 @@ public class AddAccountActivity extends Activity {
 							public void onDateSet(DatePicker view, int year,
 									int month, int day) {
 								// TODO Auto-generated method stub
-								ao_mYear = year;
-								ao_mMonth = month;
-								ao_mDay = day;
+								mYear = year;
+								mMonth = month;
+								mDay = day;
 								// 更新EditText控件日期 小于10加0
-								aoet_daytime.setText(new StringBuilder()
-										.append(ao_mYear)
+								mAddOutDaytimeEdit.setText(new StringBuilder()
+										.append(mYear)
 										.append("-")
-										.append((ao_mMonth + 1) < 10 ? "0"
-												+ (ao_mMonth + 1)
-												: (ao_mMonth + 1))
+										.append((mMonth + 1) < 10 ? "0"
+												+ (mMonth + 1)
+												: (mMonth + 1))
 										.append("-")
-										.append((ao_mDay < 10) ? "0" + ao_mDay
-												: ao_mDay));
+										.append((mDay < 10) ? "0" + mDay
+												: mDay));
 							}
-						}, ao_calendar.get(Calendar.YEAR), ao_calendar
-								.get(Calendar.MONTH), ao_calendar
+						}, mCalendar.get(Calendar.YEAR), mCalendar
+								.get(Calendar.MONTH), mCalendar
 								.get(Calendar.DAY_OF_MONTH)).show();
 			}
 		});
 
 		// 设置初始时间与当前系统时间一致
-		ao_mYear = ao_calendar.get(Calendar.YEAR);
-		ao_mMonth = ao_calendar.get(Calendar.MONTH);
-		ao_mDay = ao_calendar.get(Calendar.DAY_OF_MONTH);
+		mYear = mCalendar.get(Calendar.YEAR);
+		mMonth = mCalendar.get(Calendar.MONTH);
+		mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
 		// 更新EditText控件日期 小于10加0
-		aoet_daytime.setText(new StringBuilder()
-				.append(ao_mYear)
+		mAddOutDaytimeEdit.setText(new StringBuilder()
+				.append(mYear)
 				.append("-")
-				.append((ao_mMonth + 1) < 10 ? "0" + (ao_mMonth + 1)
-						: (ao_mMonth + 1)).append("-")
-				.append((ao_mDay < 10) ? "0" + ao_mDay : ao_mDay));
+				.append((mMonth + 1) < 10 ? "0" + (mMonth + 1)
+						: (mMonth + 1)).append("-")
+				.append((mDay < 10) ? "0" + mDay : mDay));
 
 		// 收入
 		// GV控件
-		ai_gridView = (GridView) view2.findViewById(R.id.gv_addin);
+		mAddInGv = (GridView) mViewAddAccountIn.findViewById(R.id.add_in_gv);
 		// 1.准备数据源
 		// 2.新建适配器(SimpleAdapter)
 		// 3.GridView加载适配器
 		// 4.GridView配置事件监听器(OnItemClickListener)
-		ai_datalist = new ArrayList<Map<String, Object>>();
-		ai_sim_adapter = new SimpleAdapter(this, ai_getdata(),
+		mAddInDataList = new ArrayList<Map<String, Object>>();
+		mAddInSimpleAdapter = new SimpleAdapter(this, ai_getdata(),
 				R.layout.grid_item_add_account, new String[] { "image", "text" }, new int[] {
 						R.id.additem_iv, R.id.additem_tv });
-		ai_gridView.setAdapter(ai_sim_adapter);
+		mAddInGv.setAdapter(mAddInSimpleAdapter);
 		// Android中取消GridView默认的点击背景色
-		ai_gridView.setSelector(new ColorDrawable(Color.TRANSPARENT));
-		ai_gridView.setOnItemClickListener(new OnItemClickListener() {
+		mAddInGv.setSelector(new ColorDrawable(Color.TRANSPARENT));
+		mAddInGv.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO Auto-generated method stub
 				// 重置上次颜色为Color.BLACK
-				setAiLastColorBlack();
+				setAddInLastColor();
 
-				LinearLayout inLayout = (LinearLayout) view;
+				LinearLayout mLinearLayout = (LinearLayout) view;
 
-				ImageView inImage = (ImageView) inLayout.getChildAt(0);
-				TextView inText = (TextView) inLayout.getChildAt(1);
+				ImageView inImage = (ImageView) mLinearLayout.getChildAt(0);
+				TextView inText = (TextView) mLinearLayout.getChildAt(1);
 
 				// 设置背景改变
 				for (int j = 0; j < icon_inyes.length; j++) {
@@ -404,7 +400,7 @@ public class AddAccountActivity extends Activity {
 			}
 		});
 		// sp账户
-		ai_spinner = (Spinner) view2.findViewById(R.id.sp_addinaccount);
+		ai_spinner = (Spinner) mViewAddAccountIn.findViewById(R.id.add_in_account_sp);
 		// 定义一个字符串数组来存储下拉框每个item要显示的文本
 		final String[] ai_items = { "支付宝", "微信", "银行卡", "信用卡", "其他" };
 		// 定义数组适配器，利用系统布局文件
@@ -444,13 +440,13 @@ public class AddAccountActivity extends Activity {
 		ai_spinner.setAdapter(ai_adapter);
 
 		// 备注
-		aiet_remarks = (EditText) view2.findViewById(R.id.submit_remark_text_et);
+		aiet_remarks = (EditText) mViewAddAccountIn.findViewById(R.id.add_in_remark_edit);
 		// cal
-		aiet_money = (EditText) view2.findViewById(R.id.et_ainmoney);
+		aiet_money = (EditText) mViewAddAccountIn.findViewById(R.id.add_in_money_edit);
 
 		// 时间
 		// 获取对象
-		aiet_daytime = (EditText) view2.findViewById(R.id.et_addinshowdate);
+		aiet_daytime = (EditText) mViewAddAccountIn.findViewById(R.id.add_in_daytime_edit);
 		ai_calendar = Calendar.getInstance();
 		// 点击"日期"按钮布局 设置日期
 		aiet_daytime.setOnClickListener(new OnClickListener() {
@@ -512,10 +508,10 @@ public class AddAccountActivity extends Activity {
 				 * X坐标上的差值 float toXDelta 动画结束的点离当前View X坐标上的差值 float fromYDelta
 				 * 动画开始的点离当前View Y坐标上的差值 float toYDelta 动画开始的点离当前View Y坐标上的差值
 				 **/
-				animation = new TranslateAnimation(one, 0, 0, 0);
+				animation = new TranslateAnimation(mRoll, 0, 0, 0);
 				break;
 			case 1:// 收入
-				animation = new TranslateAnimation(offset, one, 0, 0);
+				animation = new TranslateAnimation(mOffset, mRoll, 0, 0);
 
 				// // 设置上次的颜色归零
 				// setAiLastColorBlack();
@@ -530,7 +526,7 @@ public class AddAccountActivity extends Activity {
 			// 动画持续时间，单位为毫秒
 			animation.setDuration(200);
 			// 滚动条开始动画
-			scrollbar.startAnimation(animation);
+			mScrollbarIv.startAnimation(animation);
 		}
 
 		@Override
@@ -547,13 +543,13 @@ public class AddAccountActivity extends Activity {
 		@Override
 		public void onClick(View v) {
 			switch (v.getId()) {
-			case R.id.addaccountout_tv:
+			case R.id.add_account_out_tv:
 				// 点击时切换到第一页
-				viewPager.setCurrentItem(0);
+				mAddAccountVp.setCurrentItem(0);
 				break;
-			case R.id.addaccountin_tv:
+			case R.id.add_account_in_tv:
 				// 点击时切换的第二页
-				viewPager.setCurrentItem(1);
+				mAddAccountVp.setCurrentItem(1);
 				break;
 			}
 		}
@@ -562,21 +558,21 @@ public class AddAccountActivity extends Activity {
 	public void click(View v) {
 		Intent iGBadd = new Intent();
 		switch (v.getId()) {
-		case R.id.addaccountexit_tv:
+		case R.id.add_account_exit_tv:
 			finish();
 			break;
 		// 支出
-		case R.id.addoutcaltext_et:// 跳转到第二个界面并返回数据
+		case R.id.add_out_remark_edit:// 跳转到第二个界面并返回数据
 			// 第一步:通过startActivityForResult跳转到第二个界面
 			Intent iouttext = new Intent(this, SubmitRemarkActivity.class);
 			startActivityForResult(iouttext, 0);
 			break;
-		case R.id.bt_aoutyes:
+		case R.id.add_out_yes_btn:
 			String ao_symoney, // 带符号的字符串
 			ao_dmoney = ""; // 保留两位小数点的字符串
 			int ao_dotnum = 0;// 小数点出现的个数
 			// 获取到金额
-			ao_money = aoet_money.getText().toString();
+			ao_money = mAddOutMoneyEdit.getText().toString();
 			// 将金额字符串转为数组
 			char[] ao_m = ao_money.toCharArray();
 			for (int k = 0; k < ao_m.length; k++) {
@@ -629,9 +625,9 @@ public class AddAccountActivity extends Activity {
 				}
 			}
 			// 备注
-			ao_remarks = aoet_remarks.getText().toString();
+			ao_remarks = mAddOutRemarkEdit.getText().toString();
 			// 时间
-			String aostrtime = aoet_daytime.getText().toString();
+			String aostrtime = mAddOutDaytimeEdit.getText().toString();
 			ao_daytime = aostrtime.replace("-", "");
 			// 为收入的金额增加-号
 			ao_symoney = "-" + ao_dmoney;
@@ -640,17 +636,17 @@ public class AddAccountActivity extends Activity {
 			cv = new ContentValues();
 			cv.put("aocategory", ao_category);
 			cv.put("aomoney", ao_dmoney);
-			cv.put("aoaccount", ao_account);
+			cv.put("aoaccount", mAddOutAccount);
 			cv.put("aoremarks", ao_remarks);
 			cv.put("aotime", ao_daytime);
-			cv.put("aouserid", userid);
+			cv.put("aouserid", mUserId);
 			// 插入数据，成功返回当前行号，失败返回0
 			num = (int) db.insert("expenditure", null, cv);
 			if (num > 0) {
 				Toast.makeText(this, "数据保存成功" + num, Toast.LENGTH_SHORT).show();
 				AccountBean addoutdata = new AccountBean(ao_category, ao_symoney,
-						ao_account, ao_remarks, ao_daytime, num, userid);
-				System.out.println(userid);
+						mAddOutAccount, ao_remarks, ao_daytime, num, mUserId);
+				System.out.println(mUserId);
 				// 设置广播的名字（设置Action）
 				iGBadd.setAction("GBadd");
 				// 携带数据
@@ -666,12 +662,12 @@ public class AddAccountActivity extends Activity {
 			break;
 
 		// 收入
-		case R.id.submit_remark_text_et:// 跳转到第二个界面并返回数据
+		case R.id.add_in_remark_edit:// 跳转到第二个界面并返回数据
 			// 第一步:通过startActivityForResult跳转到第二个界面
 			Intent iintext = new Intent(this, SubmitRemarkActivity.class);
 			startActivityForResult(iintext, 0);
 			break;
-		case R.id.bt_ainyes:
+		case R.id.add_in_yes_btn:
 			// 类别
 			// System.out.println("类别" + ai_category);
 			// 金额
@@ -758,14 +754,14 @@ public class AddAccountActivity extends Activity {
 			cv.put("aiaccount", ai_account);
 			cv.put("airemarks", ai_remarks);
 			cv.put("aitime", ai_daytime);
-			cv.put("aiuserid", userid);
+			cv.put("aiuserid", mUserId);
 			// 插入数据，成功返回当前行号，失败返回0
 			num = (int) db.insert("income", null, cv);
 			if (num > 0) {
 				Toast.makeText(this, "数据保存成功" + num, Toast.LENGTH_SHORT).show();
 
 				AccountBean addindata = new AccountBean(ai_category, ai_symoney,
-						ai_account, ai_remarks, ai_daytime, num, userid);
+						ai_account, ai_remarks, ai_daytime, num, mUserId);
 				// 设置广播的名字（设置Action）
 				iGBadd.setAction("GBadd");
 				// 携带数据
@@ -785,42 +781,42 @@ public class AddAccountActivity extends Activity {
 
 	// 数字键盘
 	public void clickoutnum(View V) {
-		aostr_money = aoet_money.getText().toString().trim();
+		aostr_money = mAddOutMoneyEdit.getText().toString().trim();
 		switch (V.getId()) {
-		case R.id.bt_aout1:
+		case R.id.add_out_one_btn:
 			aostr_money = aostr_money + "1";
 			break;
-		case R.id.bt_aout2:
+		case R.id.add_out_two_btn:
 			aostr_money = aostr_money + "2";
 			break;
-		case R.id.bt_aout3:
+		case R.id.add_out_three_btn:
 			aostr_money = aostr_money + "3";
 			break;
-		case R.id.bt_aout4:
+		case R.id.add_out_four_btn:
 			aostr_money = aostr_money + "4";
 			break;
-		case R.id.bt_aout5:
+		case R.id.add_out_five_btn:
 			aostr_money = aostr_money + "5";
 			break;
-		case R.id.bt_aout6:
+		case R.id.add_out_six_btn:
 			aostr_money = aostr_money + "6";
 			break;
-		case R.id.bt_aout7:
+		case R.id.add_out_seven_btn:
 			aostr_money = aostr_money + "7";
 			break;
-		case R.id.bt_aout8:
+		case R.id.add_out_eight_btn:
 			aostr_money = aostr_money + "8";
 			break;
-		case R.id.bt_aout9:
+		case R.id.add_out_nine_btn:
 			aostr_money = aostr_money + "9";
 			break;
-		case R.id.bt_aout0:
+		case R.id.add_out_zero_btn:
 			aostr_money = aostr_money + "0";
 			break;
-		case R.id.bt_aoutd:
+		case R.id.add_out_dot_btn:
 			aostr_money = aostr_money + ".";
 			break;
-		case R.id.bt_aouts:
+		case R.id.add_out_money_btn:
 			if (aostr_money.length() > 0) {
 				aostr_money = aostr_money
 						.substring(0, aostr_money.length() - 1);
@@ -832,7 +828,7 @@ public class AddAccountActivity extends Activity {
 		if (aostr_money.length() > 8) {
 			aostr_money = aostr_money.substring(0, 8);
 		}
-		aoet_money.setText(aostr_money);
+		mAddOutMoneyEdit.setText(aostr_money);
 	}
 
 	// 收入
@@ -857,9 +853,9 @@ public class AddAccountActivity extends Activity {
 			// }
 
 			map.put("text", iconName_in[i]);
-			ai_datalist.add(map);
+			mAddInDataList.add(map);
 		}
-		return ai_datalist;
+		return mAddInDataList;
 	}
 
 	// // 设置新打开页面的颜色
@@ -876,8 +872,8 @@ public class AddAccountActivity extends Activity {
 
 	// 设置GV变化
 	// 设置上次的颜色归零
-	public void setAiLastColorBlack() {
-		LinearLayout lastinLayout = (LinearLayout) ai_gridView
+	public void setAddInLastColor() {
+		LinearLayout lastinLayout = (LinearLayout) mAddInGv
 				.getChildAt(ai_last);
 
 		TextView lastinText = (TextView) lastinLayout.getChildAt(1);
@@ -894,40 +890,40 @@ public class AddAccountActivity extends Activity {
 	public void clickinnum(View V) {
 		aistr_money = aiet_money.getText().toString().trim();
 		switch (V.getId()) {
-		case R.id.bt_ain1:
+		case R.id.add_in_one_btn:
 			aistr_money = aistr_money + "1";
 			break;
-		case R.id.bt_ain2:
+		case R.id.add_in_two_btn:
 			aistr_money = aistr_money + "2";
 			break;
-		case R.id.bt_ain3:
+		case R.id.add_in_three_btn:
 			aistr_money = aistr_money + "3";
 			break;
-		case R.id.bt_ain4:
+		case R.id.add_in_four_btn:
 			aistr_money = aistr_money + "4";
 			break;
-		case R.id.bt_ain5:
+		case R.id.add_in_five_btn:
 			aistr_money = aistr_money + "5";
 			break;
-		case R.id.bt_ain6:
+		case R.id.add_in_six_btn:
 			aistr_money = aistr_money + "6";
 			break;
-		case R.id.bt_ain7:
+		case R.id.add_in_seven_btn:
 			aistr_money = aistr_money + "7";
 			break;
-		case R.id.bt_ain8:
+		case R.id.add_in_eight_btn:
 			aistr_money = aistr_money + "8";
 			break;
-		case R.id.bt_ain9:
+		case R.id.add_in_nine_btn:
 			aistr_money = aistr_money + "9";
 			break;
-		case R.id.bt_ain0:
+		case R.id.add_in_zero_btn:
 			aistr_money = aistr_money + "0";
 			break;
-		case R.id.bt_aind:
+		case R.id.add_in_dot_btn:
 			aistr_money = aistr_money + ".";
 			break;
-		case R.id.bt_ains:
+		case R.id.add_in_money_btn:
 			if (aistr_money.length() > 0) {
 				aistr_money = aistr_money
 						.substring(0, aistr_money.length() - 1);
@@ -954,7 +950,7 @@ public class AddAccountActivity extends Activity {
 				// 知道当前是从第二个界面返回过来
 				String ai_str = intent.getStringExtra("submit_remark");
 				aiet_remarks.setText(ai_str);
-				aoet_remarks.setText(ai_str);
+				mAddOutRemarkEdit.setText(ai_str);
 			}
 		}
 	}

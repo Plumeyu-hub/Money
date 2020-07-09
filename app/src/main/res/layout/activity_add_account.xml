@@ -6,7 +6,7 @@
     android:clickable="true" >
 
     <LinearLayout
-        android:id="@+id/addaccounttop_lin"
+        android:id="@+id/add_account_top_lin"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
@@ -19,7 +19,7 @@
             android:layout_weight="1" >
 
             <TextView
-                android:id="@+id/addaccountexit_tv"
+                android:id="@+id/add_account_exit_tv"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_alignParentLeft="true"
@@ -30,7 +30,7 @@
                 android:onClick="click" />
 
             <TextView
-                android:id="@+id/addaccountout_tv"
+                android:id="@+id/add_account_out_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
@@ -47,7 +47,7 @@
             android:layout_weight="1" >
 
             <TextView
-                android:id="@+id/addaccountin_tv"
+                android:id="@+id/add_account_in_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
@@ -63,13 +63,13 @@
         android:id="@+id/scrollbar_iv"
         android:layout_width="match_parent"
         android:layout_height="8dp"
-        android:layout_below="@id/addaccounttop_lin"
+        android:layout_below="@id/add_account_top_lin"
         android:layout_centerInParent="true"
         android:scaleType="matrix"
         android:src="@drawable/bg_underline" />
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/addaccount_vp"
+        android:id="@+id/add_account_vp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/scrollbar_iv" >

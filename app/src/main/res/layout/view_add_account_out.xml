@@ -5,7 +5,7 @@
     android:background="#fff" >
 
     <LinearLayout
-        android:id="@+id/lin_addoutcal"
+        android:id="@+id/add_out_bottom_lin"
         android:layout_width="match_parent"
         android:layout_height="246.5dp"
         android:layout_alignParentBottom="true"
@@ -23,14 +23,14 @@
             android:background="#F2F3F5" >
 
             <View
-                android:id="@+id/addoutv1"
+                android:id="@+id/add_out_view1"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:background="#D8D9D9" />
 
             <View
-                android:id="@+id/addoutv2"
+                android:id="@+id/add_out_view2"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -39,8 +39,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toLeftOf="@id/addoutv2"
-                android:layout_toRightOf="@id/addoutv1"
+                android:layout_toLeftOf="@id/add_out_view2"
+                android:layout_toRightOf="@id/add_out_view1"
                 android:orientation="horizontal" >
 
                 <RelativeLayout
@@ -49,27 +49,27 @@
                     android:layout_weight="1" >
 
                     <ImageView
-                        android:id="@+id/iv_addoutmo"
+                        android:id="@+id/add_out_money_iv"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_alignParentLeft="true"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="5dp"
-                        android:background="@drawable/ic_mo" />
+                        android:background="@drawable/ic_money" />
 
                     <TextView
-                        android:id="@+id/tv_addoutmotext"
+                        android:id="@+id/add_out_money_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_marginLeft="3dp"
-                        android:layout_toRightOf="@id/iv_addoutmo"
+                        android:layout_toRightOf="@id/add_out_money_iv"
                         android:text="金额:"
                         android:textColor="@color/color_333333"
                         android:textSize="16sp" />
 
                     <Button
-                        android:id="@+id/bt_aouts"
+                        android:id="@+id/add_out_money_btn"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_alignParentRight="true"
@@ -81,12 +81,12 @@
                         android:onClick="clickoutnum" />
 
                     <EditText
-                        android:id="@+id/et_aoutmoney"
+                        android:id="@+id/add_out_money_edit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:layout_toLeftOf="@id/bt_aouts"
-                        android:layout_toRightOf="@id/tv_addoutmotext"
+                        android:layout_toLeftOf="@id/add_out_money_btn"
+                        android:layout_toRightOf="@id/add_out_money_tv"
                         android:background="#F2F3F5"
                         android:editable="false"
                         android:gravity="center_vertical"
@@ -123,7 +123,7 @@
                         android:textSize="16sp" />
 
                     <Spinner
-                        android:id="@+id/sp_addoutaccount"
+                        android:id="@+id/add_out_account_sp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
@@ -144,14 +144,14 @@
             android:background="#F2F3F5" >
 
             <View
-                android:id="@+id/addoutv3"
+                android:id="@+id/add_out_view3"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:background="#D8D9D9" />
 
             <View
-                android:id="@+id/addoutv4"
+                android:id="@+id/add_out_view4"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
@@ -160,8 +160,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toLeftOf="@id/addoutv4"
-                android:layout_toRightOf="@id/addoutv3"
+                android:layout_toLeftOf="@id/add_out_view4"
+                android:layout_toRightOf="@id/add_out_view3"
                 android:orientation="horizontal" >
 
                 <LinearLayout
@@ -186,7 +186,7 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/addoutcaltext_et"
+                        android:id="@+id/add_out_remark_edit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#F2F3F5"
@@ -228,7 +228,7 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/et_addoutshowdate"
+                        android:id="@+id/add_out_daytime_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -252,21 +252,21 @@
             android:background="#F2F3F5" >
 
             <View
-                android:id="@+id/addoutv5"
+                android:id="@+id/add_out_view5"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:background="#D8D9D9" />
 
             <View
-                android:id="@+id/addoutv6"
+                android:id="@+id/add_out_view6"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:background="#D8D9D9" />
 
             <View
-                android:id="@+id/addoutv7"
+                android:id="@+id/add_out_view7"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_alignParentBottom="true"
@@ -275,9 +275,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/addoutv7"
-                android:layout_toLeftOf="@id/addoutv6"
-                android:layout_toRightOf="@id/addoutv5"
+                android:layout_above="@id/add_out_view7"
+                android:layout_toLeftOf="@id/add_out_view6"
+                android:layout_toRightOf="@id/add_out_view5"
                 android:orientation="horizontal" >
 
                 <LinearLayout
@@ -293,7 +293,7 @@
                         android:orientation="horizontal" >
 
                         <Button
-                            android:id="@+id/bt_aout1"
+                            android:id="@+id/add_out_one_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -311,7 +311,7 @@
                             android:background="#D8D9D9" />
 
                         <Button
-                            android:id="@+id/bt_aout2"
+                            android:id="@+id/add_out_two_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -329,7 +329,7 @@
                             android:background="#D8D9D9" />
 
                         <Button
-                            android:id="@+id/bt_aout3"
+                            android:id="@+id/add_out_three_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -354,7 +354,7 @@
                         android:orientation="horizontal" >
 
                         <Button
-                            android:id="@+id/bt_aout4"
+                            android:id="@+id/add_out_four_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -372,7 +372,7 @@
                             android:background="#D8D9D9" />
 
                         <Button
-                            android:id="@+id/bt_aout5"
+                            android:id="@+id/add_out_five_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -390,7 +390,7 @@
                             android:background="#D8D9D9" />
 
                         <Button
-                            android:id="@+id/bt_aout6"
+                            android:id="@+id/add_out_six_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -415,7 +415,7 @@
                         android:orientation="horizontal" >
 
                         <Button
-                            android:id="@+id/bt_aout7"
+                            android:id="@+id/add_out_seven_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -433,7 +433,7 @@
                             android:background="#D8D9D9" />
 
                         <Button
-                            android:id="@+id/bt_aout8"
+                            android:id="@+id/add_out_eight_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -451,7 +451,7 @@
                             android:background="#D8D9D9" />
 
                         <Button
-                            android:id="@+id/bt_aout9"
+                            android:id="@+id/add_out_nine_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -477,7 +477,7 @@
                     android:orientation="vertical" >
 
                     <Button
-                        android:id="@+id/bt_aoutd"
+                        android:id="@+id/add_out_dot_btn"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -495,7 +495,7 @@
                         android:background="#D8D9D9" />
 
                     <Button
-                        android:id="@+id/bt_aout0"
+                        android:id="@+id/add_out_zero_btn"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -513,7 +513,7 @@
                         android:background="#D8D9D9" />
 
                     <Button
-                        android:id="@+id/bt_aoutyes"
+                        android:id="@+id/add_out_yes_btn"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -530,10 +530,10 @@
     </LinearLayout>
 
     <GridView
-        android:id="@+id/gv_addout"
+        android:id="@+id/add_out_gv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/lin_addoutcal"
+        android:layout_above="@id/add_out_bottom_lin"
         android:horizontalSpacing="10dp"
         android:listSelector="@android:color/transparent"
         android:numColumns="4"
