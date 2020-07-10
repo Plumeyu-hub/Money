@@ -5,4 +5,9 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+
+    <!-- demo主页 -->
+    <string name="demo_home_title">Demo主页</string>
+    <string name="demo_tab_test">TabLayout样例</string>
+
 </resources>

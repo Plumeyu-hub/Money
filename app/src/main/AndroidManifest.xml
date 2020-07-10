@@ -62,6 +62,18 @@
         <activity android:name="com.example.ui.budget.AddBudgetActivity" >
         </activity>
 
+        <activity
+            android:name="com.example.demo.home.DemoHomeActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
+        <activity
+            android:name="com.example.demo.tab.TabTestActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
         <receiver android:name="com.example.ui.my.RemindReceiver" >
         </receiver>
     </application>

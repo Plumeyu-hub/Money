@@ -4,16 +4,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    android:clickable="true" >
+    android:clickable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp" >
+            android:layout_height="50dp">
 
             <ImageView
                 android:id="@+id/detailslogo_img"
@@ -63,7 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <ImageView
                 android:layout_width="wrap_content"
@@ -80,403 +80,447 @@
         </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
+    <androidx.core.widget.NestedScrollView
         android:layout_width="320dp"
         android:layout_height="match_parent"
-        android:layout_gravity="left"
-        android:background="@color/color_FF6B6A"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:id="@+id/nologin_lin"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:clickable="true"
-            android:gravity="center_horizontal"
-            android:onClick="click"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="15dp"
-                android:background="@drawable/ic_my_nor" />
-
-            <TextView
-                android:id="@+id/username_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="立即登录/注册"
-                android:textColor="#ffffff"
-                android:textSize="18sp" />
-        </LinearLayout>
+        android:layout_gravity="start">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:gravity="center_horizontal"
-            android:orientation="vertical"
-            android:visibility="gone" >
-
-            <TextView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="15dp"
-                android:background="@drawable/ic_my_sel" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="用户名"
-                android:textColor="#ffffff"
-                android:textSize="18sp" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/bg_mine"
-            android:gravity="center"
-            android:orientation="horizontal" >
+            android:layout_height="match_parent"
+            android:background="@color/color_FF6B6A"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/mes_lin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
+                android:id="@+id/nologin_lin"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
                 android:clickable="true"
-                android:gravity="center"
+                android:gravity="center_horizontal"
                 android:onClick="click"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_mes" />
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/ic_my_nor" />
+
+                <TextView
+                    android:id="@+id/username_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="立即登录/注册"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:layout_margin="15dp"
+                    android:background="@drawable/ic_my_sel" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="消息"
-                    android:textColor="@color/color_333333"
-                    android:textSize="15sp" />
+                    android:text="用户名"
+                    android:textColor="#ffffff"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bg_mine"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/mes_lin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:onClick="click"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_mes" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="消息"
+                        android:textColor="@color/color_333333"
+                        android:textSize="15sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0.5dp"
+                    android:layout_height="30dp"
+                    android:background="#a3a3a3" />
+
+                <LinearLayout
+                    android:id="@+id/remind_lin"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:onClick="click"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:src="@drawable/ic_remind" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="定时记账"
+                        android:textColor="@color/color_333333"
+                        android:textSize="15sp" />
+                </LinearLayout>
             </LinearLayout>
 
             <View
-                android:layout_width="0.5dp"
-                android:layout_height="30dp"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
                 android:background="#a3a3a3" />
 
-            <LinearLayout
-                android:id="@+id/remind_lin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_weight="1"
+            <RelativeLayout
+                android:id="@+id/budget_lin"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#fff"
                 android:clickable="true"
-                android:gravity="center"
                 android:onClick="click"
-                android:orientation="vertical" >
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp">
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:src="@drawable/ic_remind" />
+                <TextView
+                    android:id="@+id/mybudget_tv"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_budget" />
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="定时记账"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/mybudget_tv"
+                    android:gravity="center"
+                    android:paddingLeft="20dp"
+                    android:text="预算"
                     android:textColor="@color/color_333333"
-                    android:textSize="15sp" />
-            </LinearLayout>
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_right" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#a3a3a3" />
+
+            <RelativeLayout
+                android:id="@+id/export_lin"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#fff"
+                android:clickable="true"
+                android:onClick="click"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/myexport_tv"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_export" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/myexport_tv"
+                    android:gravity="center"
+                    android:paddingLeft="20dp"
+                    android:text="导出账目"
+                    android:textColor="@color/color_333333"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_right" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#a3a3a3" />
+
+            <RelativeLayout
+                android:id="@+id/clear_lin"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#fff"
+                android:clickable="true"
+                android:onClick="click"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/myclear_tv"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_clear" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/myclear_tv"
+                    android:gravity="center"
+                    android:paddingLeft="20dp"
+                    android:text="数据库数据清除"
+                    android:textColor="@color/color_333333"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_right" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#a3a3a3" />
+
+            <RelativeLayout
+                android:id="@+id/set_lin"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#fff"
+                android:clickable="true"
+                android:onClick="click"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/myset_tv"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_set" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/myset_tv"
+                    android:gravity="center"
+                    android:paddingLeft="20dp"
+                    android:text="设置"
+                    android:textColor="@color/color_333333"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_right" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#a3a3a3" />
+
+            <RelativeLayout
+                android:id="@+id/help_lin"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#fff"
+                android:clickable="true"
+                android:onClick="click"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/myhelp_tv"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_help" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/myhelp_tv"
+                    android:gravity="center"
+                    android:paddingLeft="20dp"
+                    android:text="帮助"
+                    android:textColor="@color/color_333333"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_right" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#a3a3a3" />
+
+            <RelativeLayout
+                android:id="@+id/about_lin"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#fff"
+                android:clickable="true"
+                android:onClick="click"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/myabout_tv"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_about" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/myabout_tv"
+                    android:gravity="center"
+                    android:paddingLeft="20dp"
+                    android:text="关于"
+                    android:textColor="@color/color_333333"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_right" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#a3a3a3" />
+
+            <RelativeLayout
+                android:id="@+id/demo_lin"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#fff"
+                android:clickable="true"
+                android:onClick="click"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/demo_tv"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_about" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/demo_tv"
+                    android:gravity="center"
+                    android:paddingLeft="20dp"
+                    android:text="@string/demo_home_title"
+                    android:textColor="@color/color_333333"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_right" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#a3a3a3" />
+
+            <RelativeLayout
+                android:id="@+id/exit_lin"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="#fff"
+                android:clickable="true"
+                android:onClick="click"
+                android:paddingLeft="20dp"
+                android:paddingRight="10dp">
+
+                <TextView
+                    android:id="@+id/myexit_tv"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_exit" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_toRightOf="@id/myexit_tv"
+                    android:gravity="center"
+                    android:paddingLeft="20dp"
+                    android:text="退出应用"
+                    android:textColor="@color/color_333333"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_right" />
+            </RelativeLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#fff" />
         </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#a3a3a3" />
-
-        <RelativeLayout
-            android:id="@+id/budget_lin"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#fff"
-            android:clickable="true"
-            android:onClick="click"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp" >
-
-            <TextView
-                android:id="@+id/mybudget_tv"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_budget" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_toRightOf="@id/mybudget_tv"
-                android:gravity="center"
-                android:paddingLeft="20dp"
-                android:text="预算"
-                android:textColor="@color/color_333333"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_right" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#a3a3a3" />
-
-        <RelativeLayout
-            android:id="@+id/export_lin"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#fff"
-            android:clickable="true"
-            android:onClick="click"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp" >
-
-            <TextView
-                android:id="@+id/myexport_tv"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_export" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_toRightOf="@id/myexport_tv"
-                android:gravity="center"
-                android:paddingLeft="20dp"
-                android:text="导出账目"
-                android:textColor="@color/color_333333"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_right" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#a3a3a3" />
-
-        <RelativeLayout
-            android:id="@+id/clear_lin"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#fff"
-            android:clickable="true"
-            android:onClick="click"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp" >
-
-            <TextView
-                android:id="@+id/myclear_tv"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_clear" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_toRightOf="@id/myclear_tv"
-                android:gravity="center"
-                android:paddingLeft="20dp"
-                android:text="数据库数据清除"
-                android:textColor="@color/color_333333"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_right" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#a3a3a3" />
-
-        <RelativeLayout
-            android:id="@+id/set_lin"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#fff"
-            android:clickable="true"
-            android:onClick="click"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp" >
-
-            <TextView
-                android:id="@+id/myset_tv"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_set" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_toRightOf="@id/myset_tv"
-                android:gravity="center"
-                android:paddingLeft="20dp"
-                android:text="设置"
-                android:textColor="@color/color_333333"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_right" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#a3a3a3" />
-
-        <RelativeLayout
-            android:id="@+id/help_lin"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#fff"
-            android:clickable="true"
-            android:onClick="click"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp" >
-
-            <TextView
-                android:id="@+id/myhelp_tv"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_help" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_toRightOf="@id/myhelp_tv"
-                android:gravity="center"
-                android:paddingLeft="20dp"
-                android:text="帮助"
-                android:textColor="@color/color_333333"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_right" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#a3a3a3" />
-
-        <RelativeLayout
-            android:id="@+id/about_lin"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#fff"
-            android:clickable="true"
-            android:onClick="click"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp" >
-
-            <TextView
-                android:id="@+id/myabout_tv"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_about" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_toRightOf="@id/myabout_tv"
-                android:gravity="center"
-                android:paddingLeft="20dp"
-                android:text="关于"
-                android:textColor="@color/color_333333"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_right" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="#a3a3a3" />
-
-        <RelativeLayout
-            android:id="@+id/exit_lin"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="#fff"
-            android:clickable="true"
-            android:onClick="click"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp" >
-
-            <TextView
-                android:id="@+id/myexit_tv"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_exit" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_toRightOf="@id/myexit_tv"
-                android:gravity="center"
-                android:paddingLeft="20dp"
-                android:text="退出应用"
-                android:textColor="@color/color_333333"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="38dp"
-                android:layout_height="38dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/ic_right" />
-        </RelativeLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#fff" />
-    </LinearLayout>
-
+    </androidx.core.widget.NestedScrollView>
 </androidx.drawerlayout.widget.DrawerLayout>

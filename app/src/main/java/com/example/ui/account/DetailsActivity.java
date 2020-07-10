@@ -32,6 +32,7 @@ import android.widget.Toast;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.example.bean.AccountBean;
+import com.example.demo.home.DemoHomeActivity;
 import com.example.money.R;
 import com.example.ui.budget.BudgetActivity;
 import com.example.ui.my.AboutActivity;
@@ -350,6 +351,9 @@ public class DetailsActivity extends Activity {
 			case R.id.budget_lin:
 				Intent i11 = new Intent(DetailsActivity.this, BudgetActivity.class);
 				startActivity(i11);
+				break;
+			case R.id.demo_lin:
+				DemoHomeActivity.start(DetailsActivity.this);
 				break;
 			default:
 				break;
