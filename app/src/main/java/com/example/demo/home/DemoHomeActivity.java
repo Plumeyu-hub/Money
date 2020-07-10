@@ -39,8 +39,8 @@ public class DemoHomeActivity extends AppCompatActivity {
     }
 
     private void findViews() {
-          mBackBtn = findViewById(R.id.back_btn);
-          mTabCaseBtn = findViewById(R.id.tab_case_btn);
+        mBackBtn = findViewById(R.id.back_btn);
+        mTabCaseBtn = findViewById(R.id.tab_case_btn);
     }
 
     private void setListners() {

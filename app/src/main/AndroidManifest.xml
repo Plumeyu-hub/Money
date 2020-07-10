@@ -7,7 +7,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_logo"
+        android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
@@ -21,11 +21,11 @@
         </activity>
         <activity android:name="com.example.money.MainActivity" >
         </activity>
-        <activity android:name="com.example.ui.account.DetailsActivity" >
+        <activity android:name="com.example.ui.account.DetailsFragment" >
         </activity>
         <activity android:name="com.example.ui.account.AddAccountActivity" >
         </activity>
-        <activity android:name="com.example.ui.account.GraphActivity" >
+        <activity android:name="com.example.ui.account.GraphFragment" >
         </activity>
         <activity android:name="com.example.ui.my.MessageActivity" >
         </activity>

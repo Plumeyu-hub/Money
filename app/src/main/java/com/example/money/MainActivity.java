@@ -1,122 +1,113 @@
 package com.example.money;
 
-import android.app.ActivityGroup;
-import android.app.LocalActivityManager;
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.ui.account.AddAccountActivity;
-import com.example.ui.account.DetailsActivity;
-import com.example.ui.account.GraphActivity;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.viewpager.widget.ViewPager;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.example.bean.TabMainBean;
+import com.example.demo.tab.TabFragment;
+import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends ActivityGroup {
+public class MainActivity extends AppCompatActivity {
+    public static void start(Context context) {
+        Intent starter = new Intent(context, MainActivity.class);
+        context.startActivity(starter);
+    }
 
-	SharedPreferences sp;
+    private static final TabMainBean[] TITLES_BEANS = new TabMainBean[]{new TabMainBean(TabMainBean.TAB_MAIN_DETAILS_ID, "明细"),
+            new TabMainBean(TabMainBean.TAB_MAIN_GRAPH_ID, "图标")};
 
-	Intent i1, i2;
-	LocalActivityManager manager;
-	FrameLayout frame;
-	View v1, v2;
-	List<LinearLayout> list_lin;
-	List<Integer> list_img;// 图片列表
-	List<Integer> list_tv;// 文字列表
+    /**
+     * 翻页器
+     */
+    private ViewPager mViewPager;
+    /**
+     * Tab栏目
+     */
+    private TabLayout mTabLayout;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        findViews();
+        initData();
+    }
 
-		sp = getSharedPreferences("data", MODE_PRIVATE);
-		//MODE_APPEND
-		list_lin = new ArrayList<LinearLayout>();
-		list_lin.add((LinearLayout) findViewById(R.id.details_lin));
-		list_lin.add((LinearLayout) findViewById(R.id.graph_lin));
+    private void initData() {
+        mViewPager = findViewById(R.id.main_vp);
+        mTabLayout = findViewById(R.id.main_tab);
+    }
 
-		list_img = new ArrayList<Integer>();
-		list_img.add(R.id.detailsimg_tv);
-		list_img.add(R.id.graphimg_tv);
+    private void findViews() {
+        initMainViewPager();
+        initMainTabLayout();
+    }
 
-		list_tv = new ArrayList<Integer>();
-		list_tv.add(R.id.detailstxt_tv);
-		list_tv.add(R.id.graphtxt_tv);
+    @SuppressLint("InflateParams")
+    private void initMainTabLayout() {
+        mTabLayout.removeAllTabs();
+        for (int i = 0; i < TITLES_BEANS.length; i++) {
+            View tabMaimView = LayoutInflater.from(getContext()).inflate(R.layout.view_tab_main, null);
+            ImageView tabMainImg = tabMaimView.findViewById(R.id.tab_main_img);
+            TextView tabMainTv = tabMaimView.findViewById(R.id.tab_main_tv);
 
-		manager = this.getLocalActivityManager();
-		frame = (FrameLayout) this.findViewById(R.id.main_frame);
+            TabMainBean bean = TITLES_BEANS[i];
 
-		i1 = new Intent(this, DetailsActivity.class);
-		i2 = new Intent(this, GraphActivity.class);
+            tabMainImg.setImageResource(bean.getId() == TabMainBean.TAB_MAIN_DETAILS_ID ? R.drawable.selector_ic_tab_main_details : R.drawable.selector_ic_tab_main_graph);
+            tabMainTv.setText(bean.getTitle());
 
-		v1 = manager.startActivity("第一页", i1).getDecorView();// 把Activity转换成视图
-		v2 = manager.startActivity("第二页", i2).getDecorView();// 把Activity转换成视图
+            mTabLayout.addTab(mTabLayout.newTab().setCustomView(tabMaimView), i == 0);
+        }
+    }
 
-		frame.addView(v2);
-		frame.addView(v1);
+    private void initMainViewPager() {
+        mViewPager.setOffscreenPageLimit(TITLES_BEANS.length);
+        mViewPager.setAdapter(new MainActivity.TabMainAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
+        mTabLayout.setupWithViewPager(mViewPager);
+    }
 
-		setBackgroup(R.id.details_lin);
-	}
 
-	public void click(View v) {
-		switch (v.getId()) {
-		case R.id.details_lin:
-			setBackgroup(v.getId());
-			frame.bringChildToFront(v1);// 把v1调到前台
-			frame.invalidate();// 刷新
-			break;
-		case R.id.graph_lin:
-			setBackgroup(v.getId());
-			frame.bringChildToFront(v2);// 把v2调到前台
-			frame.invalidate();// 刷新
-			break;
-		case R.id.addaccount_lin:
-			Intent i11 = new Intent(MainActivity.this, AddAccountActivity.class);
-			startActivity(i11);
-			break;
+    private static class TabMainAdapter extends FragmentPagerAdapter {
 
-		default:
-			break;
-		}
+        public TabMainAdapter(@NonNull FragmentManager fm, int behavior) {
+            super(fm, behavior);
+        }
 
-	}
+        @NonNull
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+                case 0:
+                    return TabFragment.newInstance(TITLES_BEANS[position].getTitle());
+                case 1:
+                    return TabFragment.newInstance(TITLES_BEANS[position].getTitle());
+				default:
+                    return TabFragment.newInstance("");
+            }
+        }
 
-	// int[] imgs_yes = { R.drawable.ic_details_sel, R.drawable.ic_graph_sel };
-	// int[] imgs_no = { R.drawable.ic_details_nor, R.drawable.ic_graph_nor };
+        @Override
+        public int getCount() {
+            return TITLES_BEANS.length;
+        }
+    }
 
-	int[] imgs = { R.drawable.ic_details_nor, R.drawable.ic_details_sel,
-			R.drawable.ic_graph_nor, R.drawable.ic_graph_sel};
+    private Context getContext() {
+        return this;
+    }
 
-	public void setBackgroup(int id) {
-		int n = 0;
-		LinearLayout lin = null;
-		for (int i = 0; i < list_lin.size(); i++) {
-			lin = list_lin.get(i);
-			if (id == lin.getId()) {
-				n = i;
-				break;
-			}
-		}
-
-		for (int i = 0; i < list_img.size(); i++) {
-			TextView tv_img = (TextView) findViewById(list_img.get(i));
-			TextView tv = (TextView) findViewById(list_tv.get(i));
-			if (i == n) {
-				tv_img.setBackgroundResource(imgs[i * 2 + 1]);
-				//tv.setTextColor(Color.parseColor("#FF6B6A"));
-				tv.setTextColor(getResources().getColor(R.color.color_FF6B6A));
-			} else {
-				tv_img.setBackgroundResource(imgs[i * 2]);
-				//tv.setTextColor(Color.parseColor("#707070"));
-				tv.setTextColor(getResources().getColor(R.color.color_707070));
-			}
-		}
-
-	}
 
 }

@@ -50,7 +50,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class DetailsActivity extends Activity {
+public class DetailsFragment extends Activity {
+
 	// 广播
 	MyBroadcastReceiver receiver;
 
@@ -83,7 +84,7 @@ public class DetailsActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_details);
+		setContentView(R.layout.fragment_details);
 
 		// 用户名存储
 		spuser = getSharedPreferences("user", MODE_PRIVATE);
@@ -114,7 +115,7 @@ public class DetailsActivity extends Activity {
 									int position, long arg3) {
 				// TODO Auto-generated method stub
 				AccountBean showdata = list.get(position);
-				Intent i = new Intent(DetailsActivity.this,
+				Intent i = new Intent(DetailsFragment.this,
 						AccountInformationActivity.class);
 				i.putExtra("showdata", showdata);
 				i.putExtra("position", position);
@@ -170,7 +171,7 @@ public class DetailsActivity extends Activity {
 
 				// 通过Dialog提示是否删除
 				AlertDialog.Builder builder = new AlertDialog.Builder(
-						DetailsActivity.this);
+						DetailsFragment.this);
 				builder.setMessage("确定要删除吗？");
 				// 确定按钮点击事件
 				builder.setPositiveButton("确定",
@@ -188,7 +189,7 @@ public class DetailsActivity extends Activity {
 											"aoid=? and aouserid=?",
 											new String[] { id + "", uid + "" });
 									if (num > 0) {
-										Toast.makeText(DetailsActivity.this,
+										Toast.makeText(DetailsFragment.this,
 												"删除成功" + num,
 												Toast.LENGTH_SHORT).show();
 										// 删掉长按的item
@@ -196,7 +197,7 @@ public class DetailsActivity extends Activity {
 										// 动态更新listview
 										adapter.notifyDataSetChanged();
 									} else {
-										Toast.makeText(DetailsActivity.this,
+										Toast.makeText(DetailsFragment.this,
 												"删除失败" + num,
 												Toast.LENGTH_SHORT).show();
 									}
@@ -207,7 +208,7 @@ public class DetailsActivity extends Activity {
 											"aiid=? and aiuserid=?",
 											new String[] { id + "", uid + "" });
 									if (num > 0) {
-										Toast.makeText(DetailsActivity.this,
+										Toast.makeText(DetailsFragment.this,
 												"删除成功" + num,
 												Toast.LENGTH_SHORT).show();
 										// 删掉长按的item
@@ -215,12 +216,12 @@ public class DetailsActivity extends Activity {
 										// 动态更新listview
 										adapter.notifyDataSetChanged();
 									} else {
-										Toast.makeText(DetailsActivity.this,
+										Toast.makeText(DetailsFragment.this,
 												"删除失败" + num,
 												Toast.LENGTH_SHORT).show();
 									}
 								} else {
-									Toast.makeText(DetailsActivity.this,
+									Toast.makeText(DetailsFragment.this,
 											"删除失败", Toast.LENGTH_SHORT).show();
 								}
 
@@ -257,7 +258,7 @@ public class DetailsActivity extends Activity {
 		public void onReceive(Context context, Intent intent) {
 			// TODO Auto-generated method stub
 			if ("GBadd".equals(intent.getAction())) {
-				// Toast.makeText(DetailsActivity.this,
+				// Toast.makeText(DetailsFragment.this,
 				// "接收到广播一" + intent.getStringExtra("hhh"),
 				// Toast.LENGTH_SHORT).show();
 				// 接收到广播，取出里面携带的数据
@@ -310,50 +311,50 @@ public class DetailsActivity extends Activity {
 	public void click(View v) {
 		switch (v.getId()) {
 			case R.id.nologin_lin:
-				Intent i1 = new Intent(DetailsActivity.this, MyActivity.class);
+				Intent i1 = new Intent(DetailsFragment.this, MyActivity.class);
 				startActivity(i1);
 				break;
 			case R.id.mes_lin:
-				Intent i2 = new Intent(DetailsActivity.this, MessageActivity.class);
+				Intent i2 = new Intent(DetailsFragment.this, MessageActivity.class);
 				startActivity(i2);
 				break;
 			case R.id.remind_lin:
-				Intent i3 = new Intent(DetailsActivity.this, RemindActivity.class);
+				Intent i3 = new Intent(DetailsFragment.this, RemindActivity.class);
 				startActivity(i3);
 				break;
 			case R.id.set_lin:
-				Intent i4 = new Intent(DetailsActivity.this, SetActivity.class);
+				Intent i4 = new Intent(DetailsFragment.this, SetActivity.class);
 				startActivity(i4);
 				break;
 			case R.id.help_lin:
-				Intent i5 = new Intent(DetailsActivity.this, HelpActivity.class);
+				Intent i5 = new Intent(DetailsFragment.this, HelpActivity.class);
 				startActivity(i5);
 				break;
 			case R.id.about_lin:
-				Intent i6 = new Intent(DetailsActivity.this, AboutActivity.class);
+				Intent i6 = new Intent(DetailsFragment.this, AboutActivity.class);
 				startActivity(i6);
 				break;
 			case R.id.exit_lin:
 				createPopWindow();
 				break;
 			case R.id.detailssearch_tv:
-				Intent i7 = new Intent(DetailsActivity.this, SearchActivity.class);
+				Intent i7 = new Intent(DetailsFragment.this, SearchActivity.class);
 				startActivity(i7);
 				break;
 			case R.id.export_lin:
-				Intent i8 = new Intent(DetailsActivity.this, ExportActivity.class);
+				Intent i8 = new Intent(DetailsFragment.this, ExportActivity.class);
 				startActivity(i8);
 				break;
 			case R.id.clear_lin:
-				Intent i10 = new Intent(DetailsActivity.this, ClearActivity.class);
+				Intent i10 = new Intent(DetailsFragment.this, ClearActivity.class);
 				startActivity(i10);
 				break;
 			case R.id.budget_lin:
-				Intent i11 = new Intent(DetailsActivity.this, BudgetActivity.class);
+				Intent i11 = new Intent(DetailsFragment.this, BudgetActivity.class);
 				startActivity(i11);
 				break;
 			case R.id.demo_lin:
-				DemoHomeActivity.start(DetailsActivity.this);
+				DemoHomeActivity.start(DetailsFragment.this);
 				break;
 			default:
 				break;

@@ -29,12 +29,12 @@ public class RemindReceiver extends BroadcastReceiver {
 		/* start another activity - MyAlarm to display the alarm */
 
 		Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
-				R.drawable.ic_logo);
+				R.mipmap.ic_launcher);
 		Intent intent1 = new Intent(context, AddAccountActivity.class);
 		pIntent = PendingIntent.getActivity(context, 0, intent1, 0);
 
 		notify = new Notification.Builder(context)
-				.setSmallIcon(R.drawable.ic_logo) // 设置状态栏中的小图片，尺寸一般建议在24×24
+				.setSmallIcon(R.mipmap.ic_launcher) // 设置状态栏中的小图片，尺寸一般建议在24×24
 				.setLargeIcon(bitmap) // 这里也可以设置大图标
 				.setTicker("记账提醒") // 设置显示的提示文字
 				.setContentTitle("记账提醒") // 设置显示的标题

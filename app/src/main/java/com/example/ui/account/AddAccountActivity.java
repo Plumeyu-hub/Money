@@ -77,7 +77,7 @@ public class AddAccountActivity extends Activity {
 	private Calendar mCalendar= Calendar.getInstance();; // 通过Calendar获取系统时间
 	private int mYear;
 	private int mMonth;
-	int mDay;
+	private int mDay;
 
 	// cal金额
 	Button aobt_ainyes;// 确认按钮
@@ -194,7 +194,7 @@ public class AddAccountActivity extends Activity {
 		findViewById(R.id.add_account_out_tv).setOnClickListener(onClickListener);
 		findViewById(R.id.add_account_in_tv).setOnClickListener(onClickListener);
 
-		mPageView = new ArrayList<View>();
+		mPageView = new ArrayList<>();
 		// 添加想要切换的界面
 		mPageView.add(mViewAddAccountOut);
 		mPageView.add(mViewAddAccountIn);

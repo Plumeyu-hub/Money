@@ -27,7 +27,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class GraphActivity extends Activity {
+public class GraphFragment extends Activity {
     // 时间
     private EditText monthtime;
     // db
@@ -58,7 +58,7 @@ public class GraphActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_graph);
+        setContentView(R.layout.fragment_graph);
 
         // 操作用户名
         spuser = getSharedPreferences("user", MODE_PRIVATE);

@@ -1,108 +1,27 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff">
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/navigation_lin"
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/main_vp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#FF6B6A" />
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/main_tab"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
         android:background="#efefef"
-        android:orientation="vertical">
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/color_FF6B6A" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="49.5dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/details_lin"
-                android:layout_width="0dp"
-                android:layout_height="49.5dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:gravity="center"
-                android:onClick="click"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/detailsimg_tv"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/ic_details_nor" />
-
-                <TextView
-                    android:id="@+id/detailstxt_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:text="明细"
-                    android:textColor="@color/color_707070"
-                    android:textSize="9sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/addaccount_lin"
-                android:layout_width="0dp"
-                android:layout_height="49.5dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:gravity="center"
-                android:onClick="click"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="26dp"
-                    android:layout_height="26dp"
-                    android:background="@drawable/ic_add" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:text="记账"
-                    android:textColor="@color/color_707070"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/graph_lin"
-                android:layout_width="0dp"
-                android:layout_height="49.5dp"
-                android:layout_weight="1"
-                android:clickable="true"
-                android:gravity="center"
-                android:onClick="click"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/graphimg_tv"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/ic_graph_nor" />
-
-                <TextView
-                    android:id="@+id/graphtxt_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="3dp"
-                    android:text="图表"
-                    android:textColor="@color/color_707070"
-                    android:textSize="9sp" />
-            </LinearLayout>
-        </LinearLayout>
-    </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/main_frame"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/navigation_lin"></FrameLayout>
-
-</RelativeLayout>
+        app:tabIndicatorHeight="0dp"
+        app:tabMode="fixed" />
+</LinearLayout>
