@@ -21,11 +21,11 @@
         </activity>
         <activity android:name="com.example.money.MainActivity" >
         </activity>
-        <activity android:name="com.example.ui.account.DetailsFragment" >
+        <activity android:name="com.example.ui.account.DetailsActivity" >
         </activity>
         <activity android:name="com.example.ui.account.AddAccountActivity" >
         </activity>
-        <activity android:name="com.example.ui.account.GraphFragment" >
+        <activity android:name="com.example.ui.account.GraphActivity" >
         </activity>
         <activity android:name="com.example.ui.my.MessageActivity" >
         </activity>

@@ -27,7 +27,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class GraphFragment extends Activity {
+public class GraphActivity extends Activity {
     // 时间
     private EditText monthtime;
     // db

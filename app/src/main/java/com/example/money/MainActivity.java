@@ -26,6 +26,9 @@ public class MainActivity extends AppCompatActivity {
         context.startActivity(starter);
     }
 
+    //private String[] title={"明细","图表"};
+    //private int[] selImg={R.drawable.ic_details_sel,R.drawable.ic_graph_sel};
+    //private int[] norImg={R.drawable.ic_details_nor,R.drawable.ic_graph_nor};
     private static final TabMainBean[] TITLES_BEANS = new TabMainBean[]{new TabMainBean(TabMainBean.TAB_MAIN_DETAILS_ID, "明细"),
             new TabMainBean(TabMainBean.TAB_MAIN_GRAPH_ID, "图标")};
 
@@ -75,14 +78,14 @@ public class MainActivity extends AppCompatActivity {
 
     private void initMainViewPager() {
         mViewPager.setOffscreenPageLimit(TITLES_BEANS.length);
-        mViewPager.setAdapter(new MainActivity.TabMainAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
+        mViewPager.setAdapter(new MainActivity.MainAdapter(getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT));
         mTabLayout.setupWithViewPager(mViewPager);
     }
 
 
-    private static class TabMainAdapter extends FragmentPagerAdapter {
+    private static class MainAdapter extends FragmentPagerAdapter {
 
-        public TabMainAdapter(@NonNull FragmentManager fm, int behavior) {
+        public MainAdapter(@NonNull FragmentManager fm, int behavior) {
             super(fm, behavior);
         }
 
@@ -91,10 +94,12 @@ public class MainActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return TabFragment.newInstance(TITLES_BEANS[position].getTitle());
+                    return DetailsFragment.newInstance(TITLES_BEANS[position].getTitle());
+                    //break;
                 case 1:
-                    return TabFragment.newInstance(TITLES_BEANS[position].getTitle());
-				default:
+                    return GraphFragment.newInstance(TITLES_BEANS[position].getTitle());
+                    //break;
+                default:
                     return TabFragment.newInstance("");
             }
         }
