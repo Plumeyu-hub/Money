@@ -337,7 +337,7 @@ public class DetailsActivity extends Activity {
 			case R.id.exit_lin:
 				createPopWindow();
 				break;
-			case R.id.detailssearch_tv:
+			case R.id.detailssearch_btn:
 				Intent i7 = new Intent(DetailsActivity.this, SearchActivity.class);
 				startActivity(i7);
 				break;

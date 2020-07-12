@@ -13,7 +13,7 @@ import androidx.fragment.app.Fragment;
  * @author 14043
  * @date 2020/7/12
  */
-class GraphFragment extends Fragment {
+public class GraphFragment extends Fragment {
     private String mFrom;
 
     public static GraphFragment newInstance(String from) {

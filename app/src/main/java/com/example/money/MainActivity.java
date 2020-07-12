@@ -17,10 +17,9 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.bean.TabMainBean;
-import com.example.demo.tab.TabFragment;
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     public static void start(Context context) {
         Intent starter = new Intent(context, MainActivity.class);
         context.startActivity(starter);
@@ -47,16 +46,21 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         findViews();
         initData();
+
+
+
     }
 
     private void initData() {
-        mViewPager = findViewById(R.id.main_vp);
-        mTabLayout = findViewById(R.id.main_tab);
+        initMainViewPager();
+        initMainTabLayout();
+
     }
 
     private void findViews() {
-        initMainViewPager();
-        initMainTabLayout();
+        mViewPager = findViewById(R.id.main_vp);
+        mTabLayout = findViewById(R.id.main_tab);
+
     }
 
     @SuppressLint("InflateParams")
@@ -95,13 +99,10 @@ public class MainActivity extends AppCompatActivity {
             switch (position) {
                 case 0:
                     return DetailsFragment.newInstance(TITLES_BEANS[position].getTitle());
-                    //break;
                 case 1:
                     return GraphFragment.newInstance(TITLES_BEANS[position].getTitle());
-                    //break;
-                default:
-                    return TabFragment.newInstance("");
             }
+            return null;
         }
 
         @Override

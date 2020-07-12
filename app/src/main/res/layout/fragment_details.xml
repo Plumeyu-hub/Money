@@ -25,16 +25,14 @@
                 android:layout_marginLeft="10dp"
                 android:background="@mipmap/ic_launcher" />
 
-            <TextView
-                android:id="@+id/detailssearch_tv"
+            <Button
+                android:id="@+id/detailssearch_btn"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:layout_alignParentRight="true"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="10dp"
-                android:background="@drawable/ic_search"
-                android:clickable="true"
-                android:onClick="click" />
+                android:background="@drawable/ic_search" />
 
             <EditText
                 android:id="@+id/detailsmonth_edit"
