@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/accountdetails_dl"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -52,10 +53,42 @@
             android:layout_height="2dp"
             android:background="@color/color_FF6B6A" />
 
-        <ListView
-            android:id="@+id/details_lv"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent">
+
+            <ListView
+                android:id="@+id/details_lv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom|end"
+                android:layout_margin="16dp"
+                android:scaleType="center"
+                android:src="@drawable/ic_add"
+                app:backgroundTint="@color/color_FF6B6A"
+                app:elevation="50dp"
+                app:fabSize="normal"
+                app:rippleColor="@color/color_FF6B6A" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/fab"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="16dp"
+                android:src="@drawable/ic_up"
+                android:visibility="gone"
+                app:backgroundTint="@color/color_FF6B6A"
+                app:fabSize="normal" />
+
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/detailsempty_lin"

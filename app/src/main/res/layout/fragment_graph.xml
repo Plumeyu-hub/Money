@@ -64,16 +64,14 @@
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/eyenor_tv"
+            <Button
+                android:id="@+id/eyenor_btn"
                 android:layout_width="35dp"
                 android:layout_height="25dp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="35dp"
                 android:layout_toRightOf="@+id/balance_lin"
-                android:background="@drawable/ic_eye_nor"
-                android:clickable="true"
-                android:onClick="click" />
+                android:background="@drawable/ic_eye_nor"/>
         </RelativeLayout>
 
         <LinearLayout

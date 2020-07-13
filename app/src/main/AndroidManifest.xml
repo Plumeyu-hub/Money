@@ -21,11 +21,7 @@
         </activity>
         <activity android:name="com.example.money.MainActivity" >
         </activity>
-        <activity android:name="com.example.ui.account.DetailsActivity" >
-        </activity>
         <activity android:name="com.example.ui.account.AddAccountActivity" >
-        </activity>
-        <activity android:name="com.example.ui.account.GraphActivity" >
         </activity>
         <activity android:name="com.example.ui.my.MessageActivity" >
         </activity>
@@ -61,7 +57,6 @@
         </activity>
         <activity android:name="com.example.ui.budget.AddBudgetActivity" >
         </activity>
-
         <activity
             android:name="com.example.demo.home.DemoHomeActivity"
             android:screenOrientation="portrait">
