@@ -23,7 +23,7 @@ public class AddAccountOutGridviewAdapter extends BaseAdapter {
 			R.drawable.ic_takeaway_nor, R.drawable.ic_fruit_nor, R.drawable.ic_snacks_nor,
 			R.drawable.ic_wine_nor, R.drawable.ic_home_nor, R.drawable.ic_house_nor,
 			R.drawable.ic_traffic_nor, R.drawable.ic_car_nor, R.drawable.ic_shopping_nor,
-			R.drawable.ic_ex_nor, R.drawable.ic_communication_nor,
+			R.drawable.ic_post_nor, R.drawable.ic_communication_nor,
 			R.drawable.ic_clothing_nor, R.drawable.ic_daily_nor, R.drawable.ic_beauty_nor,
 			R.drawable.ic_repayment_nor, R.drawable.ic_investment_nor,
 			R.drawable.ic_office_nor, R.drawable.ic_digital_nor, R.drawable.ic_learn_nor,
@@ -31,12 +31,12 @@ public class AddAccountOutGridviewAdapter extends BaseAdapter {
 			R.drawable.ic_medical_nor, R.drawable.ic_maintenance_nor,
 			R.drawable.ic_travel_nor, R.drawable.ic_social_nor, R.drawable.ic_donate_nor,
 			R.drawable.ic_pet_nor, R.drawable.ic_child_nor, R.drawable.ic_elder_nor,
-			R.drawable.ic_aoother_nor};
+			R.drawable.ic_other_nor};
 	private int[] icon_outyes = { R.drawable.ic_restaurant_sel,
 			R.drawable.ic_cook_sel, R.drawable.ic_takeaway_sel, R.drawable.ic_fruit_sel,
 			R.drawable.ic_snacks_sel, R.drawable.ic_wine_sel, R.drawable.ic_home_sel,
 			R.drawable.ic_house_sel, R.drawable.ic_traffic_sel, R.drawable.ic_car_sel,
-			R.drawable.ic_shopping_sel, R.drawable.ic_ex_sel,
+			R.drawable.ic_shopping_sel, R.drawable.ic_post_sel,
 			R.drawable.ic_communication_sel, R.drawable.ic_clothing_sel,
 			R.drawable.ic_daily_sel, R.drawable.ic_beauty_sel,
 			R.drawable.ic_repayment_sel, R.drawable.ic_investment_sel,
@@ -45,7 +45,7 @@ public class AddAccountOutGridviewAdapter extends BaseAdapter {
 			R.drawable.ic_recreation_sel, R.drawable.ic_medical_sel,
 			R.drawable.ic_maintenance_sel, R.drawable.ic_travel_sel,
 			R.drawable.ic_social_sel, R.drawable.ic_donate_sel, R.drawable.ic_pet_sel,
-			R.drawable.ic_child_sel, R.drawable.ic_elder_sel, R.drawable.ic_aoother_sel};
+			R.drawable.ic_child_sel, R.drawable.ic_elder_sel, R.drawable.ic_other_out_sel};
 	private int clickTemp = -1;// 标识被选择的item
 	private LayoutInflater layoutInflater;
 

@@ -288,11 +288,83 @@ public class DetailsFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        //在 Activity.onCreate() 方法调用后会立刻调用此方法，表示窗口已经初始化完毕，此时可以调用控件了
+
+        super.onActivityCreated(savedInstanceState);
+        //Log.d("demoinfo", "Fragment onActivityCreated() 方法执行！");
+
+
+
+
+    }
+
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+
+    public void click(View v) {
+        switch (v.getId()) {
+            case R.id.nologin_lin:
+                //DetailsFragment.start(MyActivity.this);
+                Intent i1 = new Intent(getActivity(), MyActivity.class);
+                startActivity(i1);
+                break;
+            case R.id.mes_lin:
+                Intent i2 = new Intent(getActivity(), MessageActivity.class);
+                startActivity(i2);
+                break;
+            case R.id.remind_lin:
+                Intent i3 = new Intent(getActivity(), RemindActivity.class);
+                startActivity(i3);
+                break;
+            case R.id.set_lin:
+                Intent i4 = new Intent(getActivity(), SetActivity.class);
+                startActivity(i4);
+                break;
+            case R.id.help_lin:
+                Intent i5 = new Intent(getActivity(), HelpActivity.class);
+                startActivity(i5);
+                break;
+            case R.id.about_lin:
+                Intent i6 = new Intent(getActivity(), AboutActivity.class);
+                startActivity(i6);
+                break;
+            case R.id.exit_lin:
+                createPopWindow();
+                break;
+            case R.id.detailssearch_btn:
+                Intent i7 = new Intent(getActivity(), SearchActivity.class);
+                startActivity(i7);
+                break;
+            case R.id.export_lin:
+                Intent i8 = new Intent(getActivity(), ExportActivity.class);
+                startActivity(i8);
+                break;
+            case R.id.clear_lin:
+                Intent i10 = new Intent(getActivity(), ClearActivity.class);
+                startActivity(i10);
+                break;
+            case R.id.budget_lin:
+                Intent i11 = new Intent(getActivity(), BudgetActivity.class);
+                startActivity(i11);
+                break;
+            case R.id.demo_lin:
+                DemoHomeActivity.start(getActivity());
+                break;
+            default:
+                break;
+        }
+    }
+
+
+
 
     // 外
     // 注册广播接收者
@@ -358,58 +430,6 @@ public class DetailsFragment extends Fragment {
         }
     }
 
-    public void click(View v) {
-        switch (v.getId()) {
-            case R.id.nologin_lin:
-                Intent i1 = new Intent(getActivity(), MyActivity.class);
-                startActivity(i1);
-                break;
-            case R.id.mes_lin:
-                Intent i2 = new Intent(getActivity(), MessageActivity.class);
-                startActivity(i2);
-                break;
-            case R.id.remind_lin:
-                Intent i3 = new Intent(getActivity(), RemindActivity.class);
-                startActivity(i3);
-                break;
-            case R.id.set_lin:
-                Intent i4 = new Intent(getActivity(), SetActivity.class);
-                startActivity(i4);
-                break;
-            case R.id.help_lin:
-                Intent i5 = new Intent(getActivity(), HelpActivity.class);
-                startActivity(i5);
-                break;
-            case R.id.about_lin:
-                Intent i6 = new Intent(getActivity(), AboutActivity.class);
-                startActivity(i6);
-                break;
-            case R.id.exit_lin:
-                createPopWindow();
-                break;
-            case R.id.detailssearch_btn:
-                Intent i7 = new Intent(getActivity(), SearchActivity.class);
-                startActivity(i7);
-                break;
-            case R.id.export_lin:
-                Intent i8 = new Intent(getActivity(), ExportActivity.class);
-                startActivity(i8);
-                break;
-            case R.id.clear_lin:
-                Intent i10 = new Intent(getActivity(), ClearActivity.class);
-                startActivity(i10);
-                break;
-            case R.id.budget_lin:
-                Intent i11 = new Intent(getActivity(), BudgetActivity.class);
-                startActivity(i11);
-                break;
-            case R.id.demo_lin:
-                DemoHomeActivity.start(getActivity());
-                break;
-            default:
-                break;
-        }
-    }
 
     // 创建弹窗并显示
     PopupWindow pop;
@@ -439,7 +459,7 @@ public class DetailsFragment extends Fragment {
                 public void onClick(View arg0) {
                     // TODO Auto-generated method stub
                     getActivity().finish();
-                    // System.ic_exit(0);
+                    // System.exit(0);
                 }
             });
             TextView tv_no = (TextView) view.findViewById(R.id.dialogno_tv);

@@ -47,7 +47,7 @@
                 android:id="@+id/budgetadd_tv"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/ic_badd"
+                android:background="@drawable/ic_add"
                 android:clickable="true"
                 android:onClick="click" />
         </LinearLayout>

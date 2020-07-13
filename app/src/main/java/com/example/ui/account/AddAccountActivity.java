@@ -103,12 +103,12 @@ public class AddAccountActivity extends Activity {
 	private int[] icon_inno = { R.drawable.ic_wages_nor, R.drawable.ic_bonus_nor,
 			R.drawable.ic_part_nor, R.drawable.ic_mis_nor, R.drawable.ic_collect_nor,
 			R.drawable.ic_borrow_nor, R.drawable.ic_sell_nor, R.drawable.ic_financial_nor,
-			R.drawable.ic_gifts_nor, R.drawable.ic_aiother_nor};
+			R.drawable.ic_gifts_nor, R.drawable.ic_other_nor};
 	private int[] icon_inyes = { R.drawable.ic_wages_sel, R.drawable.ic_bonus_sel,
 			R.drawable.ic_part_sel, R.drawable.ic_mis_sel, R.drawable.ic_collect_sel,
 			R.drawable.ic_borrow_sel, R.drawable.ic_sell_sel,
 			R.drawable.ic_financial_sel, R.drawable.ic_gifts_sel,
-			R.drawable.ic_aiother_sel};
+			R.drawable.ic_other_in_sel};
 	// GV的上次变量变化
 	int ai_last = 0;
 

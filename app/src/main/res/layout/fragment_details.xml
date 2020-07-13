@@ -529,7 +529,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_exit" />
+                    android:background="@drawable/ic_exit_app" />
 
                 <TextView
                     android:layout_width="wrap_content"
