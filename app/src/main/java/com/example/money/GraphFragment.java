@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -17,10 +16,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
+import com.example.base.BaseFragment;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
@@ -30,24 +26,22 @@ import com.github.mikephil.charting.data.PieEntry;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import butterknife.ButterKnife;
+
 /**
  * @author 14043
  * @date 2020/7/12
  */
-public class GraphFragment extends Fragment {
+public class GraphFragment extends BaseFragment {
+
+    private static final String EXTRA_TEXT = "extra_text";
+
     public static GraphFragment newInstance(String from) {
         GraphFragment graphFragment = new GraphFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("from", from);
+        bundle.putString(EXTRA_TEXT, from);
         graphFragment.setArguments(bundle);
         return graphFragment;
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_graph, container, false);
-        return view;
     }
 
     // 时间
@@ -61,7 +55,7 @@ public class GraphFragment extends Fragment {
 
     TextView tv_graph_countnum, tv_graph_counttext, tv_graph_outnum,
             tv_graph_outtext, tv_graph_innum, tv_graph_intext,
-             tv_graph_countnumgone, tv_graph_outnumgone,
+            tv_graph_countnumgone, tv_graph_outnumgone,
             tv_graph_innumgone;
 
     boolean state = true;
@@ -77,19 +71,17 @@ public class GraphFragment extends Fragment {
     private SharedPreferences.Editor editoruser;
     private int userid;
 
+    //隐藏
+    Button button;
+
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+    protected int getLayoutId() {
+        return R.layout.fragment_graph;
+    }
 
-        // 操作用户名
-        spuser = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
-        editoruser = spuser.edit();
-        if (spuser != null) {// 判断文件是否存在
-            userid = spuser.getInt("userid", 0);
-        }
-
-        // 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
-        DB = getActivity().openOrCreateDatabase("data.db", Context.MODE_PRIVATE, null);
+    @Override
+    protected void findViews(View view) {
+        ButterKnife.bind(this, view);
 
         tv_graph_countnum = (TextView) view.findViewById(R.id.balancenum_tv);
         tv_graph_counttext = (TextView) view.findViewById(R.id.balancetext_tv);
@@ -103,19 +95,28 @@ public class GraphFragment extends Fragment {
         // 时间
         // 获取对象
         monthtime = (EditText) view.findViewById(R.id.graphmonth_edit);
+
+        // 绘图
+        mChart = (PieChart) view.findViewById(R.id.piechart);
+
+        //隐藏
+        button= (Button) view.findViewById(R.id.eyenor_btn);
+
+
+    }
+
+    @Override
+    protected void setListeners(View view) {
+        super.setListeners(view);
         // 点击"日期"按钮布局 设置日期
         monthtime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePicker();
-
             }
         });
-        // 绘图
-        mChart = (PieChart) view.findViewById(R.id.piechart);
 
         //隐藏
-        final Button button = (Button) view.findViewById(R.id.eyenor_btn);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,18 +149,37 @@ public class GraphFragment extends Fragment {
                 }
             }
         });
-
     }
 
+
+    @Override
+    protected void initData() {
+        super.initData();
+        initDb();
+        showUserInfo();
+    }
+
+    private void initDb() {
+        // 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
+        DB = getActivity().openOrCreateDatabase("data.db", Context.MODE_PRIVATE, null);
+    }
+
+    private void showUserInfo() {
+        // 操作用户名
+        spuser = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+        editoruser = spuser.edit();
+        if (spuser != null) {// 判断文件是否存在
+            userid = spuser.getInt("userid", 0);
+        }
+    }
+
+
     // 外
-
-
     // 获取当前日期
     Calendar calendar = Calendar.getInstance();
     int year = calendar.get(Calendar.YEAR);
     int month = calendar.get(Calendar.MONTH);
     int day = calendar.get(Calendar.DAY_OF_MONTH);
-
     private void showDatePicker() {
 
         // 创建并显示DatePickerDialog

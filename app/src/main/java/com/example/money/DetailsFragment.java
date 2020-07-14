@@ -66,10 +66,12 @@ public class DetailsFragment extends BaseFragment {
     /** 详情修改的结果码 */
     public static final int DETAIL_UPDATE_RESULT_CODE = 102;
 
+    private static final String EXTRA_TEXT = "extra_text";
+
     public static DetailsFragment newInstance(String from) {
         DetailsFragment detailsFragment = new DetailsFragment();
         Bundle bundle = new Bundle();
-        bundle.putString("from", from);
+        bundle.putString(EXTRA_TEXT, from);
         detailsFragment.setArguments(bundle);
         return detailsFragment;
     }
@@ -114,14 +116,6 @@ public class DetailsFragment extends BaseFragment {
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_details;
-    }
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        //在 Activity.onCreate() 方法调用后会立刻调用此方法，表示窗口已经初始化完毕，此时可以调用控件了
-
-        super.onActivityCreated(savedInstanceState);
-        //Log.d("demoinfo", "Fragment onActivityCreated() 方法执行！");
     }
 
     @Override

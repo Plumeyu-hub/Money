@@ -1,22 +1,17 @@
 package com.example.base;
 
+import android.content.Context;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 /**
- * @author Administrator
+ * @author Wangshy
  * @date 2020/07/14
  */
 public abstract class BaseActivity extends AppCompatActivity {
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -47,4 +42,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void initData() {}
 
     protected void endCreate() {}
+
+    protected Context context(){return this;}
 }
