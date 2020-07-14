@@ -3,64 +3,59 @@ package com.example.money;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.base.BaseActivity;
 import com.example.bean.TabMainBean;
 import com.google.android.material.tabs.TabLayout;
 
-public class MainActivity extends AppCompatActivity{
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class MainActivity extends BaseActivity {
     public static void start(Context context) {
         Intent starter = new Intent(context, MainActivity.class);
         context.startActivity(starter);
     }
 
-    //private String[] title={"明细","图表"};
-    //private int[] selImg={R.drawable.ic_details_sel,R.drawable.ic_graph_sel};
-    //private int[] norImg={R.drawable.ic_details_nor,R.drawable.ic_graph_nor};
     private static final TabMainBean[] TITLES_BEANS = new TabMainBean[]{new TabMainBean(TabMainBean.TAB_MAIN_DETAILS_ID, "明细"),
             new TabMainBean(TabMainBean.TAB_MAIN_GRAPH_ID, "图标")};
 
     /**
      * 翻页器
      */
-    private ViewPager mViewPager;
+    @BindView(R.id.main_vp)
+    ViewPager mViewPager;
     /**
      * Tab栏目
      */
-    private TabLayout mTabLayout;
+    @BindView(R.id.main_tab)
+    TabLayout mTabLayout;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        findViews();
-        initData();
-
-
-
+    protected int getLayoutId() {
+        return R.layout.activity_main;
     }
 
-    private void initData() {
+    @Override
+    protected void findViews() {
+        ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void initData() {
+        super.initData();
         initMainViewPager();
         initMainTabLayout();
-
-    }
-
-    private void findViews() {
-        mViewPager = findViewById(R.id.main_vp);
-        mTabLayout = findViewById(R.id.main_tab);
-
     }
 
     @SuppressLint("InflateParams")
