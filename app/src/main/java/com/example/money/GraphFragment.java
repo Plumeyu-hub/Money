@@ -35,8 +35,6 @@ import java.util.Calendar;
  * @date 2020/7/12
  */
 public class GraphFragment extends Fragment {
-    private String mFrom;
-
     public static GraphFragment newInstance(String from) {
         GraphFragment graphFragment = new GraphFragment();
         Bundle bundle = new Bundle();

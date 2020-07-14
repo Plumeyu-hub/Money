@@ -158,7 +158,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
                         android:background="@null"
-                        android:editable="false"
                         android:focusable="false"
                         android:text="2020-03-13"
                         android:textColor="@color/color_333333"

@@ -58,9 +58,6 @@ import java.util.List;
  */
 
 public class DetailsFragment extends Fragment {
-    private String mFrom;
-
-
     public static DetailsFragment newInstance(String from) {
         DetailsFragment detailsFragment = new DetailsFragment();
         Bundle bundle = new Bundle();
@@ -87,15 +84,15 @@ public class DetailsFragment extends Fragment {
     /** 日期选择按钮 */
     private EditText mMonthSelectorBtn;
 
-    // 搜索
+    /** 账目搜索按钮 */
     TextView tv_search;
 
     // 数据库
     private SQLiteDatabase mDb;
 
     // 用户名
-    private SharedPreferences spuser;
-    private SharedPreferences.Editor editoruser;
+    private SharedPreferences sp_user;
+    private SharedPreferences.Editor editor_user;
     private String username;
     private int mUserId;
     private TextView mUserNameTv;
@@ -350,12 +347,12 @@ public class DetailsFragment extends Fragment {
     /** 显示用户信息 */
     private void showUserInfo() {
         // 用户名存储
-        spuser = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
-        editoruser = spuser.edit();
-        if (spuser != null) {// 判断文件是否存在
+        sp_user = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
+        editor_user = sp_user.edit();
+        if (sp_user != null) {// 判断文件是否存在
             // 使用getString方法获得value，注意第2个参数是value的默认值
-            username = spuser.getString("username", "");
-            mUserId = spuser.getInt("userid", 0);
+            username = sp_user.getString("username", "");
+            mUserId = sp_user.getInt("userid", 0);
             // System.out.println(username);
             mUserNameTv.setText(username);
             // System.out.println(userid);

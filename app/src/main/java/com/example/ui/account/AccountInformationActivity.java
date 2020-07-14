@@ -12,6 +12,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -92,6 +93,9 @@ public class AccountInformationActivity extends Activity {
         mAccountInformationAccountSp = (Spinner) findViewById(R.id.account_information_account_sp);
         mAccountInformationRemarksEdit = (EditText) findViewById(R.id.account_information_remarks_edit);
         mAccountInformationBottomLin = (LinearLayout) findViewById(R.id.account_information_bottom_lin);
+
+        //maccountInformationDaytimeEdit可以获取焦点，但是不会显示软键盘
+        maccountInformationDaytimeEdit.setInputType(EditorInfo.TYPE_NULL);
 
         getData();// 获取传递过来的数据并显示
 
