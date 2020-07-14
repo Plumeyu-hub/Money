@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.bean.AccountBean;
+import com.example.money.DetailsFragment;
 import com.example.money.R;
 
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class SearchActivity extends Activity {
 
 	private ListView search_lv;
 	private List<AccountBean> list;
-	private AddAcountListAdapter adapter;
+	private DetailsInfoListAdapter adapter;
 
 	// 操作用户名
 	private SharedPreferences spuser;
@@ -56,7 +57,7 @@ public class SearchActivity extends Activity {
 		// 第二步:初始化数据
 		list = new ArrayList<AccountBean>();
 		// 实例化适配器
-		adapter = new AddAcountListAdapter(this, list);
+		adapter = new DetailsInfoListAdapter(this, list);
 		// listview设置适配器
 		search_lv.setAdapter(adapter);
 		search_lv.setOnItemClickListener(new OnItemClickListener() {
@@ -64,13 +65,8 @@ public class SearchActivity extends Activity {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1,
 					int position, long arg3) {
-				// TODO Auto-generated method stub
 				AccountBean showdata = list.get(position);
-				Intent i = new Intent(SearchActivity.this,
-						AccountInformationActivity.class);
-				i.putExtra("showdata", showdata);
-				i.putExtra("position", position);
-				startActivityForResult(i, 0);
+				AccountInformationActivity.startForResult(SearchActivity.this, showdata, position, DetailsFragment.DETAIL_UPDATE_REQUEST_CODE);
 			}
 		});
 

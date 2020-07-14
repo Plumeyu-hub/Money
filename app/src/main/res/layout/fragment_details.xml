@@ -20,19 +20,19 @@
                 android:id="@+id/detailslogo_img"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:layout_centerHorizontal="true"
-                android:layout_marginLeft="10dp"
+                android:layout_marginStart="10dp"
                 android:background="@mipmap/ic_launcher" />
 
             <Button
                 android:id="@+id/search_btn"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
-                android:layout_marginRight="10dp"
+                android:layout_marginEnd="10dp"
                 android:background="@drawable/ic_search" />
 
             <EditText

@@ -23,13 +23,27 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.bean.AccountBean;
+import com.example.money.DetailsFragment;
 import com.example.money.R;
 
 import java.util.Calendar;
 
 public class AccountInformationActivity extends Activity {
-    //类别，金额的符号
-    private TextView mAccountInformationCategoryTv, mAccountInformationSymbolTv;
+
+    private static final String EXTRA_ACCOUNT_BEAN = "EXTRA_ACCOUNT_BEAN";
+    private static final String EXTRA_POSITION = "EXTRA_POSITION";
+
+    public static void startForResult(Activity activity, AccountBean bean, int position, int requestCode) {
+        Intent starter = new Intent(activity, AccountInformationActivity.class);
+        starter.putExtra(EXTRA_ACCOUNT_BEAN, bean);
+        starter.putExtra(EXTRA_POSITION, position);
+        activity.startActivityForResult(starter, requestCode);
+    }
+    
+    /** 类别 */
+    private TextView mAccountInformationCategoryTv;
+    //金额的符号
+    private TextView mAccountInformationSymbolTv;
     //金额，时间，备注
     private EditText mAccountInformationMoneyEdit, mAccountInformationRemarksEdit, maccountInformationDaytimeEdit;
     //账户
@@ -176,7 +190,7 @@ public class AccountInformationActivity extends Activity {
                         Intent i = new Intent();
                         i.putExtra("updata", updata);
                         i.putExtra("position", position);
-                        setResult(102, i);
+                        setResult(DetailsFragment.DETAIL_UPDATE_RESULT_CODE, i);
                         finish();
                     } else {
                         Toast.makeText(AccountInformationActivity.this,
@@ -203,7 +217,7 @@ public class AccountInformationActivity extends Activity {
                         Intent i = new Intent();
                         i.putExtra("updata", updata);
                         i.putExtra("position", position);
-                        setResult(102, i);
+                        setResult(DetailsFragment.DETAIL_UPDATE_RESULT_CODE, i);
                         finish();
                     } else {
                         Toast.makeText(AccountInformationActivity.this,
@@ -283,7 +297,7 @@ public class AccountInformationActivity extends Activity {
     public void getData() {
         Intent i = this.getIntent();
         if (i != null) {
-            AccountBean mAccountBean = (AccountBean) i.getSerializableExtra("showdata");
+            AccountBean mAccountBean = (AccountBean) i.getSerializableExtra(EXTRA_ACCOUNT_BEAN);
             mId = mAccountBean.getId();
             System.out.println(mId);
             mAccountInformationCategoryTv.setText(mAccountBean.getCategory());
@@ -311,7 +325,7 @@ public class AccountInformationActivity extends Activity {
             }
             mAccountInformationRemarksEdit.setText(mAccountBean.getRemarks());
             mAccountInformationRemarksEdit.setSelection(mAccountInformationRemarksEdit.length());// 将光标移至文字末尾
-            position = i.getIntExtra("position", 0);
+            position = i.getIntExtra(EXTRA_POSITION, 0);
         }
 
     }

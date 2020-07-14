@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 
@@ -34,7 +35,7 @@ import com.example.bean.AccountBean;
 import com.example.demo.home.DemoHomeActivity;
 import com.example.ui.account.AccountInformationActivity;
 import com.example.ui.account.AddAccountActivity;
-import com.example.ui.account.AddAcountListAdapter;
+import com.example.ui.account.DetailsInfoListAdapter;
 import com.example.ui.account.SearchActivity;
 import com.example.ui.budget.BudgetActivity;
 import com.example.ui.my.AboutActivity;
@@ -58,6 +59,12 @@ import java.util.List;
  */
 
 public class DetailsFragment extends Fragment {
+
+    /** 详情修改的请求码 */
+    public static final int DETAIL_UPDATE_REQUEST_CODE = 0;
+    /** 详情修改的结果码 */
+    public static final int DETAIL_UPDATE_RESULT_CODE = 102;
+
     private String mFrom;
 
 
@@ -72,12 +79,12 @@ public class DetailsFragment extends Fragment {
     private ViewGroup mNologinBtn;
 
     // 广播
-    MyBroadcastReceiver receiver;
+    MyBroadcastReceiver mReceiver;
 
     // list
     private ListView mDetailsLv;
     private List<AccountBean> mList;
-    private AddAcountListAdapter mAdapter;
+    private DetailsInfoListAdapter mAdapter;
 
     /** 侧边栏按钮 */
     ImageView mDrawerBtn;
@@ -140,10 +147,7 @@ public class DetailsFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 AccountBean showdata = mList.get(position);
-                Intent i = new Intent(getActivity(), AccountInformationActivity.class);
-                i.putExtra("showdata", showdata);
-                i.putExtra("position", position);
-                startActivityForResult(i, 0);
+                AccountInformationActivity.startForResult(requireActivity(), showdata, position, DETAIL_UPDATE_REQUEST_CODE);
             }
         });
 
@@ -167,7 +171,7 @@ public class DetailsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 /* 重点，LEFT是xml布局文件中侧边栏布局所设置的方向 */
-                mDrawerLayout.openDrawer(Gravity.LEFT);
+                mDrawerLayout.openDrawer(GravityCompat.START);
             }
         });
 
@@ -293,6 +297,7 @@ public class DetailsFragment extends Fragment {
         registerReceiver();// 注册广播
     }
 
+
     /**
      * 显示删除提示弹框
      * @param id 编号
@@ -308,7 +313,6 @@ public class DetailsFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // 删除指定数据
-                int num;
                 if (sy.equals("-")) {
                     deleteRecordByDb(id, position, "expenditure", "aoid=? and aouserid=?");
                     return;
@@ -317,7 +321,7 @@ public class DetailsFragment extends Fragment {
                     deleteRecordByDb(id, position, "income", "aiid=? and aiuserid=?");
                     return;
                 }
-                Toast.makeText(getActivity(), "删除失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "数据异常", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -367,7 +371,7 @@ public class DetailsFragment extends Fragment {
         // 第二步:初始化数据
         mList = new ArrayList<>();
         // 实例化适配器
-        mAdapter = new AddAcountListAdapter(getActivity(), mList);
+        mAdapter = new DetailsInfoListAdapter(getActivity(), mList);
         // listview设置适配器
         mDetailsLv.setAdapter(mAdapter);
         mAdapter.notifyDataSetChanged();
@@ -383,16 +387,14 @@ public class DetailsFragment extends Fragment {
     // 外
     // 注册广播接收者
     public void registerReceiver() {
-        receiver = new MyBroadcastReceiver();// 实例化广播接收者
-        IntentFilter filter1 = new IntentFilter("GBadd");
-        getActivity().registerReceiver(receiver, filter1);
+        mReceiver = new MyBroadcastReceiver();// 实例化广播接收者
+        getActivity().registerReceiver(mReceiver, new IntentFilter("GBadd"));
     }
 
     class MyBroadcastReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            // TODO Auto-generated method stub
             if ("GBadd".equals(intent.getAction())) {
                 // Toast.makeText(DetailsActivity.this,
                 // "接收到广播一" + intent.getStringExtra("hhh"),
@@ -421,27 +423,25 @@ public class DetailsFragment extends Fragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getActivity().getApplicationContext().unregisterReceiver(receiver);// 注销广播接收者
+        getActivity().getApplicationContext().unregisterReceiver(mReceiver);// 注销广播接收者
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (intent != null) {
-            if (resultCode == 102) {
-                AccountBean updata = (AccountBean) intent
-                        .getSerializableExtra("updata");
+            if (requestCode == DETAIL_UPDATE_REQUEST_CODE && resultCode == DETAIL_UPDATE_RESULT_CODE) {
+                AccountBean updata = (AccountBean) intent.getSerializableExtra("updata");
                 int position = intent.getIntExtra("position", 0);
                 mList.set(position, updata);
                 mAdapter.notifyDataSetChanged();
             }
-
         }
     }
 
     public void createPopWindow() {
         if (mPopupWindow == null) {
-            View view = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_exit, null);
+            View view = LayoutInflater.from(getActivity()).inflate(R.layout.pop_exit, null);
             // 获取圆角对话框布局View，背景设为圆角
             view.setBackgroundResource(R.drawable.bg_eeeeee_corner_20);
             // 实例化弹窗
@@ -606,6 +606,9 @@ public class DetailsFragment extends Fragment {
                         airemarks, aitime, aiid, aiuserid);
                 mList.add(accountBean);
             }
+        }
+        if (cs != null){
+            cs.close();
         }
         Collections.sort(mList, new Comparator<AccountBean>() {
 

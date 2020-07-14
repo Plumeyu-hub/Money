@@ -12,13 +12,13 @@ import com.example.money.R;
 
 import java.util.List;
 
-public class AddAcountListAdapter extends BaseAdapter {
+public class DetailsInfoListAdapter extends BaseAdapter {
 	private Context context;
 	private List<AccountBean> list;
 
 	// SQLiteDatabase db;// 数据库对象
 
-	public AddAcountListAdapter(Context context, List<AccountBean> list) {
+	public DetailsInfoListAdapter(Context context, List<AccountBean> list) {
 		this.context = context;
 		this.list = list;
 	}
