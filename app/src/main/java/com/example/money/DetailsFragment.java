@@ -25,12 +25,10 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
 
+import com.example.base.BaseFragment;
 import com.example.bean.AccountBean;
 import com.example.demo.home.DemoHomeActivity;
 import com.example.ui.account.AccountInformationActivity;
@@ -53,12 +51,15 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * @author 14043
  * @date 2020/7/12
  */
 
-public class DetailsFragment extends Fragment {
+public class DetailsFragment extends BaseFragment {
 
     /** 详情修改的请求码 */
     public static final int DETAIL_UPDATE_REQUEST_CODE = 0;
@@ -73,23 +74,25 @@ public class DetailsFragment extends Fragment {
         return detailsFragment;
     }
 
-    private ViewGroup mNologinBtn;
-
     // 广播
     MyBroadcastReceiver mReceiver;
 
     // list
-    private ListView mDetailsLv;
+    @BindView(R.id.details_lv)
+    ListView mDetailsLv;
     private List<AccountBean> mList;
     private DetailsInfoListAdapter mAdapter;
 
     /** 侧边栏按钮 */
+    @BindView(R.id.detailslogo_img)
     ImageView mDrawerBtn;
     /** 侧边栏控件 */
+    @BindView(R.id.accountdetails_dl)
     DrawerLayout mDrawerLayout;/* 重点，声明DrawerLayout */
 
     /** 日期选择按钮 */
-    private EditText mMonthSelectorBtn;
+    @BindView(R.id.detailsmonth_edit)
+    EditText mMonthSelectorBtn;
 
     /** 账目搜索按钮 */
     TextView tv_search;
@@ -102,15 +105,15 @@ public class DetailsFragment extends Fragment {
     private SharedPreferences.Editor editor_user;
     private String username;
     private int mUserId;
-    private TextView mUserNameTv;
+    @BindView(R.id.username_tv)
+    TextView mUserNameTv;
 
     // 创建弹窗并显示
     private PopupWindow mPopupWindow;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_details, container, false);
+    protected int getLayoutId() {
+        return R.layout.fragment_details;
     }
 
     @Override
@@ -122,25 +125,14 @@ public class DetailsFragment extends Fragment {
     }
 
     @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        findViews(view);
-        setListeners(view);
-        initData();
-        mNologinBtn = view.findViewById(R.id.nologin_lin);
+    protected void findViews(View view) {
+        ButterKnife.bind(this, view);
     }
 
-    private void findViews(View view) {
-        mUserNameTv = view.findViewById(R.id.username_tv);
-        mDetailsLv = view.findViewById(R.id.details_lv);
-        mDrawerBtn = view.findViewById(R.id.detailslogo_img);
-        mDrawerLayout = view.findViewById(R.id.accountdetails_dl);
-        mMonthSelectorBtn = view.findViewById(R.id.detailsmonth_edit);
-    }
-
-    private void setListeners(View view) {
+    @Override
+    protected void setListeners(View view) {
+        super.setListeners(view);
         mDetailsLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
                 AccountBean showdata = mList.get(position);
@@ -150,7 +142,6 @@ public class DetailsFragment extends Fragment {
 
         // 长按删除
         mDetailsLv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int arg2, long arg3) {
                 // 获取所点击项的_id
@@ -164,21 +155,18 @@ public class DetailsFragment extends Fragment {
         });
 
         mDrawerBtn.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
                 /* 重点，LEFT是xml布局文件中侧边栏布局所设置的方向 */
                 mDrawerLayout.openDrawer(GravityCompat.START);
             }
         });
-
         mMonthSelectorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePicker();
             }
         });
-
 
         //搜索
         view.findViewById(R.id.search_btn).setOnClickListener(new View.OnClickListener() {
@@ -287,13 +275,14 @@ public class DetailsFragment extends Fragment {
         });
     }
 
-    private void initData() {
+    @Override
+    protected void initData() {
+        super.initData();
         initDb();
         showUserInfo();
         initListView();
         registerReceiver();// 注册广播
     }
-
 
     /**
      * 显示删除提示弹框
