@@ -25,7 +25,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="5dp"
-                android:background="@drawable/ic_fffexit"
+                android:background="@drawable/ic_exit_fff"
                 android:clickable="true"
                 android:onClick="click" />
 
