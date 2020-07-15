@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.money" >
+    package="com.snxun.book" >
 
     <!-- 这个权限用于进行写入扩展存储，向扩展卡写入数据 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -11,7 +11,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.example.ui.login.WelcomeActivity"
+            android:name=".ui.login.WelcomeActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -19,57 +19,57 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.example.money.MainActivity" >
+        <activity android:name=".ui.money.main.MainActivity" >
         </activity>
-        <activity android:name="com.example.ui.account.AddAccountActivity" >
+        <activity android:name=".ui.money.add.AddActivity" >
         </activity>
-        <activity android:name="com.example.ui.my.MessageActivity" >
+        <activity android:name=".ui.my.MessageActivity" >
         </activity>
-        <activity android:name="com.example.ui.my.RemindActivity" >
+        <activity android:name=".ui.my.RemindActivity" >
         </activity>
-        <activity android:name="com.example.ui.my.SetActivity" >
+        <activity android:name=".ui.my.SetActivity" >
         </activity>
-        <activity android:name="com.example.ui.my.HelpActivity" >
+        <activity android:name=".ui.my.HelpActivity" >
         </activity>
-        <activity android:name="com.example.ui.my.AboutActivity" >
+        <activity android:name=".ui.my.AboutActivity" >
         </activity>
-        <activity android:name="com.example.ui.login.LoginActivity" >
+        <activity android:name=".ui.login.LoginActivity" >
         </activity>
-        <activity android:name="com.example.ui.login.RegisteredActivity" >
+        <activity android:name=".ui.login.RegisteredActivity" >
         </activity>
-        <activity android:name="com.example.ui.account.SubmitRemarkActivity" >
+        <activity android:name=".ui.money.add.SubmitRemarkActivity" >
         </activity>
-        <activity android:name="com.example.ui.account.AccountInformationActivity" >
+        <activity android:name=".ui.money.update.UpdateActivity" >
         </activity>
-        <activity android:name="com.example.ui.account.SearchActivity" >
+        <activity android:name=".ui.money.search.SearchActivity" >
         </activity>
-        <activity android:name="com.example.ui.my.ExportActivity" >
+        <activity android:name=".ui.my.ExportActivity" >
         </activity>
-        <activity android:name="com.example.ui.my.ClearActivity" >
+        <activity android:name=".ui.my.ClearActivity" >
         </activity>
-        <activity android:name="com.example.ui.my.ModifyPasswordActivity" >
+        <activity android:name=".ui.my.ModifyPasswordActivity" >
         </activity>
-        <activity android:name="com.example.ui.my.MyActivity" >
+        <activity android:name=".ui.my.MyActivity" >
         </activity>
-        <activity android:name="com.example.ui.login.RetrievePasswordActivity" >
+        <activity android:name=".ui.login.RetrievePasswordActivity" >
         </activity>
-        <activity android:name="com.example.ui.budget.BudgetActivity" >
+        <activity android:name=".ui.my.budget.BudgetActivity" >
         </activity>
-        <activity android:name="com.example.ui.budget.AddBudgetActivity" >
+        <activity android:name=".ui.my.budget.AddBudgetActivity" >
         </activity>
         <activity
-            android:name="com.example.demo.home.DemoHomeActivity"
+            android:name=".ui.my.demo.home.DemoHomeActivity"
             android:screenOrientation="portrait">
 
         </activity>
 
         <activity
-            android:name="com.example.demo.tab.TabTestActivity"
+            android:name=".ui.my.demo.tab.TabTestActivity"
             android:screenOrientation="portrait">
 
         </activity>
 
-        <receiver android:name="com.example.ui.my.RemindReceiver" >
+        <receiver android:name=".ui.my.RemindReceiver" >
         </receiver>
     </application>
 
