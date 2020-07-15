@@ -9,14 +9,13 @@
         android:layout_width="match_parent"
         android:layout_height="50dp" >
 
-        <TextView
-            android:id="@+id/about_left_tv"
+        <ImageView
+            android:id="@+id/about_back_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:background="@drawable/ic_left"
-            android:clickable="true"
-            android:onClick="click" />
+            android:contentDescription="@string/app_name"/>
 
         <TextView
             android:layout_width="wrap_content"
@@ -24,7 +23,7 @@
             android:layout_centerInParent="true"
             android:text="关于"
             android:textColor="@color/color_333333"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <View
@@ -50,7 +49,7 @@
             android:paddingTop="10dp"
             android:text="版本号"
             android:textColor="@color/color_333333"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -58,7 +57,7 @@
             android:paddingTop="8dp"
             android:text="0.1.0"
             android:textColor="@color/color_666666"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -66,7 +65,7 @@
             android:paddingTop="10dp"
             android:text="关于应用"
             android:textColor="@color/color_333333"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -74,7 +73,7 @@
             android:paddingTop="8dp"
             android:text="毕业设计————个人记账APP的设计与实现"
             android:textColor="@color/color_666666"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -89,7 +88,7 @@
             android:paddingTop="10dp"
             android:text="关于我"
             android:textColor="@color/color_333333"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -97,7 +96,7 @@
             android:paddingTop="8dp"
             android:text="舒小羽"
             android:textColor="@color/color_666666"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -105,7 +104,7 @@
             android:paddingTop="10dp"
             android:text="发送邮件"
             android:textColor="@color/color_333333"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -113,7 +112,7 @@
             android:paddingTop="8dp"
             android:text="我的个人邮箱：1404300825@qq.com，有问题可以发邮件"
             android:textColor="@color/color_666666"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -121,7 +120,7 @@
             android:paddingTop="10dp"
             android:text="微信公众号"
             android:textColor="@color/color_333333"
-            android:textSize="16dp" />
+            android:textSize="16sp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -129,7 +128,7 @@
             android:paddingTop="8dp"
             android:text="微信公众号：羽她说；可以通过公众号反馈意见或者BUG"
             android:textColor="@color/color_666666"
-            android:textSize="15dp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
 </LinearLayout>

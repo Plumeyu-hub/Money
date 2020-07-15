@@ -11,7 +11,7 @@ import android.widget.Button;
 import com.snxun.book.R;
 import com.snxun.book.ui.login.LoginActivity;
 
-public class MyActivity extends Activity {
+public class PersonalInfoActivity extends Activity {
 	Button btn_modifypw, btn_exituser;
 
 	// sp
@@ -23,7 +23,7 @@ public class MyActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_my);
+		setContentView(R.layout.activity_personal_info);
 
 		btn_modifypw = (Button) findViewById(R.id.modifypw_btn);
 		btn_exituser = (Button) findViewById(R.id.exituser_btn);
@@ -36,7 +36,7 @@ public class MyActivity extends Activity {
 
 		btn_modifypw.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View source) {
-				Intent i = new Intent(MyActivity.this, ModifyPasswordActivity.class);
+				Intent i = new Intent(PersonalInfoActivity.this, ModifyPasswordActivity.class);
 				startActivity(i);
 			}
 		});
@@ -77,7 +77,7 @@ public class MyActivity extends Activity {
 				editor_user.clear();
 				editor_user.commit();
 
-				Intent i1 = new Intent(MyActivity.this, LoginActivity.class);
+				Intent i1 = new Intent(PersonalInfoActivity.this, LoginActivity.class);
 				startActivity(i1);
 			}
 

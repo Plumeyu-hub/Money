@@ -6,14 +6,14 @@
     android:orientation="horizontal" >
 
     <TextView
-        android:id="@+id/dataitemid_tv"
+        android:id="@+id/list_id_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20sp"
         android:visibility="gone" />
 
     <TextView
-        android:id="@+id/dataitemdaytime_tv"
+        android:id="@+id/list_date_tv"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_weight="1"
@@ -23,7 +23,7 @@
         android:textSize="22sp" />
 
     <TextView
-        android:id="@+id/tv_dataitemcategory"
+        android:id="@+id/list_category_tv"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_weight="1"
@@ -33,7 +33,7 @@
         android:textSize="22sp" />
 
     <TextView
-        android:id="@+id/dataitemmoney_tv"
+        android:id="@+id/list_money_tv"
         android:layout_width="0dp"
         android:layout_height="70dp"
         android:layout_weight="1"

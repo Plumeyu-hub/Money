@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/accountdetails_dl"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    android:clickable="true">
+    android:clickable="true"
+    android:focusable="true">
+    <!-- 一个控件，如果没有定义focusable(可聚焦的)，却定义了是clickable（可点击的），那么是不能通过键盘访问的 -->
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,31 +20,32 @@
             android:layout_height="50dp">
 
             <ImageView
-                android:id="@+id/detailslogo_img"
+                android:id="@+id/drawer_btn"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
-                android:layout_centerHorizontal="true"
                 android:layout_marginStart="10dp"
-                android:background="@mipmap/ic_launcher" />
+                android:background="@mipmap/ic_launcher"
+                android:contentDescription="@string/app_name" />
+            <!-- contentDescription是为视力有障碍的人增加对控件的解释 -->
 
-            <Button
+            <ImageView
                 android:id="@+id/search_btn"
                 android:layout_width="38dp"
                 android:layout_height="38dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/ic_search" />
+                android:background="@drawable/ic_search"
+                android:contentDescription="@string/app_name" />
 
             <EditText
-                android:id="@+id/detailsmonth_edit"
+                android:id="@+id/details_month_btn"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:layout_centerInParent="true"
                 android:background="@null"
-                android:editable="false"
                 android:focusable="false"
                 android:text="请点击选择账单年月"
                 android:textColor="@color/color_666666"
@@ -76,12 +80,12 @@
                 app:rippleColor="@color/color_FF6B6A" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/fab_up"
+                android:id="@+id/up_fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/fab"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="20dp"
+                android:layout_above="@+id/add_fab"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="20dp"
                 android:layout_marginBottom="16dp"
                 android:src="@drawable/ic_up"
                 android:visibility="gone"
@@ -91,17 +95,19 @@
         </FrameLayout>
 
         <LinearLayout
-            android:id="@+id/detailsempty_lin"
+            android:id="@+id/details_empty_lin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            tools:ignore="UseCompoundDrawables">
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/ic_dataempty" />
+                android:background="@drawable/ic_data_empty"
+                android:contentDescription="@string/app_name" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -124,17 +130,19 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:id="@+id/nologin_lin"
+                android:id="@+id/personal_info_btn"
                 android:layout_width="match_parent"
                 android:layout_height="120dp"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                tools:ignore="UseCompoundDrawables">
 
-                <TextView
+                <ImageView
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="15dp"
-                    android:background="@drawable/ic_my_nor" />
+                    android:background="@drawable/ic_personal_info"
+                    android:contentDescription="@string/app_name" />
 
                 <TextView
                     android:id="@+id/username_tv"
@@ -147,51 +155,32 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView
-                    android:layout_width="60dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="15dp"
-                    android:background="@drawable/ic_my_sel" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="用户名"
-                    android:textColor="#ffffff"
-                    android:textSize="18sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/bg_mine"
+                android:background="@drawable/bg_my"
                 android:gravity="center"
                 android:orientation="horizontal">
 
                 <LinearLayout
-                    android:id="@+id/mes_lin"
+                    android:id="@+id/mes_btn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
-                    android:clickable="true"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@drawable/ic_mes" />
+                        android:src="@drawable/ic_mes"
+                        android:contentDescription="@string/app_name"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="消息"
+                        android:padding="8dp"
                         android:textColor="@color/color_333333"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -202,24 +191,26 @@
                     android:background="#a3a3a3" />
 
                 <LinearLayout
-                    android:id="@+id/remind_lin"
+                    android:id="@+id/remind_btn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
-                    android:clickable="true"
                     android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    tools:ignore="UseCompoundDrawables">
 
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@drawable/ic_remind" />
+                        android:src="@drawable/ic_remind"
+                        android:contentDescription="@string/app_name"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="定时记账"
+                        android:padding="8dp"
                         android:textColor="@color/color_333333"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -231,35 +222,36 @@
                 android:background="#a3a3a3" />
 
             <RelativeLayout
-                android:id="@+id/budget_lin"
+                android:id="@+id/budget_btn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="#fff"
-                android:clickable="true"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp">
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp">
 
-                <TextView
-                    android:id="@+id/mybudget_tv"
+                <ImageView
+                    android:id="@+id/budget_img"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_budget" />
+                    android:background="@drawable/ic_budget"
+                    android:contentDescription="@string/app_name"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/mybudget_tv"
+                    android:layout_toEndOf="@id/budget_img"
                     android:gravity="center"
-                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
                     android:text="预算"
                     android:textColor="@color/color_333333"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="RtlSymmetry" />
 
                 <TextView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/ic_right" />
             </RelativeLayout>
@@ -270,35 +262,36 @@
                 android:background="#a3a3a3" />
 
             <RelativeLayout
-                android:id="@+id/export_lin"
+                android:id="@+id/export_btn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="#fff"
-                android:clickable="true"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp">
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp">
 
-                <TextView
-                    android:id="@+id/myexport_tv"
+                <ImageView
+                    android:id="@+id/export_img"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_export" />
+                    android:background="@drawable/ic_export"
+                    android:contentDescription="@string/app_name"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/myexport_tv"
+                    android:layout_toEndOf="@id/export_img"
                     android:gravity="center"
-                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
                     android:text="导出账目"
                     android:textColor="@color/color_333333"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="RtlSymmetry" />
 
                 <TextView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/ic_right" />
             </RelativeLayout>
@@ -309,35 +302,36 @@
                 android:background="#a3a3a3" />
 
             <RelativeLayout
-                android:id="@+id/clear_lin"
+                android:id="@+id/clear_btn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="#fff"
-                android:clickable="true"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp">
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp">
 
-                <TextView
-                    android:id="@+id/myclear_tv"
+                <ImageView
+                    android:id="@+id/clear_img"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_clear" />
+                    android:background="@drawable/ic_clear"
+                    android:contentDescription="@string/app_name"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/myclear_tv"
+                    android:layout_toEndOf="@id/clear_img"
                     android:gravity="center"
-                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
                     android:text="数据库数据清除"
                     android:textColor="@color/color_333333"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="RtlSymmetry" />
 
                 <TextView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/ic_right" />
             </RelativeLayout>
@@ -348,35 +342,36 @@
                 android:background="#a3a3a3" />
 
             <RelativeLayout
-                android:id="@+id/set_lin"
+                android:id="@+id/set_btn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="#fff"
-                android:clickable="true"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp">
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp">
 
-                <TextView
-                    android:id="@+id/myset_tv"
+                <ImageView
+                    android:id="@+id/set_img"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_set" />
+                    android:background="@drawable/ic_set"
+                    android:contentDescription="@string/app_name"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/myset_tv"
+                    android:layout_toEndOf="@id/set_img"
                     android:gravity="center"
-                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
                     android:text="设置"
                     android:textColor="@color/color_333333"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="RtlSymmetry" />
 
                 <TextView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/ic_right" />
             </RelativeLayout>
@@ -387,35 +382,36 @@
                 android:background="#a3a3a3" />
 
             <RelativeLayout
-                android:id="@+id/help_lin"
+                android:id="@+id/help_btn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="#fff"
-                android:clickable="true"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp">
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp">
 
-                <TextView
-                    android:id="@+id/myhelp_tv"
+                <ImageView
+                    android:id="@+id/help_img"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_help" />
+                    android:background="@drawable/ic_help"
+                    android:contentDescription="@string/app_name"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/myhelp_tv"
+                    android:layout_toEndOf="@id/help_img"
                     android:gravity="center"
-                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
                     android:text="帮助"
                     android:textColor="@color/color_333333"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="RtlSymmetry" />
 
                 <TextView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/ic_right" />
             </RelativeLayout>
@@ -426,35 +422,36 @@
                 android:background="#a3a3a3" />
 
             <RelativeLayout
-                android:id="@+id/about_lin"
+                android:id="@+id/about_btn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="#fff"
-                android:clickable="true"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp">
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp">
 
-                <TextView
-                    android:id="@+id/myabout_tv"
+                <ImageView
+                    android:id="@+id/about_img"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_about" />
+                    android:background="@drawable/ic_about"
+                    android:contentDescription="@string/app_name"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/myabout_tv"
+                    android:layout_toEndOf="@id/about_img"
                     android:gravity="center"
-                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
                     android:text="关于"
                     android:textColor="@color/color_333333"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="RtlSymmetry" />
 
                 <TextView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/ic_right" />
             </RelativeLayout>
@@ -465,35 +462,36 @@
                 android:background="#a3a3a3" />
 
             <RelativeLayout
-                android:id="@+id/demo_lin"
+                android:id="@+id/demo_btn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="#fff"
-                android:clickable="true"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp">
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp">
 
-                <TextView
-                    android:id="@+id/demo_tv"
+                <ImageView
+                    android:id="@+id/demo_img"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_demo" />
+                    android:background="@drawable/ic_demo"
+                    android:contentDescription="@string/app_name"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/demo_tv"
+                    android:layout_toEndOf="@id/demo_img"
                     android:gravity="center"
-                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
                     android:text="@string/demo_home_title"
                     android:textColor="@color/color_333333"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="RelativeOverlap,RtlSymmetry" />
 
                 <TextView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/ic_right" />
             </RelativeLayout>
@@ -504,43 +502,39 @@
                 android:background="#a3a3a3" />
 
             <RelativeLayout
-                android:id="@+id/exit_lin"
+                android:id="@+id/exit_btn"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:background="#fff"
-                android:clickable="true"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp">
+                android:paddingStart="20dp"
+                android:paddingEnd="10dp">
 
-                <TextView
-                    android:id="@+id/myexit_tv"
+                <ImageView
+                    android:id="@+id/exit_img"
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_exit_app" />
+                    android:background="@drawable/ic_exit_app"
+                    android:contentDescription="@string/app_name"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/myexit_tv"
+                    android:layout_toEndOf="@id/exit_img"
                     android:gravity="center"
-                    android:paddingLeft="20dp"
+                    android:paddingStart="20dp"
                     android:text="退出应用"
                     android:textColor="@color/color_333333"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    tools:ignore="RtlSymmetry" />
 
                 <TextView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
-                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:background="@drawable/ic_right" />
             </RelativeLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#fff" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.drawerlayout.widget.DrawerLayout>

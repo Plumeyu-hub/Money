@@ -57,13 +57,13 @@ public class ListAdapter extends BaseAdapter {
 					R.layout.list_item_account, null);
 
 		}
-		TextView id = (TextView) convertView.findViewById(R.id.dataitemid_tv);
+		TextView id = (TextView) convertView.findViewById(R.id.list_id_tv);
 		TextView daytime = (TextView) convertView
-				.findViewById(R.id.dataitemdaytime_tv);
+				.findViewById(R.id.list_date_tv);
 		TextView category = (TextView) convertView
-				.findViewById(R.id.tv_dataitemcategory);
+				.findViewById(R.id.list_category_tv);
 		TextView money = (TextView) convertView
-				.findViewById(R.id.dataitemmoney_tv);
+				.findViewById(R.id.list_money_tv);
 		// LinearLayout ic_delete = (LinearLayout) convertView
 		// .findViewById(R.id.lin_dataitem_delete);
 		DataBean dataBean = list.get(position);

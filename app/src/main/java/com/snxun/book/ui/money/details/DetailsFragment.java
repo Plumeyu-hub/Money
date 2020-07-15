@@ -10,7 +10,7 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -28,23 +28,23 @@ import android.widget.Toast;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.snxun.book.R;
 import com.snxun.book.base.BaseFragment;
 import com.snxun.book.ui.money.adapter.ListAdapter;
 import com.snxun.book.ui.money.add.AddActivity;
 import com.snxun.book.ui.money.bean.DataBean;
-import com.snxun.book.ui.my.demo.home.DemoHomeActivity;
-import com.snxun.book.ui.money.update.UpdateActivity;
 import com.snxun.book.ui.money.search.SearchActivity;
-import com.snxun.book.ui.my.budget.BudgetActivity;
-import com.snxun.book.R;
+import com.snxun.book.ui.money.update.UpdateActivity;
 import com.snxun.book.ui.my.AboutActivity;
 import com.snxun.book.ui.my.ClearActivity;
 import com.snxun.book.ui.my.ExportActivity;
 import com.snxun.book.ui.my.HelpActivity;
 import com.snxun.book.ui.my.MessageActivity;
-import com.snxun.book.ui.my.MyActivity;
+import com.snxun.book.ui.my.PersonalInfoActivity;
 import com.snxun.book.ui.my.RemindActivity;
 import com.snxun.book.ui.my.SetActivity;
+import com.snxun.book.ui.my.budget.BudgetActivity;
+import com.snxun.book.ui.my.demo.home.DemoHomeActivity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -56,16 +56,39 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @author 14043
+ * @author Wangshy
  * @date 2020/7/12
  */
 
 public class DetailsFragment extends BaseFragment {
 
-    /** 详情修改的请求码 */
+    /**
+     * 详情修改的请求码
+     */
     public static final int DETAIL_UPDATE_REQUEST_CODE = 0;
-    /** 详情修改的结果码 */
+    /**
+     * 详情修改的结果码
+     */
     public static final int DETAIL_UPDATE_RESULT_CODE = 102;
+    /**
+     *
+     */
+    public static final String DETAIL_POSITION_CODE = "position";
+
+    /**
+     * 添加账目广播结果码
+     */
+    public static final String ADD_BROADCAST_RESULT_CODE = "GBadd";
+
+    /**
+     * 添加账目Intent带数据跳转结果码
+     */
+    public static final String ADD_INTENT_RESULT_CODE = "adddata";
+
+    /**
+     * 修改账目Intent带数据跳转请求码
+     */
+    public static final String UPDATE_INTENT_REQUEST_CODE = "updata";
 
     private static final String EXTRA_TEXT = "extra_text";
 
@@ -77,85 +100,120 @@ public class DetailsFragment extends BaseFragment {
         return detailsFragment;
     }
 
-    // 广播
-    MyBroadcastReceiver mReceiver;
+    /**
+     * 添加账目广播
+     */
+    AddBroadcastReceiver mAddReceiver;
 
-    // list
+    /**
+     * list列表
+     */
     @BindView(R.id.details_lv)
     ListView mDetailsLv;
+    /**
+     * 定义了一个数组List，里面只能存放DataBean
+     */
     private List<DataBean> mList;
-    private ListAdapter mAdapter;
+    /**
+     * lise的适配器
+     */
+    private ListAdapter mListAdapter;
 
-    /** 侧边栏按钮 */
-    @BindView(R.id.detailslogo_img)
+    /**
+     * 侧边栏按钮
+     */
+    @BindView(R.id.drawer_btn)
     ImageView mDrawerBtn;
-    /** 侧边栏控件 */
-    @BindView(R.id.accountdetails_dl)
-    DrawerLayout mDrawerLayout;/* 重点，声明DrawerLayout */
+    /**
+     * 侧边栏控件
+     */
+    @BindView(R.id.drawer_layout)
+    DrawerLayout mDrawerLayout;
 
-    /** 日期选择按钮 */
-    @BindView(R.id.detailsmonth_edit)
+    /**
+     * 日期选择按钮
+     */
+    @BindView(R.id.details_month_btn)
     EditText mMonthSelectorBtn;
 
-    /** 账目搜索按钮 */
-    TextView tv_search;
-
-    // 数据库
+    /**
+     * 数据库
+     */
     private SQLiteDatabase mDb;
 
-    // 用户名
-    private SharedPreferences sp_user;
-    private SharedPreferences.Editor editor_user;
-    private String username;
+    /**
+     * 用户名
+     */
+    private String mUserName;
+    /**
+     * 用户ID
+     */
     private int mUserId;
+    /**
+     * 用户名展示
+     */
     @BindView(R.id.username_tv)
     TextView mUserNameTv;
 
-    // 创建弹窗并显示
+    /**
+     * 退出应用的弹窗
+     */
     private PopupWindow mPopupWindow;
 
+    /**
+     * 页面初始化，设置内容视图
+     */
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_details;
     }
 
+    /**
+     * 控件初始化
+     */
     @Override
     protected void findViews(View view) {
         ButterKnife.bind(this, view);
     }
 
+    /**
+     * 设置监听
+     */
     @Override
     protected void setListeners(View view) {
         super.setListeners(view);
-        mDetailsLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1, int position, long arg3) {
-                DataBean dataBean = mList.get(position);
-                UpdateActivity.startForResult(requireActivity(), dataBean, position, DETAIL_UPDATE_REQUEST_CODE);
-            }
+
+        //点击list跳转UpdateActivity
+        mDetailsLv.setOnItemClickListener((arg0, arg1, position, arg3) -> {
+            DataBean dataBean = mList.get(position);
+            //给UpdateActivity页面传递信息
+            UpdateActivity.startForResult(requireActivity(), dataBean, position, DETAIL_UPDATE_REQUEST_CODE);
         });
 
-        // 长按删除
+        // 长list按删除
         mDetailsLv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int arg2, long arg3) {
-                // 获取所点击项的_id
-                TextView idTv = arg1.findViewById(R.id.dataitemid_tv);
+                // 获取所点击项的id
+                TextView idTv = arg1.findViewById(R.id.list_id_tv);
                 final String id = idTv.getText().toString();
-                TextView syTv = arg1.findViewById(R.id.dataitemmoney_tv);
-                final String sy = syTv.getText().toString().substring(0, 1);
-                showDeleteTipsDialog(id, sy, arg2);
+                TextView moneyTv = arg1.findViewById(R.id.list_money_tv);
+                final String symbol = moneyTv.getText().toString().substring(0, 1);
+                showDeleteTipsDialog(id, symbol, arg2);
                 return true;
             }
         });
 
+        //侧边栏按钮
         mDrawerBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                /* 重点，LEFT是xml布局文件中侧边栏布局所设置的方向 */
+                /* 重点，START是xml布局文件中侧边栏布局所设置的方向 */
                 mDrawerLayout.openDrawer(GravityCompat.START);
             }
         });
+
+        //月份选择按钮
         mMonthSelectorBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -163,11 +221,11 @@ public class DetailsFragment extends BaseFragment {
             }
         });
 
-        //搜索
+        //账目搜索按钮
         view.findViewById(R.id.search_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getActivity(), "跳转", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "跳转", Toast.LENGTH_SHORT).show();
                 //从fragment跳转到activity中
                 startActivity(new Intent(getActivity(), SearchActivity.class));
             }
@@ -181,16 +239,16 @@ public class DetailsFragment extends BaseFragment {
             }
         });
 
-        // 立即登录/注册
-        view.findViewById(R.id.nologin_lin).setOnClickListener(new View.OnClickListener() {
+        // 个人信息
+        view.findViewById(R.id.personal_info_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), MyActivity.class));
+                startActivity(new Intent(getActivity(), PersonalInfoActivity.class));
             }
         });
 
         // 消息
-        view.findViewById(R.id.mes_lin).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.mes_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), MessageActivity.class));
@@ -198,47 +256,23 @@ public class DetailsFragment extends BaseFragment {
         });
 
         // 定时记账
-        view.findViewById(R.id.remind_lin).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.remind_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), RemindActivity.class));
             }
         });
 
-        // 设置
-        view.findViewById(R.id.set_lin).setOnClickListener(new View.OnClickListener() {
+        // 预算
+        view.findViewById(R.id.budget_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), SetActivity.class));
-            }
-        });
-
-        // 帮助
-        view.findViewById(R.id.help_lin).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), HelpActivity.class));
-            }
-        });
-
-        // 关于
-        view.findViewById(R.id.about_lin).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), AboutActivity.class));
-            }
-        });
-
-        // 退出应用
-        view.findViewById(R.id.exit_lin).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                createPopWindow();
+                startActivity(new Intent(getActivity(), BudgetActivity.class));
             }
         });
 
         // 导出账目
-        view.findViewById(R.id.export_lin).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.export_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), ExportActivity.class));
@@ -246,26 +280,50 @@ public class DetailsFragment extends BaseFragment {
         });
 
         // 数据库数据清除
-        view.findViewById(R.id.clear_lin).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.clear_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), ClearActivity.class));
             }
         });
 
-        // 预算
-        view.findViewById(R.id.budget_lin).setOnClickListener(new View.OnClickListener() {
+        // 设置
+        view.findViewById(R.id.set_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), BudgetActivity.class));
+                startActivity(new Intent(getActivity(), SetActivity.class));
+            }
+        });
+
+        // 帮助
+        view.findViewById(R.id.help_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), HelpActivity.class));
+            }
+        });
+
+        // 关于
+        view.findViewById(R.id.about_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), AboutActivity.class));
             }
         });
 
         // Demo主页
-        view.findViewById(R.id.demo_lin).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.demo_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DemoHomeActivity.start(getActivity());
+            }
+        });
+
+        // 退出应用
+        view.findViewById(R.id.exit_btn).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createPopWindow();
             }
         });
     }
@@ -281,11 +339,12 @@ public class DetailsFragment extends BaseFragment {
 
     /**
      * 显示删除提示弹框
-     * @param id 编号
-     * @param sy 金额符号
+     *
+     * @param id       编号
+     * @param symbol   金额符号
      * @param position 序号
      */
-    private void showDeleteTipsDialog(final String id,final String sy, final int position) {
+    private void showDeleteTipsDialog(final String id, final String symbol, final int position) {
         // 通过Dialog提示是否删除
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage("确定要删除吗？");
@@ -294,11 +353,11 @@ public class DetailsFragment extends BaseFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // 删除指定数据
-                if (sy.equals("-")) {
+                if (symbol.equals("-")) {
                     deleteRecordByDb(id, position, "expenditure", "aoid=? and aouserid=?");
                     return;
                 }
-                if (sy.equals("+")) {
+                if (symbol.equals("+")) {
                     deleteRecordByDb(id, position, "income", "aiid=? and aiuserid=?");
                     return;
                 }
@@ -316,11 +375,18 @@ public class DetailsFragment extends BaseFragment {
         builder.create().show();
     }
 
-    /** 通过SQL语句来删除记账记录 */
+    /**
+     * 通过SQL语句来删除记账记录
+     *
+     * @param id          编号
+     * @param position    移除某个位置的Item
+     * @param tableName   表名
+     * @param whereClause 条件
+     */
     private void deleteRecordByDb(String id, int position, String tableName, String whereClause) {
         // 删除数据，成功返回删除的数据的行数，失败返回0
         int num = mDb.delete(tableName, whereClause, new String[]{id + "", mUserId + ""});
-        if (num<= 0){
+        if (num <= 0) {
             Toast.makeText(getActivity(), "删除失败" + num, Toast.LENGTH_SHORT).show();
             return;
         }
@@ -328,72 +394,93 @@ public class DetailsFragment extends BaseFragment {
         // 删掉长按的item
         mList.remove(position);
         // 动态更新listview
-        mAdapter.notifyDataSetChanged();
+        mListAdapter.notifyDataSetChanged();
     }
 
+    /**
+     * SP存储用户信息获取，存储名结果码
+     */
+    public static final String SP_NAME_RESULT_CODE = "user";
 
-    /** 显示用户信息 */
+    /**
+     * SP存储用户信息获取，用户名结果码
+     */
+    public static final String UPDATE_USERNAME_RESULT_CODE = "username";
+
+    /**
+     * SP存储用户信息获取，用户id结果码
+     */
+    public static final String UPDATE_USERID_RESULT_CODE = "userid";
+
+
+    /**
+     * 显示用户信息，获取当前登录的用户名
+     */
     private void showUserInfo() {
-        // 用户名存储
-        sp_user = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
-        editor_user = sp_user.edit();
-        if (sp_user != null) {// 判断文件是否存在
+        //获取SharedPreferences对象
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SP_NAME_RESULT_CODE, Context.MODE_PRIVATE);
+        if (sharedPreferences != null) {// 判断文件是否存在
             // 使用getString方法获得value，注意第2个参数是value的默认值
-            username = sp_user.getString("username", "");
-            mUserId = sp_user.getInt("userid", 0);
-            // System.out.println(username);
-            mUserNameTv.setText(username);
-            // System.out.println(userid);
+            mUserName = sharedPreferences.getString(UPDATE_USERNAME_RESULT_CODE, "");
+            mUserId = sharedPreferences.getInt(UPDATE_USERID_RESULT_CODE, 0);
+            mUserNameTv.setText(mUserName);
         }
     }
 
-    /** 初始化记账信息列表 */
+    /**
+     * 初始化记账信息列表
+     */
     private void initListView() {
-        // 第二步:初始化数据
+        // 初始化数据列表
         mList = new ArrayList<>();
         // 实例化适配器
-        mAdapter = new ListAdapter(getActivity(), mList);
+        mListAdapter = new ListAdapter(getActivity(), mList);
         // listview设置适配器
-        mDetailsLv.setAdapter(mAdapter);
-        mAdapter.notifyDataSetChanged();
+        mDetailsLv.setAdapter(mListAdapter);
+        //刷新列表
+        mListAdapter.notifyDataSetChanged();
     }
 
 
-    /** 初始化数据库 */
+    /**
+     * 初始化数据库
+     */
     private void initDb() {
         // 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
         mDb = requireActivity().openOrCreateDatabase("data.db", Context.MODE_PRIVATE, null);
     }
 
-    // 外
-    // 注册广播接收者
+    /**
+     * 注册广播接收者
+     */
     public void registerReceiver() {
-        mReceiver = new MyBroadcastReceiver();// 实例化广播接收者
-        getActivity().registerReceiver(mReceiver, new IntentFilter("GBadd"));
+        // 实例化广播接收者
+        mAddReceiver = new AddBroadcastReceiver();
+        getActivity().registerReceiver(mAddReceiver, new IntentFilter(ADD_BROADCAST_RESULT_CODE));
     }
 
-    class MyBroadcastReceiver extends BroadcastReceiver {
+    class AddBroadcastReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            if ("GBadd".equals(intent.getAction())) {
+            if (ADD_BROADCAST_RESULT_CODE.equals(intent.getAction())) {
                 // Toast.makeText(DetailsActivity.this,
                 // "接收到广播一" + intent.getStringExtra("hhh"),
                 // Toast.LENGTH_SHORT).show();
                 // 接收到广播，取出里面携带的数据
-                DataBean dataBean = (DataBean) intent.getSerializableExtra("adddata");
+                DataBean dataBean = (DataBean) intent.getSerializableExtra(ADD_INTENT_RESULT_CODE);
                 if (dataBean != null) {
                     // tv.setText(aidata.getMoney());
-                    String monthtimes = mMonthSelectorBtn.getText().toString();
-                    if (monthtimes.equals("请点击选择账单年月")) {
+                    String month_text = mMonthSelectorBtn.getText().toString();
+                    if (month_text.equals("请点击选择账单年月")) {
                         mList.add(dataBean);
-                        mAdapter.notifyDataSetChanged();
+                        mListAdapter.notifyDataSetChanged();
                     } else {
                         mMonthSelectorBtn.setText("请点击选择账单年月");
                         mMonthSelectorBtn.setTextColor(getResources().getColor(R.color.color_999999));
                         mList.clear();
                         mList.add(dataBean);
-                        mAdapter.notifyDataSetChanged();
+                        mListAdapter.notifyDataSetChanged();
                     }
                 }
             }
@@ -404,22 +491,38 @@ public class DetailsFragment extends BaseFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        getActivity().getApplicationContext().unregisterReceiver(mReceiver);// 注销广播接收者
+        // 注销广播接收者
+        getActivity().getApplicationContext().unregisterReceiver(mAddReceiver);
     }
 
+    /**
+     * 回调函数onActivityResult,接收修改信息
+     * 在一个主界面(主Activity)上能连接往许多不同子功能模块(子Activity上去)，
+     * 当子模块的事情做完之后就回到主界面，
+     * 或许还同时返回一些子模块完成的数据交给主Activity处理。
+     * 这样的数据交流就要用到回调函数onActivityResult。
+     *
+     * @param requestCode 这个整数requestCode提供给onActivityResult，是以便确认返回的数据是从哪个Activity返回的。
+     * @param resultCode  这整数resultCode是由子Activity通过其setResult()方法返回。
+     * @param intent      一个Intent对象，带有返回的数据。
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
         super.onActivityResult(requestCode, resultCode, intent);
         if (intent != null) {
             if (requestCode == DETAIL_UPDATE_REQUEST_CODE && resultCode == DETAIL_UPDATE_RESULT_CODE) {
-                DataBean dataBean = (DataBean) intent.getSerializableExtra("updata");
-                int position = intent.getIntExtra("position", 0);
+                //序列化
+                DataBean dataBean = (DataBean) intent.getSerializableExtra(UPDATE_INTENT_REQUEST_CODE);
+                int position = intent.getIntExtra(DETAIL_POSITION_CODE, 0);
                 mList.set(position, dataBean);
-                mAdapter.notifyDataSetChanged();
+                mListAdapter.notifyDataSetChanged();
             }
         }
     }
 
+    /**
+     * 创建退出应用弹窗
+     */
     public void createPopWindow() {
         if (mPopupWindow == null) {
             View view = LayoutInflater.from(getActivity()).inflate(R.layout.pop_exit, null);
@@ -429,13 +532,16 @@ public class DetailsFragment extends BaseFragment {
             mPopupWindow = new PopupWindow(view, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             // 创建弹出对话框，设置弹出对话框的背景为圆角
             mPopupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.bg_eeeeee_corner_20));
-            mPopupWindow.setFocusable(true);// 获取焦点（把焦点集中在pop上面）
-            mPopupWindow.setBackgroundDrawable(new BitmapDrawable());// 设置点击pop外面的窗口时是否弹窗
+            mPopupWindow.setFocusable(true);// 获取焦点（把焦点集中在pop上面）// 点击空白处时，隐藏掉pop窗口
+            mPopupWindow.setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));//设置透明的颜色背景
+            //mPopupWindow.setBackgroundDrawable(new BitmapDrawable());被废弃了
+            // 设置点击pop外面的窗口时是否弹窗
+
             // 这两句话是防止软键盘遮挡弹窗
             // pop.setSoftInputMode(PopupWindow.INPUT_METHOD_NEEDED);
             // pop.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
-            TextView yesTv = (TextView) view.findViewById(R.id.dialogyes_tv);
+            TextView yesTv = (TextView) view.findViewById(R.id.pop_yes_tv);
             yesTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
@@ -443,7 +549,7 @@ public class DetailsFragment extends BaseFragment {
                     // System.exit(0);
                 }
             });
-            TextView noTv = (TextView) view.findViewById(R.id.dialogno_tv);
+            TextView noTv = (TextView) view.findViewById(R.id.pop_no_tv);
             noTv.setOnClickListener(new View.OnClickListener() {
 
                 @Override
@@ -458,15 +564,17 @@ public class DetailsFragment extends BaseFragment {
         // null)的中间显示出来
     }
 
-    // 获取当前日期
-    Calendar calendar = Calendar.getInstance();
-    int year = calendar.get(Calendar.YEAR);
-    int month = calendar.get(Calendar.MONTH);
-    int day = calendar.get(Calendar.DAY_OF_MONTH);
+    /**
+     * 获取当前日期
+     */
+    private Calendar mCalendar = Calendar.getInstance();
+    private int mYear = mCalendar.get(Calendar.YEAR);
+    private int mMonth = mCalendar.get(Calendar.MONTH);
+    private int mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
 
     private void showDatePicker() {
         // 创建并显示DatePickerDialog
-        DatePickerDialog dialog = new DatePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, Datelistener, year, month, day);
+        DatePickerDialog dialog = new DatePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, Datelistener, mYear, mMonth, mDay);
         dialog.show();
         // 只显示年月，隐藏掉日
         DatePicker dp = findDatePicker((ViewGroup) dialog.getWindow().getDecorView());
@@ -485,7 +593,7 @@ public class DetailsFragment extends BaseFragment {
                     return (DatePicker) child;
                 } else if (child instanceof ViewGroup) {
                     DatePicker result = findDatePicker((ViewGroup) child);
-                    if (result != null){
+                    if (result != null) {
                         return result;
                     }
                 }
@@ -496,44 +604,45 @@ public class DetailsFragment extends BaseFragment {
 
     private DatePickerDialog.OnDateSetListener Datelistener = new DatePickerDialog.OnDateSetListener() {
         /**
-         * params：view：该事件关联的组件 params：myyear：当前选择的年 params：monthOfYear：当前选择的月
-         * params：dayOfMonth：当前选择的日
+         * params：view：该事件关联的组件
+         * params：year：当前选择的年
+         * params：month：当前选择的月
+         * params：day：当前选择的日
          */
         @Override
-        public void onDateSet(DatePicker view, int myyear, int monthOfYear, int dayOfMonth) {
+        public void onDateSet(DatePicker view, int year, int month, int day) {
             // 修改year、month、day的变量值，以便以后单击按钮时，DatePickerDialog上显示上一次修改后的值
-            year = myyear;
-            month = monthOfYear;
-            day = dayOfMonth;
+            mYear = year;
+            mMonth = month;
+            mDay = day;
             // 更新日期
             updateDate();
 
         }
-
-        // 当DatePickerDialog关闭时，更新日期显示
-
     };
 
+    // 当DatePickerDialog关闭时，更新日期显示
     private void updateDate() {
         // 在TextView上显示日期
-        mMonthSelectorBtn.setText(new StringBuilder().append(year).append("年")
-                .append((month + 1) < 10 ? "0" + (month + 1) : (month + 1))
+        mMonthSelectorBtn.setText(new StringBuilder().append(mYear).append("年")
+                .append((mMonth + 1) < 10 ? "0" + (mMonth + 1) : (mMonth + 1))
                 .append("月"));
         mMonthSelectorBtn.setTextColor(getResources().getColor(R.color.color_333333));
 
         // 条件
-        String years = String.valueOf(year);
-        int monthn = month + 1;
-        String months;
-        if ((month + 1) < 10) {
-            months = String.valueOf("0" + monthn);
+        String yearString = String.valueOf(mYear);
+        int monthInt = mMonth + 1;
+        String monthString;
+        if ((mMonth + 1) < 10) {
+            monthString = String.valueOf("0" + monthInt);
         } else {
-            months = String.valueOf(monthn);
+            monthString = String.valueOf(monthInt);
         }
-        String condition = String.valueOf(years + months);
+        String condition = String.valueOf(yearString + monthString);
         // System.out.println(condition);
 
         mList.clear();
+
         String uid = String.valueOf(mUserId);
         DataBean dataBean;
         Cursor cs = mDb.query("expenditure",
@@ -587,7 +696,7 @@ public class DetailsFragment extends BaseFragment {
                 mList.add(dataBean);
             }
         }
-        if (cs != null){
+        if (cs != null) {
             cs.close();
         }
         Collections.sort(mList, new Comparator<DataBean>() {
@@ -605,8 +714,8 @@ public class DetailsFragment extends BaseFragment {
                 return 0;// 相等为0
             }
         });
-        mAdapter.notifyDataSetChanged();
+        mListAdapter.notifyDataSetChanged();
         // 设置空列表的时候，显示为一张图片
-        mDetailsLv.setEmptyView(getActivity().findViewById(R.id.detailsempty_lin));
+        mDetailsLv.setEmptyView(getActivity().findViewById(R.id.details_empty_lin));
     }
 }

@@ -1,26 +1,40 @@
 package com.snxun.book.ui.my;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.snxun.book.R;
+import com.snxun.book.base.BaseActivity;
 
-public class HelpActivity extends Activity {
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_help);
-	}
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-	public void click(View v) {
-		switch (v.getId()) {
-		case R.id.helpleft_tv:
-			finish();
-			break;
+public class HelpActivity extends BaseActivity {
+    /**
+     * 返回按钮
+     */
+    @BindView(R.id.help_back_btn)
+    ImageView mHelpBackBtn;
 
-		default:
-			break;
-		}
-	}
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_help;
+    }
+
+
+    @Override
+    protected void findViews() {
+        ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void setListeners() {
+        super.setListeners();
+        mHelpBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
 }

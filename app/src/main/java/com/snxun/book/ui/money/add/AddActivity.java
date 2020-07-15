@@ -49,6 +49,16 @@ import java.util.List;
 import java.util.Map;
 
 public class AddActivity extends Activity {
+	/**
+	 * 添加账目广播请求码
+	 */
+	public static final String ADD_BROADCAST_REQUEST_CODE = "GBadd";
+	/**
+	 * 添加账目Intent带数据跳转请求码
+	 */
+	public static final String ADD_INTENT_REQUEST_CODE = "adddata";
+
+
 	private ViewPager mAddAccountVp;
 	private ArrayList<View> mPageView;
 	// 滚动条图片
@@ -649,9 +659,9 @@ public class AddActivity extends Activity {
 						mAddOutAccount, ao_remarks, ao_daytime, num, mUserId);
 				System.out.println(mUserId);
 				// 设置广播的名字（设置Action）
-				iGBadd.setAction("GBadd");
+				iGBadd.setAction(ADD_BROADCAST_REQUEST_CODE);
 				// 携带数据
-				iGBadd.putExtra("adddata", dataBean);// 必须要序列化
+				iGBadd.putExtra(ADD_INTENT_REQUEST_CODE, dataBean);// 必须要序列化
 				// i3.putExtra("hhh","啦啦啦");
 				// 发送广播（无序广播）
 				sendBroadcast(iGBadd);
@@ -764,9 +774,9 @@ public class AddActivity extends Activity {
 				DataBean dataBean = new DataBean(ai_category, ai_symoney,
 						ai_account, ai_remarks, ai_daytime, num, mUserId);
 				// 设置广播的名字（设置Action）
-				iGBadd.setAction("GBadd");
+				iGBadd.setAction(ADD_BROADCAST_REQUEST_CODE);
 				// 携带数据
-				iGBadd.putExtra("adddata", dataBean);// 必须要序列化
+				iGBadd.putExtra(ADD_INTENT_REQUEST_CODE, dataBean);// 必须要序列化
 				// i3.putExtra("hhh","啦啦啦");
 				// 发送广播（无序广播）
 				sendBroadcast(iGBadd);

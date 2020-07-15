@@ -1,27 +1,42 @@
 package com.snxun.book.ui.my;
 
-import android.app.Activity;
-import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.snxun.book.R;
+import com.snxun.book.base.BaseActivity;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
-public class AboutActivity extends Activity {
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_about);
-	}
+public class AboutActivity extends BaseActivity {
+    /**
+     * 返回按钮
+     */
+    @BindView(R.id.about_back_btn)
+    ImageView mAboutBackBtn;
 
-	public void click(View v) {
-		switch (v.getId()) {
-		case R.id.about_left_tv:
-			finish();
-			break;
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_about;
+    }
 
-		default:
-			break;
-		}
-	}
+
+    @Override
+    protected void findViews() {
+        ButterKnife.bind(this);
+    }
+
+    @Override
+    protected void setListeners() {
+        super.setListeners();
+        mAboutBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+    }
+
 }
