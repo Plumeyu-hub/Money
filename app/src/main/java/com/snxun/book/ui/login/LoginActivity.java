@@ -23,6 +23,19 @@ import com.snxun.book.R;
 import com.snxun.book.ui.money.main.MainActivity;
 
 public class LoginActivity extends Activity {
+
+    /**
+     * SP存储用户信息
+     */
+    public static final String SP_USER_CODE = "user";
+    /**
+     * SP存储用户ID信息
+     */
+    public static final String SP_USERID_CODE = "userid";
+
+
+
+
     private EditText et_username, et_password;
     private TextView tv_login, tv_login_forgetpw;
     private String usernamesql, passwordsql;
@@ -70,7 +83,7 @@ public class LoginActivity extends Activity {
         bool_login = sp_login.getBoolean("isLoad", false);
 		editor_login.apply();
         // 存储用户名
-        sp_user = this.getSharedPreferences("user", MODE_PRIVATE);
+        sp_user = this.getSharedPreferences(SP_USER_CODE, MODE_PRIVATE);
         editor_user = sp_user.edit();
 		editor_user.apply();
         if (bool_login) {
@@ -144,7 +157,7 @@ public class LoginActivity extends Activity {
                             editor_user.clear();
                             editor_user.putString("username", usernamesql);
                             // System.out.println(usernamesql);
-                            editor_user.putInt("userid", useridsql);
+                            editor_user.putInt(SP_USERID_CODE, useridsql);
                             // System.out.println(useridsql);
                             editor_user.commit();
 

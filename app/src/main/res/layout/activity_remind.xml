@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp" >
+        android:layout_height="50dp">
 
-        <TextView
-            android:id="@+id/remindleft_tv"
+        <ImageView
+            android:id="@+id/remind_back_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/ic_left"
-            android:clickable="true"
-            android:onClick="click" />
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_left" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="定时记账"
+            android:text="@string/drawer_remind"
             android:textColor="@color/color_333333"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <View
@@ -34,29 +34,28 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="45dp" >
+        android:layout_height="45dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="15dp"
-            android:text="提醒我记账"
+            android:layout_marginStart="15dp"
+            android:text="@string/remind_text_xml"
             android:textColor="@color/color_333333"
-            android:textSize="18sp" >
-        </TextView>
+            android:textSize="18sp"
+            tools:ignore="RelativeOverlap"/>
 
-        <TextView
-            android:id="@+id/remindturn_tv"
+        <ImageView
+            android:id="@+id/remind_btn"
             android:layout_width="40dp"
             android:layout_height="35dp"
-            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:layout_marginRight="15dp"
-            android:background="@drawable/ic_switch_nor"
-            android:clickable="true"
-            android:onClick="click" />
+            android:layout_marginEnd="15dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_switch_nor" />
     </RelativeLayout>
 
 </LinearLayout>

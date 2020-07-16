@@ -3,28 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp" >
+        android:layout_height="50dp">
 
-        <TextView
-            android:id="@+id/addbudgetleft_tv"
+        <ImageView
+            android:id="@+id/add_budget_back_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:background="@drawable/ic_left"
-            android:clickable="true"
-            android:onClick="click" />
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_left" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="设置预算"
+            android:text="@string/add_budget_title"
             android:textColor="@color/color_333333"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <View
@@ -35,7 +34,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <View
             android:layout_width="match_parent"
@@ -47,22 +46,22 @@
             android:layout_height="40dp"
             android:layout_margin="25dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="金额"
+                android:text="@string/add_money"
                 android:textColor="@color/color_666666"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/addbudgetmoney_et"
+                android:id="@+id/add_budget_money_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:background="#fff"
-                android:hint="请点击输入金额..."
+                android:hint="@string/add_money_hint"
                 android:inputType="number|numberDecimal"
                 android:maxLength="7"
                 android:textColor="@color/color_333333"
@@ -81,24 +80,23 @@
             android:layout_height="40dp"
             android:layout_margin="25dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="日期"
+                android:text="@string/add_date"
                 android:textColor="@color/color_666666"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/addbudgetdaytime_et"
+                android:id="@+id/add_budget_date_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:background="@null"
-                android:editable="false"
                 android:focusable="false"
-                android:text="2020-03"
+                android:text="@string/app_date"
                 android:textColor="@color/color_333333"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -115,23 +113,24 @@
             android:layout_height="wrap_content"
             android:layout_margin="25dp"
             android:gravity="center_vertical"
-            android:orientation="horizontal" >
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:gravity="center"
-                android:text="备注"
+                android:text="@string/add_remark"
                 android:textColor="@color/color_666666"
                 android:textSize="18sp" />
 
             <EditText
-                android:id="@+id/addbudgetremarks_et"
+                android:id="@+id/add_budget_remarks_et"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
+                android:layout_marginStart="20dp"
                 android:background="#fff"
-                android:hint="请点击输入备注..."
+                android:hint="@string/add_remark_hint"
+                android:inputType="text"
                 android:maxLength="6"
                 android:textColor="@color/color_333333"
                 android:textSize="18sp" />
@@ -146,15 +145,14 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/addbudgetyes_btn"
+        android:id="@+id/add_budget_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="25dp"
         android:background="#fff"
-        android:clickable="true"
-        android:onClick="click"
-        android:text="确认"
+        android:text="@string/app_yes"
+        android:textColor="@color/color_333333"
         android:textSize="25sp" />
 
 </LinearLayout>

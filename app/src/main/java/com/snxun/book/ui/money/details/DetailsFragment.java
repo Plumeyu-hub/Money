@@ -30,6 +30,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseFragment;
+import com.snxun.book.ui.login.LoginActivity;
 import com.snxun.book.ui.money.adapter.ListAdapter;
 import com.snxun.book.ui.money.add.AddActivity;
 import com.snxun.book.ui.money.bean.DataBean;
@@ -113,11 +114,11 @@ public class DetailsFragment extends BaseFragment {
     /**
      * 定义了一个数组List，里面只能存放DataBean
      */
-    private List<DataBean> mList;
+    private List<DataBean> mDetailsList;
     /**
      * lise的适配器
      */
-    private ListAdapter mListAdapter;
+    private ListAdapter mDetailsListAdapter;
 
     /**
      * 侧边栏按钮
@@ -142,15 +143,15 @@ public class DetailsFragment extends BaseFragment {
     private SQLiteDatabase mDb;
 
     /**
-     * 用户名
+     * 当前登录的用户名
      */
     private String mUserName;
     /**
-     * 用户ID
+     * 当前登录的用户ID
      */
     private int mUserId;
     /**
-     * 用户名展示
+     * 当前登录的用户名展示
      */
     @BindView(R.id.username_tv)
     TextView mUserNameTv;
@@ -185,8 +186,9 @@ public class DetailsFragment extends BaseFragment {
 
         //点击list跳转UpdateActivity
         mDetailsLv.setOnItemClickListener((arg0, arg1, position, arg3) -> {
-            DataBean dataBean = mList.get(position);
+            DataBean dataBean = mDetailsList.get(position);
             //给UpdateActivity页面传递信息
+            // TODO: 2020/07/16  requireActivity()和getActivity()返回值问题
             UpdateActivity.startForResult(requireActivity(), dataBean, position, DETAIL_UPDATE_REQUEST_CODE);
         });
 
@@ -347,9 +349,9 @@ public class DetailsFragment extends BaseFragment {
     private void showDeleteTipsDialog(final String id, final String symbol, final int position) {
         // 通过Dialog提示是否删除
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage("确定要删除吗？");
+        builder.setMessage(R.string.delete_text);
         // 确定按钮点击事件
-        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(R.string.app_yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 // 删除指定数据
@@ -361,12 +363,12 @@ public class DetailsFragment extends BaseFragment {
                     deleteRecordByDb(id, position, "income", "aiid=? and aiuserid=?");
                     return;
                 }
-                Toast.makeText(getActivity(), "数据异常", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), R.string.app_abnormal_data, Toast.LENGTH_SHORT).show();
             }
         });
 
         // 取消按钮点击事件
-        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.app_no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 dialog.dismiss();
@@ -387,20 +389,20 @@ public class DetailsFragment extends BaseFragment {
         // 删除数据，成功返回删除的数据的行数，失败返回0
         int num = mDb.delete(tableName, whereClause, new String[]{id + "", mUserId + ""});
         if (num <= 0) {
-            Toast.makeText(getActivity(), "删除失败" + num, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), R.string.delete_yes + num, Toast.LENGTH_SHORT).show();
             return;
         }
-        Toast.makeText(getActivity(), "删除成功" + num, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), R.string.delete_no + num, Toast.LENGTH_SHORT).show();
         // 删掉长按的item
-        mList.remove(position);
+        mDetailsList.remove(position);
         // 动态更新listview
-        mListAdapter.notifyDataSetChanged();
+        mDetailsListAdapter.notifyDataSetChanged();
     }
 
     /**
      * SP存储用户信息获取，存储名结果码
      */
-    public static final String SP_NAME_RESULT_CODE = "user";
+    //public static final String SP_NAME_RESULT_CODE = "user";
 
     /**
      * SP存储用户信息获取，用户名结果码
@@ -418,7 +420,7 @@ public class DetailsFragment extends BaseFragment {
      */
     private void showUserInfo() {
         //获取SharedPreferences对象
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(SP_NAME_RESULT_CODE, Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(LoginActivity.SP_USER_CODE, Context.MODE_PRIVATE);
         if (sharedPreferences != null) {// 判断文件是否存在
             // 使用getString方法获得value，注意第2个参数是value的默认值
             mUserName = sharedPreferences.getString(UPDATE_USERNAME_RESULT_CODE, "");
@@ -432,13 +434,13 @@ public class DetailsFragment extends BaseFragment {
      */
     private void initListView() {
         // 初始化数据列表
-        mList = new ArrayList<>();
+        mDetailsList = new ArrayList<>();
         // 实例化适配器
-        mListAdapter = new ListAdapter(getActivity(), mList);
+        mDetailsListAdapter = new ListAdapter(getActivity(), mDetailsList);
         // listview设置适配器
-        mDetailsLv.setAdapter(mListAdapter);
+        mDetailsLv.setAdapter(mDetailsListAdapter);
         //刷新列表
-        mListAdapter.notifyDataSetChanged();
+        mDetailsListAdapter.notifyDataSetChanged();
     }
 
 
@@ -472,15 +474,15 @@ public class DetailsFragment extends BaseFragment {
                 if (dataBean != null) {
                     // tv.setText(aidata.getMoney());
                     String month_text = mMonthSelectorBtn.getText().toString();
-                    if (month_text.equals("请点击选择账单年月")) {
-                        mList.add(dataBean);
-                        mListAdapter.notifyDataSetChanged();
+                    if (month_text.equals(R.string.app_select_date)) {
+                        mDetailsList.add(dataBean);
+                        mDetailsListAdapter.notifyDataSetChanged();
                     } else {
-                        mMonthSelectorBtn.setText("请点击选择账单年月");
+                        mMonthSelectorBtn.setText(R.string.app_select_date);
                         mMonthSelectorBtn.setTextColor(getResources().getColor(R.color.color_999999));
-                        mList.clear();
-                        mList.add(dataBean);
-                        mListAdapter.notifyDataSetChanged();
+                        mDetailsList.clear();
+                        mDetailsList.add(dataBean);
+                        mDetailsListAdapter.notifyDataSetChanged();
                     }
                 }
             }
@@ -514,8 +516,8 @@ public class DetailsFragment extends BaseFragment {
                 //序列化
                 DataBean dataBean = (DataBean) intent.getSerializableExtra(UPDATE_INTENT_REQUEST_CODE);
                 int position = intent.getIntExtra(DETAIL_POSITION_CODE, 0);
-                mList.set(position, dataBean);
-                mListAdapter.notifyDataSetChanged();
+                mDetailsList.set(position, dataBean);
+                mDetailsListAdapter.notifyDataSetChanged();
             }
         }
     }
@@ -641,7 +643,7 @@ public class DetailsFragment extends BaseFragment {
         String condition = String.valueOf(yearString + monthString);
         // System.out.println(condition);
 
-        mList.clear();
+        mDetailsList.clear();
 
         String uid = String.valueOf(mUserId);
         DataBean dataBean;
@@ -667,7 +669,7 @@ public class DetailsFragment extends BaseFragment {
                         .getColumnIndex("aoremarks"));
                 dataBean = new DataBean(aocategory, aomoney, aoaccount,
                         aoremarks, aotime, aoid, aouserid);
-                mList.add(dataBean);
+                mDetailsList.add(dataBean);
                 // adapter.notifyDataSetChanged();
             }
         }
@@ -693,13 +695,13 @@ public class DetailsFragment extends BaseFragment {
                         .getColumnIndex("airemarks"));
                 dataBean = new DataBean(aicategory, aimoney, aiaccount,
                         airemarks, aitime, aiid, aiuserid);
-                mList.add(dataBean);
+                mDetailsList.add(dataBean);
             }
         }
         if (cs != null) {
             cs.close();
         }
-        Collections.sort(mList, new Comparator<DataBean>() {
+        Collections.sort(mDetailsList, new Comparator<DataBean>() {
 
             @Override
             public int compare(DataBean lhs, DataBean rhs) {
@@ -714,7 +716,7 @@ public class DetailsFragment extends BaseFragment {
                 return 0;// 相等为0
             }
         });
-        mListAdapter.notifyDataSetChanged();
+        mDetailsListAdapter.notifyDataSetChanged();
         // 设置空列表的时候，显示为一张图片
         mDetailsLv.setEmptyView(getActivity().findViewById(R.id.details_empty_lin));
     }

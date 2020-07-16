@@ -53,29 +53,27 @@ public class BudgetAdapter extends BaseAdapter {
 
 		}
 
-		TextView id = (TextView) convertView.findViewById(R.id.budgetitemid_tv);
+		TextView id = (TextView) convertView.findViewById(R.id.budget_id_tv);
 		TextView daytime = (TextView) convertView
-				.findViewById(R.id.budgetitemdaytime_tv);
+				.findViewById(R.id.budget_date_tv);
 		TextView money = (TextView) convertView
-				.findViewById(R.id.budgetitemmoney_tv);
+				.findViewById(R.id.budget_money_tv);
 		TextView remarks = (TextView) convertView
-				.findViewById(R.id.budgetitemremarks_tv);
-		BudgetBean bdata = list.get(position);
+				.findViewById(R.id.budget_remarks_tv);
+		BudgetBean budgetBean = list.get(position);
 
-		if (bdata != null) {
-			id.setText(Integer.toString(bdata.getId()));
-			daytime.setText(bdata.getDaytime());
-			remarks.setText(bdata.getRemarks());
-			money.setText(bdata.getMoney());
+		if (budgetBean != null) {
+			id.setText(Integer.toString(budgetBean.getId()));
+			daytime.setText(budgetBean.getDate());
+			remarks.setText(budgetBean.getRemarks());
+			money.setText(budgetBean.getMoney());
 		}
-		String cid = list.get(position).getColorid();
-		if ("1".equals(cid)) {
+		String color = list.get(position).getColor();
+		if ("1".equals(color)) {
 			money.setTextColor(Color.parseColor("#0A8F0A"));// 字体红色
 			// convertView.setBackgroundColor(Color.parseColor("#ffffff"));//背景色
-		} else if ("0".equals(cid)) {
+		} else if ("0".equals(color)) {
 			money.setTextColor(Color.parseColor("#991111"));// 字体绿色
-		}else{
-			
 		}
 		return convertView;
 	}

@@ -1,6 +1,5 @@
 package com.snxun.book.ui.my;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -8,19 +7,30 @@ import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 
 import com.snxun.book.R;
+import com.snxun.book.base.BaseActivity;
 
 import java.util.Calendar;
 
-public class RemindActivity extends Activity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-	private TextView tv_remind_turn;
-	private SharedPreferences sharedPreferences;
+public class RemindActivity extends BaseActivity {
+	/**
+	 * 返回按钮
+	 */
+	@BindView(R.id.remind_back_btn)
+	ImageView mRemindBackBtn;
+	/**
+	 * 定时按钮
+	 */
+	@BindView(R.id.remind_btn)
+	ImageView mRemindBtn;
+
 	private Boolean bool = false;
 	private SharedPreferences.Editor editor;
 
@@ -28,20 +38,59 @@ public class RemindActivity extends Activity {
 	private AlarmManager manager;// 定时服务
 	private PendingIntent pIntent;// 延时意图
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_remind);
-		tv_remind_turn = (TextView) findViewById(R.id.remindturn_tv);
 
+
+	@Override
+	protected int getLayoutId() {
+		return R.layout.activity_remind;
+	}
+
+
+	@Override
+	protected void findViews() {
+		ButterKnife.bind(this);
+	}
+
+	@Override
+	protected void setListeners() {
+		super.setListeners();
+
+		mRemindBackBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				finish();
+			}
+		});
+
+		mRemindBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				if (bool == false) {// ic_switch_nor
+					setAlarm();
+				} else {// on
+					mRemindBtn.setBackgroundResource(R.drawable.ic_switch_nor);
+					bool = false;
+					editor.putBoolean("remember", bool);
+					editor.commit();
+					// 取消定时闹钟
+					manager.cancel(pIntent);
+				}
+
+			}
+		});
+	}
+
+	@Override
+	protected void initData() {
+		super.initData();
 		//记住上次选择状态
-		sharedPreferences = this.getSharedPreferences("userInfo", MODE_PRIVATE);
+		SharedPreferences sharedPreferences = this.getSharedPreferences("userInfo", MODE_PRIVATE);
 		editor = sharedPreferences.edit();
 		bool = sharedPreferences.getBoolean("remember", false);
 		if (bool == false) {// ic_switch_nor
-			tv_remind_turn.setBackgroundResource(R.drawable.ic_switch_nor);
+			mRemindBtn.setBackgroundResource(R.drawable.ic_switch_nor);
 		} else {// on
-			tv_remind_turn.setBackgroundResource(R.drawable.ic_switch_sel);
+			mRemindBtn.setBackgroundResource(R.drawable.ic_switch_sel);
 		}
 
 		calendar = Calendar.getInstance();// 初始化，以当前系统时间填充
@@ -57,28 +106,6 @@ public class RemindActivity extends Activity {
 		// intent, 0);
 		pIntent = PendingIntent.getBroadcast(RemindActivity.this, 0,
 				new Intent(this, RemindReceiver.class), 0);
-	}
-
-	public void click(View v) {
-		switch (v.getId()) {
-		case R.id.remindleft_tv:
-			finish();
-			break;
-		case R.id.remindturn_tv:
-			if (bool == false) {// ic_switch_nor
-				setAlarm();
-			} else {// on
-				tv_remind_turn.setBackgroundResource(R.drawable.ic_switch_nor);
-				bool = false;
-				editor.putBoolean("remember", bool);
-				editor.commit();
-				// 取消定时闹钟
-				manager.cancel(pIntent);
-			}
-			break;
-		default:
-			break;
-		}
 	}
 
 	// 设置定时闹钟
@@ -108,7 +135,7 @@ public class RemindActivity extends Activity {
 								calendar.getTimeInMillis(),
 								10 * 1000, pIntent);
 
-						tv_remind_turn.setBackgroundResource(R.drawable.ic_switch_sel);
+						mRemindBtn.setBackgroundResource(R.drawable.ic_switch_sel);
 						bool = true;
 						editor.putBoolean("remember", bool);
 						editor.commit();

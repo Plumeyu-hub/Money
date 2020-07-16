@@ -26,8 +26,8 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="10dp"
-                android:background="@mipmap/ic_launcher"
-                android:contentDescription="@string/app_name" />
+                android:contentDescription="@string/app_name"
+                android:src="@mipmap/ic_launcher" />
             <!-- contentDescription是为视力有障碍的人增加对控件的解释 -->
 
             <ImageView
@@ -37,8 +37,8 @@
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
                 android:layout_marginEnd="10dp"
-                android:background="@drawable/ic_search"
-                android:contentDescription="@string/app_name" />
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_search" />
 
             <EditText
                 android:id="@+id/details_month_btn"
@@ -47,7 +47,7 @@
                 android:layout_centerInParent="true"
                 android:background="@null"
                 android:focusable="false"
-                android:text="请点击选择账单年月"
+                android:text="@string/app_select_date"
                 android:textColor="@color/color_666666"
                 android:textSize="22sp" />
         </RelativeLayout>
@@ -106,13 +106,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:background="@drawable/ic_data_empty"
-                android:contentDescription="@string/app_name" />
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/ic_data_empty" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="无数据"
+                android:text="@string/app_no_data"
                 android:textColor="@color/color_FF6B6A"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -141,14 +141,14 @@
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_margin="15dp"
-                    android:background="@drawable/ic_personal_info"
-                    android:contentDescription="@string/app_name" />
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_personal_info" />
 
                 <TextView
                     android:id="@+id/username_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="立即登录/注册"
+                    android:text="@string/drawer_login"
                     android:textColor="#ffffff"
                     android:textSize="18sp" />
             </LinearLayout>
@@ -173,14 +173,14 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@drawable/ic_mes"
-                        android:contentDescription="@string/app_name"/>
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_mes" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="消息"
                         android:padding="8dp"
+                        android:text="@string/drawer_mes"
                         android:textColor="@color/color_333333"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -203,14 +203,14 @@
                     <ImageView
                         android:layout_width="48dp"
                         android:layout_height="48dp"
-                        android:src="@drawable/ic_remind"
-                        android:contentDescription="@string/app_name"/>
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_remind" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="定时记账"
                         android:padding="8dp"
+                        android:text="@string/drawer_remind"
                         android:textColor="@color/color_333333"
                         android:textSize="15sp" />
                 </LinearLayout>
@@ -234,8 +234,8 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_budget"
-                    android:contentDescription="@string/app_name"/>
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_budget" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -243,17 +243,18 @@
                     android:layout_toEndOf="@id/budget_img"
                     android:gravity="center"
                     android:paddingStart="20dp"
-                    android:text="预算"
+                    android:text="@string/drawer_budget"
                     android:textColor="@color/color_333333"
                     android:textSize="16sp"
-                    tools:ignore="RtlSymmetry" />
+                    tools:ignore="RelativeOverlap,RtlSymmetry" />
 
-                <TextView
+                <ImageView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_right" />
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_right" />
             </RelativeLayout>
 
             <View
@@ -274,8 +275,8 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_export"
-                    android:contentDescription="@string/app_name"/>
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_export" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -283,17 +284,18 @@
                     android:layout_toEndOf="@id/export_img"
                     android:gravity="center"
                     android:paddingStart="20dp"
-                    android:text="导出账目"
+                    android:text="@string/drawer_export"
                     android:textColor="@color/color_333333"
                     android:textSize="16sp"
-                    tools:ignore="RtlSymmetry" />
+                    tools:ignore="RelativeOverlap,RtlSymmetry" />
 
-                <TextView
+                <ImageView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_right" />
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_right" />
             </RelativeLayout>
 
             <View
@@ -314,8 +316,8 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_clear"
-                    android:contentDescription="@string/app_name"/>
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_clear" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -323,17 +325,18 @@
                     android:layout_toEndOf="@id/clear_img"
                     android:gravity="center"
                     android:paddingStart="20dp"
-                    android:text="数据库数据清除"
+                    android:text="@string/drawer_clear"
                     android:textColor="@color/color_333333"
                     android:textSize="16sp"
-                    tools:ignore="RtlSymmetry" />
+                    tools:ignore="RelativeOverlap,RtlSymmetry" />
 
-                <TextView
+                <ImageView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_right" />
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_right" />
             </RelativeLayout>
 
             <View
@@ -354,8 +357,8 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_set"
-                    android:contentDescription="@string/app_name"/>
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_set" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -363,17 +366,18 @@
                     android:layout_toEndOf="@id/set_img"
                     android:gravity="center"
                     android:paddingStart="20dp"
-                    android:text="设置"
+                    android:text="@string/drawer_set"
                     android:textColor="@color/color_333333"
                     android:textSize="16sp"
-                    tools:ignore="RtlSymmetry" />
+                    tools:ignore="RelativeOverlap,RtlSymmetry" />
 
-                <TextView
+                <ImageView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_right" />
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_right" />
             </RelativeLayout>
 
             <View
@@ -394,8 +398,8 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_help"
-                    android:contentDescription="@string/app_name"/>
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_help" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -403,17 +407,18 @@
                     android:layout_toEndOf="@id/help_img"
                     android:gravity="center"
                     android:paddingStart="20dp"
-                    android:text="帮助"
+                    android:text="@string/drawer_help"
                     android:textColor="@color/color_333333"
                     android:textSize="16sp"
-                    tools:ignore="RtlSymmetry" />
+                    tools:ignore="RelativeOverlap,RtlSymmetry" />
 
-                <TextView
+                <ImageView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_right" />
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_right" />
             </RelativeLayout>
 
             <View
@@ -434,8 +439,8 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_about"
-                    android:contentDescription="@string/app_name"/>
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_about" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -443,17 +448,18 @@
                     android:layout_toEndOf="@id/about_img"
                     android:gravity="center"
                     android:paddingStart="20dp"
-                    android:text="关于"
+                    android:text="@string/drawer_about"
                     android:textColor="@color/color_333333"
                     android:textSize="16sp"
-                    tools:ignore="RtlSymmetry" />
+                    tools:ignore="RelativeOverlap,RtlSymmetry" />
 
-                <TextView
+                <ImageView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_right" />
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_right" />
             </RelativeLayout>
 
             <View
@@ -474,8 +480,8 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_demo"
-                    android:contentDescription="@string/app_name"/>
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_demo" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -488,12 +494,13 @@
                     android:textSize="16sp"
                     tools:ignore="RelativeOverlap,RtlSymmetry" />
 
-                <TextView
+                <ImageView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_right" />
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_right" />
             </RelativeLayout>
 
             <View
@@ -514,8 +521,8 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_exit_app"
-                    android:contentDescription="@string/app_name"/>
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_exit_app" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -523,17 +530,18 @@
                     android:layout_toEndOf="@id/exit_img"
                     android:gravity="center"
                     android:paddingStart="20dp"
-                    android:text="退出应用"
+                    android:text="@string/drawer_exit"
                     android:textColor="@color/color_333333"
                     android:textSize="16sp"
-                    tools:ignore="RtlSymmetry" />
+                    tools:ignore="RelativeOverlap,RtlSymmetry" />
 
-                <TextView
+                <ImageView
                     android:layout_width="38dp"
                     android:layout_height="38dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:background="@drawable/ic_right" />
+                    android:contentDescription="@string/app_name"
+                    android:src="@drawable/ic_right" />
             </RelativeLayout>
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

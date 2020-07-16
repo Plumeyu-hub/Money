@@ -1,130 +1,169 @@
 package com.snxun.book.ui.my;
 
-import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.snxun.book.R;
+import com.snxun.book.base.BaseActivity;
+import com.snxun.book.ui.login.LoginActivity;
 
-public class ModifyPasswordActivity extends Activity {
-	String pwone, pwtow;
-	EditText et_modifypw_password, et_modifypw_passwordtwo;
-	Button btn_modifypw_yes;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-	// 操作用户名
-	private SharedPreferences spuser;
-	private SharedPreferences.Editor editoruser;
-	private int userid;
+public class ModifyPasswordActivity extends BaseActivity {
 
-	// 数据库
-	private SQLiteDatabase db;// 数据库对象
-	private ContentValues cv;// 存储工具栏
-	private int num = 0;
+    /**
+     * 返回按钮
+     */
+    @BindView(R.id.modify_pw_back_tv)
+    ImageView mModifyPwBackTv;
+    /**
+     * 确定修改密码按钮
+     */
+    @BindView(R.id.modify_pw_btn)
+    ImageView mModifyPwBtn;
+    /**
+     * 密码1
+     */
+    @BindView(R.id.modify_pw_password_edit)
+    EditText mModifyPwPasswordEdit;
+    /**
+     * 密码2
+     */
+    @BindView(R.id.modify_pw_password_two_edit)
+    EditText mModifyPwPasswordTwoEdit;
+    /**
+     * 获取用户输入的密码
+     */
+    private String pwOne, pwTow;
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_modify_password);
+    /**
+     * 数据库
+     */
+    private SQLiteDatabase mDb;
+    private ContentValues cv;// 存储工具栏
+    private int num = 0;
+    /**
+     * 当前登录的用户ID
+     */
+    private int mUserId;
 
-		// 操作用户名
-		spuser = getSharedPreferences("user", MODE_PRIVATE);
-		editoruser = spuser.edit();
-		if (spuser != null) {// 判断文件是否存在
-			userid = spuser.getInt("userid", 0);
-		}
-		// 数据库
-		// 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
-		db = this.openOrCreateDatabase("data.db", MODE_PRIVATE, null);
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_modify_password;
+    }
 
-		et_modifypw_password = (EditText) findViewById(R.id.modifypwpassword_et);
-		et_modifypw_passwordtwo = (EditText) findViewById(R.id.modifypwpasswordtwo_et);
-		btn_modifypw_yes = (Button) findViewById(R.id.modifypwyes_btn);
-		btn_modifypw_yes.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View source) {
 
-				pwone = et_modifypw_password.getText().toString().trim();
-				pwtow = et_modifypw_passwordtwo.getText().toString().trim();
-				showNormalDialog();
+    @Override
+    protected void findViews() {
+        ButterKnife.bind(this);
+    }
 
-			}
-		});
+    /**
+     * 设置监听
+     */
+    @Override
+    protected void setListeners() {
+        super.setListeners();
 
-	}
+        //返回
+        mModifyPwBackTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
-	public void click(View v) {
-		switch (v.getId()) {
-		case R.id.modifypwleft_tv:
-			finish();
-			break;
+        //确定修改密码
+        mModifyPwBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                pwOne = mModifyPwPasswordEdit.getText().toString().trim();
+                pwTow = mModifyPwPasswordTwoEdit.getText().toString().trim();
+                showNormalDialog();
+            }
+        });
+    }
 
-		default:
-			break;
-		}
-	}
+    @Override
+    protected void initData() {
+        super.initData();
+        initDb();
+        showUserInfo();
+    }
 
-	// 弹出一个普通对话框
-	private void showNormalDialog() {
-		// [1]构造对话框的实例
-		Builder builder = new Builder(this);
-		builder.setTitle("提示");
-		builder.setMessage("是否确认此修改？");
-		// [2]设置确定和取消按钮
-		builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+    /**
+     * 初始化数据库
+     */
+    private void initDb() {
+        // 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
+        mDb = openOrCreateDatabase("data.db", Context.MODE_PRIVATE, null);
+    }
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				if (pwone == null || pwone.length() == 0 || pwtow == null
-						|| pwtow.length() == 0) {
-					Toast.makeText(ModifyPasswordActivity.this,
-							"对不起，您输入的密码或确认密码不能为空", Toast.LENGTH_LONG).show();
-				} else if (pwone.equals(pwtow) == false) {
-					Toast.makeText(ModifyPasswordActivity.this, "对不起，您输入的密码和确认密码不一致",
-							Toast.LENGTH_LONG).show();
-				} else {
-					String uid = String.valueOf(userid);
-					// 修改数据
-					// 在存储工具类里面存储要操作的数据，以键值对的方式存储，键表示标的列名，值就是要操作的值
-					cv = new ContentValues();
-					cv.put("password", pwone);
-					// 修改数据，返回修改成功的行数，失败则返回0
-					num = db.update("user", cv, "userid=?", new String[] { uid
-							+ "" });
-					if (num > 0) {
-						Toast.makeText(ModifyPasswordActivity.this, "修改成功",
-								Toast.LENGTH_SHORT).show();
-					} else {
-						Toast.makeText(ModifyPasswordActivity.this, "修改失败",
-								Toast.LENGTH_SHORT).show();
-					}
+    /**
+     * 显示用户信息，获取当前登录的用户名
+     */
+    private void showUserInfo() {
+        //获取SharedPreferences对象
+        SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.SP_USER_CODE, MODE_PRIVATE);
+        if (sharedPreferences != null) {// 判断文件是否存在
+            mUserId = sharedPreferences.getInt(LoginActivity.SP_USERID_CODE, 0);
+        }
+    }
 
-				}
-			}
+    // 弹出一个普通对话框
+    private void showNormalDialog() {
+        // [1]构造对话框的实例
+        Builder builder = new Builder(this);
+        builder.setTitle("提示");
+        builder.setMessage("是否确认此修改？");
+        // [2]设置确定和取消按钮
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
-			private int deleteDatabase(String string) {
-				// TODO Auto-generated method stub
-				return 0;
-			}
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (pwOne == null || pwOne.length() == 0 || pwTow == null
+                        || pwTow.length() == 0) {
+                    Toast.makeText(ModifyPasswordActivity.this,
+                            "对不起，您输入的密码或确认密码不能为空", Toast.LENGTH_LONG).show();
+                } else if (pwOne.equals(pwTow) == false) {
+                    Toast.makeText(ModifyPasswordActivity.this, "对不起，您输入的密码和确认密码不一致",
+                            Toast.LENGTH_LONG).show();
+                } else {
+                    String userId = String.valueOf(mUserId);
+                    // 修改数据
+                    // 在存储工具类里面存储要操作的数据，以键值对的方式存储，键表示标的列名，值就是要操作的值
+                    cv = new ContentValues();
+                    cv.put("password", pwOne);
+                    // 修改数据，返回修改成功的行数，失败则返回0
+                    num = mDb.update("user", cv, "userid=?", new String[]{userId
+                            + ""});
+                    if (num > 0) {
+                        Toast.makeText(ModifyPasswordActivity.this, "修改成功",
+                                Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ModifyPasswordActivity.this, "修改失败",
+                                Toast.LENGTH_SHORT).show();
+                    }
 
-			private int deleteDatabase() {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-		});
-		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                }
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
 
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-			}
-		});
-		// [3]展示对话框 和toast一样 一定要记得show出来
-		builder.show();
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+            }
+        });
+        // [3]展示对话框 和toast一样 一定要记得show出来
+        builder.show();
 
-	}
+    }
 }

@@ -1,61 +1,88 @@
 package com.snxun.book.ui.my;
 
-import android.app.Activity;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageView;
+
 import com.snxun.book.R;
+import com.snxun.book.base.BaseActivity;
 import com.snxun.book.ui.login.LoginActivity;
 
-public class PersonalInfoActivity extends Activity {
-	Button btn_modifypw, btn_exituser;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-	// sp
-	private SharedPreferences sp_login, sp_user;
-	private SharedPreferences.Editor editor_login, editor_user;
-	private Boolean bool_login;
-	private int userid;
+public class PersonalInfoActivity extends BaseActivity {
+
+	/**
+	 * 返回按钮
+	 */
+	@BindView(R.id.persoal_info_back_btn)
+	ImageView mPersoalInfoBackBtn;
+	/**
+	 * 修改密码
+	 */
+	@BindView(R.id.modify_pw_btn)
+	ImageView mModifyPwBtn;
+	/**
+	 * 退出账户
+	 */
+	@BindView(R.id.exit_user_btn)
+	ImageView mExitUserBtn;
+
+	/**
+	 * sp
+	 */
+	private SharedPreferences.Editor editorLogin, editorUser;
+	private Boolean boolLogin;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_personal_info);
+	protected int getLayoutId() {
+		return R.layout.activity_personal_info;
+	}
 
-		btn_modifypw = (Button) findViewById(R.id.modifypw_btn);
-		btn_exituser = (Button) findViewById(R.id.exituser_btn);
 
-		sp_login = this.getSharedPreferences("userLogin", MODE_PRIVATE);
-		editor_login = sp_login.edit();
+	@Override
+	protected void findViews() {
+		ButterKnife.bind(this);
+	}
 
-		sp_user = this.getSharedPreferences("user", MODE_PRIVATE);
-		editor_user = sp_user.edit();
-
-		btn_modifypw.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View source) {
-				Intent i = new Intent(PersonalInfoActivity.this, ModifyPasswordActivity.class);
-				startActivity(i);
+	@Override
+	protected void setListeners() {
+		super.setListeners();
+		mPersoalInfoBackBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				finish();
 			}
 		});
-		btn_exituser.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View source) {
+		mModifyPwBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				startActivity(new Intent(PersonalInfoActivity.this, ModifyPasswordActivity.class));
+			}
+		});
+		mExitUserBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
 				showNormalDialog();
 			}
 		});
 	}
 
-	public void click(View v) {
-		switch (v.getId()) {
-		case R.id.mineleft_tv:
-			finish();
-			break;
+	@Override
+	protected void initData() {
+		super.initData();
 
-		default:
-			break;
-		}
+		SharedPreferences sp_login = this.getSharedPreferences("userLogin", MODE_PRIVATE);
+		editorLogin = sp_login.edit();
+		editorLogin.apply();
+
+		SharedPreferences sp_user = this.getSharedPreferences("user", MODE_PRIVATE);
+		editorUser = sp_user.edit();
+		editorUser.apply();
 	}
 
 	// 弹出一个普通对话框
@@ -70,25 +97,14 @@ public class PersonalInfoActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
 
-				bool_login = false;
-				editor_login.putBoolean("isLoad", bool_login);
-				editor_login.commit();
+				boolLogin = false;
+				editorLogin.putBoolean("isLoad", boolLogin);
+				editorLogin.commit();
 
-				editor_user.clear();
-				editor_user.commit();
+				editorUser.clear();
+				editorUser.commit();
 
-				Intent i1 = new Intent(PersonalInfoActivity.this, LoginActivity.class);
-				startActivity(i1);
-			}
-
-			private int deleteDatabase(String string) {
-				// TODO Auto-generated method stub
-				return 0;
-			}
-
-			private int deleteDatabase() {
-				// TODO Auto-generated method stub
-				return 0;
+				startActivity(new Intent(PersonalInfoActivity.this, LoginActivity.class));
 			}
 		});
 		builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {

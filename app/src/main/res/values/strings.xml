@@ -1,13 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <string name="app_name">Money</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
+    <string name="app_select_date">请点击选择账单年月</string>
+    <string name="app_date" tools:ignore="TypographyDashes">2020-03-03</string>
+    <string name="app_money">+2100.000</string>
+    <string name="app_text">数据</string>
+
+    <string name="app_tip">提示</string>
+    <string name="app_yes">确定</string>
+    <string name="app_no">取消</string>
+
+    <string name="app_abnormal_data">数据异常</string>
+    <string name="app_no_data">无数据</string>
+
+    <string name="delete_text">确定要删除吗？</string>
+    <string name="delete_yes">删除成功</string>
+    <string name="delete_no">删除失败</string>
+
+    <!-- 注册-->
+    <string name="registered_title">注册</string>
+
+    <!-- 侧边栏Drawer -->
+    <string name="drawer_login">立即登录/注册</string>
+    <string name="drawer_mes">消息</string>
+    <string name="drawer_remind">定时记账</string>
+    <string name="drawer_budget">预算</string>
+    <string name="drawer_export">导出账目</string>
+    <string name="drawer_clear">数据库数据清除</string>
+    <string name="drawer_set">设置</string>
+    <string name="drawer_help">帮助</string>
+    <string name="drawer_about">关于</string>
+    <string name="drawer_exit">退出应用</string>
+
+    <!-- 修改密码-->
+    <string name="modify_pw_one">请输入密码</string>
+    <string name="modify_pw_two">请确认密码</string>
+
+    <!-- 个人信息-->
+    <string name="persoal_info_title">个人信息</string>
+    <string name="persoal_info_modify_pw">修改密码</string>
+    <string name="persoal_info_exit_user">退出账号</string>
+
+    <!-- 定时记账-->
+    <string name="remind_text_xml">提醒我记账</string>
+
+    <!-- 设置-->
+    <string name="add_money">金额</string>
+    <string name="add_money_hint">请点击输入金额...</string>
+    <string name="add_date">日期</string>
+    <string name="add_remark">备注</string>
+    <string name="add_remark_hint">请点击输入备注...</string>
+
+    <!-- 设置预算-->
+    <string name="add_budget_title">设置预算</string>
+
+    <!-- 导出账目-->
+    <string name="export_text_xml">导出数据</string>
+    <string name="export_text_dialog">是否导出该账号所有的数据库记录？</string>
+
+    <!-- 数据库数据清除 -->
+    <string name="clear_text_xml">清除数据库数据</string>
+    <string name="clear_text_dialog">是否清除该账号所有的数据库记录？</string>
 
     <!-- demo主页 -->
     <string name="demo_home_title">Demo主页</string>
     <string name="demo_tab_test">TabLayout样例</string>
 
+    <!-- 退出应用 -->
+    <string name="exit_pop">确定退出此应用吗？</string>
 </resources>

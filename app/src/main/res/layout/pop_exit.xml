@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#b0000000"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="55dp"
-        android:gravity="center" >
+        android:gravity="center">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="55dp"
             android:padding="10dp"
-            android:text="提示"
+            android:text="@string/app_tip"
             android:textColor="@color/color_FF6B6A"
             android:textSize="25sp" />
     </RelativeLayout>
@@ -26,17 +27,17 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="80dp" >
+        android:layout_height="80dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginBottom="15dp"
             android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp"
             android:gravity="center"
             android:padding="5dp"
-            android:text="确定退出此应用吗？"
+            android:text="@string/exit_pop"
             android:textColor="@color/color_333333"
             android:textSize="20sp" />
     </RelativeLayout>
@@ -48,12 +49,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp" >
+        android:layout_height="50dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal" >
+            android:orientation="horizontal"
+            tools:ignore="UselessParent">
 
             <TextView
                 android:id="@+id/pop_yes_tv"
@@ -61,7 +63,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="确定"
+                android:text="@string/app_yes"
                 android:textColor="@color/color_333333"
                 android:textSize="20sp" />
 
@@ -76,7 +78,7 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="取消"
+                android:text="@string/app_no"
                 android:textColor="@color/color_333333"
                 android:textSize="20sp" />
         </LinearLayout>

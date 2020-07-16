@@ -1,22 +1,31 @@
 package com.snxun.book.ui.login;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
 
 import com.snxun.book.R;
+import com.snxun.book.base.BaseActivity;
 
-public class WelcomeActivity extends Activity {
+public class WelcomeActivity extends BaseActivity {
 
 	private long mExitTime;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_welcome);
+	protected int getLayoutId() {
+		return R.layout.activity_welcome;
+	}
+
+
+	@Override
+	protected void findViews() {
+
+	}
+
+	@Override
+	protected void initData() {
+		super.initData();
 		handler.sendEmptyMessageDelayed(0, 3000);
 	}
 
@@ -25,20 +34,19 @@ public class WelcomeActivity extends Activity {
 		public void handleMessage(Message msg) {
 			// TODO Auto-generated method stub
 			switch (msg.what) {
-			case 0:
-				Intent i1 = new Intent(WelcomeActivity.this, LoginActivity.class);
-				startActivity(i1);
-				finish();
-				break;
+				case 0:
+					Intent i1 = new Intent(WelcomeActivity.this, LoginActivity.class);
+					startActivity(i1);
+					finish();
+					break;
 
-			default:
-				break;
+				default:
+					break;
 			}
 		}
 	};
 
 	// 对返回键进行监听,如果是普通的activity则用onKeyDown方法;
-
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 
