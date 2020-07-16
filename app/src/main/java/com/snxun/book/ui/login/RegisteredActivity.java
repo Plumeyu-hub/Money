@@ -1,100 +1,146 @@
 package com.snxun.book.ui.login;
 
-import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.snxun.book.R;
+import com.snxun.book.base.BaseActivity;
 
-public class RegisteredActivity extends Activity {
-	private EditText et_re_username, et_re_password, et_re_passwordtwo,
-			et_re_problem, et_re_answer;
-	private Button btn_registered;
-	// 数据库
-	private SQLiteDatabase db;// 数据库对象
-	private ContentValues cv;// 存储工具栏
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class RegisteredActivity extends BaseActivity {
+
+
+	/**
+	 * 返回按钮
+	 */
+	@BindView(R.id.registered_back_btn)
+	ImageView mRegisteredBackBtn;
+	/**
+	 * 用户名
+	 */
+	@BindView(R.id.registered_username_edit)
+	EditText mRegisteredUsernameEdit;
+	/**
+	 *密码
+	 */
+	@BindView(R.id.registered_password_edit)
+	EditText mRegisteredPasswordEdit;
+	/**
+	 *确认密码
+	 */
+	@BindView(R.id.registered_password_two_edit)
+	EditText mRegisteredPasswordTwoEdit;
+	/**
+	 *密保问题
+	 */
+	@BindView(R.id.registered_problem_edit)
+	EditText mRegisteredProblemEdit;
+	/**
+	 *密保答案
+	 */
+	@BindView(R.id.registered_answer_edit)
+	EditText mRegisteredAnswerEdit;
+	/**
+	 *注册按钮
+	 */
+	@BindView(R.id.registered_btn)
+	ImageView mRegisteredBtn;
+
+	private String mUsername, mPassword, mPasswordTwo, mUsernameSql, mProblem,
+			mAnswer;
+	/**
+	 * 数据库
+	 */
+	private SQLiteDatabase mDb;
+	private ContentValues mCv;// 存储工具栏
 	private int num = 0;
-	private Cursor cs;// 游标对象，用来报错查询返回的结果集
-
-	private String username, password, passwordtwo, usernamesql, problem,
-			answer;
+	private Cursor mCursor;// 游标对象，用来报错查询返回的结果集
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_registered);
-		et_re_username = (EditText) findViewById(R.id.registeredusername_et);
-		et_re_password = (EditText) findViewById(R.id.registeredpassword_et);
-		et_re_passwordtwo = (EditText) findViewById(R.id.registeredpasswordtwo_et);
-		et_re_problem = (EditText) findViewById(R.id.registeredproblem_et);
-		et_re_answer = (EditText) findViewById(R.id.registeredanswer_et);
-		btn_registered = (Button) this.findViewById(R.id.registered_btn);
+	protected int getLayoutId() {
+		return R.layout.activity_registered;
+	}
 
-		// 数据库
-		// 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
-		//this.deleteDatabase("data.db");
-		db = this.openOrCreateDatabase("data.db", MODE_PRIVATE, null);
-		db.execSQL("create table if not exists user (userid integer primary key,username text,password text,problem text,answer text)");
 
-		btn_registered.setOnClickListener(new OnClickListener() {
+	@Override
+	protected void findViews() {
+		ButterKnife.bind(this);
+	}
+
+	/**
+	 * 设置监听
+	 */
+	@Override
+	protected void setListeners() {
+		super.setListeners();
+
+		//返回
+		mRegisteredBackBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View view) {
+				finish();
+			}
+		});
+
+		mRegisteredBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View arg0) {
-				// TODO Auto-generated method stub
+			public void onClick(View view) {
 
-				username = et_re_username.getText().toString().trim();
-				password = et_re_password.getText().toString().trim();
-				passwordtwo = et_re_passwordtwo.getText().toString().trim();
-				problem = et_re_problem.getText().toString().trim();
-				answer = et_re_answer.getText().toString().trim();
+				mUsername = mRegisteredUsernameEdit.getText().toString().trim();
+				mPassword = mRegisteredPasswordEdit.getText().toString().trim();
+				mPasswordTwo = mRegisteredPasswordTwoEdit.getText().toString().trim();
+				mProblem = mRegisteredProblemEdit.getText().toString().trim();
+				mAnswer = mRegisteredAnswerEdit.getText().toString().trim();
 
-				if (username == null || username.length() == 0
-						|| password == null || password.length() == 0
-						|| passwordtwo == null || passwordtwo.length() == 0
-						|| problem == null || problem.length() == 0
-						|| answer == null || answer.length() == 0) {
+				if (mUsername == null || mUsername.length() == 0
+						|| mPassword == null || mPassword.length() == 0
+						|| mPasswordTwo == null || mPasswordTwo.length() == 0
+						|| mProblem == null || mProblem.length() == 0
+						|| mAnswer == null || mAnswer.length() == 0) {
 					Toast.makeText(RegisteredActivity.this, "对不起，请填写完整的注册信息",
 							Toast.LENGTH_LONG).show();
-				} else if (password.equals(passwordtwo) == false) {
+				} else if (mPassword.equals(mPasswordTwo) == false) {
 					Toast.makeText(RegisteredActivity.this,
 							"对不起，您输入的密码和确认密码不一致", Toast.LENGTH_LONG).show();
 
 				} else {
 
 					// 查找数据库是否存在相同的用户名
-					cs = db.query("user", new String[] { "username" },
-							"username like ? ", new String[] { username },
+					mCursor = mDb.query("user", new String[] { "username" },
+							"username like ? ", new String[] {mUsername},
 							null, null, null);
 
-					if (cs != null) {
-						while (cs.moveToNext()) {
-							usernamesql = cs.getString(cs
+					if (mCursor != null) {
+						while (mCursor.moveToNext()) {
+							mUsernameSql = mCursor.getString(mCursor
 									.getColumnIndex("username"));
 						}
 					}
 
-					if (username.equals(usernamesql)) {
+					if (mUsername.equals(mUsernameSql)) {
 						Toast.makeText(RegisteredActivity.this, "您输入的用户名已存在",
 								Toast.LENGTH_LONG).show();
 					} else {
 						// 在存储工具类里面存储要操作的数据，以键值对的方式存储，键表示标的列名，值就是要操作的值
-						cv = new ContentValues();
-						cv.put("password", password);
-						cv.put("problem", problem);
-						cv.put("answer", answer);
-						cv.put("username", username);
+						mCv = new ContentValues();
+						mCv.put("password", mPassword);
+						mCv.put("problem", mProblem);
+						mCv.put("answer", mAnswer);
+						mCv.put("username", mUsername);
 						// 插入数据，成功返回当前行号，失败返回0
-						num = (int) db.insert("user", null, cv);
+						num = (int) mDb.insert("user", null, mCv);
 						if (num > 0) {
 							Toast.makeText(RegisteredActivity.this,
 									"用户注册成功" + num, Toast.LENGTH_SHORT).show();
-
 							finish();
 						} else {
 							Toast.makeText(RegisteredActivity.this,
@@ -105,17 +151,22 @@ public class RegisteredActivity extends Activity {
 				}
 			}
 		});
+	}
+
+	@Override
+	protected void initData() {
+		super.initData();
+		initDb();
+	}
+
+	/**
+	 * 初始化数据库
+	 */
+	private void initDb() {
+		// 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
+		mDb = openOrCreateDatabase("data.db", Context.MODE_PRIVATE, null);
+		mDb.execSQL("create table if not exists user (userid integer primary key,username text,password text,problem text,answer text)");
 
 	}
 
-	public void click(View v) {
-		switch (v.getId()) {
-		case R.id.registeredleft_tv:
-			finish();
-			break;
-
-		default:
-			break;
-		}
-	}
 }
