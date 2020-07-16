@@ -13,26 +13,24 @@ import com.snxun.book.R;
 import java.util.List;
 
 public class ListAdapter extends BaseAdapter {
-	private Context context;
-	private List<DataBean> list;
+	private Context mContext;
+	private List<DataBean> mList;
 
-	// SQLiteDatabase db;// 数据库对象
-
-	public ListAdapter(Context context, List<DataBean> list) {
-		this.context = context;
-		this.list = list;
+	public ListAdapter(Context mContext, List<DataBean> mList) {
+		this.mContext = mContext;
+		this.mList = mList;
 	}
 
 	@Override
 	public int getCount() {
 		// TODO Auto-generated method stub
-		return list.size();
+		return mList.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
 		// TODO Auto-generated method stub
-		return list.get(position);
+		return mList.get(position);
 	}
 
 	@Override
@@ -41,24 +39,24 @@ public class ListAdapter extends BaseAdapter {
 		return position;
 	}
 
-	public List<DataBean> getList() {
-		return list;
+	public List<DataBean> getmList() {
+		return mList;
 	}
 
-	public void setList(List<DataBean> list) {
-		this.list = list;
+	public void setmList(List<DataBean> mList) {
+		this.mList = mList;
 	}
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup arg2) {
 		// TODO Auto-generated method stub
 		if (convertView == null) {
-			convertView = LayoutInflater.from(context).inflate(
+			convertView = LayoutInflater.from(mContext).inflate(
 					R.layout.list_item_account, null);
 
 		}
 		TextView id = (TextView) convertView.findViewById(R.id.list_id_tv);
-		TextView daytime = (TextView) convertView
+		TextView date = (TextView) convertView
 				.findViewById(R.id.list_date_tv);
 		TextView category = (TextView) convertView
 				.findViewById(R.id.list_category_tv);
@@ -66,10 +64,10 @@ public class ListAdapter extends BaseAdapter {
 				.findViewById(R.id.list_money_tv);
 		// LinearLayout ic_delete = (LinearLayout) convertView
 		// .findViewById(R.id.lin_dataitem_delete);
-		DataBean dataBean = list.get(position);
+		DataBean dataBean = mList.get(position);
 		if (dataBean != null) {
 			id.setText(Integer.toString(dataBean.getId()));
-			daytime.setText(dataBean.getDaytime());
+			date.setText(dataBean.getDaytime());
 			category.setText(dataBean.getCategory());
 			money.setText(dataBean.getMoney());
 
