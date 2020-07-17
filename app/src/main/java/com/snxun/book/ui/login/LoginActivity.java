@@ -82,10 +82,7 @@ public class LoginActivity extends Activity {
         editor_login = sp_login.edit();
         bool_login = sp_login.getBoolean("isLoad", false);
 		editor_login.apply();
-        // 存储用户名
-        sp_user = this.getSharedPreferences(SP_USER_CODE, MODE_PRIVATE);
-        editor_user = sp_user.edit();
-		editor_user.apply();
+
         if (bool_login) {
 
             if (Pdialog == null) {

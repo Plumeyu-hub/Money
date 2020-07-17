@@ -1,63 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff" >
+    android:background="#fff">
 
     <RelativeLayout
-        android:id="@+id/account_information_top_re"
+        android:id="@+id/update_top_re"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_alignParentTop="true" >
+        android:layout_alignParentTop="true">
 
-        <TextView
-            android:id="@+id/account_information_left_tv"
+        <ImageView
+            android:id="@+id/update_back_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:background="@drawable/ic_left"
-            android:clickable="true"
-            android:onClick="click" />
+            android:contentDescription="@string/app_name" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="账目详情"
+            android:text="@string/update_title"
             android:textColor="@color/color_333333"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/account_information_bottom_lin"
+        android:id="@+id/update_btn"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
         android:background="@color/color_FF6B6A"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="60dp"
             android:layout_height="60dp"
-            android:background="@drawable/ic_update" />
+            android:background="@drawable/ic_update"
+            android:contentDescription="@string/app_name" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/account_information_bottom_lin"
-        android:layout_below="@id/account_information_top_re" >
+        android:layout_above="@id/update_btn"
+        android:layout_below="@id/update_top_re">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            tools:ignore="ScrollViewSize">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical" >
+                android:orientation="vertical"
+                tools:ignore="UselessParent">
 
                 <View
                     android:layout_width="match_parent"
@@ -69,21 +72,21 @@
                     android:layout_height="40dp"
                     android:layout_margin="25dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="类型"
+                        android:text="@string/update_category"
                         android:textColor="@color/color_666666"
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/account_information_category_tv"
+                        android:id="@+id/update_category_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="工资"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/app_text"
                         android:textColor="@color/color_333333"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -100,33 +103,32 @@
                     android:layout_height="40dp"
                     android:layout_margin="25dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="金额"
+                        android:text="@string/money"
                         android:textColor="@color/color_666666"
                         android:textSize="18sp" />
 
                     <TextView
-                        android:id="@+id/account_information_symbol_tv"
+                        android:id="@+id/update_symbol_money_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:text="+"
+                        android:layout_marginStart="20dp"
+                        android:text="@string/update_symbol_money"
                         android:textColor="@color/color_333333"
                         android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/account_information_money_edit"
+                        android:id="@+id/update_money_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="#fff"
-                        android:hint="请点击输入金额..."
+                        android:hint="@string/money_hint"
                         android:inputType="number|numberDecimal"
                         android:maxLength="7"
-                        android:text="2000"
                         android:textColor="@color/color_333333"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -143,23 +145,23 @@
                     android:layout_height="40dp"
                     android:layout_margin="25dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="日期"
+                        android:text="@string/date"
                         android:textColor="@color/color_666666"
                         android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/account_information_daytime_edit"
+                        android:id="@+id/update_date_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:background="@null"
                         android:focusable="false"
-                        android:text="2020-03-13"
+                        android:text="@string/app_date"
                         android:textColor="@color/color_333333"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -176,22 +178,22 @@
                     android:layout_height="40dp"
                     android:layout_margin="25dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="账户"
+                        android:text="@string/account"
                         android:textColor="@color/color_666666"
                         android:textSize="18sp" />
 
                     <Spinner
-                        android:id="@+id/account_information_account_sp"
+                        android:id="@+id/update_account_sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:background="#fff"
-                        android:text="信用卡"
+                        android:text="@string/app_text"
                         android:textColor="@color/color_333333"
                         android:textSize="18sp" />
                 </LinearLayout>
@@ -199,8 +201,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="25dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="25dp"
                     android:background="#a3a3a3" />
 
                 <LinearLayout
@@ -208,24 +210,23 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="25dp"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:gravity="center"
-                        android:text="备注"
+                        android:text="@string/remark"
                         android:textColor="@color/color_666666"
                         android:textSize="18sp" />
 
                     <EditText
-                        android:id="@+id/account_information_remarks_edit"
+                        android:id="@+id/update_remarks_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
+                        android:layout_marginStart="20dp"
                         android:background="#fff"
-                        android:hint="请点击输入备注..."
-                        android:text="..."
+                        android:hint="@string/remark_hint"
                         android:textColor="@color/color_333333"
                         android:textSize="18sp" />
                 </LinearLayout>

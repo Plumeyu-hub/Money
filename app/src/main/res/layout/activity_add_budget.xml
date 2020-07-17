@@ -51,7 +51,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_money"
+                android:text="@string/money"
                 android:textColor="@color/color_666666"
                 android:textSize="18sp" />
 
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:background="#fff"
-                android:hint="@string/add_money_hint"
+                android:hint="@string/money_hint"
                 android:inputType="number|numberDecimal"
                 android:maxLength="7"
                 android:textColor="@color/color_333333"
@@ -85,7 +85,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/add_date"
+                android:text="@string/date"
                 android:textColor="@color/color_666666"
                 android:textSize="18sp" />
 
@@ -119,7 +119,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
                 android:gravity="center"
-                android:text="@string/add_remark"
+                android:text="@string/remark"
                 android:textColor="@color/color_666666"
                 android:textSize="18sp" />
 
@@ -129,7 +129,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:background="#fff"
-                android:hint="@string/add_remark_hint"
+                android:hint="@string/remark_hint"
                 android:inputType="text"
                 android:maxLength="6"
                 android:textColor="@color/color_333333"

@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff" >
+    android:background="#fff">
 
     <LinearLayout
         android:id="@+id/add_in_bottom_lin"
@@ -10,7 +11,7 @@
         android:layout_height="246.5dp"
         android:layout_alignParentBottom="true"
         android:background="#b0000000"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <View
             android:layout_width="match_parent"
@@ -20,80 +21,80 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#F2F3F5" >
+            android:background="#F2F3F5">
 
             <View
                 android:id="@+id/add_in_view1"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:background="#D8D9D9" />
 
             <View
                 android:id="@+id/add_in_view2"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:background="#D8D9D9" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toLeftOf="@id/add_in_view2"
-                android:layout_toRightOf="@id/add_in_view1"
-                android:orientation="horizontal" >
+                android:layout_toStartOf="@id/add_in_view2"
+                android:layout_toEndOf="@id/add_in_view1"
+                android:orientation="horizontal">
 
                 <RelativeLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="1" >
+                    android:layout_weight="1">
 
                     <ImageView
                         android:id="@+id/add_in_money_iv"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
                         android:layout_centerInParent="true"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/ic_money" />
+                        android:layout_marginStart="5dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_money" />
 
                     <TextView
                         android:id="@+id/add_in_money_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
-                        android:layout_marginLeft="3dp"
-                        android:layout_toRightOf="@id/add_in_money_iv"
-                        android:text="金额:"
+                        android:layout_marginStart="3dp"
+                        android:layout_toEndOf="@id/add_in_money_iv"
+                        android:text="@string/money"
                         android:textColor="@color/color_333333"
                         android:textSize="16sp" />
 
-                    <Button
+                    <ImageView
                         android:id="@+id/add_in_money_btn"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true"
                         android:layout_centerInParent="true"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginRight="5dp"
-                        android:background="@drawable/ic_delete"
-                        android:clickable="true"
-                        android:onClick="clickinnum" />
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="5dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_delete" />
 
                     <EditText
                         android:id="@+id/add_in_money_edit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:layout_toLeftOf="@id/add_in_money_btn"
-                        android:layout_toRightOf="@id/add_in_money_tv"
+                        android:layout_toStartOf="@id/add_in_money_btn"
+                        android:layout_toEndOf="@id/add_in_money_tv"
                         android:background="#F2F3F5"
-                        android:editable="false"
                         android:gravity="center_vertical"
-                        android:hint="请输入金额"
-                        android:paddingLeft="5dp"
+                        android:hint="@string/money_hint"
+                        android:paddingStart="5dp"
                         android:textColor="@color/color_333333"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        tools:ignore="RtlSymmetry" />
                 </RelativeLayout>
 
                 <View
@@ -106,19 +107,20 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/ic_mhome" />
+                        android:layout_marginStart="5dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_account" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:text="选择账户:"
+                        android:layout_marginStart="3dp"
+                        android:text="@string/account"
                         android:textColor="@color/color_333333"
                         android:textSize="16sp" />
 
@@ -126,9 +128,8 @@
                         android:id="@+id/add_in_account_sp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="10dp"
-                        android:background="#F2F3F5" >
-                    </Spinner>
+                        android:layout_marginStart="10dp"
+                        android:background="#F2F3F5" />
                 </LinearLayout>
             </LinearLayout>
         </RelativeLayout>
@@ -141,64 +142,64 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#F2F3F5" >
+            android:background="#F2F3F5">
 
             <View
                 android:id="@+id/add_in_view3"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:background="#D8D9D9" />
 
             <View
                 android:id="@+id/add_in_view4"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:background="#D8D9D9" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toLeftOf="@id/add_in_view4"
-                android:layout_toRightOf="@id/add_in_view3"
-                android:orientation="horizontal" >
+                android:layout_toStartOf="@id/add_in_view4"
+                android:layout_toEndOf="@id/add_in_view3"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/ic_theme" />
+                        android:layout_marginStart="5dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_theme" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:text="备注:"
+                        android:layout_marginStart="3dp"
+                        android:text="@string/remark"
                         android:textColor="@color/color_333333"
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/add_in_remark_edit"
+                        android:id="@+id/add_in_submit_remark_edit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#F2F3F5"
                         android:clickable="true"
-                        android:editable="false"
-                        android:focusable="false"
+                        android:focusable="true"
                         android:gravity="center_vertical"
-                        android:hint="点击写备注..."
-                        android:onClick="click"
-                        android:paddingLeft="5dp"
+                        android:hint="@string/remark_hint"
+                        android:paddingStart="5dp"
                         android:textColor="@color/color_333333"
-                        android:textSize="18sp" />
+                        android:textSize="18sp"
+                        tools:ignore="RtlSymmetry" />
                 </LinearLayout>
 
                 <View
@@ -211,31 +212,31 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal" >
+                    android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="25dp"
                         android:layout_height="25dp"
-                        android:layout_marginLeft="5dp"
-                        android:background="@drawable/ic_day" />
+                        android:layout_marginStart="5dp"
+                        android:contentDescription="@string/app_name"
+                        android:src="@drawable/ic_day" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="3dp"
-                        android:text="选择日期:"
+                        android:layout_marginStart="3dp"
+                        android:text="@string/date"
                         android:textColor="@color/color_333333"
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/add_in_daytime_edit"
+                        android:id="@+id/add_in_date_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
                         android:background="#F2F3F5"
-                        android:editable="false"
                         android:focusable="false"
-                        android:text="2020-4-5"
+                        android:text="@string/app_date"
                         android:textColor="@color/color_333333" />
                 </LinearLayout>
             </LinearLayout>
@@ -249,20 +250,20 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="165dp"
-            android:background="#F2F3F5" >
+            android:background="#F2F3F5">
 
             <View
                 android:id="@+id/add_in_view5"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:background="#D8D9D9" />
 
             <View
                 android:id="@+id/add_in_view6"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:background="#D8D9D9" />
 
             <View
@@ -276,31 +277,30 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_above="@id/add_in_view7"
-                android:layout_toLeftOf="@id/add_in_view6"
-                android:layout_toRightOf="@id/add_in_view5"
-                android:orientation="horizontal" >
+                android:layout_toStartOf="@id/add_in_view6"
+                android:layout_toEndOf="@id/add_in_view5"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="3"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="horizontal" >
+                        android:orientation="horizontal"
+                        tools:ignore="NestedWeights">
 
-                        <Button
+                        <TextView
                             android:id="@+id/add_in_one_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="#F2F3F5"
-                            android:clickable="true"
                             android:gravity="center"
-                            android:onClick="clickinnum"
                             android:text="1"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
@@ -310,15 +310,13 @@
                             android:layout_height="match_parent"
                             android:background="#D8D9D9" />
 
-                        <Button
+                        <TextView
                             android:id="@+id/add_in_two_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="#F2F3F5"
-                            android:clickable="true"
                             android:gravity="center"
-                            android:onClick="clickinnum"
                             android:text="2"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
@@ -328,15 +326,13 @@
                             android:layout_height="match_parent"
                             android:background="#D8D9D9" />
 
-                        <Button
+                        <TextView
                             android:id="@+id/add_in_three_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="#F2F3F5"
-                            android:clickable="true"
                             android:gravity="center"
-                            android:onClick="clickinnum"
                             android:text="3"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
@@ -351,17 +347,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="horizontal" >
+                        android:orientation="horizontal">
 
-                        <Button
+                        <TextView
                             android:id="@+id/add_in_four_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="#F2F3F5"
-                            android:clickable="true"
                             android:gravity="center"
-                            android:onClick="clickinnum"
                             android:text="4"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
@@ -371,15 +365,13 @@
                             android:layout_height="match_parent"
                             android:background="#D8D9D9" />
 
-                        <Button
+                        <TextView
                             android:id="@+id/add_in_five_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="#F2F3F5"
-                            android:clickable="true"
                             android:gravity="center"
-                            android:onClick="clickinnum"
                             android:text="5"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
@@ -389,15 +381,13 @@
                             android:layout_height="match_parent"
                             android:background="#D8D9D9" />
 
-                        <Button
+                        <TextView
                             android:id="@+id/add_in_six_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="#F2F3F5"
-                            android:clickable="true"
                             android:gravity="center"
-                            android:onClick="clickinnum"
                             android:text="6"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
@@ -412,17 +402,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:orientation="horizontal" >
+                        android:orientation="horizontal">
 
-                        <Button
+                        <TextView
                             android:id="@+id/add_in_seven_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="#F2F3F5"
-                            android:clickable="true"
                             android:gravity="center"
-                            android:onClick="clickinnum"
                             android:text="7"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
@@ -432,15 +420,13 @@
                             android:layout_height="match_parent"
                             android:background="#D8D9D9" />
 
-                        <Button
+                        <TextView
                             android:id="@+id/add_in_eight_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="#F2F3F5"
-                            android:clickable="true"
                             android:gravity="center"
-                            android:onClick="clickinnum"
                             android:text="8"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
@@ -450,15 +436,13 @@
                             android:layout_height="match_parent"
                             android:background="#D8D9D9" />
 
-                        <Button
+                        <TextView
                             android:id="@+id/add_in_nine_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:background="#F2F3F5"
-                            android:clickable="true"
                             android:gravity="center"
-                            android:onClick="clickinnum"
                             android:text="9"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
@@ -474,17 +458,15 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:orientation="vertical" >
+                    android:orientation="vertical">
 
-                    <Button
+                    <TextView
                         android:id="@+id/add_in_dot_btn"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:background="#F2F3F5"
-                        android:clickable="true"
                         android:gravity="center"
-                        android:onClick="clickinnum"
                         android:text="·"
                         android:textColor="@color/color_333333"
                         android:textSize="35sp" />
@@ -494,15 +476,13 @@
                         android:layout_height="0.5dp"
                         android:background="#D8D9D9" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/add_in_zero_btn"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:background="#F2F3F5"
-                        android:clickable="true"
                         android:gravity="center"
-                        android:onClick="clickinnum"
                         android:text="0"
                         android:textColor="@color/color_333333"
                         android:textSize="25sp" />
@@ -512,16 +492,14 @@
                         android:layout_height="0.5dp"
                         android:background="#D8D9D9" />
 
-                    <Button
+                    <TextView
                         android:id="@+id/add_in_yes_btn"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:background="@color/color_FF6B6A"
-                        android:clickable="true"
                         android:gravity="center"
-                        android:onClick="click"
-                        android:text="完成"
+                        android:text="@string/app_yes"
                         android:textColor="#fff"
                         android:textSize="25sp" />
                 </LinearLayout>
@@ -538,7 +516,5 @@
         android:listSelector="@android:color/transparent"
         android:numColumns="4"
         android:paddingTop="10dp"
-        android:verticalSpacing="10dp" >
-    </GridView>
-
+        android:verticalSpacing="10dp" />
 </RelativeLayout>

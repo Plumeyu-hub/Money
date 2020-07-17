@@ -4,32 +4,37 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.snxun.book.R;
+import com.snxun.book.base.BaseActivity;
+import com.snxun.book.ui.login.LoginActivity;
 import com.snxun.book.ui.money.bean.DataBean;
 import com.snxun.book.ui.money.details.DetailsFragment;
-import com.snxun.book.R;
 
 import java.util.Calendar;
 
-public class UpdateActivity extends Activity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class UpdateActivity extends BaseActivity {
 
     private static final String EXTRA_ACCOUNT_BEAN = "EXTRA_ACCOUNT_BEAN";
     private static final String EXTRA_POSITION = "EXTRA_POSITION";
@@ -40,15 +45,57 @@ public class UpdateActivity extends Activity {
         starter.putExtra(EXTRA_POSITION, position);
         activity.startActivityForResult(starter, requestCode);
     }
-    
-    /** 类别 */
-    private TextView mAccountInformationCategoryTv;
-    //金额的符号
-    private TextView mAccountInformationSymbolTv;
-    //金额，时间，备注
-    private EditText mAccountInformationMoneyEdit, mAccountInformationRemarksEdit, maccountInformationDaytimeEdit;
-    //账户
-    private Spinner mAccountInformationAccountSp;
+
+
+    /**
+     * 返回按钮
+     */
+    @BindView(R.id.update_back_btn)
+    ImageView mUpdateBackBtn;
+    /**
+     * 类别
+     */
+    @BindView(R.id.update_category_tv)
+    TextView mUpdateCategoryTv;
+    /**
+     * 金额符号
+     */
+    @BindView(R.id.update_symbol_money_tv)
+    TextView mUpdateSymbolMoneyTv;
+    /**
+     * 金额
+     */
+    @BindView(R.id.update_money_edit)
+    EditText mUpdateMoneyEdit;
+    /**
+     * 日期
+     */
+    @BindView(R.id.update_date_edit)
+    EditText mUpdateDateEdit;
+    /**
+     * 账户
+     */
+    @BindView(R.id.update_account_sp)
+    Spinner mUpdateAccountSp;
+    /**
+     * 备注
+     */
+    @BindView(R.id.update_remarks_edit)
+    EditText mUpdateRemarksEdit;
+    /**
+     * 修改按钮
+     */
+    @BindView(R.id.update_btn)
+    LinearLayout mUpdateBtn;
+
+    /**
+     * 数据库
+     */
+    private SQLiteDatabase mDb;
+    /**
+     * 当前登录的用户ID
+     */
+    private int mUserId;
 
     // 传递
     public int position = 0;
@@ -67,64 +114,51 @@ public class UpdateActivity extends Activity {
     private String mCategory, mMoney, mDaytime, mAccount, mRemarks;
     private int mId;
 
-    // 操作用户名
-    private int mUserId;
-
-    // 数据库
-    private SQLiteDatabase db;// 数据库对象
     private ContentValues cv;// 存储工具栏
     private int num = 0;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // 修改按钮
-        LinearLayout mAccountInformationBottomLin;
-        // 操作用户名
-        SharedPreferences mSharedPreferences;
-        SharedPreferences.Editor mEditor;
-
+    protected int getLayoutId() {
         // 软键盘会覆盖在屏幕上面，而不会把你的布局顶上去
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        setContentView(R.layout.activity_account_information);
+        setContentView(R.layout.activity_update);
+        return R.layout.activity_clear;
+    }
 
-        // 操作用户名
-        mSharedPreferences = getSharedPreferences("user", MODE_PRIVATE);
-        mEditor = mSharedPreferences.edit();
-        mEditor.apply();
-        mUserId = mSharedPreferences.getInt("userid", 0);
 
-        // 数据库
-        // 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
-        db = this.openOrCreateDatabase("data.db", MODE_PRIVATE, null);
+    @Override
+    protected void findViews() {
+        ButterKnife.bind(this);
+    }
 
-        mAccountInformationCategoryTv = (TextView) findViewById(R.id.account_information_category_tv);
-        mAccountInformationSymbolTv = (TextView) findViewById(R.id.account_information_symbol_tv);
-        mAccountInformationMoneyEdit = (EditText) findViewById(R.id.account_information_money_edit);
-        maccountInformationDaytimeEdit = (EditText) findViewById(R.id.account_information_daytime_edit);
-        mAccountInformationAccountSp = (Spinner) findViewById(R.id.account_information_account_sp);
-        mAccountInformationRemarksEdit = (EditText) findViewById(R.id.account_information_remarks_edit);
-        mAccountInformationBottomLin = (LinearLayout) findViewById(R.id.account_information_bottom_lin);
+    /**
+     * 设置监听
+     */
+    @Override
+    protected void setListeners() {
+        super.setListeners();
 
-        //maccountInformationDaytimeEdit可以获取焦点，但是不会显示软键盘
-        maccountInformationDaytimeEdit.setInputType(EditorInfo.TYPE_NULL);
-
-        getData();// 获取传递过来的数据并显示
+        //返回
+        mUpdateBackBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         // 修改
-        mAccountInformationBottomLin.setOnClickListener(new OnClickListener() {
+        mUpdateBtn.setOnClickListener(new OnClickListener() {
 
             @Override
             public void onClick(View arg0) {
                 // TODO Auto-generated method stub
                 // 获取修改后的信息
-				String mUpdateMoney = mAccountInformationMoneyEdit.getText().toString();
-                mDaytime = maccountInformationDaytimeEdit.getText().toString();
-                mRemarks = mAccountInformationRemarksEdit.getText().toString();
-				// 规范过得出的金额
-				String rightMoney;
+                String mUpdateMoney = mUpdateMoneyEdit.getText().toString();
+                mDaytime = mUpdateDateEdit.getText().toString();
+                mRemarks = mUpdateRemarksEdit.getText().toString();
+                // 规范过得出的金额
+                String rightMoney;
                 if (TextUtils.isEmpty(mUpdateMoney)) {
                     Toast.makeText(UpdateActivity.this, "请输入金额",
                             Toast.LENGTH_LONG).show();
@@ -138,7 +172,7 @@ public class UpdateActivity extends Activity {
                             Toast.LENGTH_LONG).show();
                     return;
                 } else {
-                	//计算小数点出现的个数
+                    //计算小数点出现的个数
                     int dotNum = 0;
                     // 将金额字符串转为数组
                     char[] moneyArray = mUpdateMoney.toCharArray();
@@ -149,9 +183,9 @@ public class UpdateActivity extends Activity {
                     }
                     // 记录小数点后两位
                     if (dotNum == 1) {
-                    	//返回某个指定的字符串值在字符串中首次出现的位置
+                        //返回某个指定的字符串值在字符串中首次出现的位置
                         int dotFirst = mUpdateMoney.indexOf('.');
-						//字符串的长度
+                        //字符串的长度
                         int length = mUpdateMoney.length();
                         if (length - dotFirst == 2) {
                             rightMoney = mUpdateMoney.substring(0,
@@ -169,10 +203,10 @@ public class UpdateActivity extends Activity {
                     }
                 }
                 //给金额加上正负号
-                mMoney = mAccountInformationSymbolTv.getText().toString() + rightMoney;
+                mMoney = mUpdateSymbolMoneyTv.getText().toString() + rightMoney;
                 //把int操作用户名转换成string
                 String userIdString = String.valueOf(mUserId);
-                if ((mAccountInformationSymbolTv.getText().toString()).equals("-")) {
+                if ((mUpdateSymbolMoneyTv.getText().toString()).equals("-")) {
                     // 修改数据
                     // 在存储工具类里面存储要操作的数据，以键值对的方式存储，键表示标的列名，值就是要操作的值
                     cv = new ContentValues();
@@ -183,7 +217,7 @@ public class UpdateActivity extends Activity {
                     cv.put("aoremarks", mRemarks);
                     cv.put("aotime", mDaytime);
                     // 修改数据，返回修改成功的行数，失败则返回0
-                    num = db.update("expenditure", cv, "aoid=? and aouserid=?",
+                    num = mDb.update("expenditure", cv, "aoid=? and aouserid=?",
                             new String[]{mId + "", userIdString + ""});
                     if (num > 0) {
                         Toast.makeText(UpdateActivity.this,
@@ -200,7 +234,7 @@ public class UpdateActivity extends Activity {
                         Toast.makeText(UpdateActivity.this,
                                 "修改失败" + num, Toast.LENGTH_SHORT).show();
                     }
-                } else if ((mAccountInformationSymbolTv.getText().toString()).equals("+")) {
+                } else if ((mUpdateSymbolMoneyTv.getText().toString()).equals("+")) {
                     // 修改数据
                     // 在存储工具类里面存储要操作的数据，以键值对的方式存储，键表示标的列名，值就是要操作的值
                     cv = new ContentValues();
@@ -210,7 +244,7 @@ public class UpdateActivity extends Activity {
                     cv.put("airemarks", mRemarks);
                     cv.put("aitime", mDaytime);
                     // 修改数据，返回修改成功的行数，失败则返回0
-                    num = db.update("income", cv, "aiid=? and aiuserid=?",
+                    num = mDb.update("income", cv, "aiid=? and aiuserid=?",
                             new String[]{mId + "", userIdString + ""});
                     if (num > 0) {
                         Toast.makeText(UpdateActivity.this,
@@ -236,7 +270,7 @@ public class UpdateActivity extends Activity {
 
         // sp账户
         // 设置下拉列表的条目被选择监听器
-        mAccountInformationAccountSp.setOnItemSelectedListener(new OnItemSelectedListener() {
+        mUpdateAccountSp.setOnItemSelectedListener(new OnItemSelectedListener() {
 
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
@@ -256,7 +290,7 @@ public class UpdateActivity extends Activity {
         // 时间
         mCalendar = Calendar.getInstance();
         // 点击"日期"按钮布局 设置日期
-        maccountInformationDaytimeEdit.setOnClickListener(new OnClickListener() {
+        mUpdateDateEdit.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 new DatePickerDialog(UpdateActivity.this,
@@ -270,7 +304,7 @@ public class UpdateActivity extends Activity {
                                 mMonth = month;
                                 mDay = day;
                                 // 更新EditText控件日期 小于10加0
-                                maccountInformationDaytimeEdit.setText(new StringBuilder()
+                                mUpdateDateEdit.setText(new StringBuilder()
                                         .append(mYear)
                                         // .append("-")
                                         .append((mMonth + 1) < 10 ? "0"
@@ -287,30 +321,54 @@ public class UpdateActivity extends Activity {
         });
     }
 
-    public void click(View v) {
-        switch (v.getId()) {
-            case R.id.account_information_left_tv:
-                finish();
-                break;
+    @Override
+    protected void initData() {
+        super.initData();
+        initDb();
+        showUserInfo();
+        showDate();
+    }
 
-            default:
-                break;
+
+    /**
+     * 初始化数据库
+     */
+    private void initDb() {
+        // 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
+        mDb = openOrCreateDatabase("data.db", Context.MODE_PRIVATE, null);
+    }
+
+    /**
+     * 显示用户信息，获取当前登录的用户名
+     */
+    private void showUserInfo() {
+        //获取SharedPreferences对象
+        SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.SP_USER_CODE, MODE_PRIVATE);
+        if (sharedPreferences != null) {// 判断文件是否存在
+            mUserId = sharedPreferences.getInt(LoginActivity.SP_USERID_CODE, 0);
         }
     }
+
+    //maccountInformationDaytimeEdit可以获取焦点，但是不会显示软键盘
+    //maccountInformationDaytimeEdit.setInputType(EditorInfo.TYPE_NULL);
+    private void showDate() {
+        getData();// 获取传递过来的数据并显示
+    }
+
 
     public void getData() {
         Intent i = this.getIntent();
         if (i != null) {
             DataBean dataBean = (DataBean) i.getSerializableExtra(EXTRA_ACCOUNT_BEAN);
-            mId = dataBean.getId();
+            mId = dataBean.getmId();
             System.out.println(mId);
-            mAccountInformationCategoryTv.setText(dataBean.getCategory());
-            mCategory = dataBean.getCategory();
-            mAccountInformationSymbolTv.setText(dataBean.getMoney().substring(0, 1));
-            mAccountInformationMoneyEdit.setText(dataBean.getMoney().substring(1));
-            mAccountInformationMoneyEdit.setSelection(mAccountInformationMoneyEdit.length());
-            maccountInformationDaytimeEdit.setText(dataBean.getDaytime());
-            String sd_account = dataBean.getAccount();
+            mUpdateCategoryTv.setText(dataBean.getmCategory());
+            mCategory = dataBean.getmCategory();
+            mUpdateSymbolMoneyTv.setText(dataBean.getmMoney().substring(0, 1));
+            mUpdateMoneyEdit.setText(dataBean.getmMoney().substring(1));
+            mUpdateMoneyEdit.setSelection(mUpdateMoneyEdit.length());
+            mUpdateDateEdit.setText(dataBean.getmDate());
+            String sd_account = dataBean.getmAccount();
             for (int j = 0; j < spaccItems.length; j++) {
                 if (sd_account.equals(spaccItems[j])) {
                     // 定义数组适配器，利用系统布局文件
@@ -320,15 +378,15 @@ public class UpdateActivity extends Activity {
                     // 定义下拉框的样式
                     spacc_adapter1
                             .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    mAccountInformationAccountSp.setAdapter(spacc_adapter1);
+                    mUpdateAccountSp.setAdapter(spacc_adapter1);
                     // 设置sp的值等于传递过来的值
-                    mAccountInformationAccountSp.setSelection(j, true);
+                    mUpdateAccountSp.setSelection(j, true);
                     mAccount = spaccItems[j];
                     break;
                 }
             }
-            mAccountInformationRemarksEdit.setText(dataBean.getRemarks());
-            mAccountInformationRemarksEdit.setSelection(mAccountInformationRemarksEdit.length());// 将光标移至文字末尾
+            mUpdateRemarksEdit.setText(dataBean.getmRemarks());
+            mUpdateRemarksEdit.setSelection(mUpdateRemarksEdit.length());// 将光标移至文字末尾
             position = i.getIntExtra(EXTRA_POSITION, 0);
         }
 

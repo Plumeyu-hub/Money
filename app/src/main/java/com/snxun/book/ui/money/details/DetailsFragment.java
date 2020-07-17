@@ -705,8 +705,8 @@ public class DetailsFragment extends BaseFragment {
 
             @Override
             public int compare(DataBean lhs, DataBean rhs) {
-                int a = Integer.parseInt(lhs.getDaytime());
-                int b = Integer.parseInt(rhs.getDaytime());
+                int a = Integer.parseInt(lhs.getmDate());
+                int b = Integer.parseInt(rhs.getmDate());
                 int diff = a - b;
                 if (diff > 0) {
                     return 1;

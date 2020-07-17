@@ -3,79 +3,79 @@ package com.snxun.book.ui.money.bean;
 import java.io.Serializable;
 
 public class DataBean implements Serializable {
-	private String category;// 类别
-	private String money;// 金额
-	private String account;// 账户
-	private String remarks;// 备注
-	private String daytime;// 时间
-	private int id;
-	private int userid;
+	private String mCategory;// 类别
+	private String mMoney;// 金额
+	private String mAccount;// 账户
+	private String mRemarks;// 备注
+	private String mDate;// 时间
+	private int mId;
+	private int mUserId;
 
-	public DataBean(String category, String money, String account,
-					String remarks, String daytime, int num, int useridnum) {
+	public DataBean(String mCategory, String mMoney, String mAccount,
+					String mRemarks, String mDate, int mId, int mUserId) {
 		super();
-		this.category = category;
-		this.money = money;
-		this.account = account;
-		this.remarks = remarks;
-		this.daytime = daytime;
-		this.id = num;
-		this.userid = useridnum;
+		this.mCategory = mCategory;
+		this.mMoney = mMoney;
+		this.mAccount = mAccount;
+		this.mRemarks = mRemarks;
+		this.mDate = mDate;
+		this.mId = mId;
+		this.mUserId = mUserId;
 	}
 
-	public int getId() {
-		return id;
+	public int getmId() {
+		return mId;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setmId(int mId) {
+		this.mId = mId;
 	}
 
-	public String getCategory() {
-		return category;
+	public String getmCategory() {
+		return mCategory;
 	}
 
-	public void setCategory(String category) {
-		this.category = category;
+	public void setmCategory(String mCategory) {
+		this.mCategory = mCategory;
 	}
 
-	public String getMoney() {
-		return money;
+	public String getmMoney() {
+		return mMoney;
 	}
 
-	public void setMoney(String money) {
-		this.money = money;
+	public void setmMoney(String mMoney) {
+		this.mMoney = mMoney;
 	}
 
-	public String getAccount() {
-		return account;
+	public String getmAccount() {
+		return mAccount;
 	}
 
-	public void setAccount(String account) {
-		this.account = account;
+	public void setmAccount(String mAccount) {
+		this.mAccount = mAccount;
 	}
 
-	public String getRemarks() {
-		return remarks;
+	public String getmRemarks() {
+		return mRemarks;
 	}
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
+	public void setmRemarks(String mRemarks) {
+		this.mRemarks = mRemarks;
 	}
 
-	public String getDaytime() {
-		return daytime;
+	public String getmDate() {
+		return mDate;
 	}
 
-	public void setDaytime(String daytime) {
-		this.daytime = daytime;
+	public void setmDate(String mDate) {
+		this.mDate = mDate;
 	}
 
-	public int getUserid() {
-		return userid;
+	public int getmUserId() {
+		return mUserId;
 	}
 
-	public void setUserid(int userid) {
-		this.userid = userid;
+	public void setmUserId(int mUserId) {
+		this.mUserId = mUserId;
 	}
 }

@@ -1,38 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:background="@color/color_FF6B6A" >
+        android:background="@color/color_FF6B6A">
 
-        <TextView
-            android:id="@+id/searchleft_tv"
+        <ImageView
+            android:id="@+id/search_back_btn"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_centerInParent="true"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="15dp"
             android:background="@drawable/ic_exit_fff"
-            android:clickable="true"
-            android:onClick="click" />
+            android:contentDescription="@string/app_name" />
 
         <TextView
-            android:id="@+id/sreachyes_tv"
+            android:id="@+id/sreach_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dp"
+            android:layout_alignParentEnd="true"
             android:layout_marginLeft="15dp"
-            android:clickable="true"
+            android:layout_marginRight="15dp"
             android:gravity="center"
-            android:onClick="click"
-            android:text="查询"
+            android:text="@string/rearch"
             android:textColor="#ffffff"
             android:textSize="18sp" />
 
@@ -40,31 +38,30 @@
             android:layout_width="match_parent"
             android:layout_height="32dp"
             android:layout_centerInParent="true"
-            android:layout_toLeftOf="@id/sreachyes_tv"
-            android:layout_toRightOf="@id/searchleft_tv"
-            android:background="@drawable/bg_f0f0f0_corner_50" >
+            android:layout_toStartOf="@id/sreach_btn"
+            android:layout_toEndOf="@id/search_back_btn"
+            android:background="@drawable/bg_f0f0f0_corner_50">
 
-            <TextView
-                android:id="@+id/searchdelete_tv"
+            <ImageView
+                android:id="@+id/search_delete_btn"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
-                android:layout_marginRight="14dp"
-                android:background="@drawable/ic_graydelete"
-                android:clickable="true"
-                android:gravity="center_vertical"
-                android:onClick="click" />
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/ic_search_delete"
+                android:contentDescription="@string/app_name"
+                android:gravity="center_vertical" />
 
             <EditText
-                android:id="@+id/searchtext_et"
+                android:id="@+id/search_text_edit"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginRight="8dp"
-                android:layout_toLeftOf="@id/searchdelete_tv"
+                android:layout_marginEnd="8dp"
+                android:layout_toStartOf="@id/search_delete_btn"
                 android:background="@null"
                 android:gravity="center"
-                android:hint="类型/金额/时间/账户/备注"
+                android:hint="@string/rearch_title"
                 android:textSize="14sp" />
         </RelativeLayout>
     </RelativeLayout>
@@ -73,26 +70,27 @@
         android:id="@+id/search_lv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="5dp" >
-    </ListView>
+        android:padding="5dp" />
 
     <LinearLayout
-        android:id="@+id/searchempty_lin"
+        android:id="@+id/search_empty_lin"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        tools:ignore="UseCompoundDrawables">
 
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:background="@drawable/ic_data_empty" />
+            android:background="@drawable/ic_data_empty"
+            android:contentDescription="@string/app_name" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="无数据"
+            android:text="@string/app_no_data"
             android:textColor="@color/color_FF6B6A"
             android:textSize="18sp" />
     </LinearLayout>

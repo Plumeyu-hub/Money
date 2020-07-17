@@ -26,13 +26,35 @@
     <string name="problem_hint">请输入密保问题</string>
     <string name="answer_hint">请输入密保答案</string>
 
+    <string name="out">支出</string>
+    <string name="in">收入</string>
+
+    <string name="money">金额</string>
+    <string name="money_hint">请输入金额…</string>
+    <string name="date">日期</string>
+    <string name="remark">备注</string>
+    <string name="account">账户</string>
+    <string name="remark_hint">请输入备注…</string>
+
     <!-- 注册-->
     <string name="registered_title">注册</string>
     <string name="registered_password_hint">请输入密码</string>
     <string name="registered_password_two_hint">请确认密码</string>
 
-    <!-- 注册-->
+    <!-- 找回密码-->
     <string name="retrieve_password_title">找回密码</string>
+
+    <!-- 备注-->
+    <string name="submit_remark_title">请输入备注</string>
+
+    <!-- 修改-->
+    <string name="update_title">账目详情</string>
+    <string name="update_category">类型</string>
+    <string name="update_symbol_money">+</string>
+
+    <!-- 查询-->
+    <string name="rearch">查询</string>
+    <string name="rearch_title">类型/金额/时间/账户/备注</string>
 
     <!-- 侧边栏Drawer -->
     <string name="drawer_login">立即登录/注册</string>
@@ -57,13 +79,6 @@
 
     <!-- 定时记账-->
     <string name="remind_text_xml">提醒我记账</string>
-
-    <!-- 设置-->
-    <string name="add_money">金额</string>
-    <string name="add_money_hint">请点击输入金额…</string>
-    <string name="add_date">日期</string>
-    <string name="add_remark">备注</string>
-    <string name="add_remark_hint">请点击输入备注…</string>
 
     <!-- 设置预算-->
     <string name="add_budget_title">设置预算</string>

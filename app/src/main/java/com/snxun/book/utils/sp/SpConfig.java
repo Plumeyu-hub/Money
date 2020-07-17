@@ -13,7 +13,8 @@ public class SpConfig {
 
 //---------------------------- 存储的Key -----------------------------------
 
-    /** 用户账号 */
-    public static final String USER_ACCOUNT = "user_account";
-
+    /** 用户id */
+    public static final String USER_ID = "user_id";
+    /** 用户登录状态 */
+    public static final String USER_STATUS = "user_stutas";
 }

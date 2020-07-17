@@ -3,28 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    android:orientation="vertical" >
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp" >
+        android:layout_height="50dp">
 
-        <TextView
-            android:id="@+id/submit_remark_left_tv"
+        <ImageView
+            android:id="@+id/submit_remark_back_btn"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
             android:background="@drawable/ic_left"
-            android:clickable="true"
-            android:onClick="click" />
+            android:contentDescription="@string/app_name" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="请输入备注"
+            android:text="@string/submit_remark_title"
             android:textColor="@color/color_FF6B6A"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <View
@@ -33,18 +32,17 @@
         android:background="#a3a3a3" />
 
     <EditText
-        android:id="@+id/add_in_remark_edit"
+        android:id="@+id/add_in_submit_remark_edit"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_margin="10dp" />
 
-    <Button
-        android:id="@+id/submit_remark_yes_btn"
+    <ImageView
+        android:id="@+id/submit_remark_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:background="@drawable/ic_yes"
-        android:clickable="true"
-        android:onClick="click" />
+        android:contentDescription="@string/app_name" />
 
 </LinearLayout>

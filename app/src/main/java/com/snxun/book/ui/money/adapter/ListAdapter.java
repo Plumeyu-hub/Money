@@ -66,10 +66,10 @@ public class ListAdapter extends BaseAdapter {
 		// .findViewById(R.id.lin_dataitem_delete);
 		DataBean dataBean = mList.get(position);
 		if (dataBean != null) {
-			id.setText(Integer.toString(dataBean.getId()));
-			date.setText(dataBean.getDaytime());
-			category.setText(dataBean.getCategory());
-			money.setText(dataBean.getMoney());
+			id.setText(Integer.toString(dataBean.getmId()));
+			date.setText(dataBean.getmDate());
+			category.setText(dataBean.getmCategory());
+			money.setText(dataBean.getmMoney());
 
 			// ic_delete.setOnClickListener(new OnClickListener() {
 			//
