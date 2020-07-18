@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
@@ -13,9 +14,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="登录"
+            android:text="@string/app_login"
             android:textColor="@color/color_333333"
-            android:textSize="20dp" />
+            android:textSize="20sp" />
     </RelativeLayout>
 
     <View
@@ -28,7 +29,8 @@
         android:layout_height="64dp"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="40dp"
-        android:background="@mipmap/ic_launcher" />
+        android:contentDescription="@string/app_name"
+        android:src="@mipmap/ic_launcher" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -40,8 +42,9 @@
         <ImageView
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="35dp"
-            android:background="@drawable/ic_username" />
+            android:layout_marginStart="35dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_username" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -49,18 +52,18 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/username_et"
-                android:layout_width="wrap_content"
+                android:id="@+id/login_username_edit"
+                android:layout_width="match_parent"
                 android:layout_height="34dp"
-                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
                 android:background="@null"
-                android:hint="请输入用户名" />
+                android:hint="@string/username_hint" />
 
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:layout_marginLeft="11dp"
-                android:layout_marginRight="35dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginEnd="35dp"
                 android:background="#cccccc" />
         </LinearLayout>
     </LinearLayout>
@@ -75,8 +78,9 @@
         <ImageView
             android:layout_width="35dp"
             android:layout_height="35dp"
-            android:layout_marginLeft="35dp"
-            android:background="@drawable/ic_password" />
+            android:layout_marginStart="35dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_password" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -84,32 +88,30 @@
             android:orientation="vertical">
 
             <EditText
-                android:id="@+id/password_et"
-                android:layout_width="wrap_content"
+                android:id="@+id/login_password_edit"
+                android:layout_width="match_parent"
                 android:layout_height="34dp"
-                android:layout_marginLeft="12dp"
+                android:layout_marginStart="12dp"
                 android:background="@null"
-                android:hint="请输入密码" />
+                android:hint="@string/password_hint" />
 
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
-                android:layout_marginLeft="11dp"
-                android:layout_marginRight="35dp"
+                android:layout_marginStart="11dp"
+                android:layout_marginEnd="35dp"
                 android:background="#cccccc" />
         </LinearLayout>
     </LinearLayout>
 
     <TextView
-        android:id="@+id/forgetpw_tv"
+        android:id="@+id/login_forget_password_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right"
+        android:layout_gravity="end"
         android:layout_marginTop="15dp"
-        android:layout_marginRight="10dp"
-        android:clickable="true"
-        android:onClick="click"
-        android:text="忘记密码？"
+        android:layout_marginEnd="10dp"
+        android:text="@string/login_forget_password"
         android:textColor="@color/color_999999"
         android:textSize="15sp" />
 
@@ -120,22 +122,20 @@
         android:gravity="center_horizontal"
         android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/login_tv"
+        <ImageView
+            android:id="@+id/login_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_login"
-            android:clickable="true"
-            android:onClick="click" />
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_login" />
 
-        <TextView
-            android:id="@+id/registered_tv"
+        <ImageView
+            android:id="@+id/login_registered_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="35dp"
-            android:background="@drawable/ic_registered"
-            android:clickable="true"
-            android:onClick="click" />
+            android:layout_marginStart="35dp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_registered" />
     </LinearLayout>
 
 </LinearLayout>

@@ -5,7 +5,6 @@ import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -39,9 +38,10 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
-import com.snxun.book.ui.login.LoginActivity;
 import com.snxun.book.ui.money.adapter.GridAdapter;
 import com.snxun.book.ui.money.bean.DataBean;
+import com.snxun.book.utils.sp.SharedPreferencesUtils;
+import com.snxun.book.utils.sp.SpConfig;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -56,7 +56,7 @@ public class AddActivity extends BaseActivity {
     /**
      * 添加账目广播请求码
      */
-    public static final String ADD_BROADCAST_REQUEST_CODE = "GBadd";
+    public static final String ADD_BROADCAST_REQUEST_CODE = "com.snxun.book.GBaddGBadd";
     /**
      * 添加账目Intent带数据跳转请求码
      */
@@ -556,14 +556,11 @@ public class AddActivity extends BaseActivity {
 	}
 
 	/**
-	 * 显示用户信息，获取当前登录的用户名
+	 * 获取当前登录用户的Id
 	 */
 	private void showUserInfo() {
 		//获取SharedPreferences对象
-		SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.SP_USER_CODE, MODE_PRIVATE);
-		if (sharedPreferences != null) {// 判断文件是否存在
-			mUserId = sharedPreferences.getInt(LoginActivity.SP_USERID_CODE, 0);
-		}
+		mUserId = SharedPreferencesUtils.getInt(SpConfig.USER_ID,0);
 	}
 
     // 函数外

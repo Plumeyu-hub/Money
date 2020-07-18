@@ -21,7 +21,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="@string/registered_title"
+            android:text="@string/app_registered"
             android:textColor="@color/color_333333"
             android:textSize="20sp" />
     </RelativeLayout>
@@ -52,7 +52,7 @@
 
             <EditText
                 android:id="@+id/registered_username_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="34dp"
                 android:layout_marginStart="12dp"
                 android:background="@null"
@@ -88,11 +88,11 @@
 
             <EditText
                 android:id="@+id/registered_password_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="34dp"
                 android:layout_marginStart="12dp"
                 android:background="@null"
-                android:hint="@string/registered_password_hint" />
+                android:hint="@string/password_hint" />
 
             <View
                 android:layout_width="wrap_content"
@@ -124,7 +124,7 @@
 
             <EditText
                 android:id="@+id/registered_password_two_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="34dp"
                 android:layout_marginStart="12dp"
                 android:background="@null"
@@ -160,7 +160,7 @@
 
             <EditText
                 android:id="@+id/registered_problem_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="34dp"
                 android:layout_marginStart="12dp"
                 android:background="@null"
@@ -196,7 +196,7 @@
 
             <EditText
                 android:id="@+id/registered_answer_edit"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="34dp"
                 android:layout_marginStart="12dp"
                 android:background="@null"

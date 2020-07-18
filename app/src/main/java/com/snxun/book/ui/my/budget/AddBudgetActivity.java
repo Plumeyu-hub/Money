@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,7 +17,8 @@ import android.widget.Toast;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
-import com.snxun.book.ui.login.LoginActivity;
+import com.snxun.book.utils.sp.SharedPreferencesUtils;
+import com.snxun.book.utils.sp.SpConfig;
 
 import java.util.Calendar;
 import java.util.Objects;
@@ -155,10 +155,7 @@ public class AddBudgetActivity extends BaseActivity {
      */
     private void showUserInfo() {
         //获取SharedPreferences对象
-        SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.SP_USER_CODE, MODE_PRIVATE);
-        if (sharedPreferences != null) {// 判断文件是否存在
-            mUserId = sharedPreferences.getInt(LoginActivity.SP_USERID_CODE, 0);
-        }
+        mUserId = SharedPreferencesUtils.getInt(SpConfig.USER_ID,0);
     }
 
 

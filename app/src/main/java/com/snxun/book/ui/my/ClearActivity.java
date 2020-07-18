@@ -3,7 +3,6 @@ package com.snxun.book.ui.my;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 import android.widget.ImageView;
@@ -11,7 +10,8 @@ import android.widget.Toast;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
-import com.snxun.book.ui.login.LoginActivity;
+import com.snxun.book.utils.sp.SharedPreferencesUtils;
+import com.snxun.book.utils.sp.SpConfig;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -91,10 +91,7 @@ public class ClearActivity extends BaseActivity {
      */
     private void showUserInfo() {
         //获取SharedPreferences对象
-        SharedPreferences sharedPreferences = getSharedPreferences(LoginActivity.SP_USER_CODE, MODE_PRIVATE);
-        if (sharedPreferences != null) {// 判断文件是否存在
-            mUserId = sharedPreferences.getInt(LoginActivity.SP_USERID_CODE, 0);
-        }
+        mUserId = SharedPreferencesUtils.getInt(SpConfig.USER_ID,0);
     }
 
 

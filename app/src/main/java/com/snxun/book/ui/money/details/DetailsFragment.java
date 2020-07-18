@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.drawable.ColorDrawable;
@@ -30,7 +29,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseFragment;
-import com.snxun.book.ui.login.LoginActivity;
 import com.snxun.book.ui.money.adapter.ListAdapter;
 import com.snxun.book.ui.money.add.AddActivity;
 import com.snxun.book.ui.money.bean.DataBean;
@@ -46,6 +44,8 @@ import com.snxun.book.ui.my.RemindActivity;
 import com.snxun.book.ui.my.SetActivity;
 import com.snxun.book.ui.my.budget.BudgetActivity;
 import com.snxun.book.ui.my.demo.home.DemoHomeActivity;
+import com.snxun.book.utils.sp.SharedPreferencesUtils;
+import com.snxun.book.utils.sp.SpConfig;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -420,13 +420,17 @@ public class DetailsFragment extends BaseFragment {
      */
     private void showUserInfo() {
         //获取SharedPreferences对象
-        SharedPreferences sharedPreferences = getActivity().getSharedPreferences(LoginActivity.SP_USER_CODE, Context.MODE_PRIVATE);
-        if (sharedPreferences != null) {// 判断文件是否存在
+        //SharedPreferences sharedPreferences = getActivity().getSharedPreferences(LoginActivity.SP_USER_CODE, Context.MODE_PRIVATE);
+        mUserId = SharedPreferencesUtils.getInt(SpConfig.USER_ID,0);
+
+        mUserNameTv.setText(String.valueOf(mUserId));
+
+        //if (sharedPreferences != null) {// 判断文件是否存在
             // 使用getString方法获得value，注意第2个参数是value的默认值
-            mUserName = sharedPreferences.getString(UPDATE_USERNAME_RESULT_CODE, "");
-            mUserId = sharedPreferences.getInt(UPDATE_USERID_RESULT_CODE, 0);
-            mUserNameTv.setText(mUserName);
-        }
+            //mUserName = sharedPreferences.getString(UPDATE_USERNAME_RESULT_CODE, "");
+            //mUserId = sharedPreferences.getInt(UPDATE_USERID_RESULT_CODE, 0);
+            //mUserNameTv.setText(mUserName);
+        //}
     }
 
     /**

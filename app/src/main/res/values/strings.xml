@@ -25,6 +25,7 @@
     <string name="username_hint">请输入用户名</string>
     <string name="problem_hint">请输入密保问题</string>
     <string name="answer_hint">请输入密保答案</string>
+    <string name="password_hint">请输入密码</string>
 
     <string name="out">支出</string>
     <string name="in">收入</string>
@@ -36,10 +37,15 @@
     <string name="account">账户</string>
     <string name="remark_hint">请输入备注…</string>
 
+
+    <string name="app_registered">注册</string>
+    <string name="app_login">登录</string>
+
     <!-- 注册-->
-    <string name="registered_title">注册</string>
-    <string name="registered_password_hint">请输入密码</string>
     <string name="registered_password_two_hint">请确认密码</string>
+
+    <!-- 登录-->
+    <string name="login_forget_password">忘记密码？</string>
 
     <!-- 找回密码-->
     <string name="retrieve_password_title">找回密码</string>
