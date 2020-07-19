@@ -149,7 +149,7 @@ public class LoginActivity extends BaseActivity {
         mLoginRegisteredBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(context(), RegisteredActivity.class));
+                startActivity(new Intent(getContext(), RegisteredActivity.class));
             }
         });
 
@@ -157,7 +157,7 @@ public class LoginActivity extends BaseActivity {
         mLoginForgetPasswordBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(context(), RetrievePasswordActivity.class));
+                startActivity(new Intent(getContext(), RetrievePasswordActivity.class));
             }
         });
 

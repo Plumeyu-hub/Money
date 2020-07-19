@@ -70,6 +70,13 @@
 
         </activity>
 
+
+        <activity
+            android:name=".ui.my.demo.rv.RvActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
         <receiver android:name=".ui.my.RemindReceiver" >
         </receiver>
     </application>

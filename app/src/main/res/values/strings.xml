@@ -100,6 +100,7 @@
     <!-- demo主页 -->
     <string name="demo_home_title">Demo主页</string>
     <string name="demo_tab_test">TabLayout样例</string>
+    <string name="demo_rv_test">RecyclerView样例</string>
 
     <!-- 退出应用 -->
     <string name="exit_pop">确定退出此应用吗？</string>

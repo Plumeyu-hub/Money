@@ -108,10 +108,4 @@ public class MainActivity extends BaseActivity {
             return TITLES_BEANS.length;
         }
     }
-
-    private Context getContext() {
-        return this;
-    }
-
-
 }

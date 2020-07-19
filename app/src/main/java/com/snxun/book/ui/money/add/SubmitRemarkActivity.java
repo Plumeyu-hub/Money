@@ -59,7 +59,7 @@ public class SubmitRemarkActivity extends BaseActivity {
             public void onClick(View view) {
                 String remark = mSubmitRemarkEdit.getText().toString().trim();
                 if (TextUtils.isEmpty(remark)) {
-                    Toast.makeText(context(), "编辑框内容不能为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "编辑框内容不能为空", Toast.LENGTH_SHORT).show();
                 } else {
                     // 第二步：用setResult()方法返回数据
                     Intent i = new Intent();// Intent不要设置跳转的界面

@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.snxun.book.base.BaseActivity;
+import com.snxun.book.ui.my.demo.rv.RvActivity;
 import com.snxun.book.ui.my.demo.tab.TabTestActivity;
 import com.snxun.book.R;
 
@@ -31,6 +32,10 @@ public class DemoHomeActivity extends BaseActivity {
     /** tablayout样例按钮 */
     @BindView(R.id.tab_case_btn)
     Button mTabCaseBtn;
+    /** RecyclerView样例按钮 */
+    @BindView(R.id.rv_case_btn)
+    Button mRvCaseBtn;
+
 
 
     @Override
@@ -56,7 +61,14 @@ public class DemoHomeActivity extends BaseActivity {
         mTabCaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TabTestActivity.start(DemoHomeActivity.this);
+                TabTestActivity.start(getContext());
+            }
+        });
+
+        mRvCaseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RvActivity.start(getContext());
             }
         });
     }

@@ -43,5 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected void endCreate() {}
 
-    protected Context context(){return this;}
+    protected Context getContext() {
+        return this;
+    }
 }
