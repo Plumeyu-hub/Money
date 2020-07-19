@@ -44,8 +44,7 @@ import com.snxun.book.ui.my.RemindActivity;
 import com.snxun.book.ui.my.SetActivity;
 import com.snxun.book.ui.my.budget.BudgetActivity;
 import com.snxun.book.ui.my.demo.home.DemoHomeActivity;
-import com.snxun.book.utils.sp.SharedPreferencesUtils;
-import com.snxun.book.utils.sp.SpConfig;
+import com.snxun.book.utils.sp.SpManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -414,23 +413,12 @@ public class DetailsFragment extends BaseFragment {
      */
     public static final String UPDATE_USERID_RESULT_CODE = "userid";
 
-
     /**
-     * 显示用户信息，获取当前登录的用户名
+     * 获取当前登录用户的Id
      */
     private void showUserInfo() {
-        //获取SharedPreferences对象
-        //SharedPreferences sharedPreferences = getActivity().getSharedPreferences(LoginActivity.SP_USER_CODE, Context.MODE_PRIVATE);
-        mUserId = SharedPreferencesUtils.getInt(SpConfig.USER_ID,0);
-
+        mUserId = SpManager.get().getUserId();
         mUserNameTv.setText(String.valueOf(mUserId));
-
-        //if (sharedPreferences != null) {// 判断文件是否存在
-            // 使用getString方法获得value，注意第2个参数是value的默认值
-            //mUserName = sharedPreferences.getString(UPDATE_USERNAME_RESULT_CODE, "");
-            //mUserId = sharedPreferences.getInt(UPDATE_USERID_RESULT_CODE, 0);
-            //mUserNameTv.setText(mUserName);
-        //}
     }
 
     /**

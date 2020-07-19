@@ -19,8 +19,7 @@ import androidx.annotation.NonNull;
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
 import com.snxun.book.ui.money.main.MainActivity;
-import com.snxun.book.utils.sp.SharedPreferencesUtils;
-import com.snxun.book.utils.sp.SpConfig;
+import com.snxun.book.utils.sp.SpManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -124,9 +123,9 @@ public class LoginActivity extends BaseActivity {
                                     Toast.LENGTH_LONG).show();
 
                             //存储用户的登录成功的状态
-                            SharedPreferencesUtils.putBoolean(SpConfig.USER_STATUS, true);
+                            SpManager.get().setUserStatus(true);
                             //存储用户的登录Id
-                            SharedPreferencesUtils.putInt(SpConfig.USER_ID , mUserId);
+                            SpManager.get().setUserId(mUserId);
 
                             Intent i = new Intent(LoginActivity.this,
                                     MainActivity.class);
@@ -181,7 +180,7 @@ public class LoginActivity extends BaseActivity {
 
     private void isLoginStatus() {
         // 判断登录状态
-        if (SharedPreferencesUtils.getBoolean(SpConfig.USER_STATUS,false)) {
+        if (SpManager.get().getUserStatus()) {
             if (mLoginDialog == null) {
                 mLoginDialog = new ProgressDialog(this);// 创建了圆形进度条对话框
                 mLoginDialog.setMessage("登录中。。。");

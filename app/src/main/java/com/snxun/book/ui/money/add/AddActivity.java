@@ -40,8 +40,7 @@ import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
 import com.snxun.book.ui.money.adapter.GridAdapter;
 import com.snxun.book.ui.money.bean.DataBean;
-import com.snxun.book.utils.sp.SharedPreferencesUtils;
-import com.snxun.book.utils.sp.SpConfig;
+import com.snxun.book.utils.sp.SpManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -560,7 +559,7 @@ public class AddActivity extends BaseActivity {
 	 */
 	private void showUserInfo() {
 		//获取SharedPreferences对象
-		mUserId = SharedPreferencesUtils.getInt(SpConfig.USER_ID,0);
+		mUserId = SpManager.get().getUserId();
 	}
 
     // 函数外

@@ -35,7 +35,7 @@ public class SpManager {
         SharedPreferencesUtils.putBoolean(SpConfig.USER_STATUS, UserStutas);
     }
 
-    /** 获取用户账号 */
+    /** 获取用户登录状态 */
     public Boolean getUserStatus(){
         return SharedPreferencesUtils.getBoolean(SpConfig.USER_STATUS, false);
     }

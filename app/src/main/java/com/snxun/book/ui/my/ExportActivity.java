@@ -13,8 +13,7 @@ import android.widget.Toast;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
-import com.snxun.book.utils.sp.SharedPreferencesUtils;
-import com.snxun.book.utils.sp.SpConfig;
+import com.snxun.book.utils.sp.SpManager;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -97,11 +96,11 @@ public class ExportActivity extends BaseActivity {
 	}
 
 	/**
-	 * 显示用户信息，获取当前登录的用户名
+	 * 获取当前登录用户的Id
 	 */
 	private void showUserInfo() {
 		//获取SharedPreferences对象
-		mUserId = SharedPreferencesUtils.getInt(SpConfig.USER_ID,0);
+		mUserId = SpManager.get().getUserId();
 	}
 
 	/**

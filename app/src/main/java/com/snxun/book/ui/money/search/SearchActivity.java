@@ -18,8 +18,7 @@ import com.snxun.book.ui.money.adapter.ListAdapter;
 import com.snxun.book.ui.money.bean.DataBean;
 import com.snxun.book.ui.money.details.DetailsFragment;
 import com.snxun.book.ui.money.update.UpdateActivity;
-import com.snxun.book.utils.sp.SharedPreferencesUtils;
-import com.snxun.book.utils.sp.SpConfig;
+import com.snxun.book.utils.sp.SpManager;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -143,11 +142,11 @@ public class SearchActivity extends BaseActivity {
     }
 
     /**
-     * 显示用户信息，获取当前登录的用户名
+     * 获取当前登录用户的Id
      */
     private void showUserInfo() {
         //获取SharedPreferences对象
-        mUserId = SharedPreferencesUtils.getInt(SpConfig.USER_ID,0);
+        mUserId = SpManager.get().getUserId();
     }
 
 
