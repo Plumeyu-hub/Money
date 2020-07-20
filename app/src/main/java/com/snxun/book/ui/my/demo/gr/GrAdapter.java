@@ -1,6 +1,5 @@
-package com.snxun.book.ui.my.demo.rv;
+package com.snxun.book.ui.my.demo.gr;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,10 +7,10 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
+import com.snxun.book.ui.my.demo.rv.RvAdapter;
 
 import java.util.List;
 
@@ -19,18 +18,16 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * RV列表适配器
- *
- * @author zhouL
- * @date 2020/7/19
+ * @author wangshy
+ * @date 2020/07/20
  */
-public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class GrAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
 
-    private List<Integer> mDatas;
+    private List<String> mDatas;
 
-    public RvAdapter(Context context) {
+    public GrAdapter(Context context) {
         this.mContext = context;
     }
 
@@ -59,16 +56,16 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new DataViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_rv, parent, false));
+        return new DataViewHolder(LayoutInflater.from(mContext).inflate(R.layout.gr_img, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        Integer color = getItem(position);
-        if (color == null || !(holder instanceof DataViewHolder)) {
+        String s = getItem(position);
+        if (s == null || !(holder instanceof RvAdapter.DataViewHolder)) {
             return;
         }
-        showItem((DataViewHolder) holder, color, position);
+        showItem((DataViewHolder) holder, s, position);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -88,26 +85,9 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 return true;
             }
         });
-
-
     }
 
-    @SuppressLint("SetTextI18n")
-    private void showItem(DataViewHolder holder, Integer color, int position) {
-        holder.strTv.setText(position + ".  " + color);
-        holder.strTv.setBackgroundColor(ContextCompat.getColor(mContext, color));
-    }
-
-    @Override
-    public int getItemCount() {
-        return mDatas == null ? 0 : mDatas.size();
-    }
-
-    public void setData(List<Integer> list) {
-        mDatas = list;
-    }
-
-    private Integer getItem(int position) {
+    private String getItem(int position) {
         if (mDatas == null || mDatas.size() == 0) {
             return null;
         }
@@ -119,10 +99,23 @@ public class RvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return null;
     }
 
+
+    @Override
+    public int getItemCount() {
+        return mDatas == null ? 0 : mDatas.size();
+    }
+
+    public void setData(List<String> list) {
+        mDatas = list;
+    }
+
+    private void showItem(DataViewHolder holder, String s, int position) {
+        holder.grText.setText(s);
+    }
     public static class DataViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.str_tv)
-        TextView strTv;
+        @BindView(R.id.gr_text)
+        TextView grText;
 
         private DataViewHolder(View itemView) {
             super(itemView);

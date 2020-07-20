@@ -302,6 +302,8 @@
                             android:background="#F2F3F5"
                             android:gravity="center"
                             android:text="1"
+                            android:onClick="clickoutnum"
+                            android:clickable="true"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
 
@@ -318,6 +320,8 @@
                             android:background="#F2F3F5"
                             android:gravity="center"
                             android:text="2"
+                            android:onClick="clickoutnum"
+                            android:clickable="true"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
 
@@ -334,6 +338,8 @@
                             android:background="#F2F3F5"
                             android:gravity="center"
                             android:text="3"
+                            android:onClick="clickoutnum"
+                            android:clickable="true"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
                     </LinearLayout>
@@ -357,6 +363,8 @@
                             android:background="#F2F3F5"
                             android:gravity="center"
                             android:text="4"
+                            android:onClick="clickoutnum"
+                            android:clickable="true"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
 
@@ -373,6 +381,8 @@
                             android:background="#F2F3F5"
                             android:gravity="center"
                             android:text="5"
+                            android:onClick="clickoutnum"
+                            android:clickable="true"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
 
@@ -389,6 +399,8 @@
                             android:background="#F2F3F5"
                             android:gravity="center"
                             android:text="6"
+                            android:onClick="clickoutnum"
+                            android:clickable="true"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
                     </LinearLayout>
@@ -412,6 +424,8 @@
                             android:background="#F2F3F5"
                             android:gravity="center"
                             android:text="7"
+                            android:onClick="clickoutnum"
+                            android:clickable="true"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
 
@@ -428,6 +442,8 @@
                             android:background="#F2F3F5"
                             android:gravity="center"
                             android:text="8"
+                            android:onClick="clickoutnum"
+                            android:clickable="true"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
 
@@ -444,6 +460,8 @@
                             android:background="#F2F3F5"
                             android:gravity="center"
                             android:text="9"
+                            android:onClick="clickoutnum"
+                            android:clickable="true"
                             android:textColor="@color/color_333333"
                             android:textSize="25sp" />
                     </LinearLayout>
@@ -468,6 +486,8 @@
                         android:background="#F2F3F5"
                         android:gravity="center"
                         android:text="·"
+                        android:onClick="clickoutnum"
+                        android:clickable="true"
                         android:textColor="@color/color_333333"
                         android:textSize="35sp" />
 
@@ -484,6 +504,8 @@
                         android:background="#F2F3F5"
                         android:gravity="center"
                         android:text="0"
+                        android:onClick="clickoutnum"
+                        android:clickable="true"
                         android:textColor="@color/color_333333"
                         android:textSize="25sp" />
 
@@ -497,6 +519,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
+                        android:onClick="click"
+                        android:clickable="true"
                         android:background="@color/color_FF6B6A"
                         android:gravity="center"
                         android:text="@string/app_yes"

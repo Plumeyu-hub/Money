@@ -15,21 +15,20 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseFragment;
-import com.snxun.book.ui.money.adapter.ListAdapter;
 import com.snxun.book.ui.money.add.AddActivity;
 import com.snxun.book.ui.money.bean.DataBean;
 import com.snxun.book.ui.money.search.SearchActivity;
@@ -78,7 +77,7 @@ public class DetailsFragment extends BaseFragment {
     /**
      * 添加账目广播结果码
      */
-    public static final String ADD_BROADCAST_RESULT_CODE = "GBadd";
+    public static final String ADD_BROADCAST_RESULT_CODE = "com.snxun.book.GBadd";
 
     /**
      * 添加账目Intent带数据跳转结果码
@@ -106,18 +105,15 @@ public class DetailsFragment extends BaseFragment {
     AddBroadcastReceiver mAddReceiver;
 
     /**
-     * list列表
+     * RV列表
      */
-    @BindView(R.id.details_lv)
-    ListView mDetailsLv;
+    @BindView(R.id.details_rv)
+    RecyclerView mRecyclerView;
+    private DetailsRvAdapter mDetailsRvAdapter;
     /**
      * 定义了一个数组List，里面只能存放DataBean
      */
     private List<DataBean> mDetailsList;
-    /**
-     * lise的适配器
-     */
-    private ListAdapter mDetailsListAdapter;
 
     /**
      * 侧边栏按钮
@@ -174,6 +170,19 @@ public class DetailsFragment extends BaseFragment {
     @Override
     protected void findViews(View view) {
         ButterKnife.bind(this, view);
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
+        // 初始化数据列表
+        mDetailsList = new ArrayList<>();
+        mDetailsRvAdapter = new DetailsRvAdapter(getContext(), mDetailsList);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mDetailsRvAdapter);
+
     }
 
     /**
@@ -183,27 +192,39 @@ public class DetailsFragment extends BaseFragment {
     protected void setListeners(View view) {
         super.setListeners(view);
 
-        //点击list跳转UpdateActivity
-        mDetailsLv.setOnItemClickListener((arg0, arg1, position, arg3) -> {
-            DataBean dataBean = mDetailsList.get(position);
-            //给UpdateActivity页面传递信息
-            // TODO: 2020/07/16  requireActivity()和getActivity()返回值问题
-            UpdateActivity.startForResult(requireActivity(), dataBean, position, DETAIL_UPDATE_REQUEST_CODE);
-        });
-
-        // 长list按删除
-        mDetailsLv.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        //点击RVlist跳转UpdateActivity
+        mDetailsRvAdapter.setOnItemClickListener(new DetailsRvAdapter.OnItemClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int arg2, long arg3) {
-                // 获取所点击项的id
-                TextView idTv = arg1.findViewById(R.id.list_id_tv);
-                final String id = idTv.getText().toString();
-                TextView moneyTv = arg1.findViewById(R.id.list_money_tv);
-                final String symbol = moneyTv.getText().toString().substring(0, 1);
-                showDeleteTipsDialog(id, symbol, arg2);
-                return true;
+            public void onClick(int position) {
+                DataBean dataBean = mDetailsList.get(position);
+                //给UpdateActivity页面传递信息
+                // TODO: 2020/07/16  requireActivity()和getActivity()返回值问题
+                UpdateActivity.startForResult(requireActivity(), dataBean, position, DETAIL_UPDATE_REQUEST_CODE);
             }
         });
+
+        //        // 长按RVlist按删除
+        //        mRvAdapter.setOnItemLongClickListener(new DetailsRvAdapter.OnItemLongClickListener() {
+        //            @Override
+        //            public void onClick(int position) {
+        //                Toast.makeText(getContext(), "long click " + position, Toast.LENGTH_SHORT).show();
+        //            }
+        //        });
+        //
+        //
+        //
+        //        mRvAdapter.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        //            @Override
+        //            public boolean onItemLongClick(AdapterView<?> arg0, View arg1, final int arg2, long arg3) {
+        //                // 获取所点击项的id
+        //                TextView idTv = arg1.findViewById(R.id.rv_list_id_tv);
+        //                final String id = idTv.getText().toString();
+        //                TextView moneyTv = arg1.findViewById(R.id.rv_list_money_tv);
+        //                final String symbol = moneyTv.getText().toString().substring(0, 1);
+        //                showDeleteTipsDialog(id, symbol, arg2);
+        //                return true;
+        //            }
+        //        });
 
         //侧边栏按钮
         mDrawerBtn.setOnClickListener(new View.OnClickListener() {
@@ -334,9 +355,10 @@ public class DetailsFragment extends BaseFragment {
         super.initData();
         initDb();
         showUserInfo();
-        initListView();
         registerReceiver();// 注册广播
     }
+
+
 
     /**
      * 显示删除提示弹框
@@ -395,23 +417,8 @@ public class DetailsFragment extends BaseFragment {
         // 删掉长按的item
         mDetailsList.remove(position);
         // 动态更新listview
-        mDetailsListAdapter.notifyDataSetChanged();
+        mDetailsRvAdapter.notifyDataSetChanged();
     }
-
-    /**
-     * SP存储用户信息获取，存储名结果码
-     */
-    //public static final String SP_NAME_RESULT_CODE = "user";
-
-    /**
-     * SP存储用户信息获取，用户名结果码
-     */
-    public static final String UPDATE_USERNAME_RESULT_CODE = "username";
-
-    /**
-     * SP存储用户信息获取，用户id结果码
-     */
-    public static final String UPDATE_USERID_RESULT_CODE = "userid";
 
     /**
      * 获取当前登录用户的Id
@@ -420,21 +427,6 @@ public class DetailsFragment extends BaseFragment {
         mUserId = SpManager.get().getUserId();
         mUserNameTv.setText(String.valueOf(mUserId));
     }
-
-    /**
-     * 初始化记账信息列表
-     */
-    private void initListView() {
-        // 初始化数据列表
-        mDetailsList = new ArrayList<>();
-        // 实例化适配器
-        mDetailsListAdapter = new ListAdapter(getActivity(), mDetailsList);
-        // listview设置适配器
-        mDetailsLv.setAdapter(mDetailsListAdapter);
-        //刷新列表
-        mDetailsListAdapter.notifyDataSetChanged();
-    }
-
 
     /**
      * 初始化数据库
@@ -468,13 +460,13 @@ public class DetailsFragment extends BaseFragment {
                     String month_text = mMonthSelectorBtn.getText().toString();
                     if (month_text.equals(R.string.app_select_date)) {
                         mDetailsList.add(dataBean);
-                        mDetailsListAdapter.notifyDataSetChanged();
+                        mDetailsRvAdapter.notifyDataSetChanged();
                     } else {
                         mMonthSelectorBtn.setText(R.string.app_select_date);
                         mMonthSelectorBtn.setTextColor(getResources().getColor(R.color.color_999999));
                         mDetailsList.clear();
                         mDetailsList.add(dataBean);
-                        mDetailsListAdapter.notifyDataSetChanged();
+                        mDetailsRvAdapter.notifyDataSetChanged();
                     }
                 }
             }
@@ -509,7 +501,7 @@ public class DetailsFragment extends BaseFragment {
                 DataBean dataBean = (DataBean) intent.getSerializableExtra(UPDATE_INTENT_REQUEST_CODE);
                 int position = intent.getIntExtra(DETAIL_POSITION_CODE, 0);
                 mDetailsList.set(position, dataBean);
-                mDetailsListAdapter.notifyDataSetChanged();
+                mDetailsRvAdapter.notifyDataSetChanged();
             }
         }
     }
@@ -633,7 +625,6 @@ public class DetailsFragment extends BaseFragment {
             monthString = String.valueOf(monthInt);
         }
         String condition = String.valueOf(yearString + monthString);
-        // System.out.println(condition);
 
         mDetailsList.clear();
 
@@ -662,7 +653,6 @@ public class DetailsFragment extends BaseFragment {
                 dataBean = new DataBean(aocategory, aomoney, aoaccount,
                         aoremarks, aotime, aoid, aouserid);
                 mDetailsList.add(dataBean);
-                // adapter.notifyDataSetChanged();
             }
         }
 
@@ -708,8 +698,8 @@ public class DetailsFragment extends BaseFragment {
                 return 0;// 相等为0
             }
         });
-        mDetailsListAdapter.notifyDataSetChanged();
+        mDetailsRvAdapter.notifyDataSetChanged();
         // 设置空列表的时候，显示为一张图片
-        mDetailsLv.setEmptyView(getActivity().findViewById(R.id.details_empty_lin));
+        //mDetailsList.setEmptyView(getActivity().findViewById(R.id.details_empty_lin));
     }
 }

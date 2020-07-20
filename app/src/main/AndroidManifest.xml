@@ -76,7 +76,11 @@
             android:screenOrientation="portrait">
 
         </activity>
+        <activity
+            android:name=".ui.my.demo.gr.GrActivity"
+            android:screenOrientation="portrait">
 
+        </activity>
         <receiver android:name=".ui.my.RemindReceiver" >
         </receiver>
     </application>

@@ -6,10 +6,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
+import com.snxun.book.ui.my.demo.gr.GrActivity;
 import com.snxun.book.ui.my.demo.rv.RvActivity;
 import com.snxun.book.ui.my.demo.tab.TabTestActivity;
-import com.snxun.book.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -35,8 +36,9 @@ public class DemoHomeActivity extends BaseActivity {
     /** RecyclerView样例按钮 */
     @BindView(R.id.rv_case_btn)
     Button mRvCaseBtn;
-
-
+    /** RV的GR样例按钮 */
+    @BindView(R.id.gr_case_btn)
+    Button mGrCaseBtn;
 
     @Override
     protected int getLayoutId() {
@@ -69,6 +71,13 @@ public class DemoHomeActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 RvActivity.start(getContext());
+            }
+        });
+
+        mGrCaseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                GrActivity.start(getContext());
             }
         });
     }

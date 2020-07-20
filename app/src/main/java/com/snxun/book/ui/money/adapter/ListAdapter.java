@@ -39,14 +39,6 @@ public class ListAdapter extends BaseAdapter {
 		return position;
 	}
 
-	public List<DataBean> getmList() {
-		return mList;
-	}
-
-	public void setmList(List<DataBean> mList) {
-		this.mList = mList;
-	}
-
 	@Override
 	public View getView(final int position, View convertView, ViewGroup arg2) {
 		// TODO Auto-generated method stub
@@ -55,13 +47,13 @@ public class ListAdapter extends BaseAdapter {
 					R.layout.list_item_account, null);
 
 		}
-		TextView id = (TextView) convertView.findViewById(R.id.list_id_tv);
+		TextView id = (TextView) convertView.findViewById(R.id.rv_list_id_tv);
 		TextView date = (TextView) convertView
-				.findViewById(R.id.list_date_tv);
+				.findViewById(R.id.rv_list_date_tv);
 		TextView category = (TextView) convertView
-				.findViewById(R.id.list_category_tv);
+				.findViewById(R.id.rv_list_category_tv);
 		TextView money = (TextView) convertView
-				.findViewById(R.id.list_money_tv);
+				.findViewById(R.id.rv_list_money_tv);
 		// LinearLayout ic_delete = (LinearLayout) convertView
 		// .findViewById(R.id.lin_dataitem_delete);
 		DataBean dataBean = mList.get(position);
@@ -70,32 +62,6 @@ public class ListAdapter extends BaseAdapter {
 			date.setText(dataBean.getmDate());
 			category.setText(dataBean.getmCategory());
 			money.setText(dataBean.getmMoney());
-
-			// ic_delete.setOnClickListener(new OnClickListener() {
-			//
-			// public void onClick(View arg0) {
-			// // TODO Auto-generated method stub
-			// // 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
-			// db = context
-			// .openOrCreateDatabase("data.db", position, null);
-			// // 获取所点击项的_id
-			// TextView tv = (TextView) arg2.findViewById(R.id.tv_dataitem_id);
-			// int num = 0;
-			// // 删除指定数据
-			// // 删除数据，成功返回删除的数据的行数，失败返回0
-			// num = db.ic_delete("user", "id=?", new String[] { 4 + "" });
-			// if (num > 0) {
-			// Toast.makeText(context, "删除成功" + num,
-			// Toast.LENGTH_SHORT).show();
-			// list.remove(position);
-			// notifyDataSetChanged();
-			// } else {
-			// Toast.makeText(context, "删除失败" + num,
-			// Toast.LENGTH_SHORT).show();
-			// }
-			//
-			// }
-			// });
 		}
 		return convertView;
 	}

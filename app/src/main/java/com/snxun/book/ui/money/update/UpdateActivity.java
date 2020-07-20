@@ -121,10 +121,8 @@ public class UpdateActivity extends BaseActivity {
         // 软键盘会覆盖在屏幕上面，而不会把你的布局顶上去
         getWindow().setSoftInputMode(
                 WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
-        setContentView(R.layout.activity_update);
-        return R.layout.activity_clear;
+        return R.layout.activity_update;
     }
-
 
     @Override
     protected void findViews() {

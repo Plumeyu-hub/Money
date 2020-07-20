@@ -78,11 +78,6 @@ public class AddActivity extends BaseActivity {
     @BindView(R.id.add_in_btn)
 	TextView mAddInBtn;
 
-
-
-
-
-
 	private ViewPager mAddAccountVp;
 	private ArrayList<View> mPageView;
 	// 滚动条图片
