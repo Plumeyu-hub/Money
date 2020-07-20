@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
+import com.snxun.book.ui.my.demo.event.EventActivity;
 import com.snxun.book.ui.my.demo.gr.GrActivity;
 import com.snxun.book.ui.my.demo.rv.RvActivity;
 import com.snxun.book.ui.my.demo.tab.TabTestActivity;
@@ -39,6 +40,11 @@ public class DemoHomeActivity extends BaseActivity {
     /** RV的GR样例按钮 */
     @BindView(R.id.gr_case_btn)
     Button mGrCaseBtn;
+    /** Eventbus样例按钮 */
+    @BindView(R.id.eventbus_case_btn)
+    Button mEventbusCaseBtn;
+
+
 
     @Override
     protected int getLayoutId() {
@@ -78,6 +84,13 @@ public class DemoHomeActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 GrActivity.start(getContext());
+            }
+        });
+
+        mEventbusCaseBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                EventActivity.start(getContext());
             }
         });
     }
