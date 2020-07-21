@@ -77,7 +77,7 @@ public class DetailsRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         if (dataBean == null || !(holder instanceof DataViewHolder)) {
             return;
         }
-        showItem((DataViewHolder) holder, dataBean, position);
+        showItem((DataViewHolder) holder, dataBean);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +99,7 @@ public class DetailsRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         });
     }
 
-    private void showItem(DataViewHolder holder, DataBean dataBean, int position) {
+    private void showItem(DataViewHolder holder, DataBean dataBean) {
         holder.rvListIdTv.setText(Integer.toString(dataBean.getmId()));
         holder.rvListDateTv.setText(dataBean.getmDate());
         holder.rvListCategoryTv.setText(dataBean.getmCategory());
@@ -115,10 +115,6 @@ public class DetailsRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     public int getItemCount() {
         return mListData == null ? 0 : mListData.size();
     }
-
-    //    public void setData(List<DataBean> list) {
-    //        mListData = list;
-    //    }
 
     static class DataViewHolder extends RecyclerView.ViewHolder {
 

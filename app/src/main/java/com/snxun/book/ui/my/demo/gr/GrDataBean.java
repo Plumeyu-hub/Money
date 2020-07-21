@@ -7,27 +7,37 @@ import java.io.Serializable;
  * @date 2020/07/20
  */
 public class GrDataBean implements Serializable {
-    private String mText;
-    private int mIcon;
+    public String name;
+    public int imgResId;
+    public boolean isSelected;
 
-    public GrDataBean(String mText, int mIcon) {
-        this.mText = mText;
-        this.mIcon = mIcon;
+    public GrDataBean(String name, int imgResId, boolean isSelected) {
+        this.name = name;
+        this.imgResId = imgResId;
+        this.isSelected = isSelected;
     }
 
-    public String getmText() {
-        return mText;
+    public String getName() {
+        return name;
     }
 
-    public int getmIcon() {
-        return mIcon;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public void setmText(String mText) {
-        this.mText = mText;
+    public int getImgResId() {
+        return imgResId;
     }
 
-    public void setmIcon(int mIcon) {
-        this.mIcon = mIcon;
+    public void setImgResId(int imgResId) {
+        this.imgResId = imgResId;
+    }
+
+    public boolean getIsSelected() {
+        return isSelected;
+    }
+
+    public void setIsSelected(boolean isSelected) {
+        this.isSelected = isSelected;
     }
 }

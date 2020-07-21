@@ -507,14 +507,11 @@
         </RelativeLayout>
     </LinearLayout>
 
-    <GridView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/add_in_gv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/add_in_bottom_lin"
-        android:horizontalSpacing="10dp"
-        android:listSelector="@android:color/transparent"
-        android:numColumns="4"
-        android:paddingTop="10dp"
-        android:verticalSpacing="10dp" />
+        android:paddingTop="10dp" />
+
 </RelativeLayout>

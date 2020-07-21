@@ -7,9 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.drawable.ColorDrawable;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
@@ -27,12 +25,13 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
@@ -40,13 +39,13 @@ import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
 import com.snxun.book.ui.money.adapter.GridAdapter;
 import com.snxun.book.ui.money.bean.DataBean;
+import com.snxun.book.ui.my.demo.gr.GrAdapter;
+import com.snxun.book.ui.my.demo.gr.GrDataBean;
 import com.snxun.book.utils.sp.SpManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -123,24 +122,13 @@ public class AddActivity extends BaseActivity {
 	String ao_daytime;// 时间
 
 	// 收入
-	// GV控件
-	private GridView mAddInGv;
-	private List<Map<String, Object>> mAddInDataList;
-	private SimpleAdapter mAddInSimpleAdapter;
-	private String[] iconName_in = {"工资", "奖金", "兼职收入", "意外所得", "收债", "借入",
-			"投资回收", "投资收益", "礼金", "其他"};
-	// 数据库类别名字
-	private int[] icon_inno = {R.drawable.ic_wages_nor, R.drawable.ic_bonus_nor,
-			R.drawable.ic_part_nor, R.drawable.ic_mis_nor, R.drawable.ic_collect_nor,
-			R.drawable.ic_borrow_nor, R.drawable.ic_sell_nor, R.drawable.ic_financial_nor,
-			R.drawable.ic_gifts_nor, R.drawable.ic_other_nor};
-	private int[] icon_inyes = {R.drawable.ic_wages_sel, R.drawable.ic_bonus_sel,
-			R.drawable.ic_part_sel, R.drawable.ic_mis_sel, R.drawable.ic_collect_sel,
-			R.drawable.ic_borrow_sel, R.drawable.ic_sell_sel,
-			R.drawable.ic_financial_sel, R.drawable.ic_gifts_sel,
-			R.drawable.ic_other_in_sel};
-	// GV的上次变量变化
-	int ai_last = 0;
+	/**
+	 *GV
+	 */
+	@BindView(R.id.add_in_gv)
+	RecyclerView mAddInGv;
+	private GrAdapter mGrAdapter;//自定义适配器，继承RecyclerView.Adapter
+	private List<GrDataBean> mGrDataList;
 
 	// sp账户选择框
 	private Spinner ai_spinner;
@@ -398,51 +386,49 @@ public class AddActivity extends BaseActivity {
 				.append((mDay < 10) ? "0" + mDay : mDay));
 
 		// 收入
-		// GV控件
-		mAddInGv = (GridView) mViewAddAccountIn.findViewById(R.id.add_in_gv);
-		// 1.准备数据源
-		// 2.新建适配器(SimpleAdapter)
-		// 3.GridView加载适配器
-		// 4.GridView配置事件监听器(OnItemClickListener)
-		mAddInDataList = new ArrayList<Map<String, Object>>();
-		mAddInSimpleAdapter = new SimpleAdapter(this, ai_getdata(),
-				R.layout.grid_item_add_account, new String[]{"image", "text"}, new int[]{
-				R.id.icon_item_iv, R.id.text_item_tv});
-		mAddInGv.setAdapter(mAddInSimpleAdapter);
-		// Android中取消GridView默认的点击背景色
-		mAddInGv.setSelector(new ColorDrawable(Color.TRANSPARENT));
-		mAddInGv.setOnItemClickListener(new OnItemClickListener() {
+		// 初始化数据列表
+		mGrDataList = new ArrayList<>();
+		String[] iconName_in = {"工资", "奖金", "兼职收入", "意外所得", "收债", "借入",
+				"投资回收", "投资收益", "礼金", "其他"};
+		int[] icon_inno = {R.drawable.ic_wages_nor, R.drawable.ic_bonus_nor,
+				R.drawable.ic_part_nor, R.drawable.ic_mis_nor, R.drawable.ic_collect_nor,
+				R.drawable.ic_borrow_nor, R.drawable.ic_sell_nor, R.drawable.ic_financial_nor,
+				R.drawable.ic_gifts_nor, R.drawable.ic_other_nor};
+		int[] icon_inyes = {R.drawable.ic_wages_sel, R.drawable.ic_bonus_sel,
+				R.drawable.ic_part_sel, R.drawable.ic_mis_sel, R.drawable.ic_collect_sel,
+				R.drawable.ic_borrow_sel, R.drawable.ic_sell_sel,
+				R.drawable.ic_financial_sel, R.drawable.ic_gifts_sel,
+				R.drawable.ic_other_in_sel};
+		for(int i = 0; i<iconName_in.length; i++){
+			mGrDataList.add(new GrDataBean(iconName_in[i], icon_inno[i], false));
+		}
 
+		mGrAdapter = new GrAdapter(getContext(), mGrDataList);
+		//第二参数是控制显示多少列,第三个参数是控制滚动方向和LinearLayout一样,第四个参数是控制是否反向排列
+		GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4, LinearLayoutManager.VERTICAL, false);
+		layoutManager.setOrientation(RecyclerView.VERTICAL);
+		mAddInGv.setLayoutManager(layoutManager);
+		mAddInGv.setHasFixedSize(true);
+		mAddInGv.setAdapter(mGrAdapter);
+
+		mGrAdapter.setOnItemClickListener(new GrAdapter.OnItemClickListener() {
 			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-									int position, long id) {
-				// TODO Auto-generated method stub
-				// 重置上次颜色为Color.BLACK
-				setAddInLastColor();
+			public void onClick(int position) {
+//				mGrAdapter.setSeclection(position);
+				Toast.makeText(getContext(), "click " + position, Toast.LENGTH_SHORT).show();
 
-				LinearLayout mLinearLayout = (LinearLayout) view;
-
-				ImageView inImage = (ImageView) mLinearLayout.getChildAt(0);
-				TextView inText = (TextView) mLinearLayout.getChildAt(1);
-
-				// 设置背景改变
-				for (int j = 0; j < icon_inyes.length; j++) {
-					inImage.setImageResource(icon_inyes[position]);
-
-				}
-				// 设置text变颜色
-				inText.setTextColor(getResources().getColor(R.color.color_60B8FF));
-
-				// 保存最新的上次ID
-				ai_last = position;
-
-				// 土司
-				// Toast.makeText(this, gridView.getItemAtPosition(i) + "hei",
-				// Toast.LENGTH_LONG).show();
-				// 保存当前类别的名字
-				ai_category = iconName_in[position];
+				//ai_category = iconName_in[position];
 			}
 		});
+
+		mGrAdapter.setOnItemLongClickListener(new GrAdapter.OnItemLongClickListener() {
+			@Override
+			public void onClick(int position) {
+				Toast.makeText(getContext(), "long click " + position, Toast.LENGTH_SHORT).show();
+			}
+		});
+
+
 		// sp账户
 		ai_spinner = (Spinner) mViewAddAccountIn.findViewById(R.id.add_in_account_sp);
 		// 定义一个字符串数组来存储下拉框每个item要显示的文本
@@ -863,60 +849,6 @@ public class AddActivity extends BaseActivity {
     }
 
     // 收入
-    // GV控件
-    private List<Map<String, Object>> ai_getdata() {
-        for (int i = 0; i < icon_inno.length; i++) {
-            Map<String, Object> map = new HashMap<String, Object>();
-            map.put("image", icon_inno[i]);
-
-            // list = dao.query(a, "incategory", null, null, null, null, null,
-            // ai_account);
-            // if (null == list) {
-            // Toast.makeText(this, "没有数据", Toast.LENGTH_SHORT).show();
-            // } else {
-            // for (int j = 0; j < list.size(); j++) {
-            // UserDao user = (UserDao) list.get(j);
-            // for (int k; k < list.size(); k++) {
-            // sqliconName_in[j] = user.getId();
-            // }
-            // }
-            //
-            // }
-
-            map.put("text", iconName_in[i]);
-            mAddInDataList.add(map);
-        }
-        return mAddInDataList;
-    }
-
-    // // 设置新打开页面的颜色
-    // public void setAoNewColorBlack() {
-    // LinearLayout lastLayout = (LinearLayout) ao_gridView.getChildAt(0);
-    //
-    // TextView lastText = (TextView) lastLayout.getChildAt(1);
-    // ImageView lastImage = (ImageView) lastLayout.getChildAt(0);
-    //
-    // lastText.setTextColor(this.getResources().getColor(R.color.addoutyes));
-    // // 设置背景改变
-    // lastImage.setImageResource(icon_outyes[0]);
-    // }
-
-    // 设置GV变化
-    // 设置上次的颜色归零
-    public void setAddInLastColor() {
-        LinearLayout lastinLayout = (LinearLayout) mAddInGv
-                .getChildAt(ai_last);
-
-        TextView lastinText = (TextView) lastinLayout.getChildAt(1);
-        ImageView lastinImage = (ImageView) lastinLayout.getChildAt(0);
-
-        lastinText.setTextColor(this.getResources().getColor(R.color.color_707070));
-        // 设置背景改变
-        for (int k = 0; k < icon_inno.length; k++) {
-            lastinImage.setImageResource(icon_inno[ai_last]);
-        }
-    }
-
     // 数字键盘
     public void clickinnum(View V) {
         aistr_money = aiet_money.getText().toString().trim();

@@ -24,7 +24,6 @@ import butterknife.ButterKnife;
  * @date 2020/07/20
  */
 public class GrActivity extends BaseActivity {
-
     public static void start(Context context) {
         Intent starter = new Intent(context, GrActivity.class);
         context.startActivity(starter);
@@ -41,7 +40,8 @@ public class GrActivity extends BaseActivity {
      */
     @BindView(R.id.gr_rv)
     RecyclerView mGrRv;
-    private GrAdapter mAdapter;
+    private GrAdapter mGrAdapter;//自定义适配器，继承RecyclerView.Adapter
+    private List<GrDataBean> mGrDataList;
 
     @Override
     protected int getLayoutId() {
@@ -55,12 +55,38 @@ public class GrActivity extends BaseActivity {
     }
 
     private void initRecyclerView() {
-        mAdapter = new GrAdapter(getContext());
+        // 初始化数据列表
+        mGrDataList = new ArrayList<>();
+
+        String[] iconName = {"餐厅", "食材", "外卖", "水果", "零食", "烟酒茶水",
+                "住房", "水电煤", "交通", "汽车", "购物", "快递", "通讯", "鞋服饰品", "日用品", "美容",
+                "还款", "投资", "工作", "数码", "学习", "运动", "娱乐", "医疗药品", "维修", "旅行", "社交",
+                "公益捐赠", "宠物", "孩子", "长辈", "其他"};
+        int[] iconRes = {R.drawable.selector_ic_tab_add_restaurant, R.drawable.selector_ic_tab_add_cook,
+                R.drawable.selector_ic_tab_add_takeaway, R.drawable.selector_ic_tab_add_fruit, R.drawable.selector_ic_tab_add_snacks,
+                R.drawable.selector_ic_tab_add_wine, R.drawable.selector_ic_tab_add_home, R.drawable.selector_ic_tab_add_house,
+                R.drawable.selector_ic_tab_add_traffic, R.drawable.selector_ic_tab_add_car, R.drawable.selector_ic_tab_add_shopping,
+                R.drawable.selector_ic_tab_add_post, R.drawable.selector_ic_tab_add_communication,
+                R.drawable.selector_ic_tab_add_clothing, R.drawable.selector_ic_tab_add_daily, R.drawable.selector_ic_tab_add_beauty,
+                R.drawable.selector_ic_tab_add_repayment, R.drawable.selector_ic_tab_add_investment,
+                R.drawable.selector_ic_tab_add_office, R.drawable.selector_ic_tab_add_digital, R.drawable.selector_ic_tab_add_learn,
+                R.drawable.selector_ic_tab_add_sport, R.drawable.selector_ic_tab_add_recreation,
+                R.drawable.selector_ic_tab_add_medical, R.drawable.selector_ic_tab_add_maintenance,
+                R.drawable.selector_ic_tab_add_travel, R.drawable.selector_ic_tab_add_social, R.drawable.selector_ic_tab_add_donate,
+                R.drawable.selector_ic_tab_add_pet, R.drawable.selector_ic_tab_add_child, R.drawable.selector_ic_tab_add_elder,
+                R.drawable.selector_ic_tab_add_other};
+        for(int i = 0; i<iconName.length; i++){
+            mGrDataList.add(new GrDataBean(iconName[i], iconRes[i], false));
+        }
+
+        mGrAdapter = new GrAdapter(getContext(), mGrDataList);
         //第二参数是控制显示多少列,第三个参数是控制滚动方向和LinearLayout一样,第四个参数是控制是否反向排列
-        GridLayoutManager layoutManager = new GridLayoutManager(getContext(),4, LinearLayoutManager.VERTICAL,false);
+        GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4, LinearLayoutManager.VERTICAL, false);
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
         mGrRv.setLayoutManager(layoutManager);
+        //mGrRv.addItemDecoration(new GridSpacingItemDecoration(COLUMN, getResources().getDimensionPixelSize(R.dimen.padding_middle), true));
         mGrRv.setHasFixedSize(true);
-        mGrRv.setAdapter(mAdapter);
+        mGrRv.setAdapter(mGrAdapter);
     }
 
     @Override
@@ -73,38 +99,23 @@ public class GrActivity extends BaseActivity {
             }
         });
 
-        mAdapter.setOnItemClickListener(new GrAdapter.OnItemClickListener() {
+        mGrAdapter.setOnItemClickListener(new GrAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
+//                mGrAdapter.setSeclection(position);
                 Toast.makeText(getContext(), "click " + position, Toast.LENGTH_SHORT).show();
+                for (int i = 0; i < mGrDataList.size(); i++) {
+                    mGrDataList.get(i).setIsSelected( i == position);
+                }
+                mGrAdapter.notifyDataSetChanged();
             }
         });
 
-        mAdapter.setOnItemLongClickListener(new GrAdapter.OnItemLongClickListener() {
+        mGrAdapter.setOnItemLongClickListener(new GrAdapter.OnItemLongClickListener() {
             @Override
             public void onClick(int position) {
                 Toast.makeText(getContext(), "long click " + position, Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    @Override
-    protected void initData() {
-        super.initData();
-        mAdapter.setData(getTestList());
-        mAdapter.notifyDataSetChanged();
-    }
-
-    private List<String> getTestList() {
-        String[] mIconText = { "餐厅", "食材", "外卖", "水果", "零食", "烟酒茶饮料",
-                "住房", "水电煤", "交通", "汽车", "购物", "快递", "通讯", "鞋饰服", "日用品", "美容",
-                "还款", "投资", "工作", "数码", "学习", "运动", "娱乐", "医疗药品", "维修", "旅行", "社交",
-                "公益捐赠", "宠物", "孩子", "长辈", "其他" };
-
-        List<String> list = new ArrayList<>();
-        for (int i = 0; i < mIconText.length; i++) {
-            list.add(mIconText[i]);
-        }
-        return list;
     }
 }
