@@ -71,7 +71,7 @@
                         android:textSize="16sp" />
 
                     <ImageView
-                        android:id="@+id/add_in_money_btn"
+                        android:id="@+id/add_in_money_delect_btn"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_alignParentEnd="true"
@@ -85,8 +85,8 @@
                         android:id="@+id/add_in_money_edit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:layout_toStartOf="@id/add_in_money_btn"
+                        android:layout_centerHorizontal="true"
+                        android:layout_toStartOf="@id/add_in_money_delect_btn"
                         android:layout_toEndOf="@id/add_in_money_tv"
                         android:background="#F2F3F5"
                         android:gravity="center_vertical"
@@ -125,7 +125,7 @@
                         android:textSize="16sp" />
 
                     <Spinner
-                        android:id="@+id/add_in_account_sp"
+                        android:id="@+id/add_in_sp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="10dp"
@@ -188,12 +188,11 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/add_in_submit_remark_edit"
+                        android:id="@+id/add_in_submit_remark_btn"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#F2F3F5"
-                        android:clickable="true"
-                        android:focusable="true"
+                        android:focusable="false"
                         android:gravity="center_vertical"
                         android:hint="@string/remark_hint"
                         android:paddingStart="5dp"
@@ -511,6 +510,6 @@
         android:id="@+id/add_in_gv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/add_in_bottom_lin"/>
+        android:layout_above="@id/add_in_bottom_lin" />
 
 </RelativeLayout>

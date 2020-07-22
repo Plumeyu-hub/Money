@@ -58,7 +58,7 @@ public class InputActivity extends BaseActivity {
                     Toast.makeText(getContext(), R.string.demo_input_hint, Toast.LENGTH_SHORT).show();
                     return;
                 }
-                // 在需要的位置通过EventBus的post方法，把Event的数据对象发送出去，有注册订阅的类就会收到这个事件，摆脱了ActivityResult的限制。
+                // 在需要的 位置通过EventBus的post方法，把Event的数据对象发送出去，有注册订阅的类就会收到这个事件，摆脱了ActivityResult的限制。
                 EventBus.getDefault().post(new DemoNotifyEvent(str));
                 finish();
             }

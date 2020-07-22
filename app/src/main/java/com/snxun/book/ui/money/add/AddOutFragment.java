@@ -4,7 +4,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -25,9 +24,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseFragment;
+import com.snxun.book.event.DemoNotifyEvent;
 import com.snxun.book.ui.my.demo.gr.GrAdapter;
 import com.snxun.book.ui.my.demo.gr.GrDataBean;
 import com.snxun.book.utils.sp.SpManager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -176,6 +180,12 @@ public class AddOutFragment extends BaseFragment {
     }
 
     @Override
+    protected void startCreate() {
+        super.startCreate();
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_add_out;
     }
@@ -191,7 +201,6 @@ public class AddOutFragment extends BaseFragment {
     private void initRecyclerView() {
         // 初始化数据列表
         mGrDataList = new ArrayList<>();
-
 
         int[] iconRes = {R.drawable.selector_ic_tab_add_restaurant, R.drawable.selector_ic_tab_add_cook,
                 R.drawable.selector_ic_tab_add_takeaway, R.drawable.selector_ic_tab_add_fruit, R.drawable.selector_ic_tab_add_snacks,
@@ -229,7 +238,7 @@ public class AddOutFragment extends BaseFragment {
                 Toast.makeText(getContext(), "click " + position, Toast.LENGTH_SHORT).show();
                 for (int i = 0; i < mGrDataList.size(); i++) {
                     mGrDataList.get(i).setIsSelected(i == position);
-                    mCategory=iconName[position];
+                    mCategory = iconName[position];
                 }
                 mGrAdapter.notifyDataSetChanged();
             }
@@ -455,7 +464,16 @@ public class AddOutFragment extends BaseFragment {
         mAddOutSubmitRemarkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), SubmitRemarkActivity.class));
+                //startActivity(new Intent(getActivity(), SubmitRemarkActivity.class));
+                SubmitRemarkActivity.start(getContext());
+            }
+        });
+
+        // 点击"日期"按钮布局 设置日期
+        mAddOutDateEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDatePicker();
             }
         });
 
@@ -468,7 +486,7 @@ public class AddOutFragment extends BaseFragment {
         showUserInfo();
 
         setSp();
-        setData();
+        setDate();
     }
 
     /**
@@ -518,42 +536,17 @@ public class AddOutFragment extends BaseFragment {
         mAddOutSp.setAdapter(mSpAdapter);
     }
 
-    public void setData() {
+    public void setDate() {
         // 时间
         mCalendar = Calendar.getInstance();
         // 设置初始时间与当前系统时间一致
         mYear = mCalendar.get(Calendar.YEAR);
         mMonth = mCalendar.get(Calendar.MONTH);
         mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
-        // 点击"日期"按钮布局 设置日期
-        mAddOutDateEdit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(Objects.requireNonNull(getContext()),
-                        AlertDialog.THEME_HOLO_LIGHT,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int month, int day) {
-                                mYear = year;
-                                mMonth = month;
-                                mDay = day;
-                                // 更新EditText控件日期 小于10加0
-                                mAddOutDateEdit.setText(new StringBuilder()
-                                        .append(mYear)
-                                        .append("-")
-                                        .append((mMonth + 1) < 10 ? "0"
-                                                + (mMonth + 1)
-                                                : (mMonth + 1))
-                                        .append("-")
-                                        .append((mDay < 10) ? "0" + mDay
-                                                : mDay));
-                            }
-                        }, mCalendar.get(Calendar.YEAR), mCalendar
-                        .get(Calendar.MONTH), mCalendar
-                        .get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
+        updateDate();
+    }
+
+    public void updateDate() {
         // 更新EditText控件日期 小于10加0
         mAddOutDateEdit.setText(new StringBuilder()
                 .append(mYear)
@@ -562,4 +555,45 @@ public class AddOutFragment extends BaseFragment {
                         : (mMonth + 1)).append("-")
                 .append((mDay < 10) ? "0" + mDay : mDay));
     }
+
+
+    private void showDatePicker() {
+        // 创建并显示DatePickerDialog
+        DatePickerDialog dialog = new DatePickerDialog(getActivity(),
+                AlertDialog.THEME_HOLO_LIGHT, DateListener, mYear, mMonth, mDay);
+        dialog.show();
+    }
+
+    private DatePickerDialog.OnDateSetListener DateListener = new DatePickerDialog.OnDateSetListener() {
+        /**
+         * params：view：该事件关联的组件
+         * params：myyear：当前选择的年
+         * params：monthOfYear：当前选择的月
+         * params：dayOfMonth：当前选择的日
+         */
+        @Override
+        public void onDateSet(DatePicker view, int year, int month,
+                              int day) {
+            // 修改year、month、day的变量值，以便以后单击按钮时，DatePickerDialog上显示上一次修改后的值
+            mYear = year;
+            mMonth = month;
+            mDay = day;
+            // 更新日期
+            updateDate();
+        }
+    };
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onDemoNotifyEvent(DemoNotifyEvent event) {
+        if (!TextUtils.isEmpty(event.getText())) {
+            mAddOutSubmitRemarkBtn.setText(event.getText());
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        EventBus.getDefault().unregister(this);
+    }
+
 }

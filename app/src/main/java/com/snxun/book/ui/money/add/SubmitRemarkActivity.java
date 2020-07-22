@@ -1,5 +1,6 @@
 package com.snxun.book.ui.money.add;
 
+import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,11 +10,20 @@ import android.widget.Toast;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
+import com.snxun.book.event.DemoNotifyEvent;
+import com.snxun.book.ui.my.demo.event.InputActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SubmitRemarkActivity extends BaseActivity {
+
+    public static void start(Context context) {
+        Intent starter = new Intent(context, SubmitRemarkActivity.class);
+        context.startActivity(starter);
+    }
 
     /**
      * 返回按钮
@@ -60,13 +70,10 @@ public class SubmitRemarkActivity extends BaseActivity {
                 String remark = mSubmitRemarkEdit.getText().toString().trim();
                 if (TextUtils.isEmpty(remark)) {
                     Toast.makeText(getContext(), "编辑框内容不能为空", Toast.LENGTH_SHORT).show();
-                } else {
-                    // 第二步：用setResult()方法返回数据
-                    Intent i = new Intent();// Intent不要设置跳转的界面
-                    i.putExtra("submit_remark", remark);
-                    setResult(1, i);
-                    finish();
+                    return;
                 }
+                EventBus.getDefault().post(new DemoNotifyEvent(remark));
+                finish();
             }
         });
     }
