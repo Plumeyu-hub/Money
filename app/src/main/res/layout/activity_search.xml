@@ -44,8 +44,8 @@
 
             <ImageView
                 android:id="@+id/search_delete_btn"
-                android:layout_width="10dp"
-                android:layout_height="10dp"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_alignParentEnd="true"
                 android:layout_centerVertical="true"
                 android:layout_marginEnd="14dp"
@@ -66,8 +66,8 @@
         </RelativeLayout>
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/search_lv"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/search_rv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="5dp" />

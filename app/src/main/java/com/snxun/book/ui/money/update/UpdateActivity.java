@@ -45,7 +45,6 @@ public class UpdateActivity extends BaseActivity {
         activity.startActivityForResult(starter, requestCode);
     }
 
-
     /**
      * 返回按钮
      */

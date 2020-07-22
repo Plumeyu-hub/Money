@@ -182,7 +182,6 @@ public class DetailsFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setAdapter(mDetailsRvAdapter);
-
     }
 
     /**
@@ -200,6 +199,8 @@ public class DetailsFragment extends BaseFragment {
                 //给UpdateActivity页面传递信息
                 // TODO: 2020/07/16  requireActivity()和getActivity()返回值问题
                 UpdateActivity.startForResult(requireActivity(), dataBean, position, DETAIL_UPDATE_REQUEST_CODE);
+                // 在需要的 位置通过EventBus的post方法，把Event的数据对象发送出去，有注册订阅的类就会收到这个事件，摆脱了ActivityResult的限制。
+                //EventBus.getDefault().post(new DemoNotifyEvent(dataBean));
             }
         });
 
@@ -492,19 +493,19 @@ public class DetailsFragment extends BaseFragment {
      * @param resultCode  这整数resultCode是由子Activity通过其setResult()方法返回。
      * @param intent      一个Intent对象，带有返回的数据。
      */
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-        if (intent != null) {
-            if (requestCode == DETAIL_UPDATE_REQUEST_CODE && resultCode == DETAIL_UPDATE_RESULT_CODE) {
-                //序列化
-                DataBean dataBean = (DataBean) intent.getSerializableExtra(UPDATE_INTENT_REQUEST_CODE);
-                int position = intent.getIntExtra(DETAIL_POSITION_CODE, 0);
-                mDetailsList.set(position, dataBean);
-                mDetailsRvAdapter.notifyDataSetChanged();
-            }
-        }
-    }
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent intent) {
+//        super.onActivityResult(requestCode, resultCode, intent);
+//        if (intent != null) {
+//            if (requestCode == DETAIL_UPDATE_REQUEST_CODE && resultCode == DETAIL_UPDATE_RESULT_CODE) {
+//                //序列化
+//                DataBean dataBean = (DataBean) intent.getSerializableExtra(UPDATE_INTENT_REQUEST_CODE);
+//                int position = intent.getIntExtra(DETAIL_POSITION_CODE, 0);
+//                mDetailsList.set(position, dataBean);
+//                mDetailsRvAdapter.notifyDataSetChanged();
+//            }
+//        }
+//    }
 
     /**
      * 创建退出应用弹窗

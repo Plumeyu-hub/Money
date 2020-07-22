@@ -6,17 +6,18 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
-import com.snxun.book.ui.money.adapter.ListAdapter;
 import com.snxun.book.ui.money.bean.DataBean;
 import com.snxun.book.ui.money.details.DetailsFragment;
+import com.snxun.book.ui.money.details.DetailsRvAdapter;
 import com.snxun.book.ui.money.update.UpdateActivity;
 import com.snxun.book.utils.sp.SpManager;
 
@@ -47,19 +48,23 @@ public class SearchActivity extends BaseActivity {
      */
     @BindView(R.id.sreach_btn)
     TextView mSreachBtn;
-    /**
-     * 列表 第一步:listview控件实例化
-     */
-    @BindView(R.id.search_lv)
-    ListView mSearchLv;
+
     /**
      * 搜索框
      */
     @BindView(R.id.search_text_edit)
     EditText mSearchTextEdit;
 
-    private List<DataBean> mList;
-    private ListAdapter mListAdapter;
+    /**
+     * RV列表
+     */
+    @BindView(R.id.search_rv)
+    RecyclerView mRecyclerView;
+    private DetailsRvAdapter mDetailsRvAdapter;
+    /**
+     * 定义了一个数组List，里面只能存放DataBean
+     */
+    private List<DataBean> mDetailsList;
 
     /**
      * 数据库
@@ -80,7 +85,20 @@ public class SearchActivity extends BaseActivity {
     @Override
     protected void findViews() {
         ButterKnife.bind(this);
+        initRecyclerView();
     }
+
+    private void initRecyclerView() {
+        // 初始化数据列表
+        mDetailsList = new ArrayList<>();
+        mDetailsRvAdapter = new DetailsRvAdapter(getContext(), mDetailsList);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+        layoutManager.setOrientation(RecyclerView.VERTICAL);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setAdapter(mDetailsRvAdapter);
+    }
+
 
     /**
      * 设置监听
@@ -98,14 +116,14 @@ public class SearchActivity extends BaseActivity {
         });
 
         //查询数据
-        mSearchBackBtn.setOnClickListener(new View.OnClickListener() {
+        mSreachBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String searchText = mSearchTextEdit.getText().toString().trim();
                 if (TextUtils.isEmpty(searchText)) {
-                    mList.clear();
+                    mDetailsList.clear();
                     // 设置空列表的时候，显示为一张图片
-                    mSearchLv.setEmptyView(findViewById(R.id.search_empty_lin));
+                    //mSearchLv.setEmptyView(findViewById(R.id.search_empty_lin));
                 } else {
                     // 展示关联的数据
                     setSearchData(1, searchText);
@@ -121,6 +139,13 @@ public class SearchActivity extends BaseActivity {
             }
         });
 
+        mDetailsRvAdapter.setOnItemClickListener(new DetailsRvAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                DataBean dataBean = mDetailsList.get(position);
+                UpdateActivity.startForResult(SearchActivity.this, dataBean, position, DetailsFragment.DETAIL_UPDATE_REQUEST_CODE);
+            }
+        });
 
     }
 
@@ -129,7 +154,6 @@ public class SearchActivity extends BaseActivity {
         super.initData();
         initDb();
         showUserInfo();
-        showList();
     }
 
 
@@ -149,25 +173,6 @@ public class SearchActivity extends BaseActivity {
         mUserId = SpManager.get().getUserId();
     }
 
-
-    private void showList() {
-        // 第二步:初始化数据
-        mList = new ArrayList<>();
-        // 实例化适配器
-        mListAdapter = new ListAdapter(this, mList);
-        // listview设置适配器
-        mSearchLv.setAdapter(mListAdapter);
-        mSearchLv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
-            @Override
-            public void onItemClick(AdapterView<?> arg0, View arg1,
-                                    int position, long arg3) {
-                DataBean showdata = mList.get(position);
-                UpdateActivity.startForResult(SearchActivity.this, showdata, position, DetailsFragment.DETAIL_UPDATE_REQUEST_CODE);
-            }
-        });
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent intent) {
@@ -178,21 +183,20 @@ public class SearchActivity extends BaseActivity {
                 DataBean dataBean = (DataBean) intent
                         .getSerializableExtra("updata");
                 int position = intent.getIntExtra("position", 0);
-                mList.set(position, dataBean);
-                mListAdapter.notifyDataSetChanged();
+                mDetailsList.set(position, dataBean);
+                mDetailsRvAdapter.notifyDataSetChanged();
             }
         }
     }
 
-
     public void setSearchData(int n, String str) {
         if (n == 1) {
-            mList.clear();
+            mDetailsList.clear();
             DataBean dataBean;
             String userId = String.valueOf(mUserId);
             mCursor = mDb.query(
                     "expenditure",
-                    new String[]{"aoid", "aocategory", "aomoney", "aotime",
+                    new String[]{"aoid", "aocategory", " aomoney", "aotime",
                             "aoaccount", "aoremarks", "aouserid"},
                     "aocategory like ? or aoaccount like ? or aoremarks like ? or aotime like ? or aomoney like ? and aouserid=?",
                     new String[]{"%" + str + "%", "%" + str + "%",
@@ -212,7 +216,7 @@ public class SearchActivity extends BaseActivity {
                             .getColumnIndex("aoremarks"));
                     dataBean = new DataBean(aocategory, aomoney, aoaccount,
                             aoremarks, aotime, aoid, mUserId);
-                    mList.add(dataBean);
+                    mDetailsList.add(dataBean);
                 }
                 mCursor = mDb.query(
                         "income",
@@ -237,11 +241,11 @@ public class SearchActivity extends BaseActivity {
                                 .getColumnIndex("airemarks"));
                         dataBean = new DataBean(aicategory, aimoney, aiaccount,
                                 airemarks, aitime, aiid, mUserId);
-                        mList.add(dataBean);
+                        mDetailsList.add(dataBean);
                     }
                 }
             }
-            Collections.sort(mList, new Comparator<DataBean>() {
+            Collections.sort(mDetailsList, new Comparator<DataBean>() {
 
                 @Override
                 public int compare(DataBean lhs, DataBean rhs) {
@@ -257,9 +261,9 @@ public class SearchActivity extends BaseActivity {
                     return 0;// 相等为0
                 }
             });
-            mListAdapter.notifyDataSetChanged();
+            mDetailsRvAdapter.notifyDataSetChanged();
             // 设置空列表的时候，显示为一张图片
-            mSearchLv.setEmptyView(findViewById(R.id.search_empty_lin));
+            //mSearchLv.setEmptyView(findViewById(R.id.search_empty_lin));
         }
     }
 }
