@@ -1,8 +1,6 @@
 package com.snxun.book.ui.money.main;
 
 import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -14,21 +12,17 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.snxun.book.base.BaseActivity;
-import com.snxun.book.ui.money.main.bean.TabMainBean;
-import com.snxun.book.ui.money.details.DetailsFragment;
-import com.snxun.book.R;
-import com.snxun.book.ui.money.graph.GraphFragment;
 import com.google.android.material.tabs.TabLayout;
+import com.snxun.book.R;
+import com.snxun.book.base.BaseActivity;
+import com.snxun.book.ui.money.details.DetailsFragment;
+import com.snxun.book.ui.money.graph.GraphFragment;
+import com.snxun.book.ui.money.main.bean.TabMainBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends BaseActivity {
-    public static void start(Context context) {
-        Intent starter = new Intent(context, MainActivity.class);
-        context.startActivity(starter);
-    }
 
     private static final TabMainBean[] TITLES_BEANS = new TabMainBean[]{new TabMainBean(TabMainBean.TAB_MAIN_DETAILS_ID, "明细"),
             new TabMainBean(TabMainBean.TAB_MAIN_GRAPH_ID, "图标")};

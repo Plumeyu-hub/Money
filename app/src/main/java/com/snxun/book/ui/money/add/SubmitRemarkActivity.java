@@ -54,7 +54,7 @@ public class SubmitRemarkActivity extends BaseActivity {
         });
 
         // 把编辑框的内容返回上个界面
-        mSubmitRemarkBackBtn.setOnClickListener(new View.OnClickListener() {
+        mSubmitRemarkBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String remark = mSubmitRemarkEdit.getText().toString().trim();
@@ -70,5 +70,6 @@ public class SubmitRemarkActivity extends BaseActivity {
             }
         });
     }
+
 }
 

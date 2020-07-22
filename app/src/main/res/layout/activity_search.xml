@@ -19,7 +19,7 @@
             android:layout_centerInParent="true"
             android:layout_marginStart="5dp"
             android:layout_marginEnd="15dp"
-            android:background="@drawable/ic_exit_fff"
+            android:background="@drawable/ic_back_fff"
             android:contentDescription="@string/app_name" />
 
         <TextView

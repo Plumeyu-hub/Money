@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -6,7 +7,7 @@
     android:background="#fff">
 
     <LinearLayout
-        android:id="@+id/add_in_bottom_lin"
+        android:id="@+id/add_out_bottom_lin"
         android:layout_width="match_parent"
         android:layout_height="246.5dp"
         android:layout_alignParentBottom="true"
@@ -24,14 +25,14 @@
             android:background="#F2F3F5">
 
             <View
-                android:id="@+id/add_in_view1"
+                android:id="@+id/add_out_view1"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:background="#D8D9D9" />
 
             <View
-                android:id="@+id/add_in_view2"
+                android:id="@+id/add_out_view2"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
@@ -40,8 +41,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toStartOf="@id/add_in_view2"
-                android:layout_toEndOf="@id/add_in_view1"
+                android:layout_toStartOf="@id/add_out_view2"
+                android:layout_toEndOf="@id/add_out_view1"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -50,7 +51,7 @@
                     android:layout_weight="1">
 
                     <ImageView
-                        android:id="@+id/add_in_money_iv"
+                        android:id="@+id/add_out_money_iv"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_alignParentStart="true"
@@ -60,18 +61,18 @@
                         android:src="@drawable/ic_money" />
 
                     <TextView
-                        android:id="@+id/add_in_money_tv"
+                        android:id="@+id/add_out_money_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_marginStart="3dp"
-                        android:layout_toEndOf="@id/add_in_money_iv"
+                        android:layout_toEndOf="@id/add_out_money_iv"
                         android:text="@string/money"
                         android:textColor="@color/color_333333"
                         android:textSize="16sp" />
 
                     <ImageView
-                        android:id="@+id/add_in_money_btn"
+                        android:id="@+id/add_out_money_delect_btn"
                         android:layout_width="25dp"
                         android:layout_height="25dp"
                         android:layout_alignParentEnd="true"
@@ -82,19 +83,19 @@
                         android:src="@drawable/ic_delete" />
 
                     <EditText
-                        android:id="@+id/add_in_money_edit"
+                        android:id="@+id/add_out_money_edit"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:layout_toStartOf="@id/add_in_money_btn"
-                        android:layout_toEndOf="@id/add_in_money_tv"
+                        android:layout_toStartOf="@id/add_out_money_delect_btn"
+                        android:layout_toEndOf="@id/add_out_money_tv"
                         android:background="#F2F3F5"
                         android:gravity="center_vertical"
                         android:hint="@string/money_hint"
                         android:paddingStart="5dp"
                         android:textColor="@color/color_333333"
                         android:textSize="18sp"
-                        tools:ignore="RtlSymmetry" />
+                        tools:ignore="RtlSymmetry,TextFields" />
                 </RelativeLayout>
 
                 <View
@@ -125,7 +126,7 @@
                         android:textSize="16sp" />
 
                     <Spinner
-                        android:id="@+id/add_in_account_sp"
+                        android:id="@+id/add_out_sp"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginStart="10dp"
@@ -145,14 +146,14 @@
             android:background="#F2F3F5">
 
             <View
-                android:id="@+id/add_in_view3"
+                android:id="@+id/add_out_view3"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:background="#D8D9D9" />
 
             <View
-                android:id="@+id/add_in_view4"
+                android:id="@+id/add_out_view4"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
@@ -161,8 +162,8 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_toStartOf="@id/add_in_view4"
-                android:layout_toEndOf="@id/add_in_view3"
+                android:layout_toStartOf="@id/add_out_view4"
+                android:layout_toEndOf="@id/add_out_view3"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -188,18 +189,16 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/add_in_submit_remark_edit"
+                        android:id="@+id/add_out_submit_remark_btn"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="#F2F3F5"
-                        android:clickable="true"
-                        android:focusable="true"
                         android:gravity="center_vertical"
                         android:hint="@string/remark_hint"
                         android:paddingStart="5dp"
                         android:textColor="@color/color_333333"
                         android:textSize="18sp"
-                        tools:ignore="RtlSymmetry" />
+                        tools:ignore="RtlSymmetry,TextFields" />
                 </LinearLayout>
 
                 <View
@@ -230,7 +229,7 @@
                         android:textSize="16sp" />
 
                     <EditText
-                        android:id="@+id/add_in_date_edit"
+                        android:id="@+id/add_out_date_edit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="10dp"
@@ -253,21 +252,21 @@
             android:background="#F2F3F5">
 
             <View
-                android:id="@+id/add_in_view5"
+                android:id="@+id/add_out_view5"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentStart="true"
                 android:background="#D8D9D9" />
 
             <View
-                android:id="@+id/add_in_view6"
+                android:id="@+id/add_out_view6"
                 android:layout_width="0.5dp"
                 android:layout_height="match_parent"
                 android:layout_alignParentEnd="true"
                 android:background="#D8D9D9" />
 
             <View
-                android:id="@+id/add_in_view7"
+                android:id="@+id/add_out_view7"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
                 android:layout_alignParentBottom="true"
@@ -276,9 +275,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@id/add_in_view7"
-                android:layout_toStartOf="@id/add_in_view6"
-                android:layout_toEndOf="@id/add_in_view5"
+                android:layout_above="@id/add_out_view7"
+                android:layout_toStartOf="@id/add_out_view6"
+                android:layout_toEndOf="@id/add_out_view5"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -292,10 +291,10 @@
                         android:layout_height="0dp"
                         android:layout_weight="1"
                         android:orientation="horizontal"
-                        tools:ignore="NestedWeights">
+                        tools:ignore="MissingPrefix,NestedWeights">
 
                         <TextView
-                            android:id="@+id/add_in_one_btn"
+                            android:id="@+id/add_out_one_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -311,7 +310,7 @@
                             android:background="#D8D9D9" />
 
                         <TextView
-                            android:id="@+id/add_in_two_btn"
+                            android:id="@+id/add_out_two_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -327,7 +326,7 @@
                             android:background="#D8D9D9" />
 
                         <TextView
-                            android:id="@+id/add_in_three_btn"
+                            android:id="@+id/add_out_three_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -350,7 +349,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/add_in_four_btn"
+                            android:id="@+id/add_out_four_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -366,7 +365,7 @@
                             android:background="#D8D9D9" />
 
                         <TextView
-                            android:id="@+id/add_in_five_btn"
+                            android:id="@+id/add_out_five_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -382,7 +381,7 @@
                             android:background="#D8D9D9" />
 
                         <TextView
-                            android:id="@+id/add_in_six_btn"
+                            android:id="@+id/add_out_six_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -405,7 +404,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            android:id="@+id/add_in_seven_btn"
+                            android:id="@+id/add_out_seven_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -421,7 +420,7 @@
                             android:background="#D8D9D9" />
 
                         <TextView
-                            android:id="@+id/add_in_eight_btn"
+                            android:id="@+id/add_out_eight_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -437,7 +436,7 @@
                             android:background="#D8D9D9" />
 
                         <TextView
-                            android:id="@+id/add_in_nine_btn"
+                            android:id="@+id/add_out_nine_btn"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
@@ -461,7 +460,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/add_in_dot_btn"
+                        android:id="@+id/add_out_dot_btn"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -477,7 +476,7 @@
                         android:background="#D8D9D9" />
 
                     <TextView
-                        android:id="@+id/add_in_zero_btn"
+                        android:id="@+id/add_out_zero_btn"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -493,7 +492,7 @@
                         android:background="#D8D9D9" />
 
                     <TextView
-                        android:id="@+id/add_in_yes_btn"
+                        android:id="@+id/add_out_yes_btn"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -508,10 +507,9 @@
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/add_in_gv"
+        android:id="@+id/add_out_gv"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/add_in_bottom_lin"
-        android:paddingTop="10dp" />
+        android:layout_above="@id/add_out_bottom_lin" />
 
 </RelativeLayout>

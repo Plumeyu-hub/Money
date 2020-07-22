@@ -36,7 +36,7 @@ public class GrActivity extends BaseActivity {
     TextView mBackBtn;
 
     /**
-     *
+     *Gr
      */
     @BindView(R.id.gr_rv)
     RecyclerView mGrRv;
@@ -84,7 +84,6 @@ public class GrActivity extends BaseActivity {
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4, LinearLayoutManager.VERTICAL, false);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         mGrRv.setLayoutManager(layoutManager);
-        //mGrRv.addItemDecoration(new GridSpacingItemDecoration(COLUMN, getResources().getDimensionPixelSize(R.dimen.padding_middle), true));
         mGrRv.setHasFixedSize(true);
         mGrRv.setAdapter(mGrAdapter);
     }
@@ -102,7 +101,6 @@ public class GrActivity extends BaseActivity {
         mGrAdapter.setOnItemClickListener(new GrAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-//                mGrAdapter.setSeclection(position);
                 Toast.makeText(getContext(), "click " + position, Toast.LENGTH_SHORT).show();
                 for (int i = 0; i < mGrDataList.size(); i++) {
                     mGrDataList.get(i).setIsSelected( i == position);
