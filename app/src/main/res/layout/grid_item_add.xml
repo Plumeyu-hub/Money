@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="text"
-        android:textColor="@drawable/selector_tab_text_color"
+        android:textColor="@drawable/selector_add_text_color"
         android:textSize="20sp" />
 
 </LinearLayout>

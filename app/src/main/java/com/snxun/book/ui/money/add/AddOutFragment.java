@@ -24,7 +24,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseFragment;
+import com.snxun.book.event.AddDetailsEvent;
 import com.snxun.book.event.SubmitRemarkEvent;
+import com.snxun.book.ui.money.bean.DataBean;
 import com.snxun.book.ui.my.demo.gr.GrAdapter;
 import com.snxun.book.ui.my.demo.gr.GrDataBean;
 import com.snxun.book.utils.sp.SpManager;
@@ -235,7 +237,6 @@ public class AddOutFragment extends BaseFragment {
         mGrAdapter.setOnItemClickListener(new GrAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                Toast.makeText(getContext(), "click " + position, Toast.LENGTH_SHORT).show();
                 for (int i = 0; i < mGrDataList.size(); i++) {
                     mGrDataList.get(i).setIsSelected(i == position);
                     mCategory = iconName[position];
@@ -451,6 +452,10 @@ public class AddOutFragment extends BaseFragment {
                 num = (int) mDb.insert("expenditure", null, mCv);
                 if (num > 0) {
                     Toast.makeText(getContext(), "数据保存成功" + num, Toast.LENGTH_SHORT).show();
+                    String symbolMoney = "-" + mMemoryMoney;
+                    DataBean dataBean = new DataBean(mCategory, symbolMoney,
+                            mAccount, mRemark, mDate, num, mUserId);
+                    EventBus.getDefault().post(new AddDetailsEvent(dataBean));
                     //该方法用于监听用户点击返回键的事件，也可以调用它来关闭view。
                     Objects.requireNonNull(getActivity()).onBackPressed();
                 } else {

@@ -24,7 +24,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseFragment;
+import com.snxun.book.event.AddDetailsEvent;
 import com.snxun.book.event.SubmitRemarkEvent;
+import com.snxun.book.ui.money.bean.DataBean;
 import com.snxun.book.ui.my.demo.gr.GrAdapter;
 import com.snxun.book.ui.my.demo.gr.GrDataBean;
 import com.snxun.book.utils.sp.SpManager;
@@ -46,8 +48,10 @@ import butterknife.ButterKnife;
  * @date 2020/07/22
  */
 public class AddInFragment extends BaseFragment {
-
-    String mCategory = "";// 类别
+    /**
+     *类别
+     */
+    String mCategory = "";
     /**
      * 金额输入
      */
@@ -77,9 +81,10 @@ public class AddInFragment extends BaseFragment {
     @BindView(R.id.add_in_date_edit)
     EditText mAddInDateEdit;
     private String mDate;
-    // 定义显示时间控件
+    /**
+     *时间
+     */
     private Calendar mCalendar;
-    // 通过Calendar获取系统时间
     private int mYear;
     private int mMonth;
     private int mDay;
@@ -199,6 +204,7 @@ public class AddInFragment extends BaseFragment {
     @Override
     protected void findViews(View view) {
         ButterKnife.bind(this, view);
+        //可以获取焦点，但是不会显示软键盘;
         mAddInMoneyEdit.setInputType(EditorInfo.TYPE_NULL);
         mAddInSubmitRemarkBtn.setInputType(EditorInfo.TYPE_NULL);
         initRecyclerView();
@@ -236,7 +242,6 @@ public class AddInFragment extends BaseFragment {
             public void onClick(int position) {
                 mGrDataList.get(mLast).setImgResId(iconRes[mLast]);
                 mGrDataList.get(mLast).setIsSelected(false);
-                Toast.makeText(getContext(), "click " + position, Toast.LENGTH_SHORT).show();
                 mGrDataList.get(position).setImgResId(iconResSel[position]);
                 mGrDataList.get(position).setIsSelected(true);
                 mLast = position;
@@ -453,10 +458,13 @@ public class AddInFragment extends BaseFragment {
                 num = (int) mDb.insert("income", null, mCv);
                 if (num > 0) {
                     Toast.makeText(getContext(), "数据保存成功" + num, Toast.LENGTH_SHORT).show();
+                    String symbolMoney = "+" + mMemoryMoney;
+                    DataBean dataBean = new DataBean(mCategory, symbolMoney,
+                            mAccount, mRemark, mDate, num, mUserId);
+                    EventBus.getDefault().post(new AddDetailsEvent(dataBean));
                     //该方法用于监听用户点击返回键的事件，也可以调用它来关闭view。
                     Objects.requireNonNull(getActivity()).onBackPressed();
                 } else {
-
                     Toast.makeText(getContext(), "数据保存失败" + num, Toast.LENGTH_SHORT).show();
                     Objects.requireNonNull(getActivity()).onBackPressed();
                 }
@@ -486,7 +494,6 @@ public class AddInFragment extends BaseFragment {
         super.initData();
         initDb();
         showUserInfo();
-
         setSp();
         setDate();
     }
@@ -532,8 +539,7 @@ public class AddInFragment extends BaseFragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-            }
+            public void onNothingSelected(AdapterView<?> arg0) {}
         });
         mAddInSp.setAdapter(mSpAdapter);
     }

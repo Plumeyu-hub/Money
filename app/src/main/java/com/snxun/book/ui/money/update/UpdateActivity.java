@@ -1,6 +1,5 @@
 package com.snxun.book.ui.money.update;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
@@ -24,9 +23,16 @@ import android.widget.Toast;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
+import com.snxun.book.event.DetailsUpdateEvent;
+import com.snxun.book.event.SearchUpdateEvent;
+import com.snxun.book.event.UpdateDetailsEvent;
+import com.snxun.book.event.UpdateSearchEvent;
 import com.snxun.book.ui.money.bean.DataBean;
-import com.snxun.book.ui.money.details.DetailsFragment;
 import com.snxun.book.utils.sp.SpManager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Calendar;
 
@@ -34,17 +40,17 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class UpdateActivity extends BaseActivity {
-
-    private static final String EXTRA_ACCOUNT_BEAN = "EXTRA_ACCOUNT_BEAN";
-    private static final String EXTRA_POSITION = "EXTRA_POSITION";
-
-    public static void startForResult(Activity activity, DataBean dataBean, int position, int requestCode) {
-        Intent starter = new Intent(activity, UpdateActivity.class);
-        starter.putExtra(EXTRA_ACCOUNT_BEAN, dataBean);
-        starter.putExtra(EXTRA_POSITION, position);
-        activity.startActivityForResult(starter, requestCode);
+    /**
+     * 跳转
+     */
+    public static void start(Context context) {
+        Intent starter = new Intent(context, UpdateActivity.class);
+        context.startActivity(starter);
     }
-
+    /**
+     * 数据源
+     */
+    private DataBean dataBean;
     /**
      * 返回按钮
      */
@@ -90,30 +96,41 @@ public class UpdateActivity extends BaseActivity {
      * 数据库
      */
     private SQLiteDatabase mDb;
+    private ContentValues cv;// 存储工具栏
+    private int num = 0;//查询返回值
     /**
      * 当前登录的用户ID
      */
     private int mUserId;
 
-    // 传递
-    public int position = 0;
-
-    // sp,定义一个字符串数组来存储下拉框每个item要显示的文本
+    /**
+     * sp,定义一个字符串数组来存储下拉框每个item要显示的文本
+     */
     private String[] spaccItems = {"支付宝", "微信", "银行卡", "信用卡", "其他"};
 
-    // 时间
-    // 定义显示时间控件
+    /**
+     * 时间
+     * 定义显示时间控件
+     */
     private Calendar mCalendar; // 通过Calendar获取系统时间
     private int mYear;
     private int mMonth;
     private int mDay;
 
-    // 修改后保存的
+    /**
+     * 修改后保存的数据
+     */
     private String mCategory, mMoney, mDaytime, mAccount, mRemarks;
     private int mId;
 
-    private ContentValues cv;// 存储工具栏
-    private int num = 0;
+    /**
+     * 注册EventBus
+     */
+    @Override
+    protected void startCreate() {
+        super.startCreate();
+        EventBus.getDefault().register(this);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -221,10 +238,8 @@ public class UpdateActivity extends BaseActivity {
                         DataBean dataBean = new DataBean(mCategory, mMoney,
                                 mAccount, mRemarks, mDaytime, mId,
                                 mUserId);
-                        Intent i = new Intent();
-                        i.putExtra("updata", dataBean);
-                        i.putExtra("position", position);
-                        setResult(DetailsFragment.DETAIL_UPDATE_RESULT_CODE, i);
+                        EventBus.getDefault().post(new UpdateSearchEvent(dataBean));
+                        EventBus.getDefault().post(new UpdateDetailsEvent(dataBean));
                         finish();
                     } else {
                         Toast.makeText(UpdateActivity.this,
@@ -248,10 +263,8 @@ public class UpdateActivity extends BaseActivity {
                         DataBean dataBean = new DataBean(mCategory, mMoney,
                                 mAccount, mRemarks, mDaytime, mId,
                                 mUserId);
-                        Intent i = new Intent();
-                        i.putExtra("updata", dataBean);
-                        i.putExtra("position", position);
-                        setResult(DetailsFragment.DETAIL_UPDATE_RESULT_CODE, i);
+                        EventBus.getDefault().post(new UpdateSearchEvent(dataBean));
+                        EventBus.getDefault().post(new UpdateDetailsEvent(dataBean));
                         finish();
                     } else {
                         Toast.makeText(UpdateActivity.this,
@@ -267,7 +280,6 @@ public class UpdateActivity extends BaseActivity {
         // sp账户
         // 设置下拉列表的条目被选择监听器
         mUpdateAccountSp.setOnItemSelectedListener(new OnItemSelectedListener() {
-
             @Override
             public void onItemSelected(AdapterView<?> arg0, View arg1,
                                        int arg2, long arg3) {
@@ -295,7 +307,6 @@ public class UpdateActivity extends BaseActivity {
                             @Override
                             public void onDateSet(DatePicker view, int year,
                                                   int month, int day) {
-                                // TODO Auto-generated method stub
                                 mYear = year;
                                 mMonth = month;
                                 mDay = day;
@@ -322,7 +333,7 @@ public class UpdateActivity extends BaseActivity {
         super.initData();
         initDb();
         showUserInfo();
-        showDate();
+        showData();
     }
 
 
@@ -342,19 +353,11 @@ public class UpdateActivity extends BaseActivity {
         mUserId = SpManager.get().getUserId();
     }
 
-    //maccountInformationDaytimeEdit可以获取焦点，但是不会显示软键盘
-    //maccountInformationDaytimeEdit.setInputType(EditorInfo.TYPE_NULL);
-    private void showDate() {
-        getData();// 获取传递过来的数据并显示
-    }
-
-
-    public void getData() {
-        Intent i = this.getIntent();
-        if (i != null) {
-            DataBean dataBean = (DataBean) i.getSerializableExtra(EXTRA_ACCOUNT_BEAN);
+    /**
+     * 获取传递过来的数据并显示
+     */
+    public void showData() {
             mId = dataBean.getmId();
-            System.out.println(mId);
             mUpdateCategoryTv.setText(dataBean.getmCategory());
             mCategory = dataBean.getmCategory();
             mUpdateSymbolMoneyTv.setText(dataBean.getmMoney().substring(0, 1));
@@ -380,8 +383,26 @@ public class UpdateActivity extends BaseActivity {
             }
             mUpdateRemarksEdit.setText(dataBean.getmRemarks());
             mUpdateRemarksEdit.setSelection(mUpdateRemarksEdit.length());// 将光标移至文字末尾
-            position = i.getIntExtra(EXTRA_POSITION, 0);
-        }
-
     }
+
+    //EventBus的黏性sticky = true
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onDataEvent(SearchUpdateEvent event) {
+        dataBean=event.getDataBean();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onDetailsUpdateEvent(DetailsUpdateEvent event) {
+        dataBean=event.getDataBean();
+    }
+
+    /**
+     * 解注册
+     */
+    @Override
+    public void finish() {
+        super.finish();
+        EventBus.getDefault().unregister(this);
+    }
+
 }

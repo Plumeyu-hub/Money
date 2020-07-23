@@ -1,7 +1,8 @@
 package com.snxun.book.ui.money.search;
 
+import android.app.AlertDialog;
 import android.content.Context;
-import android.content.Intent;
+import android.content.DialogInterface;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
@@ -9,17 +10,23 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
+import com.snxun.book.event.SearchUpdateEvent;
+import com.snxun.book.event.UpdateSearchEvent;
 import com.snxun.book.ui.money.bean.DataBean;
-import com.snxun.book.ui.money.details.DetailsFragment;
 import com.snxun.book.ui.money.details.DetailsRvAdapter;
 import com.snxun.book.ui.money.update.UpdateActivity;
 import com.snxun.book.utils.sp.SpManager;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,7 +37,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SearchActivity extends BaseActivity {
-
+    /**
+     *数据源
+     */
+    private DataBean dataBean;
+    /**
+     * 当前点击跳转至Update的列表Id
+     */
+    private int mPosition;
     /**
      * 返回按钮
      */
@@ -76,11 +90,19 @@ public class SearchActivity extends BaseActivity {
      */
     private int mUserId;
 
+    /**
+     * 注册EventBus
+     */
+    @Override
+    protected void startCreate() {
+        super.startCreate();
+        EventBus.getDefault().register(this);
+    }
+
     @Override
     protected int getLayoutId() {
         return R.layout.activity_search;
     }
-
 
     @Override
     protected void findViews() {
@@ -88,6 +110,9 @@ public class SearchActivity extends BaseActivity {
         initRecyclerView();
     }
 
+    /**
+     *设置Rv列表
+     */
     private void initRecyclerView() {
         // 初始化数据列表
         mDetailsList = new ArrayList<>();
@@ -139,14 +164,100 @@ public class SearchActivity extends BaseActivity {
             }
         });
 
+        //列表点击事件
         mDetailsRvAdapter.setOnItemClickListener(new DetailsRvAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 DataBean dataBean = mDetailsList.get(position);
-                UpdateActivity.startForResult(SearchActivity.this, dataBean, position, DetailsFragment.DETAIL_UPDATE_REQUEST_CODE);
+                //EventBus的黏性postSticky
+                EventBus.getDefault().postSticky(new SearchUpdateEvent(dataBean));
+                UpdateActivity.start(getContext());
+                mPosition = position;
             }
         });
 
+        // 长按RVlist按删除
+        mDetailsRvAdapter.setOnItemLongClickListener(new DetailsRvAdapter.OnItemLongClickListener() {
+            @Override
+            public void onClick(int position) {
+                // 获取所点击项的id
+                int intId = mDetailsList.get(position).getmId();
+                String stringId =String.valueOf(intId);
+                // 获取所点击项的金额符号
+                String stringMoney=mDetailsList.get(position).getmMoney();
+                String symbolMoney=stringMoney.substring(0, 1);
+
+                // 通过Dialog提示是否删除
+                AlertDialog.Builder builder = new AlertDialog.Builder(
+                        getContext());
+                builder.setMessage("确定要删除吗？");
+                // 确定按钮点击事件
+                builder.setPositiveButton("确定",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                String userId = String.valueOf(mUserId);
+                                // 删除指定数据
+                                int num;
+                                if (symbolMoney.equals("-")) {
+                                    // 删除数据，成功返回删除的数据的行数，失败返回0
+                                    num = mDb.delete("expenditure",
+                                            "aoid=? and aouserid=?",
+                                            new String[] { stringId + "", userId + "" });
+                                    if (num > 0) {
+                                        Toast.makeText(getContext(),
+                                                "删除成功" + num,
+                                                Toast.LENGTH_SHORT).show();
+                                        // 删掉长按的item
+                                        mDetailsList.remove(position);
+                                        // 动态更新listview
+                                        mDetailsRvAdapter.notifyDataSetChanged();
+                                    } else {
+                                        Toast.makeText(getContext(),
+                                                "删除失败" + num,
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+
+                                } else if (symbolMoney.equals("+")) {
+                                    // 删除数据，成功返回删除的数据的行数，失败返回0
+                                    num = mDb.delete("income",
+                                            "aiid=? and aiuserid=?",
+                                            new String[] { stringId + "", userId + "" });
+                                    if (num > 0) {
+                                        Toast.makeText(getContext(),
+                                                "删除成功" + num,
+                                                Toast.LENGTH_SHORT).show();
+                                        // 删掉长按的item
+                                        mDetailsList.remove(position);
+                                        // 动态更新listview
+                                        mDetailsRvAdapter.notifyDataSetChanged();
+                                    } else {
+                                        Toast.makeText(getContext(),
+                                                "删除失败" + num,
+                                                Toast.LENGTH_SHORT).show();
+                                    }
+                                } else {
+                                    Toast.makeText(getContext(),
+                                            "删除失败", Toast.LENGTH_SHORT).show();
+                                }
+
+                            }
+                        });
+                // 取消按钮点击事件
+                builder.setNegativeButton("取消",
+                        new DialogInterface.OnClickListener() {
+
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                                int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                builder.create().show();
+            }
+        });
     }
 
     @Override
@@ -155,7 +266,6 @@ public class SearchActivity extends BaseActivity {
         initDb();
         showUserInfo();
     }
-
 
     /**
      * 初始化数据库
@@ -171,22 +281,6 @@ public class SearchActivity extends BaseActivity {
     private void showUserInfo() {
         //获取SharedPreferences对象
         mUserId = SpManager.get().getUserId();
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent intent) {
-        // TODO Auto-generated method stub
-        super.onActivityResult(requestCode, resultCode, intent);
-        if (intent != null) {
-            if (resultCode == 102) {
-                DataBean dataBean = (DataBean) intent
-                        .getSerializableExtra("updata");
-                int position = intent.getIntExtra("position", 0);
-                mDetailsList.set(position, dataBean);
-                mDetailsRvAdapter.notifyDataSetChanged();
-            }
-        }
     }
 
     public void setSearchData(int n, String str) {
@@ -246,7 +340,6 @@ public class SearchActivity extends BaseActivity {
                 }
             }
             Collections.sort(mDetailsList, new Comparator<DataBean>() {
-
                 @Override
                 public int compare(DataBean lhs, DataBean rhs) {
                     // TODO Auto-generated method stub
@@ -266,4 +359,23 @@ public class SearchActivity extends BaseActivity {
             //mSearchLv.setEmptyView(findViewById(R.id.search_empty_lin));
         }
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onUpdateSearchEvent(UpdateSearchEvent event) {
+        dataBean = event.getDataBean();
+        //更改修改过的List
+        mDetailsList.set(mPosition, dataBean);
+        mDetailsRvAdapter.notifyDataSetChanged();
+    }
+
+    /**
+     * 解注册EventBus
+     */
+    @Override
+    public void finish() {
+        super.finish();
+        EventBus.getDefault().unregister(this);
+    }
+
+
 }
