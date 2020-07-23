@@ -1,2 +1,3 @@
+include ':greendaolib'
 include ':app'
 rootProject.name = "Money"
