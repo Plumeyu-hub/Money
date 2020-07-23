@@ -489,7 +489,6 @@ public class AddOutFragment extends BaseFragment {
         super.initData();
         initDb();
         showUserInfo();
-
         setSp();
         setDate();
     }

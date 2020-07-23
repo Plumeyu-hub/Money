@@ -5,7 +5,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
 
-    <string name="app_select_date">请点击选择账单年月</string>
+    <string name="app_select_date">请点击选择账目年月</string>
     <string name="app_date" tools:ignore="TypographyDashes">2020-03-03</string>
     <string name="app_money">+2100.000</string>
     <string name="app_text">数据</string>
@@ -73,6 +73,11 @@
     <string name="drawer_help">帮助</string>
     <string name="drawer_about">关于</string>
     <string name="drawer_exit">退出应用</string>
+
+    <!-- 图表-->
+    <string name="graph_num">0.00</string>
+    <string name="graph_gone">***</string>
+    <string name="graph_balance">结余</string>
 
     <!-- 修改密码-->
     <string name="modify_pw_one">请输入密码</string>

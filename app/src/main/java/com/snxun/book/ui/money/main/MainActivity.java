@@ -25,7 +25,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends BaseActivity {
 
     private static final TabMainBean[] TITLES_BEANS = new TabMainBean[]{new TabMainBean(TabMainBean.TAB_MAIN_DETAILS_ID, "明细"),
-            new TabMainBean(TabMainBean.TAB_MAIN_GRAPH_ID, "图标")};
+            new TabMainBean(TabMainBean.TAB_MAIN_GRAPH_ID, "图表")};
 
     /**
      * 翻页器

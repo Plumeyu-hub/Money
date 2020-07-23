@@ -3,7 +3,6 @@ package com.snxun.book.ui.money.graph;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
@@ -11,22 +10,23 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.snxun.book.base.BaseFragment;
-import com.snxun.book.R;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.snxun.book.R;
+import com.snxun.book.base.BaseFragment;
+import com.snxun.book.utils.sp.SpManager;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -36,7 +36,6 @@ import butterknife.ButterKnife;
 public class GraphFragment extends BaseFragment {
 
     private static final String EXTRA_TEXT = "extra_text";
-
     public static GraphFragment newInstance(String from) {
         GraphFragment graphFragment = new GraphFragment();
         Bundle bundle = new Bundle();
@@ -45,35 +44,91 @@ public class GraphFragment extends BaseFragment {
         return graphFragment;
     }
 
-    // 时间
-    private EditText monthtime;
-    // db
-    private SQLiteDatabase DB;
-    private Cursor cs;// 游标对象，用来报错查询返回的结果集
-    private float outsum = 0;
-    private float insum = 0;
-    private float countsum = 0;
+    /**
+     * 数据库
+     */
+    private SQLiteDatabase mDb;
+    private Cursor mCs;// 游标对象，用来报错查询返回的结果集
+    /**
+     * 当前登录的用户ID
+     */
+    private int mUserId;
 
-    TextView tv_graph_countnum, tv_graph_counttext, tv_graph_outnum,
-            tv_graph_outtext, tv_graph_innum, tv_graph_intext,
-            tv_graph_countnumgone, tv_graph_outnumgone,
-            tv_graph_innumgone;
+    /**
+     * 选择日期按钮
+     */
+    @BindView(R.id.graph_month_btn)
+    EditText mGraphMonthBtn;
+    /**
+     * 结余
+     */
+    @BindView(R.id.balance_num_tv)
+    TextView mBalanceNumTv;
+    /**
+     * 结余隐藏***
+     */
+    @BindView(R.id.balance_gone_num_tv)
+    TextView mBalanceGoneNumTv;
+    /**
+     * 结余文字
+     */
+    @BindView(R.id.balance_text_tv)
+    TextView mBalanceTextTv;
+    /**
+     * 支出
+     */
+    @BindView(R.id.out_num_tv)
+    TextView mOutNumTv;
+    /**
+     * 支出隐藏***
+     */
+    @BindView(R.id.out_gone_num_tv)
+    TextView mOutGoneNumTv;
+    /**
+     * 支出文字
+     */
+    @BindView(R.id.out_text_tv)
+    TextView mOutTextTv;
+    /**
+     * 收入
+     */
+    @BindView(R.id.in_num_tv)
+    TextView mInNumTv;
+    /**
+     * 收入隐藏***
+     */
+    @BindView(R.id.in_gone_num_tv)
+    TextView mInGoneNumTv;
+    /**
+     * 收入文字
+     */
+    @BindView(R.id.in_text_tv)
+    TextView mInTextTv;
+    /**
+     * 隐藏金额按钮
+     */
+    @BindView(R.id.hide_money_btn)
+    TextView mHideMoneyBtn;
+    /**
+     * 判断当前隐藏金额键的状态
+     */
+    private boolean state = true;
+    /**
+     * 图表
+     */
+    @BindView(R.id.piechart)
+    PieChart mPiechart;
 
-    boolean state = true;
-
-    String resultinnum, resultoutnum;// 每月支出和收入
-
-    // 绘图
-    private PieChart mChart;
-    int O = 0;
-
-    // 操作用户名
-    private SharedPreferences spuser;
-    private SharedPreferences.Editor editoruser;
-    private int userid;
-
-    //隐藏
-    Button button;
+    /**
+     * 计算支出、收入、结余的值
+     */
+    private float mOutSum = 0;
+    private float mInSum = 0;
+    private float mCountSum = 0;
+    /**
+     * 展示的每月支出和收入（无符号）
+     */
+    String mShowInNum, mShowOutNum;// 每月支出和收入
 
     @Override
     protected int getLayoutId() {
@@ -83,34 +138,13 @@ public class GraphFragment extends BaseFragment {
     @Override
     protected void findViews(View view) {
         ButterKnife.bind(this, view);
-
-        tv_graph_countnum = (TextView) view.findViewById(R.id.balancenum_tv);
-        tv_graph_counttext = (TextView) view.findViewById(R.id.balancetext_tv);
-        tv_graph_outnum = (TextView) view.findViewById(R.id.outnum_tv);
-        tv_graph_outtext = (TextView) view.findViewById(R.id.outtext_tv);
-        tv_graph_innum = (TextView) view.findViewById(R.id.innum_tv);
-        tv_graph_intext = (TextView) view.findViewById(R.id.intext_tv);
-        tv_graph_countnumgone = (TextView) view.findViewById(R.id.balancegone_tv);
-        tv_graph_outnumgone = (TextView) view.findViewById(R.id.outgone_tv);
-        tv_graph_innumgone = (TextView) view.findViewById(R.id.ingone_tv);
-        // 时间
-        // 获取对象
-        monthtime = (EditText) view.findViewById(R.id.graphmonth_edit);
-
-        // 绘图
-        mChart = (PieChart) view.findViewById(R.id.piechart);
-
-        //隐藏
-        button= (Button) view.findViewById(R.id.eyenor_btn);
-
-
     }
 
     @Override
     protected void setListeners(View view) {
         super.setListeners(view);
         // 点击"日期"按钮布局 设置日期
-        monthtime.setOnClickListener(new View.OnClickListener() {
+        mGraphMonthBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 showDatePicker();
@@ -118,34 +152,34 @@ public class GraphFragment extends BaseFragment {
         });
 
         //隐藏
-        button.setOnClickListener(new View.OnClickListener() {
+        mHideMoneyBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (state) {// 可见
-                    button.setBackgroundResource(R.drawable.ic_eye_nor);
+                    mHideMoneyBtn.setBackgroundResource(R.drawable.ic_eye_nor);
                     state =false;
 
-                    tv_graph_countnumgone.setVisibility(View.GONE);
-                    tv_graph_countnum.setVisibility(View.VISIBLE);
+                    mBalanceNumTv.setVisibility(View.GONE);
+                    mBalanceGoneNumTv.setVisibility(View.VISIBLE);
 
-                    tv_graph_outnumgone.setVisibility(View.GONE);
-                    tv_graph_outnum.setVisibility(View.VISIBLE);
+                    mOutNumTv.setVisibility(View.GONE);
+                    mOutGoneNumTv.setVisibility(View.VISIBLE);
 
-                    tv_graph_innumgone.setVisibility(View.GONE);
-                    tv_graph_innum.setVisibility(View.VISIBLE);
+                    mInNumTv.setVisibility(View.GONE);
+                    mInGoneNumTv.setVisibility(View.VISIBLE);
 
                 } else {// 隐藏
-                    button.setBackgroundResource(R.drawable.ic_eye_sel);
+                    mHideMoneyBtn.setBackgroundResource(R.drawable.ic_eye_sel);
                     state = true;
 
-                    tv_graph_countnumgone.setVisibility(View.VISIBLE);
-                    tv_graph_countnum.setVisibility(View.GONE);
+                    mBalanceNumTv.setVisibility(View.VISIBLE);
+                    mBalanceGoneNumTv.setVisibility(View.GONE);
 
-                    tv_graph_outnumgone.setVisibility(View.VISIBLE);
-                    tv_graph_outnum.setVisibility(View.GONE);
+                    mOutNumTv.setVisibility(View.VISIBLE);
+                    mOutGoneNumTv.setVisibility(View.GONE);
 
-                    tv_graph_innumgone.setVisibility(View.VISIBLE);
-                    tv_graph_innum.setVisibility(View.GONE);
+                    mInNumTv.setVisibility(View.VISIBLE);
+                    mInGoneNumTv.setVisibility(View.GONE);
 
                 }
             }
@@ -162,30 +196,27 @@ public class GraphFragment extends BaseFragment {
 
     private void initDb() {
         // 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
-        DB = getActivity().openOrCreateDatabase("data.db", Context.MODE_PRIVATE, null);
+        mDb = getActivity().openOrCreateDatabase("data.db", Context.MODE_PRIVATE, null);
     }
 
+
+    /**
+     * 获取当前登录用户的Id
+     */
     private void showUserInfo() {
-        // 操作用户名
-        spuser = getActivity().getSharedPreferences("user", Context.MODE_PRIVATE);
-        editoruser = spuser.edit();
-        if (spuser != null) {// 判断文件是否存在
-            userid = spuser.getInt("userid", 0);
-        }
+        mUserId = SpManager.get().getUserId();
     }
 
-
-    // 外
     // 获取当前日期
-    Calendar calendar = Calendar.getInstance();
-    int year = calendar.get(Calendar.YEAR);
-    int month = calendar.get(Calendar.MONTH);
-    int day = calendar.get(Calendar.DAY_OF_MONTH);
+    Calendar mCalendar = Calendar.getInstance();
+    int mYear = mCalendar.get(Calendar.YEAR);
+    int mMonth = mCalendar.get(Calendar.MONTH);
+    int mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
     private void showDatePicker() {
 
         // 创建并显示DatePickerDialog
         DatePickerDialog dialog = new DatePickerDialog(getActivity(),
-                AlertDialog.THEME_HOLO_LIGHT, Datelistener, year, month, day);
+                AlertDialog.THEME_HOLO_LIGHT, DateListener, mYear, mMonth, mDay);
         dialog.show();
 
         // 只显示年月，隐藏掉日
@@ -214,19 +245,19 @@ public class GraphFragment extends BaseFragment {
         return null;
     }
 
-    private DatePickerDialog.OnDateSetListener Datelistener = new DatePickerDialog.OnDateSetListener() {
+    private DatePickerDialog.OnDateSetListener DateListener = new DatePickerDialog.OnDateSetListener() {
         /**
          * params：view：该事件关联的组件 params：myyear：当前选择的年 params：monthOfYear：当前选择的月
          * params：dayOfMonth：当前选择的日
          */
         @Override
-        public void onDateSet(DatePicker view, int myyear, int monthOfYear,
-                              int dayOfMonth) {
+        public void onDateSet(DatePicker view, int year, int month,
+                              int day) {
 
             // 修改year、month、day的变量值，以便以后单击按钮时，DatePickerDialog上显示上一次修改后的值
-            year = myyear;
-            month = monthOfYear;
-            day = dayOfMonth;
+            mYear = year;
+            mMonth = month;
+            mDay = day;
             // 更新日期
             updateDate();
 
@@ -235,68 +266,68 @@ public class GraphFragment extends BaseFragment {
         // 当DatePickerDialog关闭时，更新日期显示
         private void updateDate() {
             // 在TextView上显示日期
-            monthtime.setText(new StringBuilder().append(year).append("年")
-                    .append((month + 1) < 10 ? "0" + (month + 1) : (month + 1))
+            mGraphMonthBtn.setText(new StringBuilder().append(mYear).append("年")
+                    .append((mMonth + 1) < 10 ? "0" + (mMonth + 1) : (mMonth + 1))
                     .append("月"));
             //monthtime.setTextColor(getResources().getColor(R.color.white));
-            monthtime.setTextColor(Color.WHITE);
+            mGraphMonthBtn.setTextColor(Color.WHITE);
 
             // 条件
-            String years = String.valueOf(year);
-            int monthn = month + 1;
+            String years = String.valueOf(mYear);
+            int monthn = mMonth + 1;
             String months;
-            if ((month + 1) < 10) {
+            if ((mMonth + 1) < 10) {
                 months = String.valueOf("0" + monthn);
             } else {
                 months = String.valueOf(monthn);
             }
             String condition = String.valueOf(years + months);
             // System.out.println(condition);
-            String uid = String.valueOf(userid);
-            cs = DB.rawQuery(
+            String userId = String.valueOf(mUserId);
+            mCs = mDb.rawQuery(
                     "select sum(aomoney) from expenditure where aotime like ? and aouserid=?",
-                    new String[] { condition + "%", uid + "" });
+                    new String[] { condition + "%", userId + "" });
 
-            if (cs != null) {
-                if (cs.moveToFirst()) {
+            if (mCs != null) {
+                if (mCs.moveToFirst()) {
                     do {
-                        outsum = cs.getFloat(0);
+                        mOutSum = mCs.getFloat(0);
 
-                    } while (cs.moveToNext());
+                    } while (mCs.moveToNext());
                 }
                 // System.out.println(outsum);
-                resultoutnum = String.format("%.2f", outsum);
-                tv_graph_outnum.setText("-" + resultoutnum);
-                tv_graph_outtext.setText(monthn + "月支出");
+                mShowOutNum = String.format("%.2f", mOutSum);
+                mOutNumTv.setText("-" + mShowOutNum);
+                mOutTextTv.setText(monthn + "月支出");
             } else {
-                tv_graph_outnum.setText("0.00");
-                tv_graph_outtext.setText(monthn + "月支出");
+                mOutNumTv.setText("0.00");
+                mOutTextTv.setText(monthn + "月支出");
             }
 
-            cs = DB.rawQuery(
+            mCs = mDb.rawQuery(
                     "select sum(aimoney) from income where aitime like ? and aiuserid=?",
-                    new String[] { condition + "%", uid + "" });
+                    new String[] { condition + "%", userId + "" });
 
-            if (cs != null) {
-                if (cs.moveToFirst()) {
+            if (mCs != null) {
+                if (mCs.moveToFirst()) {
                     do {
-                        insum = cs.getFloat(0);
+                        mInSum = mCs.getFloat(0);
 
-                    } while (cs.moveToNext());
+                    } while (mCs.moveToNext());
                 }
-                resultinnum = String.format("%.2f", insum);
-                tv_graph_innum.setText("+" + resultinnum);
-                tv_graph_intext.setText(monthn + "月收入");
+                mShowInNum = String.format("%.2f", mInSum);
+                mInNumTv.setText("+" + mShowInNum);
+                mInTextTv.setText(monthn + "月收入");
             } else {
-                tv_graph_innum.setText("0.00");
-                tv_graph_intext.setText(monthn + "月收入");
+                mInNumTv.setText("0.00");
+                mInTextTv.setText(monthn + "月收入");
             }
-            countsum = insum - outsum;
+            mCountSum = mInSum - mOutSum;
             PieData mPieData = getPieData(4, 100);
-            showChart(mChart, mPieData);
-            String resultcount = String.format("%.2f", countsum);
-            tv_graph_countnum.setText(resultcount);
-            tv_graph_counttext.setText(monthn + "月结余");
+            showChart(mPiechart, mPieData);
+            String resultcount = String.format("%.2f", mCountSum);
+            mBalanceNumTv.setText(resultcount);
+            mBalanceTextTv.setText(monthn + "月结余");
 
         }
 
@@ -310,7 +341,7 @@ public class GraphFragment extends BaseFragment {
 
         // pieChart.setDescription("109笔收入记录");//饼图右下角的提示
         //pieChart.setDescriptionColor(getResources().getColor(color.white));
-        mChart.setDrawSliceText(false);// 设置隐藏饼图上文字，只显示百分比
+        mPiechart.setDrawSliceText(false);// 设置隐藏饼图上文字，只显示百分比
         pieChart.setDrawCenterText(true); // 饼状图中间可以添加文字
         pieChart.setCenterTextColor(getResources().getColor(android.R.color.white));
         pieChart.setDrawHoleEnabled(true);
@@ -356,8 +387,8 @@ public class GraphFragment extends BaseFragment {
          * 将一个饼形图分成四部分，四部分的数值比例为14:14:34:38 所以 14代表的百分比就是14%
          */
 
-        float innum = Float.parseFloat(resultinnum);
-        float outnum = Float.parseFloat(resultoutnum);
+        float innum = Float.parseFloat(mShowInNum);
+        float outnum = Float.parseFloat(mShowOutNum);
 
         // float quarterly1 = 80.3f;
         // float quarterly2 = 5f;

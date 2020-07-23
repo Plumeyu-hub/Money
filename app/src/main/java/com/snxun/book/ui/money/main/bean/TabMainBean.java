@@ -9,7 +9,7 @@ public class TabMainBean {
 
     /** 明细id */
     public static final int TAB_MAIN_DETAILS_ID = 0;
-    /** 图标id */
+    /** 图表id */
     public static final int TAB_MAIN_GRAPH_ID = 1;
 
     /** 编号 */

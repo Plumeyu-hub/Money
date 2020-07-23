@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#fff"
-    android:clickable="true"
     android:orientation="vertical" >
 
     <LinearLayout
@@ -13,64 +13,64 @@
         android:orientation="vertical" >
 
         <EditText
-            android:id="@+id/graphmonth_edit"
+            android:id="@+id/graph_month_btn"
             android:layout_width="wrap_content"
             android:layout_height="40dp"
             android:layout_gravity="center"
             android:background="@null"
-            android:editable="false"
             android:focusable="false"
-            android:text="请点击选择账目年月"
+            android:text="@string/app_select_date"
             android:textColor="@color/color_666666"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            tools:ignore="LabelFor,TextFields" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
 
             <LinearLayout
-                android:id="@+id/balance_lin"
+                android:id="@+id/graph_balance_lin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/balancenum_tv"
+                    android:id="@+id/balance_num_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="0.0"
+                    android:text="@string/graph_num"
                     android:textColor="#fff"
                     android:textSize="30sp" />
 
                 <TextView
-                    android:id="@+id/balancegone_tv"
+                    android:id="@+id/balance_gone_num_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="***"
+                    android:text="@string/graph_gone"
                     android:textColor="#fff"
                     android:textSize="30sp"
                     android:visibility="gone" />
 
                 <TextView
-                    android:id="@+id/balancetext_tv"
+                    android:id="@+id/balance_text_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="结余"
+                    android:text="@string/graph_balance"
                     android:textColor="#fff"
                     android:textSize="14sp" />
             </LinearLayout>
 
-            <Button
-                android:id="@+id/eyenor_btn"
+            <TextView
+                android:id="@+id/hide_money_btn"
                 android:layout_width="35dp"
                 android:layout_height="25dp"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="35dp"
-                android:layout_toRightOf="@+id/balance_lin"
+                android:layout_marginStart="35dp"
+                android:layout_toEndOf="@+id/graph_balance_lin"
                 android:background="@drawable/ic_eye_nor"/>
         </RelativeLayout>
 
@@ -89,30 +89,30 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/outnum_tv"
+                    android:id="@+id/out_num_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="0.00"
+                    android:text="@string/graph_num"
                     android:textColor="#fff"
                     android:textSize="26sp" />
 
                 <TextView
-                    android:id="@+id/outgone_tv"
+                    android:id="@+id/out_gone_num_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="***"
+                    android:text="@string/graph_gone"
                     android:textColor="#fff"
                     android:textSize="26sp"
                     android:visibility="gone" />
 
                 <TextView
-                    android:id="@+id/outtext_tv"
+                    android:id="@+id/out_text_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="支出"
+                    android:text="@string/out"
                     android:textColor="#fff"
                     android:textSize="14sp" />
             </LinearLayout>
@@ -130,30 +130,30 @@
                 android:orientation="vertical" >
 
                 <TextView
-                    android:id="@+id/innum_tv"
+                    android:id="@+id/in_num_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="0.00"
+                    android:text="@string/graph_num"
                     android:textColor="#fff"
                     android:textSize="26sp" />
 
                 <TextView
-                    android:id="@+id/ingone_tv"
+                    android:id="@+id/in_gone_num_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="***"
+                    android:text="@string/graph_gone"
                     android:textColor="#fff"
                     android:textSize="26sp"
                     android:visibility="gone" />
 
                 <TextView
-                    android:id="@+id/intext_tv"
+                    android:id="@+id/in_text_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="收入"
+                    android:text="@string/in"
                     android:textColor="#fff"
                     android:textSize="14sp" />
             </LinearLayout>

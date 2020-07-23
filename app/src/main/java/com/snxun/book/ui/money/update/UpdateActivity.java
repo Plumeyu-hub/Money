@@ -47,6 +47,7 @@ public class UpdateActivity extends BaseActivity {
         Intent starter = new Intent(context, UpdateActivity.class);
         context.startActivity(starter);
     }
+
     /**
      * 数据源
      */
@@ -82,6 +83,14 @@ public class UpdateActivity extends BaseActivity {
     @BindView(R.id.update_account_sp)
     Spinner mUpdateAccountSp;
     /**
+     * sp,定义一个字符串数组来存储下拉框每个item要显示的文本
+     */
+    private String[] mSpItem = {"支付宝", "微信", "银行卡", "信用卡", "其他"};
+    /**
+     * sp的简单适配器
+     */
+    private ArrayAdapter<String> mSpAdapter;
+    /**
      * 备注
      */
     @BindView(R.id.update_remarks_edit)
@@ -96,7 +105,7 @@ public class UpdateActivity extends BaseActivity {
      * 数据库
      */
     private SQLiteDatabase mDb;
-    private ContentValues cv;// 存储工具栏
+    private ContentValues mCv;// 存储工具栏
     private int num = 0;//查询返回值
     /**
      * 当前登录的用户ID
@@ -104,19 +113,13 @@ public class UpdateActivity extends BaseActivity {
     private int mUserId;
 
     /**
-     * sp,定义一个字符串数组来存储下拉框每个item要显示的文本
-     */
-    private String[] spaccItems = {"支付宝", "微信", "银行卡", "信用卡", "其他"};
-
-    /**
      * 时间
      * 定义显示时间控件
      */
-    private Calendar mCalendar; // 通过Calendar获取系统时间
+    private Calendar mCalendar;
     private int mYear;
     private int mMonth;
     private int mDay;
-
     /**
      * 修改后保存的数据
      */
@@ -165,7 +168,6 @@ public class UpdateActivity extends BaseActivity {
 
             @Override
             public void onClick(View arg0) {
-                // TODO Auto-generated method stub
                 // 获取修改后的信息
                 String mUpdateMoney = mUpdateMoneyEdit.getText().toString();
                 mDaytime = mUpdateDateEdit.getText().toString();
@@ -222,15 +224,15 @@ public class UpdateActivity extends BaseActivity {
                 if ((mUpdateSymbolMoneyTv.getText().toString()).equals("-")) {
                     // 修改数据
                     // 在存储工具类里面存储要操作的数据，以键值对的方式存储，键表示标的列名，值就是要操作的值
-                    cv = new ContentValues();
+                    mCv = new ContentValues();
                     // cv.put("aoid", up_id);
-                    cv.put("aocategory", mCategory);
-                    cv.put("aomoney", rightMoney);
-                    cv.put("aoaccount", mAccount);
-                    cv.put("aoremarks", mRemarks);
-                    cv.put("aotime", mDaytime);
+                    mCv.put("aocategory", mCategory);
+                    mCv.put("aomoney", rightMoney);
+                    mCv.put("aoaccount", mAccount);
+                    mCv.put("aoremarks", mRemarks);
+                    mCv.put("aotime", mDaytime);
                     // 修改数据，返回修改成功的行数，失败则返回0
-                    num = mDb.update("expenditure", cv, "aoid=? and aouserid=?",
+                    num = mDb.update("expenditure", mCv, "aoid=? and aouserid=?",
                             new String[]{mId + "", userIdString + ""});
                     if (num > 0) {
                         Toast.makeText(UpdateActivity.this,
@@ -248,14 +250,14 @@ public class UpdateActivity extends BaseActivity {
                 } else if ((mUpdateSymbolMoneyTv.getText().toString()).equals("+")) {
                     // 修改数据
                     // 在存储工具类里面存储要操作的数据，以键值对的方式存储，键表示标的列名，值就是要操作的值
-                    cv = new ContentValues();
-                    cv.put("aicategory", mCategory);
-                    cv.put("aimoney", rightMoney);
-                    cv.put("aiaccount", mAccount);
-                    cv.put("airemarks", mRemarks);
-                    cv.put("aitime", mDaytime);
+                    mCv = new ContentValues();
+                    mCv.put("aicategory", mCategory);
+                    mCv.put("aimoney", rightMoney);
+                    mCv.put("aiaccount", mAccount);
+                    mCv.put("airemarks", mRemarks);
+                    mCv.put("aitime", mDaytime);
                     // 修改数据，返回修改成功的行数，失败则返回0
-                    num = mDb.update("income", cv, "aiid=? and aiuserid=?",
+                    num = mDb.update("income", mCv, "aiid=? and aiuserid=?",
                             new String[]{mId + "", userIdString + ""});
                     if (num > 0) {
                         Toast.makeText(UpdateActivity.this,
@@ -285,47 +287,22 @@ public class UpdateActivity extends BaseActivity {
                                        int arg2, long arg3) {
                 // 设置显示当前选择的项
                 arg0.setVisibility(View.VISIBLE);
-                mAccount = spaccItems[arg2];
+                mAccount = mSpItem[arg2];
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
-                // TODO Auto-generated method stub
-
             }
         });
 
-        // 时间
-        mCalendar = Calendar.getInstance();
         // 点击"日期"按钮布局 设置日期
-        mUpdateDateEdit.setOnClickListener(new OnClickListener() {
+        mUpdateDateEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new DatePickerDialog(UpdateActivity.this,
-                        AlertDialog.THEME_HOLO_LIGHT,
-                        new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year,
-                                                  int month, int day) {
-                                mYear = year;
-                                mMonth = month;
-                                mDay = day;
-                                // 更新EditText控件日期 小于10加0
-                                mUpdateDateEdit.setText(new StringBuilder()
-                                        .append(mYear)
-                                        // .append("-")
-                                        .append((mMonth + 1) < 10 ? "0"
-                                                + (mMonth + 1)
-                                                : (mMonth + 1))
-                                        // .append("-")
-                                        .append((mDay < 10) ? "0" + mDay
-                                                : mDay));
-                            }
-                        }, mCalendar.get(Calendar.YEAR), mCalendar
-                        .get(Calendar.MONTH), mCalendar
-                        .get(Calendar.DAY_OF_MONTH)).show();
+                showDatePicker();
             }
         });
+
     }
 
     @Override
@@ -333,6 +310,8 @@ public class UpdateActivity extends BaseActivity {
         super.initData();
         initDb();
         showUserInfo();
+        setSp();
+        setDate();
         showData();
     }
 
@@ -353,47 +332,95 @@ public class UpdateActivity extends BaseActivity {
         mUserId = SpManager.get().getUserId();
     }
 
+    public void setDate() {
+        // 时间
+        mCalendar = Calendar.getInstance();
+        // 设置初始时间与当前系统时间一致
+        mYear = mCalendar.get(Calendar.YEAR);
+        mMonth = mCalendar.get(Calendar.MONTH);
+        mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
+        updateDate();
+    }
+
+    public void updateDate() {
+        // 更新EditText控件日期 小于10加0
+        mUpdateDateEdit.setText(new StringBuilder()
+                .append(mYear)
+                .append("-")
+                .append((mMonth + 1) < 10 ? "0" + (mMonth + 1)
+                        : (mMonth + 1)).append("-")
+                .append((mDay < 10) ? "0" + mDay : mDay));
+    }
+
+    private void showDatePicker() {
+        // 创建并显示DatePickerDialog
+        DatePickerDialog dialog = new DatePickerDialog(getContext(),
+                AlertDialog.THEME_HOLO_LIGHT, DateListener, mYear, mMonth, mDay);
+        dialog.show();
+    }
+
+    private DatePickerDialog.OnDateSetListener DateListener = new DatePickerDialog.OnDateSetListener() {
+        /**
+         * params：view：该事件关联的组件
+         * params：myyear：当前选择的年
+         * params：monthOfYear：当前选择的月
+         * params：dayOfMonth：当前选择的日
+         */
+        @Override
+        public void onDateSet(DatePicker view, int year, int month,
+                              int day) {
+            // 修改year、month、day的变量值，以便以后单击按钮时，DatePickerDialog上显示上一次修改后的值
+            mYear = year;
+            mMonth = month;
+            mDay = day;
+            // 更新日期
+            updateDate();
+        }
+    };
+
+    public void setSp() {
+        // 定义数组适配器，利用系统布局文件
+        mSpAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_spinner_item, mSpItem);
+        // 定义下拉框的样式
+        mSpAdapter
+                .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        mUpdateAccountSp.setAdapter(mSpAdapter);
+    }
+
     /**
      * 获取传递过来的数据并显示
      */
     public void showData() {
-            mId = dataBean.getmId();
-            mUpdateCategoryTv.setText(dataBean.getmCategory());
-            mCategory = dataBean.getmCategory();
-            mUpdateSymbolMoneyTv.setText(dataBean.getmMoney().substring(0, 1));
-            mUpdateMoneyEdit.setText(dataBean.getmMoney().substring(1));
-            mUpdateMoneyEdit.setSelection(mUpdateMoneyEdit.length());
-            mUpdateDateEdit.setText(dataBean.getmDate());
-            String sd_account = dataBean.getmAccount();
-            for (int j = 0; j < spaccItems.length; j++) {
-                if (sd_account.equals(spaccItems[j])) {
-                    // 定义数组适配器，利用系统布局文件
-                    ArrayAdapter<String> spacc_adapter1 = new ArrayAdapter<String>(
-                            this, android.R.layout.simple_spinner_item,
-                            spaccItems);
-                    // 定义下拉框的样式
-                    spacc_adapter1
-                            .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                    mUpdateAccountSp.setAdapter(spacc_adapter1);
-                    // 设置sp的值等于传递过来的值
-                    mUpdateAccountSp.setSelection(j, true);
-                    mAccount = spaccItems[j];
-                    break;
-                }
+        mId = dataBean.getmId();
+        mUpdateCategoryTv.setText(dataBean.getmCategory());
+        mCategory = dataBean.getmCategory();
+        mUpdateSymbolMoneyTv.setText(dataBean.getmMoney().substring(0, 1));
+        mUpdateMoneyEdit.setText(dataBean.getmMoney().substring(1));
+        mUpdateMoneyEdit.setSelection(mUpdateMoneyEdit.length());
+        mUpdateDateEdit.setText(dataBean.getmDate());
+        String sd_account = dataBean.getmAccount();
+        for (int j = 0; j < mSpItem.length; j++) {
+            if (sd_account.equals(mSpItem[j])) {
+                // 设置sp的值等于传递过来的值
+                mUpdateAccountSp.setSelection(j, true);
+                mAccount = mSpItem[j];
+                break;
             }
-            mUpdateRemarksEdit.setText(dataBean.getmRemarks());
-            mUpdateRemarksEdit.setSelection(mUpdateRemarksEdit.length());// 将光标移至文字末尾
+        }
+        mUpdateRemarksEdit.setText(dataBean.getmRemarks());
+        mUpdateRemarksEdit.setSelection(mUpdateRemarksEdit.length());// 将光标移至文字末尾
     }
 
     //EventBus的黏性sticky = true
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onDataEvent(SearchUpdateEvent event) {
-        dataBean=event.getDataBean();
+        dataBean = event.getDataBean();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onDetailsUpdateEvent(DetailsUpdateEvent event) {
-        dataBean=event.getDataBean();
+        dataBean = event.getDataBean();
     }
 
     /**
