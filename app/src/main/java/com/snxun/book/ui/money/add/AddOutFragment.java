@@ -27,8 +27,8 @@ import com.snxun.book.base.BaseFragment;
 import com.snxun.book.event.AddDetailsEvent;
 import com.snxun.book.event.SubmitRemarkEvent;
 import com.snxun.book.ui.money.bean.DataBean;
-import com.snxun.book.ui.my.demo.gr.GrAdapter;
-import com.snxun.book.ui.my.demo.gr.GrDataBean;
+import com.snxun.book.ui.money.adapter.RvGrAdapter;
+import com.snxun.book.ui.money.bean.RvGrBean;
 import com.snxun.book.utils.sp.SpManager;
 
 import org.greenrobot.eventbus.EventBus;
@@ -152,8 +152,8 @@ public class AddOutFragment extends BaseFragment {
      */
     @BindView(R.id.add_out_gv)
     RecyclerView mAddOutGv;
-    private GrAdapter mGrAdapter;//自定义适配器，继承RecyclerView.Adapter
-    private List<GrDataBean> mGrDataList;
+    private RvGrAdapter mRvGrAdapter;//自定义适配器，继承RecyclerView.Adapter
+    private List<RvGrBean> mGrDataList;
 
     /**
      * 数据库
@@ -218,30 +218,30 @@ public class AddOutFragment extends BaseFragment {
                 R.drawable.selector_ic_tab_add_pet, R.drawable.selector_ic_tab_add_child, R.drawable.selector_ic_tab_add_elder,
                 R.drawable.selector_ic_tab_add_other};
         for (int i = 0; i < iconName.length; i++) {
-            mGrDataList.add(new GrDataBean(iconName[i], iconRes[i], false));
+            mGrDataList.add(new RvGrBean(iconName[i], iconRes[i], false));
         }
 
-        mGrAdapter = new GrAdapter(getContext(), mGrDataList);
+        mRvGrAdapter = new RvGrAdapter(getContext(), mGrDataList);
         //第二参数是控制显示多少列,第三个参数是控制滚动方向和LinearLayout一样,第四个参数是控制是否反向排列
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4, LinearLayoutManager.VERTICAL, false);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         mAddOutGv.setLayoutManager(layoutManager);
         mAddOutGv.setHasFixedSize(true);
-        mAddOutGv.setAdapter(mGrAdapter);
+        mAddOutGv.setAdapter(mRvGrAdapter);
     }
 
     @Override
     protected void setListeners(View view) {
         super.setListeners(view);
 
-        mGrAdapter.setOnItemClickListener(new GrAdapter.OnItemClickListener() {
+        mRvGrAdapter.setOnItemClickListener(new RvGrAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 for (int i = 0; i < mGrDataList.size(); i++) {
                     mGrDataList.get(i).setIsSelected(i == position);
                     mCategory = iconName[position];
                 }
-                mGrAdapter.notifyDataSetChanged();
+                mRvGrAdapter.notifyDataSetChanged();
             }
         });
 

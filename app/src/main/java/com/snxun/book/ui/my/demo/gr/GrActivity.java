@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
+import com.snxun.book.ui.money.adapter.RvGrAdapter;
+import com.snxun.book.ui.money.bean.RvGrBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,8 +42,8 @@ public class GrActivity extends BaseActivity {
      */
     @BindView(R.id.gr_rv)
     RecyclerView mGrRv;
-    private GrAdapter mGrAdapter;//自定义适配器，继承RecyclerView.Adapter
-    private List<GrDataBean> mGrDataList;
+    private RvGrAdapter mRvGrAdapter;//自定义适配器，继承RecyclerView.Adapter
+    private List<RvGrBean> mGrDataList;
 
     @Override
     protected int getLayoutId() {
@@ -76,16 +78,16 @@ public class GrActivity extends BaseActivity {
                 R.drawable.selector_ic_tab_add_pet, R.drawable.selector_ic_tab_add_child, R.drawable.selector_ic_tab_add_elder,
                 R.drawable.selector_ic_tab_add_other};
         for(int i = 0; i<iconName.length; i++){
-            mGrDataList.add(new GrDataBean(iconName[i], iconRes[i], false));
+            mGrDataList.add(new RvGrBean(iconName[i], iconRes[i], false));
         }
 
-        mGrAdapter = new GrAdapter(getContext(), mGrDataList);
+        mRvGrAdapter = new RvGrAdapter(getContext(), mGrDataList);
         //第二参数是控制显示多少列,第三个参数是控制滚动方向和LinearLayout一样,第四个参数是控制是否反向排列
         GridLayoutManager layoutManager = new GridLayoutManager(getContext(), 4, LinearLayoutManager.VERTICAL, false);
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         mGrRv.setLayoutManager(layoutManager);
         mGrRv.setHasFixedSize(true);
-        mGrRv.setAdapter(mGrAdapter);
+        mGrRv.setAdapter(mRvGrAdapter);
     }
 
     @Override
@@ -98,18 +100,18 @@ public class GrActivity extends BaseActivity {
             }
         });
 
-        mGrAdapter.setOnItemClickListener(new GrAdapter.OnItemClickListener() {
+        mRvGrAdapter.setOnItemClickListener(new RvGrAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 Toast.makeText(getContext(), "click " + position, Toast.LENGTH_SHORT).show();
                 for (int i = 0; i < mGrDataList.size(); i++) {
                     mGrDataList.get(i).setIsSelected( i == position);
                 }
-                mGrAdapter.notifyDataSetChanged();
+                mRvGrAdapter.notifyDataSetChanged();
             }
         });
 
-        mGrAdapter.setOnItemLongClickListener(new GrAdapter.OnItemLongClickListener() {
+        mRvGrAdapter.setOnItemLongClickListener(new RvGrAdapter.OnItemLongClickListener() {
             @Override
             public void onClick(int position) {
                 Toast.makeText(getContext(), "long click " + position, Toast.LENGTH_SHORT).show();

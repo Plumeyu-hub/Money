@@ -30,6 +30,7 @@ import com.snxun.book.base.BaseFragment;
 import com.snxun.book.event.AddDetailsEvent;
 import com.snxun.book.event.DetailsUpdateEvent;
 import com.snxun.book.event.UpdateDetailsEvent;
+import com.snxun.book.ui.money.adapter.RvListAdapter;
 import com.snxun.book.ui.money.add.AddActivity;
 import com.snxun.book.ui.money.bean.DataBean;
 import com.snxun.book.ui.money.search.SearchActivity;
@@ -81,7 +82,7 @@ public class DetailsFragment extends BaseFragment {
      */
     @BindView(R.id.details_rv)
     RecyclerView mRecyclerView;
-    private DetailsRvAdapter mDetailsRvAdapter;
+    private RvListAdapter mRvListAdapter;
     /**
      * 定义了一个数组List，里面只能存放DataBean
      */
@@ -158,12 +159,12 @@ public class DetailsFragment extends BaseFragment {
     private void initRecyclerView() {
         // 初始化数据列表
         mDetailsList = new ArrayList<>();
-        mDetailsRvAdapter = new DetailsRvAdapter(getContext(), mDetailsList);
+        mRvListAdapter = new RvListAdapter(getContext(), mDetailsList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(mDetailsRvAdapter);
+        mRecyclerView.setAdapter(mRvListAdapter);
     }
 
     /**
@@ -174,7 +175,7 @@ public class DetailsFragment extends BaseFragment {
         super.setListeners(view);
 
         //点击RVlist跳转UpdateActivity
-        mDetailsRvAdapter.setOnItemClickListener(new DetailsRvAdapter.OnItemClickListener() {
+        mRvListAdapter.setOnItemClickListener(new RvListAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 dataBean = mDetailsList.get(position);
@@ -186,7 +187,7 @@ public class DetailsFragment extends BaseFragment {
         });
 
         // 长按RVlist按删除
-        mDetailsRvAdapter.setOnItemLongClickListener(new DetailsRvAdapter.OnItemLongClickListener() {
+        mRvListAdapter.setOnItemLongClickListener(new RvListAdapter.OnItemLongClickListener() {
             @Override
             public void onClick(int position) {
                 // 获取所点击项的id
@@ -222,7 +223,7 @@ public class DetailsFragment extends BaseFragment {
                                         // 删掉长按的item
                                         mDetailsList.remove(position);
                                         // 动态更新listview
-                                        mDetailsRvAdapter.notifyDataSetChanged();
+                                        mRvListAdapter.notifyDataSetChanged();
                                     } else {
                                         Toast.makeText(getContext(),
                                                 "删除失败" + num,
@@ -241,7 +242,7 @@ public class DetailsFragment extends BaseFragment {
                                         // 删掉长按的item
                                         mDetailsList.remove(position);
                                         // 动态更新listview
-                                        mDetailsRvAdapter.notifyDataSetChanged();
+                                        mRvListAdapter.notifyDataSetChanged();
                                     } else {
                                         Toast.makeText(getContext(),
                                                 "删除失败" + num,
@@ -455,7 +456,7 @@ public class DetailsFragment extends BaseFragment {
         // 删掉长按的item
         mDetailsList.remove(position);
         // 动态更新listview
-        mDetailsRvAdapter.notifyDataSetChanged();
+        mRvListAdapter.notifyDataSetChanged();
     }
 
     /**
@@ -664,7 +665,7 @@ public class DetailsFragment extends BaseFragment {
                 return 0;// 相等为0
             }
         });
-        mDetailsRvAdapter.notifyDataSetChanged();
+        mRvListAdapter.notifyDataSetChanged();
         // 设置空列表的时候，显示为一张图片
         //mDetailsList.setEmptyView(getActivity().findViewById(R.id.details_empty_lin));
     }
@@ -674,7 +675,7 @@ public class DetailsFragment extends BaseFragment {
     public void onUpdateDetailsEvent(UpdateDetailsEvent event) {
         dataBean = event.getDataBean();
         mDetailsList.set(mPosition, dataBean);
-        mDetailsRvAdapter.notifyDataSetChanged();
+        mRvListAdapter.notifyDataSetChanged();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -683,14 +684,14 @@ public class DetailsFragment extends BaseFragment {
         String monthSelectorBtn = mMonthSelectorBtn.getText().toString();
         if (monthSelectorBtn.equals("请点击选择账单年月")) {
             mDetailsList.add(dataBean);
-            mDetailsRvAdapter.notifyDataSetChanged();
+            mRvListAdapter.notifyDataSetChanged();
         } else {
             mMonthSelectorBtn.setText("请点击选择账单年月");
             mMonthSelectorBtn.setTextColor(getResources().getColor(
                     R.color.color_666666));
             mDetailsList.clear();
             mDetailsList.add(dataBean);
-            mDetailsRvAdapter.notifyDataSetChanged();
+            mRvListAdapter.notifyDataSetChanged();
         }
     }
 

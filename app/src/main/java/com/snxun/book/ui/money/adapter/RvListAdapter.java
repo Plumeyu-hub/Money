@@ -1,4 +1,4 @@
-package com.snxun.book.ui.money.details;
+package com.snxun.book.ui.money.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -21,11 +21,11 @@ import butterknife.ButterKnife;
  * @author wangshy
  * @date 2020/07/20
  */
-public class DetailsRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RvListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
     private List<DataBean> mListData;
 
-    public DetailsRvAdapter(Context context, List<DataBean> mListData) {
+    public RvListAdapter(Context context, List<DataBean> mListData) {
         this.mContext = context;
         this.mListData = mListData;
     }
@@ -35,10 +35,10 @@ public class DetailsRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         void onClick(int position);
     }
 
-    private DetailsRvAdapter.OnItemClickListener mOnItemClickListener;
+    private RvListAdapter.OnItemClickListener mOnItemClickListener;
 
     //第二步， 写一个公共的方法
-    public void setOnItemClickListener(DetailsRvAdapter.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(RvListAdapter.OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
 
@@ -46,9 +46,9 @@ public class DetailsRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         void onClick(int position);
     }
 
-    private DetailsRvAdapter.OnItemLongClickListener mOnItemLongClickListener;
+    private RvListAdapter.OnItemLongClickListener mOnItemLongClickListener;
 
-    public void setOnItemLongClickListener(DetailsRvAdapter.OnItemLongClickListener onItemLongClickListener) {
+    public void setOnItemLongClickListener(RvListAdapter.OnItemLongClickListener onItemLongClickListener) {
         this.mOnItemLongClickListener = onItemLongClickListener;
     }
 

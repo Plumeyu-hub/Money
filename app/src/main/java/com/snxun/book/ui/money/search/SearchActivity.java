@@ -20,7 +20,7 @@ import com.snxun.book.base.BaseActivity;
 import com.snxun.book.event.SearchUpdateEvent;
 import com.snxun.book.event.UpdateSearchEvent;
 import com.snxun.book.ui.money.bean.DataBean;
-import com.snxun.book.ui.money.details.DetailsRvAdapter;
+import com.snxun.book.ui.money.adapter.RvListAdapter;
 import com.snxun.book.ui.money.update.UpdateActivity;
 import com.snxun.book.utils.sp.SpManager;
 
@@ -74,7 +74,7 @@ public class SearchActivity extends BaseActivity {
      */
     @BindView(R.id.search_rv)
     RecyclerView mRecyclerView;
-    private DetailsRvAdapter mDetailsRvAdapter;
+    private RvListAdapter mRvListAdapter;
     /**
      * 定义了一个数组List，里面只能存放DataBean
      */
@@ -116,12 +116,12 @@ public class SearchActivity extends BaseActivity {
     private void initRecyclerView() {
         // 初始化数据列表
         mDetailsList = new ArrayList<>();
-        mDetailsRvAdapter = new DetailsRvAdapter(getContext(), mDetailsList);
+        mRvListAdapter = new RvListAdapter(getContext(), mDetailsList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
         mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(mDetailsRvAdapter);
+        mRecyclerView.setAdapter(mRvListAdapter);
     }
 
 
@@ -165,7 +165,7 @@ public class SearchActivity extends BaseActivity {
         });
 
         //列表点击事件
-        mDetailsRvAdapter.setOnItemClickListener(new DetailsRvAdapter.OnItemClickListener() {
+        mRvListAdapter.setOnItemClickListener(new RvListAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
                 DataBean dataBean = mDetailsList.get(position);
@@ -177,7 +177,7 @@ public class SearchActivity extends BaseActivity {
         });
 
         // 长按RVlist按删除
-        mDetailsRvAdapter.setOnItemLongClickListener(new DetailsRvAdapter.OnItemLongClickListener() {
+        mRvListAdapter.setOnItemLongClickListener(new RvListAdapter.OnItemLongClickListener() {
             @Override
             public void onClick(int position) {
                 // 获取所点击项的id
@@ -213,7 +213,7 @@ public class SearchActivity extends BaseActivity {
                                         // 删掉长按的item
                                         mDetailsList.remove(position);
                                         // 动态更新listview
-                                        mDetailsRvAdapter.notifyDataSetChanged();
+                                        mRvListAdapter.notifyDataSetChanged();
                                     } else {
                                         Toast.makeText(getContext(),
                                                 "删除失败" + num,
@@ -232,7 +232,7 @@ public class SearchActivity extends BaseActivity {
                                         // 删掉长按的item
                                         mDetailsList.remove(position);
                                         // 动态更新listview
-                                        mDetailsRvAdapter.notifyDataSetChanged();
+                                        mRvListAdapter.notifyDataSetChanged();
                                     } else {
                                         Toast.makeText(getContext(),
                                                 "删除失败" + num,
@@ -354,7 +354,7 @@ public class SearchActivity extends BaseActivity {
                     return 0;// 相等为0
                 }
             });
-            mDetailsRvAdapter.notifyDataSetChanged();
+            mRvListAdapter.notifyDataSetChanged();
             // 设置空列表的时候，显示为一张图片
             //mSearchLv.setEmptyView(findViewById(R.id.search_empty_lin));
         }
@@ -365,7 +365,7 @@ public class SearchActivity extends BaseActivity {
         dataBean = event.getDataBean();
         //更改修改过的List
         mDetailsList.set(mPosition, dataBean);
-        mDetailsRvAdapter.notifyDataSetChanged();
+        mRvListAdapter.notifyDataSetChanged();
     }
 
     /**

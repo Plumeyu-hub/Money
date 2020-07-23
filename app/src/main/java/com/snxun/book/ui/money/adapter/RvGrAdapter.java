@@ -1,4 +1,4 @@
-package com.snxun.book.ui.my.demo.gr;
+package com.snxun.book.ui.money.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
+import com.snxun.book.ui.money.bean.RvGrBean;
 
 import java.util.List;
 
@@ -21,13 +22,13 @@ import butterknife.ButterKnife;
  * @author wangshy
  * @date 2020/07/20
  */
-public class GrAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RvGrAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private Context mContext;
 
-    private List<GrDataBean> mListData;
+    private List<RvGrBean> mListData;
 
-    public GrAdapter(Context context, List<GrDataBean> mListData) {
+    public RvGrAdapter(Context context, List<RvGrBean> mListData) {
         this.mContext = context;
         this.mListData = mListData;
     }
@@ -62,7 +63,7 @@ public class GrAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        GrDataBean dataBean = mListData.get(position);
+        RvGrBean dataBean = mListData.get(position);
         if (dataBean == null || !(holder instanceof DataViewHolder)) {
             return;
         }
@@ -94,11 +95,11 @@ public class GrAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return mListData == null ? 0 : mListData.size();
     }
 
-    private void showItem(DataViewHolder holder, GrDataBean grDataBean) {
-        holder.iconItemIv.setImageResource(grDataBean.getImgResId());
-        holder.iconItemIv.setSelected(grDataBean.getIsSelected());
-        holder.textItemTv.setText(grDataBean.getName());
-        holder.textItemTv.setSelected(grDataBean.getIsSelected());
+    private void showItem(DataViewHolder holder, RvGrBean rvGrBean) {
+        holder.iconItemIv.setImageResource(rvGrBean.getImgResId());
+        holder.iconItemIv.setSelected(rvGrBean.getIsSelected());
+        holder.textItemTv.setText(rvGrBean.getName());
+        holder.textItemTv.setSelected(rvGrBean.getIsSelected());
     }
 
     public static class DataViewHolder extends RecyclerView.ViewHolder {
