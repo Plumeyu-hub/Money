@@ -24,7 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseFragment;
-import com.snxun.book.event.DemoNotifyEvent;
+import com.snxun.book.event.SubmitRemarkEvent;
 import com.snxun.book.ui.my.demo.gr.GrAdapter;
 import com.snxun.book.ui.my.demo.gr.GrDataBean;
 import com.snxun.book.utils.sp.SpManager;
@@ -584,7 +584,7 @@ public class AddOutFragment extends BaseFragment {
     };
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    public void onDemoNotifyEvent(DemoNotifyEvent event) {
+    public void onSubmitRemarkEvent(SubmitRemarkEvent event) {
         if (!TextUtils.isEmpty(event.getText())) {
             mAddOutSubmitRemarkBtn.setText(event.getText());
         }

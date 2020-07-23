@@ -10,8 +10,7 @@ import android.widget.Toast;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
-import com.snxun.book.event.DemoNotifyEvent;
-import com.snxun.book.ui.my.demo.event.InputActivity;
+import com.snxun.book.event.SubmitRemarkEvent;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -72,7 +71,7 @@ public class SubmitRemarkActivity extends BaseActivity {
                     Toast.makeText(getContext(), "编辑框内容不能为空", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                EventBus.getDefault().post(new DemoNotifyEvent(remark));
+                EventBus.getDefault().post(new SubmitRemarkEvent(remark));
                 finish();
             }
         });
