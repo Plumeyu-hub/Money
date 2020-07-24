@@ -19,8 +19,8 @@ import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
 import com.snxun.book.event.SearchUpdateEvent;
 import com.snxun.book.event.UpdateSearchEvent;
-import com.snxun.book.ui.money.bean.DataBean;
 import com.snxun.book.ui.money.adapter.RvListAdapter;
+import com.snxun.book.ui.money.bean.DataBean;
 import com.snxun.book.ui.money.update.UpdateActivity;
 import com.snxun.book.utils.sp.SpManager;
 
@@ -37,6 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class SearchActivity extends BaseActivity {
+
     /**
      *数据源
      */
@@ -78,7 +79,7 @@ public class SearchActivity extends BaseActivity {
     /**
      * 定义了一个数组List，里面只能存放DataBean
      */
-    private List<DataBean> mDetailsList;
+    private List<DataBean> mSearchList;
 
     /**
      * 数据库
@@ -115,8 +116,8 @@ public class SearchActivity extends BaseActivity {
      */
     private void initRecyclerView() {
         // 初始化数据列表
-        mDetailsList = new ArrayList<>();
-        mRvListAdapter = new RvListAdapter(getContext(), mDetailsList);
+        mSearchList = new ArrayList<>();
+        mRvListAdapter = new RvListAdapter(getContext(), mSearchList);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -146,7 +147,7 @@ public class SearchActivity extends BaseActivity {
             public void onClick(View view) {
                 String searchText = mSearchTextEdit.getText().toString().trim();
                 if (TextUtils.isEmpty(searchText)) {
-                    mDetailsList.clear();
+                    mSearchList.clear();
                     // 设置空列表的时候，显示为一张图片
                     //mSearchLv.setEmptyView(findViewById(R.id.search_empty_lin));
                 } else {
@@ -168,7 +169,7 @@ public class SearchActivity extends BaseActivity {
         mRvListAdapter.setOnItemClickListener(new RvListAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                DataBean dataBean = mDetailsList.get(position);
+                DataBean dataBean = mSearchList.get(position);
                 //EventBus的黏性postSticky
                 EventBus.getDefault().postSticky(new SearchUpdateEvent(dataBean));
                 UpdateActivity.start(getContext());
@@ -181,10 +182,10 @@ public class SearchActivity extends BaseActivity {
             @Override
             public void onClick(int position) {
                 // 获取所点击项的id
-                int intId = mDetailsList.get(position).getmId();
+                int intId = mSearchList.get(position).getmId();
                 String stringId =String.valueOf(intId);
                 // 获取所点击项的金额符号
-                String stringMoney=mDetailsList.get(position).getmMoney();
+                String stringMoney= mSearchList.get(position).getmMoney();
                 String symbolMoney=stringMoney.substring(0, 1);
 
                 // 通过Dialog提示是否删除
@@ -211,7 +212,7 @@ public class SearchActivity extends BaseActivity {
                                                 "删除成功" + num,
                                                 Toast.LENGTH_SHORT).show();
                                         // 删掉长按的item
-                                        mDetailsList.remove(position);
+                                        mSearchList.remove(position);
                                         // 动态更新listview
                                         mRvListAdapter.notifyDataSetChanged();
                                     } else {
@@ -230,7 +231,7 @@ public class SearchActivity extends BaseActivity {
                                                 "删除成功" + num,
                                                 Toast.LENGTH_SHORT).show();
                                         // 删掉长按的item
-                                        mDetailsList.remove(position);
+                                        mSearchList.remove(position);
                                         // 动态更新listview
                                         mRvListAdapter.notifyDataSetChanged();
                                     } else {
@@ -285,7 +286,7 @@ public class SearchActivity extends BaseActivity {
 
     public void setSearchData(int n, String str) {
         if (n == 1) {
-            mDetailsList.clear();
+            mSearchList.clear();
             DataBean dataBean;
             String userId = String.valueOf(mUserId);
             mCursor = mDb.query(
@@ -310,7 +311,7 @@ public class SearchActivity extends BaseActivity {
                             .getColumnIndex("aoremarks"));
                     dataBean = new DataBean(aocategory, aomoney, aoaccount,
                             aoremarks, aotime, aoid, mUserId);
-                    mDetailsList.add(dataBean);
+                    mSearchList.add(dataBean);
                 }
                 mCursor = mDb.query(
                         "income",
@@ -335,11 +336,11 @@ public class SearchActivity extends BaseActivity {
                                 .getColumnIndex("airemarks"));
                         dataBean = new DataBean(aicategory, aimoney, aiaccount,
                                 airemarks, aitime, aiid, mUserId);
-                        mDetailsList.add(dataBean);
+                        mSearchList.add(dataBean);
                     }
                 }
             }
-            Collections.sort(mDetailsList, new Comparator<DataBean>() {
+            Collections.sort(mSearchList, new Comparator<DataBean>() {
                 @Override
                 public int compare(DataBean lhs, DataBean rhs) {
                     // TODO Auto-generated method stub
@@ -364,7 +365,7 @@ public class SearchActivity extends BaseActivity {
     public void onUpdateSearchEvent(UpdateSearchEvent event) {
         dataBean = event.getDataBean();
         //更改修改过的List
-        mDetailsList.set(mPosition, dataBean);
+        mSearchList.set(mPosition, dataBean);
         mRvListAdapter.notifyDataSetChanged();
     }
 

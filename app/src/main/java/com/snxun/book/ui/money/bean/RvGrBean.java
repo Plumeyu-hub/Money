@@ -7,9 +7,9 @@ import java.io.Serializable;
  * @date 2020/07/20
  */
 public class RvGrBean implements Serializable {
-    public String name;
-    public int imgResId;
-    public boolean isSelected;
+    private String name;
+    private int imgResId;
+    private boolean isSelected;
 
     public RvGrBean(String name, int imgResId, boolean isSelected) {
         this.name = name;

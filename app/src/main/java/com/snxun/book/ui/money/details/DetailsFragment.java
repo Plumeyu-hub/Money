@@ -56,6 +56,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -82,6 +83,9 @@ public class DetailsFragment extends BaseFragment {
      */
     @BindView(R.id.details_rv)
     RecyclerView mRecyclerView;
+    /**
+     * RvList适配器
+     */
     private RvListAdapter mRvListAdapter;
     /**
      * 定义了一个数组List，里面只能存放DataBean
@@ -123,13 +127,26 @@ public class DetailsFragment extends BaseFragment {
      */
     @BindView(R.id.username_tv)
     TextView mUserNameTv;
+    /**
+     * 时间
+     * 定义显示时间控件
+     */
+    private Calendar mCalendar;
+    private int mYear;
+    private int mMonth;
+    private int mDay;
 
     /**
      * 退出应用的弹窗
      */
     private PopupWindow mPopupWindow;
-
+    /**
+     * 当前点击的list的id
+     */
     private int mPosition;
+    /**
+     * 数据源
+     */
     private DataBean dataBean;
 
     @Override
@@ -190,82 +207,7 @@ public class DetailsFragment extends BaseFragment {
         mRvListAdapter.setOnItemLongClickListener(new RvListAdapter.OnItemLongClickListener() {
             @Override
             public void onClick(int position) {
-                // 获取所点击项的id
-                int intId = mDetailsList.get(position).getmId();
-                String stringId =String.valueOf(intId);
-                // 获取所点击项的金额符号
-                String stringMoney=mDetailsList.get(position).getmMoney();
-                String symbolMoney=stringMoney.substring(0, 1);
-
-                // 通过Dialog提示是否删除
-                AlertDialog.Builder builder = new AlertDialog.Builder(
-                        getContext());
-                builder.setMessage("确定要删除吗？");
-                // 确定按钮点击事件
-                builder.setPositiveButton("确定",
-                        new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                String userId = String.valueOf(mUserId);
-                                // 删除指定数据
-                                int num;
-                                if (symbolMoney.equals("-")) {
-                                    // 删除数据，成功返回删除的数据的行数，失败返回0
-                                    num = mDb.delete("expenditure",
-                                            "aoid=? and aouserid=?",
-                                            new String[] { stringId + "", userId + "" });
-                                    if (num > 0) {
-                                        Toast.makeText(getContext(),
-                                                "删除成功" + num,
-                                                Toast.LENGTH_SHORT).show();
-                                        // 删掉长按的item
-                                        mDetailsList.remove(position);
-                                        // 动态更新listview
-                                        mRvListAdapter.notifyDataSetChanged();
-                                    } else {
-                                        Toast.makeText(getContext(),
-                                                "删除失败" + num,
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-
-                                } else if (symbolMoney.equals("+")) {
-                                    // 删除数据，成功返回删除的数据的行数，失败返回0
-                                    num = mDb.delete("income",
-                                            "aiid=? and aiuserid=?",
-                                            new String[] { stringId + "", userId + "" });
-                                    if (num > 0) {
-                                        Toast.makeText(getContext(),
-                                                "删除成功" + num,
-                                                Toast.LENGTH_SHORT).show();
-                                        // 删掉长按的item
-                                        mDetailsList.remove(position);
-                                        // 动态更新listview
-                                        mRvListAdapter.notifyDataSetChanged();
-                                    } else {
-                                        Toast.makeText(getContext(),
-                                                "删除失败" + num,
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                } else {
-                                    Toast.makeText(getContext(),
-                                            "删除失败", Toast.LENGTH_SHORT).show();
-                                }
-
-                            }
-                        });
-                // 取消按钮点击事件
-                builder.setNegativeButton("取消",
-                        new DialogInterface.OnClickListener() {
-
-                            @Override
-                            public void onClick(DialogInterface dialog,
-                                                int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                builder.create().show();
+                deleteListItem(position);
             }
         });
 
@@ -397,6 +339,7 @@ public class DetailsFragment extends BaseFragment {
         super.initData();
         initDb();
         showUserInfo();
+        setDate();
     }
 
     /**
@@ -475,6 +418,85 @@ public class DetailsFragment extends BaseFragment {
         mDb = requireActivity().openOrCreateDatabase("data.db", Context.MODE_PRIVATE, null);
     }
 
+    public void deleteListItem(int position){
+        // 获取所点击项的id
+        int intId = mDetailsList.get(position).getmId();
+        String stringId =String.valueOf(intId);
+        // 获取所点击项的金额符号
+        String stringMoney=mDetailsList.get(position).getmMoney();
+        String symbolMoney=stringMoney.substring(0, 1);
+
+        // 通过Dialog提示是否删除
+        AlertDialog.Builder builder = new AlertDialog.Builder(
+                getContext());
+        builder.setMessage("确定要删除吗？");
+        // 确定按钮点击事件
+        builder.setPositiveButton("确定",
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        String userId = String.valueOf(mUserId);
+                        // 删除指定数据
+                        int num;
+                        if (symbolMoney.equals("-")) {
+                            // 删除数据，成功返回删除的数据的行数，失败返回0
+                            num = mDb.delete("expenditure",
+                                    "aoid=? and aouserid=?",
+                                    new String[] { stringId + "", userId + "" });
+                            if (num > 0) {
+                                Toast.makeText(getContext(),
+                                        "删除成功" + num,
+                                        Toast.LENGTH_SHORT).show();
+                                // 删掉长按的item
+                                mDetailsList.remove(position);
+                                // 动态更新listview
+                                mRvListAdapter.notifyDataSetChanged();
+                            } else {
+                                Toast.makeText(getContext(),
+                                        "删除失败" + num,
+                                        Toast.LENGTH_SHORT).show();
+                            }
+
+                        } else if (symbolMoney.equals("+")) {
+                            // 删除数据，成功返回删除的数据的行数，失败返回0
+                            num = mDb.delete("income",
+                                    "aiid=? and aiuserid=?",
+                                    new String[] { stringId + "", userId + "" });
+                            if (num > 0) {
+                                Toast.makeText(getContext(),
+                                        "删除成功" + num,
+                                        Toast.LENGTH_SHORT).show();
+                                // 删掉长按的item
+                                mDetailsList.remove(position);
+                                // 动态更新listview
+                                mRvListAdapter.notifyDataSetChanged();
+                            } else {
+                                Toast.makeText(getContext(),
+                                        "删除失败" + num,
+                                        Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(getContext(),
+                                    "删除失败", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }
+                });
+        // 取消按钮点击事件
+        builder.setNegativeButton("取消",
+                new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog,
+                                        int which) {
+                        dialog.dismiss();
+                    }
+                });
+        builder.create().show();
+    }
+
     /**
      * 创建退出应用弹窗
      */
@@ -519,20 +541,21 @@ public class DetailsFragment extends BaseFragment {
         // null)的中间显示出来
     }
 
-    /**
-     * 获取当前日期
-     */
-    private Calendar mCalendar = Calendar.getInstance();
-    private int mYear = mCalendar.get(Calendar.YEAR);
-    private int mMonth = mCalendar.get(Calendar.MONTH);
-    private int mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
+    public void setDate() {
+        // 时间
+        mCalendar = Calendar.getInstance();
+        // 设置初始时间与当前系统时间一致
+        mYear = mCalendar.get(Calendar.YEAR);
+        mMonth = mCalendar.get(Calendar.MONTH);
+        mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
+    }
 
     private void showDatePicker() {
         // 创建并显示DatePickerDialog
-        DatePickerDialog dialog = new DatePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, Datelistener, mYear, mMonth, mDay);
+        DatePickerDialog dialog = new DatePickerDialog(Objects.requireNonNull(getActivity()), AlertDialog.THEME_HOLO_LIGHT, Datelistener, mYear, mMonth, mDay);
         dialog.show();
         // 只显示年月，隐藏掉日
-        DatePicker dp = findDatePicker((ViewGroup) dialog.getWindow().getDecorView());
+        DatePicker dp = findDatePicker((ViewGroup) Objects.requireNonNull(dialog.getWindow()).getDecorView());
         if (dp != null) {
             ((ViewGroup) ((ViewGroup) dp.getChildAt(0)).getChildAt(0))
                     .getChildAt(2).setVisibility(View.GONE);
@@ -604,7 +627,6 @@ public class DetailsFragment extends BaseFragment {
                         condition + "%", uid + ""}, null, null,
                 "aotime ASC");
         if (cs != null) {
-
             while (cs.moveToNext()) {
                 int aoid = cs.getInt(cs.getColumnIndex("aoid"));// 得到列名id对于的值
                 int aouserid = cs.getInt(cs.getColumnIndex("aouserid"));

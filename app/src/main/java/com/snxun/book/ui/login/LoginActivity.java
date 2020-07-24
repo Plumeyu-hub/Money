@@ -93,55 +93,7 @@ public class LoginActivity extends BaseActivity {
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Cursor cs;// 游标对象，用来报错查询返回的结果集
-                //获取输入框的内容
-                String username = mLoginUsernameEdit.getText().toString().trim();
-                String password = mLoginPasswordEdit.getText().toString().trim();
-                // 判断字符串为空
-                // if(zhanghao==null || zhanghao.equals("")) 另一种方法
-                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
-                    Toast.makeText(LoginActivity.this, "账号或者密码为空",
-                            Toast.LENGTH_LONG).show();
-                } else {
-                    // 查找数据库是否存在相同的用户名
-                    cs = mDb.query("user", new String[]{"userid", "username",
-                                    "password"}, "username=?",
-                            new String[]{username}, null, null, null);
-
-                    if (cs != null) {
-                        while (cs.moveToNext()) {
-                            mUsername = cs.getString(cs
-                                    .getColumnIndex("username"));
-                            mPassword = cs.getString(cs
-                                    .getColumnIndex("password"));
-                            mUserId = cs.getInt(cs.getColumnIndex("userid"));
-                        }
-
-                        if (username.equals(mUsername)
-                                && password.equals(mPassword)) {
-                            Toast.makeText(LoginActivity.this, "登录成功",
-                                    Toast.LENGTH_LONG).show();
-
-                            //存储用户的登录成功的状态
-                            SpManager.get().setUserStatus(true);
-                            //存储用户的登录Id
-                            SpManager.get().setUserId(mUserId);
-
-                            Intent i = new Intent(LoginActivity.this,
-                                    MainActivity.class);
-                            startActivity(i);
-                            finish();
-                        } else {
-                            Toast.makeText(LoginActivity.this, "您输入的密码有误",
-                                    Toast.LENGTH_LONG).show();
-                        }
-
-                    } else {
-                        Toast.makeText(LoginActivity.this, "当前账号不存在",
-                                Toast.LENGTH_LONG).show();
-                    }
-
-                }
+                login();
             }
         });
 
@@ -178,6 +130,9 @@ public class LoginActivity extends BaseActivity {
         mDb = openOrCreateDatabase("data.db", Context.MODE_PRIVATE, null);
     }
 
+    /**
+     * 判断登录状态
+     */
     private void isLoginStatus() {
         // 判断登录状态
         if (SpManager.get().getUserStatus()) {
@@ -191,12 +146,14 @@ public class LoginActivity extends BaseActivity {
         }
     }
 
+    /**
+     * 登录中进度条
+     */
     private Handler handler = new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message message) {
             if (message.what == 0) {
-                Intent i = new Intent(LoginActivity.this, MainActivity.class);
-                startActivity(i);
+                startActivity(new Intent(getContext(), MainActivity.class));
                 mLoginDialog.dismiss();
                 LoginActivity.this.finish();
             }
@@ -217,4 +174,58 @@ public class LoginActivity extends BaseActivity {
     // super.onDestroy();
     // }
 
+    /**
+     * 登录
+     */
+    public void login() {
+        Cursor cs;// 游标对象，用来报错查询返回的结果集
+        //获取输入框的内容
+        String username = mLoginUsernameEdit.getText().toString().trim();
+        String password = mLoginPasswordEdit.getText().toString().trim();
+        // 判断字符串为空
+        // if(zhanghao==null || zhanghao.equals("")) 另一种方法
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {
+            Toast.makeText(LoginActivity.this, "账号或者密码为空",
+                    Toast.LENGTH_LONG).show();
+        } else {
+            // 查找数据库是否存在相同的用户名
+            cs = mDb.query("user", new String[]{"userid", "username",
+                            "password"}, "username=?",
+                    new String[]{username}, null, null, null);
+
+            if (cs != null) {
+                while (cs.moveToNext()) {
+                    mUsername = cs.getString(cs
+                            .getColumnIndex("username"));
+                    mPassword = cs.getString(cs
+                            .getColumnIndex("password"));
+                    mUserId = cs.getInt(cs.getColumnIndex("userid"));
+                }
+
+                if (username.equals(mUsername)
+                        && password.equals(mPassword)) {
+                    Toast.makeText(LoginActivity.this, "登录成功",
+                            Toast.LENGTH_LONG).show();
+
+                    //存储用户的登录成功的状态
+                    SpManager.get().setUserStatus(true);
+                    //存储用户的登录Id
+                    SpManager.get().setUserId(mUserId);
+
+                    Intent i = new Intent(LoginActivity.this,
+                            MainActivity.class);
+                    startActivity(i);
+                    finish();
+                } else {
+                    Toast.makeText(LoginActivity.this, "您输入的密码有误",
+                            Toast.LENGTH_LONG).show();
+                }
+
+            } else {
+                Toast.makeText(LoginActivity.this, "当前账号不存在",
+                        Toast.LENGTH_LONG).show();
+            }
+
+        }
+    }
 }

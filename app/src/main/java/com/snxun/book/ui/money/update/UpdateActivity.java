@@ -311,7 +311,6 @@ public class UpdateActivity extends BaseActivity {
         initDb();
         showUserInfo();
         setSp();
-        setDate();
         showData();
     }
 
@@ -332,44 +331,39 @@ public class UpdateActivity extends BaseActivity {
         mUserId = SpManager.get().getUserId();
     }
 
-    public void setDate() {
-        // 时间
-        mCalendar = Calendar.getInstance();
-        // 设置初始时间与当前系统时间一致
-        mYear = mCalendar.get(Calendar.YEAR);
-        mMonth = mCalendar.get(Calendar.MONTH);
-        mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
-        updateDate();
-    }
-
     public void updateDate() {
         // 更新EditText控件日期 小于10加0
         mUpdateDateEdit.setText(new StringBuilder()
                 .append(mYear)
-                .append("-")
+                .append("")
                 .append((mMonth + 1) < 10 ? "0" + (mMonth + 1)
-                        : (mMonth + 1)).append("-")
+                        : (mMonth + 1)).append("")
                 .append((mDay < 10) ? "0" + mDay : mDay));
     }
 
     private void showDatePicker() {
+        // 修改year、month、day的变量值，以便以后单击按钮时，DatePickerDialog上显示上一次修改后的值
+        String nowDate=mUpdateDateEdit.getText().toString().trim();
+        mYear=Integer.parseInt(nowDate.substring(0,4));
+        mMonth=Integer.parseInt(nowDate.substring(4,6));
+        mDay=Integer.parseInt(nowDate.substring(6,8));
         // 创建并显示DatePickerDialog
         DatePickerDialog dialog = new DatePickerDialog(getContext(),
-                AlertDialog.THEME_HOLO_LIGHT, DateListener, mYear, mMonth, mDay);
+                AlertDialog.THEME_HOLO_LIGHT, DateListener,mYear,mMonth-1,mDay);
         dialog.show();
     }
 
     private DatePickerDialog.OnDateSetListener DateListener = new DatePickerDialog.OnDateSetListener() {
         /**
          * params：view：该事件关联的组件
-         * params：myyear：当前选择的年
-         * params：monthOfYear：当前选择的月
-         * params：dayOfMonth：当前选择的日
+         * params：year：当前选择的年
+         * params：month：当前选择的月
+         * params：day：当前选择的日
          */
         @Override
         public void onDateSet(DatePicker view, int year, int month,
                               int day) {
-            // 修改year、month、day的变量值，以便以后单击按钮时，DatePickerDialog上显示上一次修改后的值
+
             mYear = year;
             mMonth = month;
             mDay = day;

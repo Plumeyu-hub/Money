@@ -1,4 +1,4 @@
-package com.snxun.book.ui.money.search;
+package com.snxun.book.ui.my.budget.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
-import com.snxun.book.ui.money.bean.DataBean;
+import com.snxun.book.ui.my.budget.bean.BudgetBean;
 
 import java.util.List;
 
@@ -18,14 +18,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * @author 14043
- * @date 2020/7/22
+ * @author wangshy
+ * @date 2020/07/20
  */
-public class SearchRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class RvListBudgetAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-    private List<DataBean> mListData;
+    private List<BudgetBean> mListData;
 
-    public SearchRvAdapter(Context context, List<DataBean> mListData) {
+    public RvListBudgetAdapter(Context context, List<BudgetBean> mListData) {
         this.mContext = context;
         this.mListData = mListData;
     }
@@ -35,10 +35,10 @@ public class SearchRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         void onClick(int position);
     }
 
-    private SearchRvAdapter.OnItemClickListener mOnItemClickListener;
+    private RvListBudgetAdapter.OnItemClickListener mOnItemClickListener;
 
     //第二步， 写一个公共的方法
-    public void setOnItemClickListener(SearchRvAdapter.OnItemClickListener onItemClickListener) {
+    public void setOnItemClickListener(RvListBudgetAdapter.OnItemClickListener onItemClickListener) {
         this.mOnItemClickListener = onItemClickListener;
     }
 
@@ -46,9 +46,9 @@ public class SearchRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         void onClick(int position);
     }
 
-    private SearchRvAdapter.OnItemLongClickListener mOnItemLongClickListener;
+    private RvListBudgetAdapter.OnItemLongClickListener mOnItemLongClickListener;
 
-    public void setOnItemLongClickListener(SearchRvAdapter.OnItemLongClickListener onItemLongClickListener) {
+    public void setOnItemLongClickListener(RvListBudgetAdapter.OnItemLongClickListener onItemLongClickListener) {
         this.mOnItemLongClickListener = onItemLongClickListener;
     }
 
@@ -62,7 +62,7 @@ public class SearchRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new SearchRvAdapter.DataViewHolder(LayoutInflater.from(mContext).inflate(R.layout.rv_list, parent, false));
+        return new DataViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_rv_list_budget, parent, false));
     }
 
     /**
@@ -73,11 +73,11 @@ public class SearchRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
      */
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        DataBean dataBean = mListData.get(position);
-        if (dataBean == null || !(holder instanceof SearchRvAdapter.DataViewHolder)) {
+        BudgetBean budgetBean = mListData.get(position);
+        if (budgetBean == null || !(holder instanceof DataViewHolder)) {
             return;
         }
-        showItem((SearchRvAdapter.DataViewHolder) holder, dataBean);
+        showItem((DataViewHolder) holder, budgetBean);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,11 +99,12 @@ public class SearchRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         });
     }
 
-    private void showItem(SearchRvAdapter.DataViewHolder holder, DataBean dataBean) {
-        holder.rvListIdTv.setText(Integer.toString(dataBean.getmId()));
-        holder.rvListDateTv.setText(dataBean.getmDate());
-        holder.rvListCategoryTv.setText(dataBean.getmCategory());
-        holder.rvListMoneyTv.setText(dataBean.getmMoney());
+    private void showItem(DataViewHolder holder, BudgetBean budgetBean) {
+        holder.mBudgetIdTv.setText(Integer.toString(budgetBean.getmId()));
+        holder.mBudgetDateTv.setText(budgetBean.getmDate());
+        holder.mBudgetRemarksTv.setText(budgetBean.getmRemarks());
+        holder.mBudgetMoneyTv.setText(budgetBean.getmMoney());
+        holder.mBudgetMoneyTv.setSelected(budgetBean.getIsSelected());
     }
 
     /**
@@ -118,17 +119,17 @@ public class SearchRvAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     static class DataViewHolder extends RecyclerView.ViewHolder {
 
-        @BindView(R.id.rv_list_id_tv)
-        TextView rvListIdTv;
+        @BindView(R.id.budget_id_tv)
+        TextView mBudgetIdTv;
 
-        @BindView(R.id.rv_list_date_tv)
-        TextView rvListDateTv;
+        @BindView(R.id.budget_date_tv)
+        TextView mBudgetDateTv;
 
-        @BindView(R.id.rv_list_category_tv)
-        TextView rvListCategoryTv;
+        @BindView(R.id.budget_money_tv)
+        TextView mBudgetMoneyTv;
 
-        @BindView(R.id.rv_list_money_tv)
-        TextView rvListMoneyTv;
+        @BindView(R.id.budget_remarks_tv)
+        TextView mBudgetRemarksTv;
 
         private DataViewHolder(View itemView) {
             super(itemView);

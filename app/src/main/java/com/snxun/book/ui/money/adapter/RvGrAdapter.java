@@ -58,7 +58,7 @@ public class RvGrAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new DataViewHolder(LayoutInflater.from(mContext).inflate(R.layout.grid_item_add, parent, false));
+        return new DataViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_rv_gr, parent, false));
     }
 
     @Override

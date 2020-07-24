@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.text.TextUtils;
 import android.view.View;
@@ -26,6 +27,15 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AddBudgetActivity extends BaseActivity {
+
+    /**
+     * 跳转
+     */
+    public static void start(Context context) {
+        Intent starter = new Intent(context, AddBudgetActivity.class);
+        context.startActivity(starter);
+    }
+
     /**
      * 返回按钮
      */
@@ -53,28 +63,16 @@ public class AddBudgetActivity extends BaseActivity {
     EditText mAddBudgetRemarksEt;
 
     /**
-     * 获取et里的内容
+     * 年月日
      */
-    private String mMoney, mDate, mRemarks;
-
-    /**
-     * 获取当前日期
-     */
-    private Calendar mCalendar = Calendar.getInstance();
-    private int mYear = mCalendar.get(Calendar.YEAR);
-    private int mMonth = mCalendar.get(Calendar.MONTH);
-    private int mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
+    private int mYear;
+    private int mMonth;
+    private int mDay;
 
     /**
      * 数据库
      */
     private SQLiteDatabase mDb;
-    /**
-     * 存储工具栏
-     */
-    private ContentValues cv;
-
-    private int num = 0;
     /**
      * 当前登录的用户ID
      */
@@ -105,7 +103,7 @@ public class AddBudgetActivity extends BaseActivity {
             }
         });
 
-        //确认添加
+        //确认添加预算
         mAddBudgetBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 addBudget();
@@ -116,7 +114,7 @@ public class AddBudgetActivity extends BaseActivity {
         mAddBudgetDateEt.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateDate();
+                showDatePicker();
             }
         });
     }
@@ -127,17 +125,6 @@ public class AddBudgetActivity extends BaseActivity {
         initDb();
         showUserInfo();
         setDate();
-    }
-
-    /**
-     * 设置日期
-     */
-    private void setDate() {
-        mAddBudgetDateEt
-                .setText(new StringBuilder()
-                        .append(mYear)
-                        .append((mMonth + 1) < 10 ? "0" + (mMonth + 1)
-                                : (mMonth + 1)));
     }
 
     /**
@@ -157,59 +144,69 @@ public class AddBudgetActivity extends BaseActivity {
         mUserId = SpManager.get().getUserId();
     }
 
-
     public void addBudget() {
-        mMoney = mAddBudgetMoneyEt.getText().toString();
-        String rightMoney;
-        mDate = mAddBudgetDateEt.getText().toString();
-        mRemarks = mAddBudgetRemarksEt.getText().toString();
+        //获取et里的内容
+        String money, date, remarks;
+        //存储工具栏
+        ContentValues cv;
+        //数据库返回值
+        int num;
+        //获取et里的内容
+        money = mAddBudgetMoneyEt.getText().toString();
+        //应该存储的金额
+        String memoryMoney;
+        date = mAddBudgetDateEt.getText().toString();
+        remarks = mAddBudgetRemarksEt.getText().toString();
 
-        if (TextUtils.isEmpty(mMoney)) {
-            Toast.makeText(AddBudgetActivity.this, "请输入金额", Toast.LENGTH_LONG)
+        //判断et是否非空等
+        if (TextUtils.isEmpty(money)) {
+            Toast.makeText(getContext(), "请输入金额", Toast.LENGTH_LONG)
                     .show();
             return;
-        } else if (mMoney.indexOf('.') == 0) {
-            Toast.makeText(AddBudgetActivity.this, "请输入正确的金额",
+        } else if (money.indexOf('.') == 0) {
+            Toast.makeText(getContext(), "请输入正确的金额",
                     Toast.LENGTH_LONG).show();
             return;
-        } else if (mMoney.lastIndexOf('.') == (mMoney.length() - 1)) {
-            Toast.makeText(AddBudgetActivity.this, "请输入正确的金额",
+        } else if (money.lastIndexOf('.') == (money.length() - 1)) {
+            Toast.makeText(getContext(), "请输入正确的金额",
                     Toast.LENGTH_LONG).show();
             return;
         } else {
-            int dotNum = 0;// 小数点出现的个数
+            // 小数点出现的个数
+            int dotNum = 0;
             // 将金额字符串转为数组
-            char[] moneyChar = mMoney.toCharArray();
-            for (int k = 0; k < moneyChar.length; k++) {
-                if (moneyChar[k] == '.') {
+            char[] charMoney = money.toCharArray();
+            for (int k = 0; k < charMoney.length; k++) {
+                if (charMoney[k] == '.') {
                     dotNum++;
                 }
             }
             // 记录小数点后两位
             if (dotNum == 1) {
-                int m = mMoney.indexOf('.');
-                int n = mMoney.length();
+                int m = money.indexOf('.');
+                int n = money.length();
                 if (n - m == 2) {
-                    rightMoney = mMoney.substring(0,
-                            mMoney.indexOf('.'))
-                            + mMoney.substring(mMoney.indexOf('.'),
-                            mMoney.indexOf('.') + 2);
+                    memoryMoney = money.substring(0,
+                            money.indexOf('.'))
+                            + money.substring(money.indexOf('.'),
+                            money.indexOf('.') + 2);
                 } else {
-                    rightMoney = mMoney.substring(0,
-                            mMoney.indexOf('.'))
-                            + mMoney.substring(mMoney.indexOf('.'),
-                            mMoney.indexOf('.') + 3);
+                    memoryMoney = money.substring(0,
+                            money.indexOf('.'))
+                            + money.substring(money.indexOf('.'),
+                            money.indexOf('.') + 3);
                 }
             } else {
-                rightMoney = mMoney;
+                memoryMoney = money;
             }
         }
+        //当前登录的用户id
         String userId = String.valueOf(mUserId);
         // 在存储工具类里面存储要操作的数据，以键值对的方式存储，键表示标的列名，值就是要操作的值
         cv = new ContentValues();
-        cv.put("money", rightMoney);
-        cv.put("time", mDate);
-        cv.put("remarks", mRemarks);
+        cv.put("money", memoryMoney);
+        cv.put("time", date);
+        cv.put("remarks", remarks);
         cv.put("userid", userId);
         // 插入数据，成功返回当前行号，失败返回0
         num = (int) mDb.insert("budget", null, cv);
@@ -221,15 +218,29 @@ public class AddBudgetActivity extends BaseActivity {
         }
     }
 
-    private void updateDate() {
-        // 创建并显示DatePickerDialog
-        DatePickerDialog dialog = new DatePickerDialog(this,
-                AlertDialog.THEME_HOLO_LIGHT, Datelistener, mYear, mMonth, mDay);
-        dialog.show();
+    /**
+     * 设置初始时间与当前时间一致
+     */
+    public void setDate() {
+        // 时间
+        Calendar mCalendar = Calendar.getInstance();
+        // 设置初始时间与当前系统时间一致
+        mYear = mCalendar.get(Calendar.YEAR);
+        mMonth = mCalendar.get(Calendar.MONTH);
+        mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
+        //更新et里的时间
+        updateDate();
+    }
 
+
+    /**
+     * 创建并显示DatePickerDialog
+     */
+    private void showDatePicker() {
+        DatePickerDialog dialog = new DatePickerDialog(getContext(), AlertDialog.THEME_HOLO_LIGHT, Datelistener, mYear, mMonth, mDay);
+        dialog.show();
         // 只显示年月，隐藏掉日
-        DatePicker dp = findDatePicker((ViewGroup) Objects.requireNonNull(dialog.getWindow())
-                .getDecorView());
+        DatePicker dp = findDatePicker((ViewGroup) Objects.requireNonNull(dialog.getWindow()).getDecorView());
         if (dp != null) {
             ((ViewGroup) ((ViewGroup) dp.getChildAt(0)).getChildAt(0))
                     .getChildAt(2).setVisibility(View.GONE);
@@ -245,8 +256,9 @@ public class AddBudgetActivity extends BaseActivity {
                     return (DatePicker) child;
                 } else if (child instanceof ViewGroup) {
                     DatePicker result = findDatePicker((ViewGroup) child);
-                    if (result != null)
+                    if (result != null) {
                         return result;
+                    }
                 }
             }
         }
@@ -255,36 +267,33 @@ public class AddBudgetActivity extends BaseActivity {
 
     private DatePickerDialog.OnDateSetListener Datelistener = new DatePickerDialog.OnDateSetListener() {
         /**
-         * params：view 该事件关联的组件
-         * params：year 当前选择的年
-         * params：month 当前选择的月
-         * params：day 当前选择的日
+         * params：view：该事件关联的组件
+         * params：year：当前选择的年
+         * params：month：当前选择的月
+         * params：day：当前选择的日
          */
         @Override
-        public void onDateSet(DatePicker view, int year, int month,
-                              int day) {
-
+        public void onDateSet(DatePicker view, int year, int month, int day) {
             // 修改year、month、day的变量值，以便以后单击按钮时，DatePickerDialog上显示上一次修改后的值
             mYear = year;
             mMonth = month;
             mDay = day;
             // 更新日期
             updateDate();
-
         }
-
-        // 当DatePickerDialog关闭时，更新日期显示
-        private void updateDate() {
-            // 在TextView上显示日期
-            mAddBudgetDateEt
-                    .setText(new StringBuilder()
-                            .append(mYear)
-                            .append((mMonth + 1) < 10 ? "0" + (mMonth + 1)
-                                    : (mMonth + 1)));
-            mAddBudgetDateEt.setTextColor(getResources().getColor(
-                    R.color.color_333333));
-        }
-
     };
+
+    // 当DatePickerDialog关闭时，更新日期显示（更新et里的时间）
+    private void updateDate() {
+        // 在TextView上显示日期
+        mAddBudgetDateEt
+                .setText(new StringBuilder()
+                        .append(mYear)
+                        .append((mMonth + 1) < 10 ? "0" + (mMonth + 1)
+                                : (mMonth + 1)));
+        mAddBudgetDateEt.setTextColor(getResources().getColor(
+                R.color.color_333333));
+
+    }
 
 }

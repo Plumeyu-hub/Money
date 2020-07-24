@@ -575,9 +575,9 @@ public class AddInFragment extends BaseFragment {
     private DatePickerDialog.OnDateSetListener DateListener = new DatePickerDialog.OnDateSetListener() {
         /**
          * params：view：该事件关联的组件
-         * params：myyear：当前选择的年
-         * params：monthOfYear：当前选择的月
-         * params：dayOfMonth：当前选择的日
+         * params：year：当前选择的年
+         * params：month：当前选择的月
+         * params：day：当前选择的日
          */
         @Override
         public void onDateSet(DatePicker view, int year, int month,

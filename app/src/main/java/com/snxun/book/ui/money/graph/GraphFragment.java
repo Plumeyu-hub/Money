@@ -156,7 +156,7 @@ public class GraphFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 if (state) {// 可见
-                    mHideMoneyBtn.setBackgroundResource(R.drawable.ic_eye_nor);
+                    mHideMoneyBtn.setBackgroundResource(R.drawable.ic_eye_sel);
                     state =false;
 
                     mBalanceNumTv.setVisibility(View.GONE);
@@ -169,7 +169,7 @@ public class GraphFragment extends BaseFragment {
                     mInGoneNumTv.setVisibility(View.VISIBLE);
 
                 } else {// 隐藏
-                    mHideMoneyBtn.setBackgroundResource(R.drawable.ic_eye_sel);
+                    mHideMoneyBtn.setBackgroundResource(R.drawable.ic_eye_nor);
                     state = true;
 
                     mBalanceNumTv.setVisibility(View.VISIBLE);

@@ -6,86 +6,84 @@ public class BudgetBean implements Serializable {
     /**
      * 金额
      */
-    private String money;
+    private String mMoney;
     /**
      * 备注
      */
-    private String remarks;
+    private String mRemarks;
     /**
      * 时间
      */
-    private String date;
+    private String mDate;
     /**
      * 预算编号
      */
-    private int id;
+    private int mId;
     /**
      * 用户ID
      */
-    private int userId;
+    private int mUserId;
     /**
      * 颜色（是否超出预算）
      */
-    private String color;
+    private boolean isSelected;
 
-    public BudgetBean(String money, String remarks, String date, int num,
-                      int useridnum, String color) {
+    public BudgetBean(String mMoney, String mRemarks, String mDate, int mId,
+                      int mUserId, boolean isSelected) {
         super();
-        this.money = money;
-        this.remarks = remarks;
-        this.date = date;
-        this.id = num;
-        this.userId = useridnum;
-        this.setColor(color);
+        this.mMoney = mMoney;
+        this.mRemarks = mRemarks;
+        this.mDate = mDate;
+        this.mId = mId;
+        this.mUserId = mUserId;
+        this.isSelected = isSelected;
     }
 
-    public String getMoney() {
-        return money;
+    public String getmMoney() {
+        return mMoney;
     }
 
-    public void setMoney(String money) {
-        this.money = money;
+    public void setmMoney(String mMoney) {
+        this.mMoney = mMoney;
     }
 
-    public String getRemarks() {
-        return remarks;
+    public String getmRemarks() {
+        return mRemarks;
     }
 
-    public void setRemarks(String remarks) {
-        this.remarks = remarks;
+    public void setmRemarks(String mRemarks) {
+        this.mRemarks = mRemarks;
     }
 
-    public String getDate() {
-        return date;
+    public String getmDate() {
+        return mDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setmDate(String mDate) {
+        this.mDate = mDate;
     }
 
-    public int getId() {
-        return id;
+    public int getmId() {
+        return mId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setmId(int mId) {
+        this.mId = mId;
     }
 
-    public int getUserId() {
-        return userId;
+    public int getmUserId() {
+        return mUserId;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setmUserId(int mUserId) {
+        this.mUserId = mUserId;
     }
 
-    public String getColor() {
-        return color;
+    public boolean getIsSelected() {
+        return isSelected;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setIsSelected(boolean selected) {
+        isSelected = selected;
     }
-
-
 }

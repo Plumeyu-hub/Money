@@ -54,6 +54,9 @@ public class RegisteredActivity extends BaseActivity {
 	@BindView(R.id.registered_btn)
 	ImageView mRegisteredBtn;
 
+	/**
+	 *et的信息
+	 */
 	private String mUsername, mPassword, mPasswordTwo, mUsernameSql, mProblem,
 			mAnswer;
 	/**
@@ -61,7 +64,6 @@ public class RegisteredActivity extends BaseActivity {
 	 */
 	private SQLiteDatabase mDb;
 	private ContentValues mCv;// 存储工具栏
-	private int num = 0;
 	private Cursor mCursor;// 游标对象，用来报错查询返回的结果集
 
 	@Override
@@ -94,7 +96,7 @@ public class RegisteredActivity extends BaseActivity {
 
 			@Override
 			public void onClick(View view) {
-
+				int num;//数据库
 				mUsername = mRegisteredUsernameEdit.getText().toString().trim();
 				mPassword = mRegisteredPasswordEdit.getText().toString().trim();
 				mPasswordTwo = mRegisteredPasswordTwoEdit.getText().toString().trim();
@@ -111,9 +113,7 @@ public class RegisteredActivity extends BaseActivity {
 				} else if (mPassword.equals(mPasswordTwo) == false) {
 					Toast.makeText(RegisteredActivity.this,
 							"对不起，您输入的密码和确认密码不一致", Toast.LENGTH_LONG).show();
-
 				} else {
-
 					// 查找数据库是否存在相同的用户名
 					mCursor = mDb.query("user", new String[] { "username" },
 							"username like ? ", new String[] {mUsername},
@@ -147,7 +147,6 @@ public class RegisteredActivity extends BaseActivity {
 									"用户注册失败" + num, Toast.LENGTH_SHORT).show();
 						}
 					}
-
 				}
 			}
 		});

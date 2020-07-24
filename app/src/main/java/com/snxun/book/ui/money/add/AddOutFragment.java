@@ -380,89 +380,7 @@ public class AddOutFragment extends BaseFragment {
         mAddOutYesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String mMemoryMoney = ""; // 保留两位小数点的字符串
-                int dot = 0;// 小数点出现的个数
-                // 获取到金额
-                mMoney = mAddOutMoneyEdit.getText().toString().trim();
-                // 将金额字符串转为数组
-                char[] charMoney = mMoney.toCharArray();
-                for (int k = 0; k < charMoney.length; k++) {
-                    if (charMoney[k] == '.') {
-                        dot++;
-                    }
-                }
-                if (TextUtils.isEmpty(mMoney) && TextUtils.isEmpty(mCategory)) {
-                    Toast.makeText(getContext(), "请完善账单信息", Toast.LENGTH_LONG)
-                            .show();
-                    return;
-                } else if (TextUtils.isEmpty(mMoney)) {
-                    Toast.makeText(getContext(), "请输入账单金额", Toast.LENGTH_LONG)
-                            .show();
-                    return;
-                } else if (TextUtils.isEmpty(mCategory)) {
-                    Toast.makeText(getContext(), "请选择账单类别", Toast.LENGTH_LONG)
-                            .show();
-                    return;
-                } else if (dot > 1) {
-                    Toast.makeText(getContext(), "请输入正确的金额", Toast.LENGTH_LONG)
-                            .show();
-                    return;
-                } else if (mMoney.indexOf('.') == 0) {//小数点首次出现的位置是第一位
-                    Toast.makeText(getContext(), "请输入正确的金额", Toast.LENGTH_LONG)
-                            .show();
-                    return;
-                } else if (mMoney.lastIndexOf('.') == (mMoney.length() - 1)) {//小数点最后一次出现的位置是最后一位
-                    Toast.makeText(getContext(), "请输入正确的金额", Toast.LENGTH_LONG)
-                            .show();
-                    return;
-                } else {
-                    // 记录小数点后两位ao_dmoney
-                    if (dot == 1) {
-                        int length = mMoney.length();
-                        if (length - dot == 2) {
-                            mMemoryMoney = mMoney
-                                    .substring(0, mMoney.indexOf('.'))
-                                    + mMoney.substring(mMoney.indexOf('.'),
-                                    mMoney.indexOf('.') + 2);
-                        } else {
-                            mMemoryMoney = mMoney
-                                    .substring(0, mMoney.indexOf('.'))
-                                    + mMoney.substring(mMoney.indexOf('.'),
-                                    mMoney.indexOf('.') + 3);
-                        }
-                    } else {
-                        mMemoryMoney = mMoney;
-                    }
-                }
-                // 备注
-                mRemark = mAddOutSubmitRemarkBtn.getText().toString();
-                // 时间
-                String mNoSymbolDate = mAddOutDateEdit.getText().toString();
-                mDate = mNoSymbolDate.replace("-", "");
-
-                // 在存储工具类里面存储要操作的数据，以键值对的方式存储，键表示标的列名，值就是要操作的值
-                mCv = new ContentValues();
-                mCv.put("aocategory", mCategory);
-                mCv.put("aomoney", mMemoryMoney);
-                mCv.put("aoaccount", mAccount);
-                mCv.put("aoremarks", mRemark);
-                mCv.put("aotime", mDate);
-                mCv.put("aouserid", mUserId);
-                // 插入数据，成功返回当前行号，失败返回0
-                num = (int) mDb.insert("expenditure", null, mCv);
-                if (num > 0) {
-                    Toast.makeText(getContext(), "数据保存成功" + num, Toast.LENGTH_SHORT).show();
-                    String symbolMoney = "-" + mMemoryMoney;
-                    DataBean dataBean = new DataBean(mCategory, symbolMoney,
-                            mAccount, mRemark, mDate, num, mUserId);
-                    EventBus.getDefault().post(new AddDetailsEvent(dataBean));
-                    //该方法用于监听用户点击返回键的事件，也可以调用它来关闭view。
-                    Objects.requireNonNull(getActivity()).onBackPressed();
-                } else {
-
-                    Toast.makeText(getContext(), "数据保存失败" + num, Toast.LENGTH_SHORT).show();
-                    Objects.requireNonNull(getActivity()).onBackPressed();
-                }
+                addData();
             }
         });
 
@@ -586,6 +504,92 @@ public class AddOutFragment extends BaseFragment {
             updateDate();
         }
     };
+
+    public void addData() {
+        String mMemoryMoney = ""; // 保留两位小数点的字符串
+        int dot = 0;// 小数点出现的个数
+        // 获取到金额
+        mMoney = mAddOutMoneyEdit.getText().toString().trim();
+        // 将金额字符串转为数组
+        char[] charMoney = mMoney.toCharArray();
+        for (int k = 0; k < charMoney.length; k++) {
+            if (charMoney[k] == '.') {
+                dot++;
+            }
+        }
+        if (TextUtils.isEmpty(mMoney) && TextUtils.isEmpty(mCategory)) {
+            Toast.makeText(getContext(), "请完善账单信息", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        } else if (TextUtils.isEmpty(mMoney)) {
+            Toast.makeText(getContext(), "请输入账单金额", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        } else if (TextUtils.isEmpty(mCategory)) {
+            Toast.makeText(getContext(), "请选择账单类别", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        } else if (dot > 1) {
+            Toast.makeText(getContext(), "请输入正确的金额", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        } else if (mMoney.indexOf('.') == 0) {//小数点首次出现的位置是第一位
+            Toast.makeText(getContext(), "请输入正确的金额", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        } else if (mMoney.lastIndexOf('.') == (mMoney.length() - 1)) {//小数点最后一次出现的位置是最后一位
+            Toast.makeText(getContext(), "请输入正确的金额", Toast.LENGTH_LONG)
+                    .show();
+            return;
+        } else {
+            // 记录小数点后两位ao_dmoney
+            if (dot == 1) {
+                int length = mMoney.length();
+                if (length - dot == 2) {
+                    mMemoryMoney = mMoney
+                            .substring(0, mMoney.indexOf('.'))
+                            + mMoney.substring(mMoney.indexOf('.'),
+                            mMoney.indexOf('.') + 2);
+                } else {
+                    mMemoryMoney = mMoney
+                            .substring(0, mMoney.indexOf('.'))
+                            + mMoney.substring(mMoney.indexOf('.'),
+                            mMoney.indexOf('.') + 3);
+                }
+            } else {
+                mMemoryMoney = mMoney;
+            }
+        }
+        // 备注
+        mRemark = mAddOutSubmitRemarkBtn.getText().toString();
+        // 时间
+        String mNoSymbolDate = mAddOutDateEdit.getText().toString();
+        mDate = mNoSymbolDate.replace("-", "");
+
+        // 在存储工具类里面存储要操作的数据，以键值对的方式存储，键表示标的列名，值就是要操作的值
+        mCv = new ContentValues();
+        mCv.put("aocategory", mCategory);
+        mCv.put("aomoney", mMemoryMoney);
+        mCv.put("aoaccount", mAccount);
+        mCv.put("aoremarks", mRemark);
+        mCv.put("aotime", mDate);
+        mCv.put("aouserid", mUserId);
+        // 插入数据，成功返回当前行号，失败返回0
+        num = (int) mDb.insert("expenditure", null, mCv);
+        if (num > 0) {
+            Toast.makeText(getContext(), "数据保存成功" + num, Toast.LENGTH_SHORT).show();
+            String symbolMoney = "-" + mMemoryMoney;
+            DataBean dataBean = new DataBean(mCategory, symbolMoney,
+                    mAccount, mRemark, mDate, num, mUserId);
+            EventBus.getDefault().post(new AddDetailsEvent(dataBean));
+            //该方法用于监听用户点击返回键的事件，也可以调用它来关闭view。
+            Objects.requireNonNull(getActivity()).onBackPressed();
+        } else {
+            Toast.makeText(getContext(), "数据保存失败" + num, Toast.LENGTH_SHORT).show();
+            Objects.requireNonNull(getActivity()).onBackPressed();
+        }
+    }
+
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onSubmitRemarkEvent(SubmitRemarkEvent event) {
