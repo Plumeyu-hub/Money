@@ -57,7 +57,7 @@
                 android:layout_height="34dp"
                 android:layout_marginStart="12dp"
                 android:background="@null"
-                android:hint="@string/username_hint" />
+                android:hint="@string/registered_username_hint" />
 
             <View
                 android:layout_width="wrap_content"
@@ -93,7 +93,7 @@
                 android:layout_height="34dp"
                 android:layout_marginStart="12dp"
                 android:background="@null"
-                android:hint="@string/password_hint" />
+                android:hint="@string/registered_pswd_hint" />
 
             <View
                 android:layout_width="wrap_content"

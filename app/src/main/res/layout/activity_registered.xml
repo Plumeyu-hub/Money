@@ -56,7 +56,7 @@
                 android:layout_height="34dp"
                 android:layout_marginStart="12dp"
                 android:background="@null"
-                android:hint="@string/username_hint" />
+                android:hint="@string/registered_username_hint" />
 
             <View
                 android:layout_width="wrap_content"
@@ -92,7 +92,7 @@
                 android:layout_height="34dp"
                 android:layout_marginStart="12dp"
                 android:background="@null"
-                android:hint="@string/password_hint" />
+                android:hint="@string/registered_pswd_hint" />
 
             <View
                 android:layout_width="wrap_content"
@@ -128,7 +128,7 @@
                 android:layout_height="34dp"
                 android:layout_marginStart="12dp"
                 android:background="@null"
-                android:hint="@string/registered_password_two_hint" />
+                android:hint="@string/registered_pswd_confirm_hint" />
 
             <View
                 android:layout_width="wrap_content"
@@ -164,7 +164,7 @@
                 android:layout_height="34dp"
                 android:layout_marginStart="12dp"
                 android:background="@null"
-                android:hint="@string/problem_hint" />
+                android:hint="@string/registered_problem_hint" />
 
             <View
                 android:layout_width="wrap_content"
@@ -200,7 +200,7 @@
                 android:layout_height="34dp"
                 android:layout_marginStart="12dp"
                 android:background="@null"
-                android:hint="@string/answer_hint" />
+                android:hint="@string/registered_answer_hint" />
 
             <View
                 android:layout_width="wrap_content"

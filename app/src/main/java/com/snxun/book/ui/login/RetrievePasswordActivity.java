@@ -1,17 +1,17 @@
 package com.snxun.book.ui.login;
 
-import android.content.Context;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
+import com.snxun.book.db.DbFactory;
+import com.snxun.book.greendaolib.table.UserTable;
+import com.snxun.book.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,15 +51,6 @@ public class RetrievePasswordActivity extends BaseActivity {
 	@BindView(R.id.retrieve_password_tv)
 	TextView mRetrievePasswordTv;
 
-	private String mUsername, mProblem, mAnswer, mPasswordSql,
-			mProblemSql, mAnswerAql;
-
-	/**
-	 * 数据库
-	 */
-	private SQLiteDatabase mDb;
-	private Cursor mCursor;// 游标对象，用来报错查询返回的结果集
-
 	@Override
 	protected int getLayoutId() {
 		return R.layout.activity_retrieve_password;
@@ -89,65 +80,47 @@ public class RetrievePasswordActivity extends BaseActivity {
 		mRetrievePasswordBtn.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				retrievePw();
+				String account = mRetrievePasswordUsernameEdit.getText().toString().trim();
+				String question = mRetrievePasswordProblemEdit.getText().toString().trim();
+				String answer = mRetrievePasswordAnswerEdit.getText().toString().trim();
+				if (TextUtils.isEmpty(account)) {
+					ToastUtils.showShort(getContext(), R.string.registered_username_hint);
+					return;
+				}
+				if (TextUtils.isEmpty(question)) {
+					ToastUtils.showShort(getContext(), R.string.registered_problem_hint);
+					return;
+				}
+				if (TextUtils.isEmpty(answer)) {
+					ToastUtils.showShort(getContext(), R.string.registered_answer_hint);
+					return;
+				}
+				retrievePswd(account, question, answer);
 			}
 		});
 	}
 
-	@Override
-	protected void initData() {
-		super.initData();
-		initDb();
-	}
-
 	/**
-	 * 初始化数据库
+	 * 找回妈咪
+	 * @param account 账号
+	 * @param question 密保问题
+	 * @param answer 密保答案
 	 */
-	private void initDb() {
-		// 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
-		mDb = openOrCreateDatabase("data.db", Context.MODE_PRIVATE, null);
-	}
-
-	public void retrievePw(){
-		mUsername = mRetrievePasswordUsernameEdit.getText().toString().trim();
-		mProblem = mRetrievePasswordProblemEdit.getText().toString().trim();
-		mAnswer = mRetrievePasswordAnswerEdit.getText().toString().trim();
-
-		if (mUsername == null || mUsername.length() == 0
-				|| mProblem == null || mProblem.length() == 0
-				|| mAnswer == null || mAnswer.length() == 0) {
-			Toast.makeText(RetrievePasswordActivity.this, "对不起，请填写完整的注册信息",
-					Toast.LENGTH_LONG).show();
-		} else {
-			// 查找数据库是否存在相同的用户名
-			mCursor = mDb.query("user", new String[] { "username",
-							"password", "problem", "answer" }, "username=?",
-					new String[] {mUsername}, null, null, null);
-			if (mCursor != null) {
-				while (mCursor.moveToNext()) {
-					mPasswordSql = mCursor.getString(mCursor
-							.getColumnIndex("password"));
-					mProblemSql = mCursor.getString(mCursor
-							.getColumnIndex("problem"));
-					mAnswerAql = mCursor.getString(mCursor
-							.getColumnIndex("answer"));
-				}
-				if (mProblem.equals(mProblemSql)
-						&& mAnswer.equals(mAnswerAql)) {
-					Toast.makeText(RetrievePasswordActivity.this, "已查询到您的密码",
-							Toast.LENGTH_LONG).show();
-					mRetrievePasswordTv.setText("您的密码为：" + mPasswordSql);
-				} else {
-					Toast.makeText(RetrievePasswordActivity.this,
-							"您输入的密保信息有误", Toast.LENGTH_LONG).show();
-					mRetrievePasswordTv.setText(" ");
-				}
-			} else {
-				Toast.makeText(RetrievePasswordActivity.this, "未查询到该用户",
-						Toast.LENGTH_LONG).show();
-			}
-
+	private void retrievePswd(String account, String question, String answer) {
+		UserTable user = DbFactory.create().getUserInfo(account);
+		if (user == null){
+			ToastUtils.showShort(getContext(), R.string.retrieve_password_unregistered);
+			return;
 		}
+		if (!question.equals(user.getPswdQuestion())){
+			ToastUtils.showShort(getContext(), R.string.retrieve_password_question_error);
+			return;
+		}
+		if (!answer.equals(user.getPswdAnswer())){
+			ToastUtils.showShort(getContext(), R.string.retrieve_password_answer_error);
+			return;
+		}
+		ToastUtils.showShort(getContext(), R.string.retrieve_password_success);
+		mRetrievePasswordTv.setText(getString(R.string.retrieve_password_display, user.getPswd()));
 	}
-
 }

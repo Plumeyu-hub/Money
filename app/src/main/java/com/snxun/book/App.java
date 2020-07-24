@@ -1,6 +1,9 @@
 package com.snxun.book;
 
 import android.app.Application;
+import android.content.Context;
+
+import com.snxun.book.greendaolib.GreenDaoManager;
 
 /**
  * @author zhouL
@@ -18,6 +21,11 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
         sInstance = this;
+        initDb(getApplicationContext());
+    }
 
+    /** 初始化数据库 */
+    private void initDb(Context context) {
+        GreenDaoManager.get().init(context);
     }
 }

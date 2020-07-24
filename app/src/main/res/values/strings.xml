@@ -22,10 +22,7 @@
     <string name="delete_no">删除失败</string>
 
 
-    <string name="username_hint">请输入用户名</string>
-    <string name="problem_hint">请输入密保问题</string>
-    <string name="answer_hint">请输入密保答案</string>
-    <string name="password_hint">请输入密码</string>
+
 
     <string name="out">支出</string>
     <string name="in">收入</string>
@@ -42,14 +39,31 @@
     <string name="app_login">登录</string>
 
     <!-- 注册-->
-    <string name="registered_password_two_hint">请确认密码</string>
+    <string name="registered_pswd_confirm_hint">请输入确认密码</string>
+    <string name="registered_username_hint">请输入用户名</string>
+    <string name="registered_problem_hint">请输入密保问题</string>
+    <string name="registered_answer_hint">请输入密保答案</string>
+    <string name="registered_pswd_hint">请输入密码</string>
+    <string name="registered_pswd_inconsistent">密码和确认密码不一致</string>
+    <string name="registered_account_repeated">该账号已经被注册</string>
+    <string name="registered_success">注册成功</string>
 
     <!-- 登录-->
     <string name="login_logging">登录中。。。</string>
     <string name="login_forget_password">忘记密码？</string>
+    <string name="login_pswd_incorrect">您输入的密码有误</string>
+    <string name="login_success">登录成功</string>
+
 
     <!-- 找回密码-->
     <string name="retrieve_password_title">找回密码</string>
+    <string name="retrieve_password_unregistered">该账号尚未注册</string>
+    <string name="retrieve_password_question_error">密保问题有误</string>
+    <string name="retrieve_password_answer_error">密保答案有误</string>
+    <string name="retrieve_password_success">已查询到您的密码</string>
+    <string name="retrieve_password_display">您的密码为：%s</string>
+
+
 
     <!-- 备注-->
     <string name="submit_remark_title">请输入备注</string>
