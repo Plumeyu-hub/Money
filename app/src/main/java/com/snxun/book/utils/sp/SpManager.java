@@ -15,16 +15,16 @@ public class SpManager {
     private SpManager() {}
 
     /**
-     * 设置用户id
-     * @param userId 用户id
+     * 设置用户account
+     * @param userAccount 用户id
      */
-    public void setUserId(int userId){
-        SharedPreferencesUtils.putInt(SpConfig.USER_ID, userId);
+    public void setUserAccount(String userAccount){
+        SharedPreferencesUtils.putString(SpConfig.USER_ACCOUNT, userAccount);
     }
 
-    /** 获取用户id */
-    public int getUserId(){
-        return SharedPreferencesUtils.getInt(SpConfig.USER_ID, 0);
+    /** 获取用户account */
+    public String getUserAccount(){
+        return SharedPreferencesUtils.getString(SpConfig.USER_ACCOUNT,"" );
     }
 
     /**

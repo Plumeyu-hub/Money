@@ -76,7 +76,7 @@ public class AddBudgetActivity extends BaseActivity {
     /**
      * 当前登录的用户ID
      */
-    private int mUserId;
+    private String mUserId;
 
     @Override
     protected int getLayoutId() {
@@ -141,7 +141,7 @@ public class AddBudgetActivity extends BaseActivity {
      */
     private void showUserInfo() {
         //获取SharedPreferences对象
-        mUserId = SpManager.get().getUserId();
+        mUserId = SpManager.get().getUserAccount();
     }
 
     public void addBudget() {

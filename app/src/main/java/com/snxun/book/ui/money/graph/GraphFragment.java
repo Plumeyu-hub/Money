@@ -52,7 +52,7 @@ public class GraphFragment extends BaseFragment {
     /**
      * 当前登录的用户ID
      */
-    private int mUserId;
+    private String mUserId;
 
     /**
      * 选择日期按钮
@@ -204,7 +204,7 @@ public class GraphFragment extends BaseFragment {
      * 获取当前登录用户的Id
      */
     private void showUserInfo() {
-        mUserId = SpManager.get().getUserId();
+        mUserId = SpManager.get().getUserAccount();
     }
 
     // 获取当前日期

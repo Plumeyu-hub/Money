@@ -32,6 +32,7 @@ import com.snxun.book.event.DetailsUpdateEvent;
 import com.snxun.book.event.UpdateDetailsEvent;
 import com.snxun.book.ui.money.adapter.RvListAdapter;
 import com.snxun.book.ui.money.add.AddActivity;
+import com.snxun.book.ui.money.bean.BillBean;
 import com.snxun.book.ui.money.bean.DataBean;
 import com.snxun.book.ui.money.search.SearchActivity;
 import com.snxun.book.ui.money.update.UpdateActivity;
@@ -121,7 +122,7 @@ public class DetailsFragment extends BaseFragment {
     /**
      * 当前登录的用户ID
      */
-    private int mUserId;
+    private String mUserId;
     /**
      * 当前登录的用户名展示
      */
@@ -406,7 +407,7 @@ public class DetailsFragment extends BaseFragment {
      * 获取当前登录用户的Id
      */
     private void showUserInfo() {
-        mUserId = SpManager.get().getUserId();
+        mUserId = SpManager.get().getUserAccount();
         mUserNameTv.setText(String.valueOf(mUserId));
     }
 
@@ -629,7 +630,7 @@ public class DetailsFragment extends BaseFragment {
         if (cs != null) {
             while (cs.moveToNext()) {
                 int aoid = cs.getInt(cs.getColumnIndex("aoid"));// 得到列名id对于的值
-                int aouserid = cs.getInt(cs.getColumnIndex("aouserid"));
+                String aouserid = cs.getString(cs.getColumnIndex("aouserid"));
                 String aocategory = cs.getString(cs
                         .getColumnIndex("aocategory"));
                 String aomoney = "-"
@@ -654,7 +655,7 @@ public class DetailsFragment extends BaseFragment {
         if (cs != null) {
             while (cs.moveToNext()) {
                 int aiid = cs.getInt(cs.getColumnIndex("aiid"));// 得到列名id对于的值
-                int aiuserid = cs.getInt(cs.getColumnIndex("aiuserid"));
+                String aiuserid = cs.getString(cs.getColumnIndex("aiuserid"));
                 String aicategory = cs.getString(cs
                         .getColumnIndex("aicategory"));
                 String aimoney = "+"
@@ -702,7 +703,7 @@ public class DetailsFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onAddDetailsEvent(AddDetailsEvent event) {
-        dataBean = event.getDataBean();
+        BillBean billBean = event.getBillBean();
         String monthSelectorBtn = mMonthSelectorBtn.getText().toString();
         if (monthSelectorBtn.equals("请点击选择账单年月")) {
             mDetailsList.add(dataBean);

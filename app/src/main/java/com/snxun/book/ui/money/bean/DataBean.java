@@ -9,10 +9,10 @@ public class DataBean implements Serializable {
 	private String mRemarks;// 备注
 	private String mDate;// 时间
 	private int mId;
-	private int mUserId;
+	private String mUserId;
 
 	public DataBean(String mCategory, String mMoney, String mAccount,
-					String mRemarks, String mDate, int mId, int mUserId) {
+					String mRemarks, String mDate, int mId, String mUserId) {
 		super();
 		this.mCategory = mCategory;
 		this.mMoney = mMoney;
@@ -71,11 +71,11 @@ public class DataBean implements Serializable {
 		this.mDate = mDate;
 	}
 
-	public int getmUserId() {
+	public String getmUserId() {
 		return mUserId;
 	}
 
-	public void setmUserId(int mUserId) {
+	public void setmUserId(String mUserId) {
 		this.mUserId = mUserId;
 	}
 }

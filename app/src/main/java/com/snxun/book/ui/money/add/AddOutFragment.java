@@ -1,10 +1,8 @@
 package com.snxun.book.ui.money.add;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,7 +14,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -24,19 +21,24 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseFragment;
+import com.snxun.book.db.DbFactory;
 import com.snxun.book.event.AddDetailsEvent;
 import com.snxun.book.event.SubmitRemarkEvent;
-import com.snxun.book.ui.money.bean.DataBean;
 import com.snxun.book.ui.money.adapter.RvGrAdapter;
+import com.snxun.book.ui.money.bean.BillBean;
 import com.snxun.book.ui.money.bean.RvGrBean;
+import com.snxun.book.utils.ToastUtils;
 import com.snxun.book.utils.sp.SpManager;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -48,14 +50,19 @@ import butterknife.ButterKnife;
  * @date 2020/07/22
  */
 public class AddOutFragment extends BaseFragment {
-
-    String mCategory = "";// 类别
+    /**
+     * 类别
+     */
+    String mCategory = "";
     /**
      * 金额输入
      */
     @BindView(R.id.add_out_money_edit)
     EditText mAddOutMoneyEdit;
-    private String mMoney;
+    /**
+     * 输入框输入过程中的金额
+     */
+    private String mMoneyEdit;
     /**
      * 金额删除
      */
@@ -66,19 +73,19 @@ public class AddOutFragment extends BaseFragment {
      */
     @BindView(R.id.add_out_sp)
     Spinner mAddOutSp;
-    private String mAccount = "支付宝";
+    private String mMode = "支付宝";
     /**
      * 备注框
      */
     @BindView(R.id.add_out_submit_remark_btn)
     EditText mAddOutSubmitRemarkBtn;
-    private String mRemark;
+    //private String mRemark;
     /**
      * 日期选择
      */
     @BindView(R.id.add_out_date_edit)
     EditText mAddOutDateEdit;
-    private String mDate;
+    //private String mDate;
     // 定义显示时间控件
     private Calendar mCalendar;
     // 通过Calendar获取系统时间
@@ -156,15 +163,9 @@ public class AddOutFragment extends BaseFragment {
     private List<RvGrBean> mGrDataList;
 
     /**
-     * 数据库
-     */
-    private SQLiteDatabase mDb;
-    private ContentValues mCv;// 存储工具栏
-    private int num = 0;
-    /**
      * 当前登录的用户ID
      */
-    private int mUserId;
+    private String mAccount;
 
     private String[] iconName = {"餐厅", "食材", "外卖", "水果", "零食", "烟酒茶水",
             "住房", "水电煤", "交通", "汽车", "购物", "快递", "通讯", "鞋服饰品", "日用品", "美容",
@@ -248,133 +249,133 @@ public class AddOutFragment extends BaseFragment {
         mAddOutOneBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMoney = mAddOutMoneyEdit.getText().toString().trim();
-                mMoney = mMoney + "1";
-                if (mMoney.length() > 6) {
-                    mMoney = mMoney.substring(0, 6);
+                mMoneyEdit = mAddOutMoneyEdit.getText().toString().trim();
+                mMoneyEdit = mMoneyEdit + "1";
+                if (mMoneyEdit.length() > 6) {
+                    mMoneyEdit = mMoneyEdit.substring(0, 6);
                 }
-                mAddOutMoneyEdit.setText(mMoney);
+                mAddOutMoneyEdit.setText(mMoneyEdit);
             }
         });
         mAddOutTwoBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMoney = mAddOutMoneyEdit.getText().toString().trim();
-                mMoney = mMoney + "2";
-                if (mMoney.length() > 6) {
-                    mMoney = mMoney.substring(0, 6);
+                mMoneyEdit = mAddOutMoneyEdit.getText().toString().trim();
+                mMoneyEdit = mMoneyEdit + "2";
+                if (mMoneyEdit.length() > 6) {
+                    mMoneyEdit = mMoneyEdit.substring(0, 6);
                 }
-                mAddOutMoneyEdit.setText(mMoney);
+                mAddOutMoneyEdit.setText(mMoneyEdit);
             }
         });
         mAddOutThreeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMoney = mAddOutMoneyEdit.getText().toString().trim();
-                mMoney = mMoney + "3";
-                if (mMoney.length() > 6) {
-                    mMoney = mMoney.substring(0, 6);
+                mMoneyEdit = mAddOutMoneyEdit.getText().toString().trim();
+                mMoneyEdit = mMoneyEdit + "3";
+                if (mMoneyEdit.length() > 6) {
+                    mMoneyEdit = mMoneyEdit.substring(0, 6);
                 }
-                mAddOutMoneyEdit.setText(mMoney);
+                mAddOutMoneyEdit.setText(mMoneyEdit);
             }
         });
         mAddOutFourBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMoney = mAddOutMoneyEdit.getText().toString().trim();
-                mMoney = mMoney + "4";
-                if (mMoney.length() > 6) {
-                    mMoney = mMoney.substring(0, 6);
+                mMoneyEdit = mAddOutMoneyEdit.getText().toString().trim();
+                mMoneyEdit = mMoneyEdit + "4";
+                if (mMoneyEdit.length() > 6) {
+                    mMoneyEdit = mMoneyEdit.substring(0, 6);
                 }
-                mAddOutMoneyEdit.setText(mMoney);
+                mAddOutMoneyEdit.setText(mMoneyEdit);
             }
         });
         mAddOutFiveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMoney = mAddOutMoneyEdit.getText().toString().trim();
-                mMoney = mMoney + "5";
-                if (mMoney.length() > 6) {
-                    mMoney = mMoney.substring(0, 6);
+                mMoneyEdit = mAddOutMoneyEdit.getText().toString().trim();
+                mMoneyEdit = mMoneyEdit + "5";
+                if (mMoneyEdit.length() > 6) {
+                    mMoneyEdit = mMoneyEdit.substring(0, 6);
                 }
-                mAddOutMoneyEdit.setText(mMoney);
+                mAddOutMoneyEdit.setText(mMoneyEdit);
             }
         });
         mAddOutSixBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMoney = mAddOutMoneyEdit.getText().toString().trim();
-                mMoney = mMoney + "6";
-                if (mMoney.length() > 6) {
-                    mMoney = mMoney.substring(0, 6);
+                mMoneyEdit = mAddOutMoneyEdit.getText().toString().trim();
+                mMoneyEdit = mMoneyEdit + "6";
+                if (mMoneyEdit.length() > 6) {
+                    mMoneyEdit = mMoneyEdit.substring(0, 6);
                 }
-                mAddOutMoneyEdit.setText(mMoney);
+                mAddOutMoneyEdit.setText(mMoneyEdit);
             }
         });
         mAddOutSevenBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMoney = mAddOutMoneyEdit.getText().toString().trim();
-                mMoney = mMoney + "7";
-                if (mMoney.length() > 6) {
-                    mMoney = mMoney.substring(0, 6);
+                mMoneyEdit = mAddOutMoneyEdit.getText().toString().trim();
+                mMoneyEdit = mMoneyEdit + "7";
+                if (mMoneyEdit.length() > 6) {
+                    mMoneyEdit = mMoneyEdit.substring(0, 6);
                 }
-                mAddOutMoneyEdit.setText(mMoney);
+                mAddOutMoneyEdit.setText(mMoneyEdit);
             }
         });
         mAddOutEightBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMoney = mAddOutMoneyEdit.getText().toString().trim();
-                mMoney = mMoney + "8";
-                if (mMoney.length() > 6) {
-                    mMoney = mMoney.substring(0, 6);
+                mMoneyEdit = mAddOutMoneyEdit.getText().toString().trim();
+                mMoneyEdit = mMoneyEdit + "8";
+                if (mMoneyEdit.length() > 6) {
+                    mMoneyEdit = mMoneyEdit.substring(0, 6);
                 }
-                mAddOutMoneyEdit.setText(mMoney);
+                mAddOutMoneyEdit.setText(mMoneyEdit);
             }
         });
         mAddOutNineBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMoney = mAddOutMoneyEdit.getText().toString().trim();
-                mMoney = mMoney + "9";
-                if (mMoney.length() > 6) {
-                    mMoney = mMoney.substring(0, 6);
+                mMoneyEdit = mAddOutMoneyEdit.getText().toString().trim();
+                mMoneyEdit = mMoneyEdit + "9";
+                if (mMoneyEdit.length() > 6) {
+                    mMoneyEdit = mMoneyEdit.substring(0, 6);
                 }
-                mAddOutMoneyEdit.setText(mMoney);
+                mAddOutMoneyEdit.setText(mMoneyEdit);
             }
         });
         mAddOutZeroBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMoney = mAddOutMoneyEdit.getText().toString().trim();
-                mMoney = mMoney + "0";
-                if (mMoney.length() > 6) {
-                    mMoney = mMoney.substring(0, 6);
+                mMoneyEdit = mAddOutMoneyEdit.getText().toString().trim();
+                mMoneyEdit = mMoneyEdit + "0";
+                if (mMoneyEdit.length() > 6) {
+                    mMoneyEdit = mMoneyEdit.substring(0, 6);
                 }
-                mAddOutMoneyEdit.setText(mMoney);
+                mAddOutMoneyEdit.setText(mMoneyEdit);
             }
         });
         mAddOutDotBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMoney = mAddOutMoneyEdit.getText().toString().trim();
-                mMoney = mMoney + ".";
-                if (mMoney.length() > 6) {
-                    mMoney = mMoney.substring(0, 6);
+                mMoneyEdit = mAddOutMoneyEdit.getText().toString().trim();
+                mMoneyEdit = mMoneyEdit + ".";
+                if (mMoneyEdit.length() > 6) {
+                    mMoneyEdit = mMoneyEdit.substring(0, 6);
                 }
-                mAddOutMoneyEdit.setText(mMoney);
+                mAddOutMoneyEdit.setText(mMoneyEdit);
             }
         });
         mAddOutMoneyDeleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mMoney = mAddOutMoneyEdit.getText().toString().trim();
-                if (mMoney.length() > 0) {
-                    mMoney = mMoney
-                            .substring(0, mMoney.length() - 1);
+                mMoneyEdit = mAddOutMoneyEdit.getText().toString().trim();
+                if (mMoneyEdit.length() > 0) {
+                    mMoneyEdit = mMoneyEdit
+                            .substring(0, mMoneyEdit.length() - 1);
                 }
-                mAddOutMoneyEdit.setText(mMoney);
+                mAddOutMoneyEdit.setText(mMoneyEdit);
             }
         });
         mAddOutYesBtn.setOnClickListener(new View.OnClickListener() {
@@ -405,7 +406,6 @@ public class AddOutFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
-        initDb();
         showUserInfo();
         setSp();
         setDate();
@@ -415,16 +415,7 @@ public class AddOutFragment extends BaseFragment {
      * 获取当前登录用户的Id
      */
     private void showUserInfo() {
-        mUserId = SpManager.get().getUserId();
-    }
-
-    /**
-     * 初始化数据库
-     */
-    private void initDb() {
-        // 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
-        mDb = requireActivity().openOrCreateDatabase("data.db", Context.MODE_PRIVATE, null);
-        mDb.execSQL("create table if not exists expenditure (aoid integer primary key,aocategory text,aomoney text,aotime text,aoaccount text,aoremarks text,aouserid integer)");
+        mAccount = SpManager.get().getUserAccount();
     }
 
     public void setSp() {
@@ -444,7 +435,7 @@ public class AddOutFragment extends BaseFragment {
                                        int arg2, long arg3) {
                 // 设置显示当前选择的项
                 arg0.setVisibility(View.VISIBLE);
-                mAccount = mAccountSpItem[arg2];
+                mMode = mAccountSpItem[arg2];
                 // Toast.makeText(AddActivity.this, items[arg2], 0).show();
                 // 注意： 这句话的作用是当下拉列表刚显示出来的时候，数组中第0个文本不会显示Toast
                 // 如果没有这句话，当下拉列表刚显示出来的时候，数组中第0个文本会显示Toast
@@ -481,7 +472,7 @@ public class AddOutFragment extends BaseFragment {
 
     private void showDatePicker() {
         // 创建并显示DatePickerDialog
-        DatePickerDialog dialog = new DatePickerDialog(getActivity(),
+        DatePickerDialog dialog = new DatePickerDialog(Objects.requireNonNull(getActivity()),
                 AlertDialog.THEME_HOLO_LIGHT, DateListener, mYear, mMonth, mDay);
         dialog.show();
     }
@@ -506,88 +497,71 @@ public class AddOutFragment extends BaseFragment {
     };
 
     public void addData() {
-        String mMemoryMoney = ""; // 保留两位小数点的字符串
-        int dot = 0;// 小数点出现的个数
+        //符号
+        int mSymbol = 1;
+        // 时间
+        Date mDate = null;
+        String mDateEdit = mAddOutDateEdit.getText().toString();
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟
+        try {
+            mDate = sdf.parse(mDateEdit);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        // 备注
+        String mRemark = mAddOutSubmitRemarkBtn.getText().toString();
         // 获取到金额
-        mMoney = mAddOutMoneyEdit.getText().toString().trim();
+        mMoneyEdit = mAddOutMoneyEdit.getText().toString().trim();
+        String mMoney = ""; // 保留两位小数点的字符串(最后存入数据库保存的)
+        int dot = 0;// 小数点出现的个数
         // 将金额字符串转为数组
-        char[] charMoney = mMoney.toCharArray();
+        char[] charMoney = mMoneyEdit.toCharArray();
         for (int k = 0; k < charMoney.length; k++) {
             if (charMoney[k] == '.') {
                 dot++;
             }
         }
-        if (TextUtils.isEmpty(mMoney) && TextUtils.isEmpty(mCategory)) {
-            Toast.makeText(getContext(), "请完善账单信息", Toast.LENGTH_LONG)
-                    .show();
+        if (TextUtils.isEmpty(mCategory)) {
+            ToastUtils.showShort(getContext(), "请选择账单的类别");
             return;
-        } else if (TextUtils.isEmpty(mMoney)) {
-            Toast.makeText(getContext(), "请输入账单金额", Toast.LENGTH_LONG)
-                    .show();
+        }
+        if (TextUtils.isEmpty(mMoneyEdit)) {
+            ToastUtils.showShort(getContext(), "请输入账单的金额");
             return;
-        } else if (TextUtils.isEmpty(mCategory)) {
-            Toast.makeText(getContext(), "请选择账单类别", Toast.LENGTH_LONG)
-                    .show();
+        }
+        if (dot > 1) {
+            ToastUtils.showShort(getContext(), "请输入正确的金额");
             return;
-        } else if (dot > 1) {
-            Toast.makeText(getContext(), "请输入正确的金额", Toast.LENGTH_LONG)
-                    .show();
+        }
+        if (mMoneyEdit.indexOf('.') == 0) {//小数点首次出现的位置是第一位
+            ToastUtils.showShort(getContext(), "请输入正确的金额");
             return;
-        } else if (mMoney.indexOf('.') == 0) {//小数点首次出现的位置是第一位
-            Toast.makeText(getContext(), "请输入正确的金额", Toast.LENGTH_LONG)
-                    .show();
+        }
+        if (mMoneyEdit.lastIndexOf('.') == (mMoneyEdit.length() - 1)) {//小数点最后一次出现的位置是最后一位
+            ToastUtils.showShort(getContext(), "请输入正确的金额");
             return;
-        } else if (mMoney.lastIndexOf('.') == (mMoney.length() - 1)) {//小数点最后一次出现的位置是最后一位
-            Toast.makeText(getContext(), "请输入正确的金额", Toast.LENGTH_LONG)
-                    .show();
-            return;
-        } else {
-            // 记录小数点后两位ao_dmoney
-            if (dot == 1) {
-                int length = mMoney.length();
-                if (length - dot == 2) {
-                    mMemoryMoney = mMoney
-                            .substring(0, mMoney.indexOf('.'))
-                            + mMoney.substring(mMoney.indexOf('.'),
-                            mMoney.indexOf('.') + 2);
-                } else {
-                    mMemoryMoney = mMoney
-                            .substring(0, mMoney.indexOf('.'))
-                            + mMoney.substring(mMoney.indexOf('.'),
-                            mMoney.indexOf('.') + 3);
-                }
+        }
+        // 记录小数点后两位ao_dmoney
+        if (dot == 1) {
+            int length = mMoneyEdit.length();
+            if (length - dot == 2) {
+                mMoney = mMoneyEdit
+                        .substring(0, mMoneyEdit.indexOf('.'))
+                        + mMoneyEdit.substring(mMoneyEdit.indexOf('.'),
+                        mMoneyEdit.indexOf('.') + 2);
+                return;
             } else {
-                mMemoryMoney = mMoney;
+                mMoney = mMoneyEdit
+                        .substring(0, mMoneyEdit.indexOf('.'))
+                        + mMoneyEdit.substring(mMoneyEdit.indexOf('.'),
+                        mMoneyEdit.indexOf('.') + 3);
             }
-        }
-        // 备注
-        mRemark = mAddOutSubmitRemarkBtn.getText().toString();
-        // 时间
-        String mNoSymbolDate = mAddOutDateEdit.getText().toString();
-        mDate = mNoSymbolDate.replace("-", "");
-
-        // 在存储工具类里面存储要操作的数据，以键值对的方式存储，键表示标的列名，值就是要操作的值
-        mCv = new ContentValues();
-        mCv.put("aocategory", mCategory);
-        mCv.put("aomoney", mMemoryMoney);
-        mCv.put("aoaccount", mAccount);
-        mCv.put("aoremarks", mRemark);
-        mCv.put("aotime", mDate);
-        mCv.put("aouserid", mUserId);
-        // 插入数据，成功返回当前行号，失败返回0
-        num = (int) mDb.insert("expenditure", null, mCv);
-        if (num > 0) {
-            Toast.makeText(getContext(), "数据保存成功" + num, Toast.LENGTH_SHORT).show();
-            String symbolMoney = "-" + mMemoryMoney;
-            DataBean dataBean = new DataBean(mCategory, symbolMoney,
-                    mAccount, mRemark, mDate, num, mUserId);
-            EventBus.getDefault().post(new AddDetailsEvent(dataBean));
-            //该方法用于监听用户点击返回键的事件，也可以调用它来关闭view。
-            Objects.requireNonNull(getActivity()).onBackPressed();
         } else {
-            Toast.makeText(getContext(), "数据保存失败" + num, Toast.LENGTH_SHORT).show();
-            Objects.requireNonNull(getActivity()).onBackPressed();
+            mMoney = mMoneyEdit;
         }
+        Long mLongMoney = Long.parseLong(mMoney);
+        add(mCategory, mLongMoney, mDate, mMode, mRemark, mSymbol, mAccount);
+
     }
 
 
@@ -604,4 +578,28 @@ public class AddOutFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);
     }
 
+    /**
+     * 添加账单
+     *
+     * @param category  类别
+     * @param longMoney 金额
+     * @param date      日期
+     * @param mode      (金额扣除或增加的)账户或方式
+     * @param remark    备注
+     * @param symbol    符号（0为支出，1为收入）
+     * @param account   用户账号
+     */
+    public void add(String category, Long longMoney, Date date, String mode, String remark, int symbol, String account) {
+        boolean isSaveSuccess = DbFactory.create().saveBillInfo(category, longMoney, date, mode, remark, symbol, account);
+        if (!isSaveSuccess) {
+            ToastUtils.showShort(getContext(), "数据保存失败");
+            return;
+        }
+        ToastUtils.showShort(getContext(), "数据保存成功");
+        BillBean billBean = new BillBean(category, longMoney,
+                date, mode, remark, symbol, account);
+        EventBus.getDefault().post(new AddDetailsEvent(billBean));
+        //该方法用于监听用户点击返回键的事件，也可以调用它来关闭view。
+        Objects.requireNonNull(getActivity()).onBackPressed();
+    }
 }

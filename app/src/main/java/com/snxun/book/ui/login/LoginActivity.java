@@ -153,6 +153,8 @@ public class LoginActivity extends BaseActivity {
         ToastUtils.showShort(getContext(), R.string.login_success);
         //存储用户的登录成功的状态
         SpManager.get().setUserStatus(true);
+        //存储用户的登录Id
+        SpManager.get().setUserAccount(account);
         MainActivity.start(getContext());
         finish();
     }
