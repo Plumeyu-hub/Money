@@ -92,13 +92,13 @@ public class GreenDaoImpl implements DbHelper {
      * @param account 账号
      */
     @Override
-    public List<BillTable> getAllAccountBillInfo(String account,Date date,Date detea) {
-            return GreenDaoManager.get().getDaoSession()
-                    .getBillTableDao()
-                    .queryBuilder()
-                    .where(BillTableDao.Properties.Account.eq(account),BillTableDao.Properties.Date.between(date,detea))
-                    .orderAsc(BillTableDao.Properties.Date)
-                    .list();
+    public List<BillTable> getAllAccountBillInfo(String account, Date date, Date detea) {
+        return GreenDaoManager.get().getDaoSession()
+                .getBillTableDao()
+                .queryBuilder()
+                .where(BillTableDao.Properties.Account.eq(account), BillTableDao.Properties.Date.between(date, detea))
+                .orderAsc(BillTableDao.Properties.Date)
+                .list();
     }
 
 }

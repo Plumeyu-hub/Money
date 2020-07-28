@@ -10,8 +10,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
+import com.snxun.book.config.Constants;
 import com.snxun.book.greendaolib.table.BillTable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -25,9 +27,12 @@ public class RvListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     private Context mContext;
     private List<BillTable> mListData;
 
-    public RvListAdapter(Context context, List<BillTable> mListData) {
+    public RvListAdapter(Context context) {
         this.mContext = context;
-        this.mListData = mListData;
+    }
+
+    public void setData(List<BillTable> list) {
+        mListData = list == null ? new ArrayList<>() : list;
     }
 
     //第一步 定义接口
@@ -104,14 +109,7 @@ public class RvListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         holder.rvListDateTv.setText(billTable.getDate().toString());
         holder.rvListCategoryTv.setText(billTable.getCategory());
         int symbol=billTable.getSymbol();
-        if(symbol==0){
-            holder.rvListMoneyTv.setText(Integer.parseInt("-"+String.valueOf(billTable.getMoney())));
-            return;
-        }
-        if(symbol==1){
-            holder.rvListMoneyTv.setText(Integer.parseInt("+"+String.valueOf(billTable.getMoney())));
-            return;
-        }
+        holder.rvListMoneyTv.setText(String.valueOf((symbol == Constants.EXPENDITURE ? "-" : "+") + billTable.getMoney()));
     }
 
     /**

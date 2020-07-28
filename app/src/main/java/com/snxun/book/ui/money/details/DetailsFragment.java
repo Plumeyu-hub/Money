@@ -158,7 +158,7 @@ public class DetailsFragment extends BaseFragment {
     private void initRecyclerView() {
         // 初始化数据列表
         mDetailsList = new ArrayList<>();
-        mRvListAdapter = new RvListAdapter(getContext(), mDetailsList);
+        mRvListAdapter = new RvListAdapter(getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         layoutManager.setOrientation(RecyclerView.VERTICAL);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -555,23 +555,8 @@ public class DetailsFragment extends BaseFragment {
             e.printStackTrace();
         }
 
-        mDetailsList.clear();
-        List<BillTable> list = new ArrayList();
-        list= DbFactory.create().getAllAccountBillInfo(mAccount,mDate,detea);
-
-        for(int i=0;i<=list.size();i++){
-            Long id=list.get(i).getId();
-            String category=list.get(i).getCategory();
-            Long money=list.get(i).getMoney();
-            Date date=list.get(i).getDate();
-            String mode=list.get(i).getMode();
-            String remark=list.get(i).getRemark();
-            int symbol=list.get(i).getSymbol();
-            String account=list.get(i).getAccount();
-            mBillTable = new BillTable(id,category, money, date,
-                    mode, remark, symbol, account);
-            mDetailsList.add(mBillTable);
-        }
+        mDetailsList = DbFactory.create().getAllAccountBillInfo(mAccount,mDate,detea);
+        mRvListAdapter.setData(mDetailsList);
         mRvListAdapter.notifyDataSetChanged();
         // 设置空列表的时候，显示为一张图片
         //mDetailsList.setEmptyView(getActivity().findViewById(R.id.details_empty_lin));
