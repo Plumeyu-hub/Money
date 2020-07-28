@@ -8,6 +8,7 @@ import java.util.Date;
  * @date 2020/07/27
  */
 public class BillBean implements Serializable {
+    private Long id;
     private String category;// 类别
     private Long money;// 金额
     private Date date;// 日期

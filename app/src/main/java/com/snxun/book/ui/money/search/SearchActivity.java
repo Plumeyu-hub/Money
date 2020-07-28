@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
@@ -28,7 +27,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -108,22 +106,22 @@ public class SearchActivity extends BaseActivity {
     @Override
     protected void findViews() {
         ButterKnife.bind(this);
-        initRecyclerView();
+        //initRecyclerView();
     }
 
     /**
      *设置Rv列表
      */
-    private void initRecyclerView() {
-        // 初始化数据列表
-        mSearchList = new ArrayList<>();
-        mRvListAdapter = new RvListAdapter(getContext(), mSearchList);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
-        layoutManager.setOrientation(RecyclerView.VERTICAL);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setAdapter(mRvListAdapter);
-    }
+//    private void initRecyclerView() {
+//        // 初始化数据列表
+//        mSearchList = new ArrayList<>();
+//        mRvListAdapter = new RvListAdapter(getContext(), mSearchList);
+//        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
+//        layoutManager.setOrientation(RecyclerView.VERTICAL);
+//        mRecyclerView.setLayoutManager(layoutManager);
+//        mRecyclerView.setHasFixedSize(true);
+//        mRecyclerView.setAdapter(mRvListAdapter);
+//    }
 
 
     /**

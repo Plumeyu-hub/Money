@@ -438,12 +438,11 @@ public class AddInFragment extends BaseFragment {
                                 + mMoneyEdit.substring(mMoneyEdit.indexOf('.'),
                                 mMoneyEdit.indexOf('.') + 2);
                         return;
-                    } else {
-                        mMoney = mMoneyEdit
-                                .substring(0, mMoneyEdit.indexOf('.'))
-                                + mMoneyEdit.substring(mMoneyEdit.indexOf('.'),
-                                mMoneyEdit.indexOf('.') + 3);
                     }
+                    mMoney = mMoneyEdit
+                            .substring(0, mMoneyEdit.indexOf('.'))
+                            + mMoneyEdit.substring(mMoneyEdit.indexOf('.'),
+                            mMoneyEdit.indexOf('.') + 3);
                 } else {
                     mMoney = mMoneyEdit;
                 }
@@ -479,7 +478,7 @@ public class AddInFragment extends BaseFragment {
     }
 
     /**
-     * 获取当前登录用户的Id
+     * 获取当前登录用户账户
      */
     private void showUserInfo() {
         mAccount = SpManager.get().getUserAccount();

@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
-import com.snxun.book.ui.money.bean.DataBean;
+import com.snxun.book.greendaolib.table.BillTable;
 
 import java.util.List;
 
@@ -23,9 +23,9 @@ import butterknife.ButterKnife;
  */
 public class RvListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private Context mContext;
-    private List<DataBean> mListData;
+    private List<BillTable> mListData;
 
-    public RvListAdapter(Context context, List<DataBean> mListData) {
+    public RvListAdapter(Context context, List<BillTable> mListData) {
         this.mContext = context;
         this.mListData = mListData;
     }
@@ -73,11 +73,11 @@ public class RvListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
      */
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        DataBean dataBean = mListData.get(position);
-        if (dataBean == null || !(holder instanceof DataViewHolder)) {
+        BillTable billTable = mListData.get(position);
+        if (billTable == null || !(holder instanceof DataViewHolder)) {
             return;
         }
-        showItem((DataViewHolder) holder, dataBean);
+        showItem((DataViewHolder) holder, billTable);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,11 +99,19 @@ public class RvListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         });
     }
 
-    private void showItem(DataViewHolder holder, DataBean dataBean) {
-        holder.rvListIdTv.setText(Integer.toString(dataBean.getmId()));
-        holder.rvListDateTv.setText(dataBean.getmDate());
-        holder.rvListCategoryTv.setText(dataBean.getmCategory());
-        holder.rvListMoneyTv.setText(dataBean.getmMoney());
+    private void showItem(DataViewHolder holder, BillTable billTable) {
+        holder.rvListIdTv.setText(billTable.getId().toString());
+        holder.rvListDateTv.setText(billTable.getDate().toString());
+        holder.rvListCategoryTv.setText(billTable.getCategory());
+        int symbol=billTable.getSymbol();
+        if(symbol==0){
+            holder.rvListMoneyTv.setText(Integer.parseInt("-"+String.valueOf(billTable.getMoney())));
+            return;
+        }
+        if(symbol==1){
+            holder.rvListMoneyTv.setText(Integer.parseInt("+"+String.valueOf(billTable.getMoney())));
+            return;
+        }
     }
 
     /**
@@ -117,7 +125,6 @@ public class RvListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     static class DataViewHolder extends RecyclerView.ViewHolder {
-
         @BindView(R.id.rv_list_id_tv)
         TextView rvListIdTv;
 

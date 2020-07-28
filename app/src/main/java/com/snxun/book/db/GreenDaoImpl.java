@@ -58,7 +58,6 @@ public class GreenDaoImpl implements DbHelper {
                 .list();
     }
 
-
     /**
      * 保存账单信息（插入成功返回true，失败返回false）
      *
@@ -73,7 +72,7 @@ public class GreenDaoImpl implements DbHelper {
      */
     @Override
     public boolean saveBillInfo(String category, Long money, Date date, String mode, String remark, int symbol, String account) {
-        BillTable table =new BillTable();
+        BillTable table = new BillTable();
         table.setCategory(category);
         table.setMoney(money);
         table.setDate(date);
@@ -86,18 +85,20 @@ public class GreenDaoImpl implements DbHelper {
     }
 
     /**
-     * 根据账号获取用户保存的账单信息
+     * 根据账号获取用户保存的账单信息(列表)
+     * 按用户名和日期查找
+     * 并按时间顺序升序
      *
      * @param account 账号
      */
     @Override
-    public BillTable getBillInfo(String account) {
-        return GreenDaoManager.get().getDaoSession()
-                .getBillTableDao()
-                .queryBuilder()
-                .where(BillTableDao.Properties.Account.eq(account))
-                .unique();
+    public List<BillTable> getAllAccountBillInfo(String account,Date date,Date detea) {
+            return GreenDaoManager.get().getDaoSession()
+                    .getBillTableDao()
+                    .queryBuilder()
+                    .where(BillTableDao.Properties.Account.eq(account),BillTableDao.Properties.Date.between(date,detea))
+                    .orderAsc(BillTableDao.Properties.Date)
+                    .list();
     }
-
 
 }

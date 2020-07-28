@@ -51,9 +51,9 @@ public class ModifyPasswordActivity extends BaseActivity {
     private ContentValues cv;// 存储工具栏
     private int num = 0;
     /**
-     * 当前登录的用户ID
+     * 当前登录的用户账号
      */
-    private String mUserId;
+    private String mAccount;
 
     @Override
     protected int getLayoutId() {
@@ -111,7 +111,7 @@ public class ModifyPasswordActivity extends BaseActivity {
      */
     private void showUserInfo() {
         //获取SharedPreferences对象
-        mUserId = SpManager.get().getUserAccount();
+        mAccount = SpManager.get().getUserAccount();
     }
 
     // 弹出一个普通对话框
@@ -133,7 +133,7 @@ public class ModifyPasswordActivity extends BaseActivity {
                     Toast.makeText(ModifyPasswordActivity.this, "对不起，您输入的密码和确认密码不一致",
                             Toast.LENGTH_LONG).show();
                 } else {
-                    String userId = String.valueOf(mUserId);
+                    String userId = String.valueOf(mAccount);
                     // 修改数据
                     // 在存储工具类里面存储要操作的数据，以键值对的方式存储，键表示标的列名，值就是要操作的值
                     cv = new ContentValues();

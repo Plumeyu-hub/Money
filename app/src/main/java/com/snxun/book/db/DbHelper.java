@@ -52,10 +52,11 @@ public interface DbHelper {
     boolean saveBillInfo(String category, Long money, Date date, String mode, String remark, int symbol, String account);
 
     /**
-     * 根据账号获取用户保存的账单信息
+     * 根据账号获取用户保存的账单信息(列表)
+     * 并按时间顺序升序
      *
      * @param account 账号
      */
-    BillTable getBillInfo(String account);
+    List<BillTable> getAllAccountBillInfo(String account,Date date,Date date1);
 
 }

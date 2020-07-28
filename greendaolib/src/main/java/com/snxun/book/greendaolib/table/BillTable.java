@@ -15,7 +15,7 @@ import java.util.Date;
 @Entity
 public class BillTable {
     /** 主键，编号 */
-    @Id
+    @Id(autoincrement = true)
     private Long id;
     /** 类别 */
     @NotNull
