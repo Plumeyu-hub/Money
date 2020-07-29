@@ -104,9 +104,9 @@ public class RvListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         });
     }
 
-    private void showItem(DataViewHolder holder, BillTable billTable) {
-        holder.rvListIdTv.setText(billTable.getId().toString());
-        holder.rvListDateTv.setText(billTable.getDate().toString());
+    private void showItem(DataViewHolder holder, BillTable billTable){
+        holder.rvListIdTv.setText(String.valueOf(billTable.getId()));
+        holder.rvListDateTv.setText(billTable.getDate());
         holder.rvListCategoryTv.setText(billTable.getCategory());
         int symbol=billTable.getSymbol();
         holder.rvListMoneyTv.setText(String.valueOf((symbol == Constants.EXPENDITURE ? "-" : "+") + billTable.getMoney()));

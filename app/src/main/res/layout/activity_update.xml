@@ -188,7 +188,7 @@
                         android:textSize="18sp" />
 
                     <Spinner
-                        android:id="@+id/update_account_sp"
+                        android:id="@+id/update_mode_sp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"

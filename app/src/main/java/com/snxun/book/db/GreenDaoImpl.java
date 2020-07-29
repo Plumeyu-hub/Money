@@ -6,7 +6,6 @@ import com.snxun.book.greendaolib.dao.UserTableDao;
 import com.snxun.book.greendaolib.table.BillTable;
 import com.snxun.book.greendaolib.table.UserTable;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -71,34 +70,99 @@ public class GreenDaoImpl implements DbHelper {
      * @return
      */
     @Override
-    public boolean saveBillInfo(String category, Long money, Date date, String mode, String remark, int symbol, String account) {
-        BillTable table = new BillTable();
-        table.setCategory(category);
-        table.setMoney(money);
-        table.setDate(date);
-        table.setMode(mode);
-        table.setRemark(remark);
-        table.setSymbol(symbol);
-        table.setAccount(account);
-        GreenDaoManager.get().getDaoSession().getBillTableDao().insert(table);
+    public long saveBillInfo(String category, Long money, String date, String mode, String remark, int symbol, String account) {
+        try {
+            BillTable table = new BillTable();
+            table.setCategory(category);
+            table.setMoney(money);
+            table.setDate(date);
+            table.setMode(mode);
+            table.setRemark(remark);
+            table.setSymbol(symbol);
+            table.setAccount(account);
+            return GreenDaoManager.get().getDaoSession().getBillTableDao().insert(table);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+
+    /**
+     * 按用户名和日期查找用户保存的账单信息(列表)
+     * 并按时间顺序升序
+     *
+     * @param account 账号
+     * @param date    查询的日期
+     * @return
+     */
+    @Override
+    public List<BillTable> getAllAccountBillInfo(String account, String date) {
+        return GreenDaoManager.get().getDaoSession()
+                .getBillTableDao()
+                .queryBuilder()
+                .where(BillTableDao.Properties.Account.eq(account), BillTableDao.Properties.Date.like(date + "%"))
+                .orderAsc(BillTableDao.Properties.Date)
+                .list();
+    }
+
+    /**
+     * 删除指定账单id的账单
+     *
+     * @param id 账单id
+     * @return
+     */
+    @Override
+    public boolean deleteBillInfo(Long id) {
+        GreenDaoManager.get().getDaoSession()
+                .getBillTableDao()
+                .queryBuilder()
+                .where(BillTableDao.Properties.Id.eq(id)).buildDelete().executeDeleteWithoutDetachingEntities();
         return true;
     }
 
     /**
-     * 根据账号获取用户保存的账单信息(列表)
-     * 按用户名和日期查找
-     * 并按时间顺序升序
+     * 搜索账单信息
      *
-     * @param account 账号
+     * @param account
+     * @param condition
+     * @return
      */
     @Override
-    public List<BillTable> getAllAccountBillInfo(String account, Date date, Date detea) {
+    public List<BillTable> getSearchBillInfo(String account, String condition) {
         return GreenDaoManager.get().getDaoSession()
                 .getBillTableDao()
                 .queryBuilder()
-                .where(BillTableDao.Properties.Account.eq(account), BillTableDao.Properties.Date.between(date, detea))
+                .where(BillTableDao.Properties.Account.eq(account))
+                .whereOr(BillTableDao.Properties.Category.like("%" + condition + "%"),
+                        BillTableDao.Properties.Money.like("%" + condition + "%"),
+                        BillTableDao.Properties.Date.like("%" + condition + "%"),
+                        BillTableDao.Properties.Mode.like("%" + condition + "%"),
+                        BillTableDao.Properties.Remark.like("%" + condition + "%"))
                 .orderAsc(BillTableDao.Properties.Date)
                 .list();
     }
+
+
+//    /**
+//     * 修改指定账单id的指定数据
+//     *
+//     * @param id 账单id
+//     * @return
+//     */
+//    @Override
+//    public boolean updateBillInfo(Long id) {
+//        GreenDaoManager.get().getDaoSession()
+//                .getBillTableDao()
+//                .queryBuilder()
+//                .where(BillTableDao.Properties.Id.eq(id))
+//        return true;
+//
+//        List<Note> list = mNoteDao.queryBuilder()
+//        //            .where(NoteDao.Properties.Num.eq(1))
+//        //            .list();
+//        //    for (int i = 0; i < list.size(); i++){
+//        //        mNoteDao.delete(listnum.get(i));s
+//        //    }
+//    }
 
 }

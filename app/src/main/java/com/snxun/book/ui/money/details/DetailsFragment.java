@@ -1,11 +1,12 @@
 package com.snxun.book.ui.money.details;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.snxun.book.R;
 import com.snxun.book.base.BaseFragment;
 import com.snxun.book.db.DbFactory;
+import com.snxun.book.event.AddDetailsEvent;
 import com.snxun.book.greendaolib.table.BillTable;
 import com.snxun.book.ui.money.adapter.RvListAdapter;
 import com.snxun.book.ui.money.add.AddActivity;
@@ -37,15 +40,15 @@ import com.snxun.book.ui.my.RemindActivity;
 import com.snxun.book.ui.my.SetActivity;
 import com.snxun.book.ui.my.budget.BudgetActivity;
 import com.snxun.book.ui.my.demo.home.DemoHomeActivity;
+import com.snxun.book.utils.ToastUtils;
 import com.snxun.book.utils.sp.SpManager;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -53,6 +56,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
+ * 明细页
+ *
  * @author Wangshy
  * @date 2020/7/12
  */
@@ -79,7 +84,7 @@ public class DetailsFragment extends BaseFragment {
      */
     private RvListAdapter mRvListAdapter;
     /**
-     * 定义了一个数组List，里面只能存放BillBean
+     * 定义了一个数组List，里面只能存放BillTable
      */
     private List<BillTable> mDetailsList;
 
@@ -113,11 +118,9 @@ public class DetailsFragment extends BaseFragment {
      * 时间
      * 定义显示时间控件
      */
-    private Calendar mCalendar;
     private int mYear;
     private int mMonth;
     private int mDay;
-
     /**
      * 退出应用的弹窗
      */
@@ -131,12 +134,12 @@ public class DetailsFragment extends BaseFragment {
      */
     private BillTable mBillTable;
 
-//    @Override
-//    protected void startCreate() {
-//        super.startCreate();
-//        // 在你需要订阅的类里去注册EventBus
-//        EventBus.getDefault().register(this);
-//    }
+    @Override
+    protected void startCreate() {
+        super.startCreate();
+        // 在你需要订阅的类里去注册EventBus
+        EventBus.getDefault().register(this);
+    }
 
     /**
      * 页面初始化，设置内容视图
@@ -173,34 +176,34 @@ public class DetailsFragment extends BaseFragment {
     protected void setListeners(View view) {
         super.setListeners(view);
 
-//        //点击RVlist跳转UpdateActivity
-//        mRvListAdapter.setOnItemClickListener(new RvListAdapter.OnItemClickListener() {
-//            @Override
-//            public void onClick(int position) {
-//                mBillBean = mDetailsList.get(position);
-//                //给UpdateActivity页面传递信息
-//                EventBus.getDefault().postSticky(new DetailsUpdateEvent(mBillBean));
-//                UpdateActivity.start(getContext());
-//                mPosition = position;
-//            }
-//        });
+        //                //点击RVlist跳转UpdateActivity
+        //                mRvListAdapter.setOnItemClickListener(new RvListAdapter.OnItemClickListener() {
+        //                    @Override
+        //                    public void onClick(int position) {
+        //                        mBillBean = mDetailsList.get(position);
+        //                        //给UpdateActivity页面传递信息
+        //                        EventBus.getDefault().postSticky(new DetailsUpdateEvent(mBillBean));
+        //                        UpdateActivity.start(getContext());
+        //                        mPosition = position;
+        //                    }
+        //                });
 
-//        // 长按RVlist按删除
-//        mRvListAdapter.setOnItemLongClickListener(new RvListAdapter.OnItemLongClickListener() {
-//            @Override
-//            public void onClick(int position) {
-//                deleteListItem(position);
-//            }
-//        });
-//
-//        //侧边栏按钮
-//        mDrawerBtn.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                /* 重点，START是xml布局文件中侧边栏布局所设置的方向 */
-//                mDrawerLayout.openDrawer(GravityCompat.START);
-//            }
-//        });
+        // 长按RVlist按删除
+        mRvListAdapter.setOnItemLongClickListener(new RvListAdapter.OnItemLongClickListener() {
+            @Override
+            public void onClick(int position) {
+                deleteListItem(position);
+            }
+        });
+
+        //侧边栏按钮
+        mDrawerBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                /* 重点，START是xml布局文件中侧边栏布局所设置的方向 */
+                mDrawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
 
         //月份选择按钮
         mMonthSelectorBtn.setOnClickListener(new View.OnClickListener() {
@@ -321,6 +324,7 @@ public class DetailsFragment extends BaseFragment {
         super.initData();
         showUserInfo();
         setDate();
+
     }
 
     /**
@@ -331,92 +335,50 @@ public class DetailsFragment extends BaseFragment {
         mUserNameTv.setText(String.valueOf(mAccount));
     }
 
-//    /**
-//     * 删除账单
-//     */
-//    public void deleteListItem(int position) {
-//        // 获取所点击项的id
-//        Long intId = mDetailsList.get(position).getmId();
-//        String stringId = String.valueOf(intId);
-//        // 获取所点击项的金额符号
-//        String stringMoney = mDetailsList.get(position).getmMoney();
-//        String symbolMoney = stringMoney.substring(0, 1);
-//        //创建dialog
-//        showDeleteTipsDialog(intId, symbolMoney, position);
-//    }
+    /**
+     * 删除账单
+     */
+    public void deleteListItem(int position) {
+        // 获取所点击项的id
+        Long id = mDetailsList.get(position).getId();
+        //创建dialog
+        showDeleteTipsDialog(id);
+    }
 
     /**
      * 显示删除提示弹框
      *
-     * @param id       编号
-     * @param symbol   金额符号
-     * @param position 序号
+     * @param id 数据库编号
      */
-//    private void showDeleteTipsDialog(final int id, final String symbol, final int position) {
-//        // 通过Dialog提示是否删除
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        builder.setMessage(R.string.delete_text);
-//        // 确定按钮点击事件
-//        builder.setPositiveButton(R.string.app_yes, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                // 删除指定数据
-//                if (symbol.equals("-")) {
-//                    deleteRecordByDb(id, position, "expenditure", "aoid=? and aouserid=?");
-//                    return;
-//                }
-//                if (symbol.equals("+")) {
-//                    deleteRecordByDb(id, position, "income", "aiid=? and aiuserid=?");
-//                    return;
-//                }
-//                Toast.makeText(getActivity(), R.string.app_abnormal_data, Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//
-//        // 取消按钮点击事件
-//        builder.setNegativeButton(R.string.app_no, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                dialog.dismiss();
-//            }
-//        });
-//        builder.create().show();
-//    }
+    private void showDeleteTipsDialog(Long id) {
+        // 通过Dialog提示是否删除
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(R.string.delete_text);
+        // 确定按钮点击事件
+        builder.setPositiveButton(R.string.app_yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // 删除指定数据
+                boolean isSaveSuccess = DbFactory.create().deleteBillInfo(id);
+                if (!isSaveSuccess) {
+                    ToastUtils.showShort(getContext(), R.string.delete_no);
+                    return;
+                }
+                ToastUtils.showShort(getContext(), R.string.delete_yes);
+                updateDate(mYear, mMonth);
+            }
+        });
 
-    /**
-     * 通过SQL语句来删除记账记录
-     *
-     * @param id          编号
-     * @param position    移除某个位置的Item
-     * @param tableName   表名
-     * @param whereClause 条件
-     */
+        // 取消按钮点击事件
+        builder.setNegativeButton(R.string.app_no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.create().show();
+    }
 
-//    private void deleteRecordByDb(int id, int position, String tableName, String whereClause) {
-//
-//
-//
-//
-//
-//
-//        for (int i = 0; i < list.size(); i++) {
-//            if(i==id){
-//                mBillTableDao.delete(list.get(i));
-//            }
-//        }
-//
-//        // 删除数据，成功返回删除的数据的行数，失败返回0
-//        int num = mDb.delete(tableName, whereClause, new String[]{id + "", mAccount + ""});
-//        if (num <= 0) {
-//            Toast.makeText(getActivity(), R.string.delete_yes + num, Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//        Toast.makeText(getActivity(), R.string.delete_no + num, Toast.LENGTH_SHORT).show();
-//        // 删掉长按的item
-//        mDetailsList.remove(position);
-//        // 动态更新listview
-//        mRvListAdapter.notifyDataSetChanged();
-//    }
 
     /**
      * 创建退出应用弹窗
@@ -449,7 +411,6 @@ public class DetailsFragment extends BaseFragment {
             });
             TextView noTv = (TextView) view.findViewById(R.id.pop_no_tv);
             noTv.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View arg0) {
                     mPopupWindow.dismiss();
@@ -464,11 +425,12 @@ public class DetailsFragment extends BaseFragment {
 
     public void setDate() {
         // 时间
-        mCalendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         // 设置初始时间与当前系统时间一致
-        mYear = mCalendar.get(Calendar.YEAR);
-        mMonth = mCalendar.get(Calendar.MONTH);
-        mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
+        mYear = calendar.get(Calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH);
+        mDay = calendar.get(Calendar.DATE);
+        updateDate(mYear, mMonth);
     }
 
     private void showDatePicker() {
@@ -515,77 +477,39 @@ public class DetailsFragment extends BaseFragment {
             mMonth = month;
             mDay = day;
             // 更新日期
-            updateDate();
+            updateDate(year, month);
         }
     };
 
     // 当DatePickerDialog关闭时，更新日期显示
-    private void updateDate() {
+    private void updateDate(int year, int month) {
         // 在TextView上显示日期
-        mMonthSelectorBtn.setText(new StringBuilder().append(mYear).append("年")
-                .append((mMonth + 1) < 10 ? "0" + (mMonth + 1) : (mMonth + 1))
+        mMonthSelectorBtn.setText(new StringBuilder().append(year).append("年")
+                .append((month + 1) < 10 ? "0" + (month + 1) : (month + 1))
                 .append("月"));
         mMonthSelectorBtn.setTextColor(getResources().getColor(R.color.color_333333));
 
-        // 条件
-        String yearString = String.valueOf(mYear);
-        int monthInt = mMonth + 1;
-        String monthString;
-        if ((mMonth + 1) < 10) {
-            monthString = String.valueOf("0" + monthInt);
-        } else {
-            monthString = String.valueOf(monthInt);
-        }
-        String condition = String.valueOf(yearString +"-" +monthString);
-
-        // 时间
-        Date mDate = null;
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM");//小写的mm表示的是分钟
-        try {
-            mDate = sdf.parse(condition);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String conditiona = String.valueOf(yearString +"-08");
-        Date detea=null;
-        @SuppressLint("SimpleDateFormat") SimpleDateFormat sdfa = new SimpleDateFormat("yyyy-MM");//小写的mm表示的是分钟
-        try {
-            detea = sdfa.parse(conditiona);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-
-        mDetailsList = DbFactory.create().getAllAccountBillInfo(mAccount,mDate,detea);
-        mRvListAdapter.setData(mDetailsList);
-        mRvListAdapter.notifyDataSetChanged();
-        // 设置空列表的时候，显示为一张图片
-        //mDetailsList.setEmptyView(getActivity().findViewById(R.id.details_empty_lin));
+        refreshList(String.valueOf(year), String.valueOf((month + 1) < 10 ? "0" + (month + 1) : (month + 1)));
     }
 
+
     // 订阅事件方法
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void onUpdateDetailsEvent(UpdateDetailsEvent event) {
-//        dataBean = event.getDataBean();
-//        mDetailsList.set(mPosition, dataBean);
-//        mRvListAdapter.notifyDataSetChanged();
-//    }
-//
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void onAddDetailsEvent(AddDetailsEvent event) {
-//        BillBean billBean = event.getBillBean();
-//        String monthSelectorBtn = mMonthSelectorBtn.getText().toString();
-//        if (monthSelectorBtn.equals("请点击选择账单年月")) {
-//            mDetailsList.add(dataBean);
-//            mRvListAdapter.notifyDataSetChanged();
-//        } else {
-//            mMonthSelectorBtn.setText("请点击选择账单年月");
-//            mMonthSelectorBtn.setTextColor(getResources().getColor(
-//                    R.color.color_666666));
-//            mDetailsList.clear();
-//            mDetailsList.add(dataBean);
-//            mRvListAdapter.notifyDataSetChanged();
-//        }
-//    }
+    //    @Subscribe(threadMode = ThreadMode.MAIN)
+    //    public void onUpdateDetailsEvent(UpdateDetailsEvent event) {
+    //        dataBean = event.getDataBean();
+    //        mDetailsList.set(mPosition, dataBean);
+    //        mRvListAdapter.notifyDataSetChanged();
+    //    }
+    //
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAddDetailsEvent(AddDetailsEvent event) {
+        if (!TextUtils.isEmpty(event.getDate())) {
+            String date = event.getDate();
+            String year = date.substring(0, 4);
+            String month = date.substring(4, 6);
+            updateDate(Integer.parseInt(year), Integer.parseInt(month) - 1);
+        }
+    }
 
     @Override
     public void onDestroyView() {
@@ -593,4 +517,17 @@ public class DetailsFragment extends BaseFragment {
         EventBus.getDefault().unregister(this);
     }
 
+    public void refreshList(String year, String month) {
+        // 日期条件
+        String date = year + month;
+        //String endDate = year + String.valueOf((Integer.parseInt(month) + 1) < 10 ? "0" + (Integer.parseInt(month) + 1) : (Integer.parseInt(month) + 1));
+
+        mDetailsList = DbFactory.create().getAllAccountBillInfo(mAccount, date);
+        mRvListAdapter.setData(mDetailsList);
+        mRvListAdapter.notifyDataSetChanged();
+        // 设置空列表的时候，显示为一张图片
+        //mDetailsList.setEmptyView(getActivity().findViewById(R.id.details_empty_lin));
+    }
 }
+
+

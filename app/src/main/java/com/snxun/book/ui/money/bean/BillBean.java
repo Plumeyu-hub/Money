@@ -17,8 +17,9 @@ public class BillBean implements Serializable {
     private int symbol;//符号（0为支出，1为收入）
     private String account;//用户账号
 
-    public BillBean(String category, Long money, Date date, String mode, String remark, int symbol, String account) {
+    public BillBean(Long id, String category, Long money, Date date, String mode, String remark, int symbol, String account) {
         super();
+        this.id = id;
         this.category = category;
         this.money = money;
         this.date = date;
@@ -26,6 +27,14 @@ public class BillBean implements Serializable {
         this.remark = remark;
         this.symbol = symbol;
         this.account = account;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getCategory() {

@@ -1,19 +1,18 @@
 package com.snxun.book.event;
 
-import com.snxun.book.ui.money.bean.BillBean;
-
 /**
+ * 添加账单页面-明细页面的EventBus
  * @author wangshy
  * @date 2020/07/23
  */
 public class AddDetailsEvent {
-    private BillBean billBean;
+    private String date;
 
-    public AddDetailsEvent(BillBean billBean) {
-        this.billBean=billBean;
+    public AddDetailsEvent(String date) {
+        this.date = date;
     }
 
-    public BillBean getBillBean() {
-        return billBean;
+    public String getDate() {
+        return date;
     }
 }

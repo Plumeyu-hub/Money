@@ -1,6 +1,5 @@
 package com.snxun.book.ui.money.add;
 
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
@@ -21,11 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseFragment;
+import com.snxun.book.config.Constants;
 import com.snxun.book.db.DbFactory;
 import com.snxun.book.event.AddDetailsEvent;
 import com.snxun.book.event.SubmitRemarkEvent;
 import com.snxun.book.ui.money.adapter.RvGrAdapter;
-import com.snxun.book.ui.money.bean.BillBean;
 import com.snxun.book.ui.money.bean.RvGrBean;
 import com.snxun.book.utils.ToastUtils;
 import com.snxun.book.utils.sp.SpManager;
@@ -34,11 +33,8 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -87,7 +83,6 @@ public class AddInFragment extends BaseFragment {
     /**
      * 时间
      */
-    private Calendar mCalendar;
     private int mYear;
     private int mMonth;
     private int mDay;
@@ -383,19 +378,12 @@ public class AddInFragment extends BaseFragment {
         mAddInYesBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //符号
-                int mSymbol = 0;
+                //符号 收入1
+                int mSymbol = Constants.INCOME;
                 // 时间
-                Date mDate = null;
                 String mDateEdit = mAddInDateEdit.getText().toString();
-                @SuppressLint("SimpleDateFormat") SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");//小写的mm表示的是分钟
-                try {
-                    mDate = sdf.parse(mDateEdit);
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                }
-
-                //mDate = mNoSymbolDate.replace("-", "");
+                String mDate;
+                mDate = mDateEdit.replace("-", "");
                 // 备注
                 String mRemark = mAddInSubmitRemarkBtn.getText().toString();
                 // 获取到金额
@@ -447,6 +435,7 @@ public class AddInFragment extends BaseFragment {
                     mMoney = mMoneyEdit;
                 }
                 Long mLongMoney = Long.parseLong(mMoney);
+
                 add(mCategory, mLongMoney, mDate, mMode, mRemark, mSymbol, mAccount);
             }
         });
@@ -517,11 +506,11 @@ public class AddInFragment extends BaseFragment {
 
     public void setDate() {
         // 时间
-        mCalendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
         // 设置初始时间与当前系统时间一致
-        mYear = mCalendar.get(Calendar.YEAR);
-        mMonth = mCalendar.get(Calendar.MONTH);
-        mDay = mCalendar.get(Calendar.DAY_OF_MONTH);
+        mYear = calendar.get(Calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH);
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
         updateDate();
     }
 
@@ -535,10 +524,9 @@ public class AddInFragment extends BaseFragment {
                 .append((mDay < 10) ? "0" + mDay : mDay));
     }
 
-
     private void showDatePicker() {
         // 创建并显示DatePickerDialog
-        DatePickerDialog dialog = new DatePickerDialog(getActivity(),
+        DatePickerDialog dialog = new DatePickerDialog(Objects.requireNonNull(getActivity()),
                 AlertDialog.THEME_HOLO_LIGHT, DateListener, mYear, mMonth, mDay);
         dialog.show();
     }
@@ -578,24 +566,22 @@ public class AddInFragment extends BaseFragment {
     /**
      * 添加账单
      *
-     * @param category  类别
-     * @param longMoney 金额
-     * @param date      日期
-     * @param mode      (金额扣除或增加的)账户或方式
-     * @param remark    备注
-     * @param symbol    符号（0为支出，1为收入）
-     * @param account   用户账号
+     * @param category 类别
+     * @param money    金额
+     * @param date     日期
+     * @param mode     (金额扣除或增加的)账户或方式
+     * @param remark   备注
+     * @param symbol   符号（0为支出，1为收入）
+     * @param account  用户账号
      */
-    public void add(String category, Long longMoney, Date date, String mode, String remark, int symbol, String account) {
-        boolean isSaveSuccess = DbFactory.create().saveBillInfo(category, longMoney, date, mode, remark, symbol, account);
-        if (!isSaveSuccess) {
+    public void add(String category, Long money, String date, String mode, String remark, int symbol, String account) {
+        long isSaveSuccess = DbFactory.create().saveBillInfo(category, money, date, mode, remark, symbol, account);
+        if (isSaveSuccess < 0) {
             ToastUtils.showShort(getContext(), "数据保存失败");
             return;
         }
         ToastUtils.showShort(getContext(), "数据保存成功");
-        BillBean billBean = new BillBean(category, longMoney,
-                date, mode, remark, symbol, account);
-        EventBus.getDefault().post(new AddDetailsEvent(billBean));
+        EventBus.getDefault().post(new AddDetailsEvent(date));
         //该方法用于监听用户点击返回键的事件，也可以调用它来关闭view。
         Objects.requireNonNull(getActivity()).onBackPressed();
     }

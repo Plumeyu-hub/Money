@@ -1,11 +1,9 @@
 package com.snxun.book.greendaolib.table;
 
 import org.greenrobot.greendao.annotation.Entity;
-import org.greenrobot.greendao.annotation.Generated;
 import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
-
-import java.util.Date;
+import org.greenrobot.greendao.annotation.Generated;
 
 /**
  * 账单信息表
@@ -23,9 +21,9 @@ public class BillTable {
     /** 金额 */
     @NotNull
     private Long money;
-    /** 日期 */
+    /** 日期字符串yyyyMMdd */
     @NotNull
-    private Date date;
+    private String date;
     /** (金额扣除或增加的)账户或方式 */
     @NotNull
     private String mode;
@@ -37,9 +35,9 @@ public class BillTable {
     /** 用户账号 */
     @NotNull
     private String account;
-    @Generated(hash = 1881477837)
+    @Generated(hash = 1332648618)
     public BillTable(Long id, @NotNull String category, @NotNull Long money,
-            @NotNull Date date, @NotNull String mode, String remark, int symbol,
+            @NotNull String date, @NotNull String mode, String remark, int symbol,
             @NotNull String account) {
         this.id = id;
         this.category = category;
@@ -71,10 +69,10 @@ public class BillTable {
     public void setMoney(Long money) {
         this.money = money;
     }
-    public Date getDate() {
+    public String getDate() {
         return this.date;
     }
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
     public String getMode() {
@@ -101,5 +99,6 @@ public class BillTable {
     public void setAccount(String account) {
         this.account = account;
     }
+   
     
 }

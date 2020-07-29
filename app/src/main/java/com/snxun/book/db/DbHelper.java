@@ -3,7 +3,6 @@ package com.snxun.book.db;
 import com.snxun.book.greendaolib.table.BillTable;
 import com.snxun.book.greendaolib.table.UserTable;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,7 +48,7 @@ public interface DbHelper {
      * @param account  用户账号
      * @return
      */
-    boolean saveBillInfo(String category, Long money, Date date, String mode, String remark, int symbol, String account);
+    long saveBillInfo(String category, Long money, String date, String mode, String remark, int symbol, String account);
 
     /**
      * 根据账号获取用户保存的账单信息(列表)
@@ -57,6 +56,23 @@ public interface DbHelper {
      *
      * @param account 账号
      */
-    List<BillTable> getAllAccountBillInfo(String account,Date date,Date date1);
+    List<BillTable> getAllAccountBillInfo(String account, String date);
+
+    /**
+     * 删除指定账单id的账单
+     *
+     * @param id 账单id
+     * @return
+     */
+    boolean deleteBillInfo(Long id);
+
+    /**
+     * 搜索账单信息
+     *
+     * @param account
+     * @param condition
+     * @return
+     */
+    List<BillTable> getSearchBillInfo(String account, String condition);
 
 }
