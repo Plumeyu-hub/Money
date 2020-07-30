@@ -2,9 +2,7 @@ package com.snxun.book.ui.money.graph;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -21,6 +19,8 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.snxun.book.R;
 import com.snxun.book.base.BaseFragment;
+import com.snxun.book.config.Constants;
+import com.snxun.book.db.DbFactory;
 import com.snxun.book.utils.sp.SpManager;
 
 import java.util.ArrayList;
@@ -45,14 +45,9 @@ public class GraphFragment extends BaseFragment {
     }
 
     /**
-     * 数据库
-     */
-    private SQLiteDatabase mDb;
-    private Cursor mCs;// 游标对象，用来报错查询返回的结果集
-    /**
      * 当前登录的用户ID
      */
-    private String mUserId;
+    private String mAccount;
 
     /**
      * 选择日期按钮
@@ -190,21 +185,14 @@ public class GraphFragment extends BaseFragment {
     @Override
     protected void initData() {
         super.initData();
-        initDb();
         showUserInfo();
     }
-
-    private void initDb() {
-        // 如果data.db数据库文件不存在，则创建并打开；如果存在，直接打开
-        mDb = getActivity().openOrCreateDatabase("data.db", Context.MODE_PRIVATE, null);
-    }
-
 
     /**
      * 获取当前登录用户的Id
      */
     private void showUserInfo() {
-        mUserId = SpManager.get().getUserAccount();
+        mAccount = SpManager.get().getUserAccount();
     }
 
     // 获取当前日期
@@ -283,11 +271,14 @@ public class GraphFragment extends BaseFragment {
             }
             String condition = String.valueOf(years + months);
             // System.out.println(condition);
-            String userId = String.valueOf(mUserId);
-            mCs = mDb.rawQuery(
-                    "select sum(aomoney) from expenditure where aotime like ? and aouserid=?",
-                    new String[] { condition + "%", userId + "" });
 
+            // 删除指定数据
+            Cursor mCs = DbFactory.create().sumBillInfo(condition,mAccount, Constants.EXPENDITURE);
+
+//            mCs = mDb.rawQuery(
+//                    "select sum(aomoney) from expenditure where aotime like ? and aouserid=?",
+//                    new String[] { condition + "%", userId + "" });
+//
             if (mCs != null) {
                 if (mCs.moveToFirst()) {
                     do {
@@ -303,17 +294,14 @@ public class GraphFragment extends BaseFragment {
                 mOutNumTv.setText("0.00");
                 mOutTextTv.setText(monthn + "月支出");
             }
+            Cursor mCsIn = DbFactory.create().sumBillInfo(condition,mAccount, Constants.INCOME);
 
-            mCs = mDb.rawQuery(
-                    "select sum(aimoney) from income where aitime like ? and aiuserid=?",
-                    new String[] { condition + "%", userId + "" });
-
-            if (mCs != null) {
-                if (mCs.moveToFirst()) {
+            if (mCsIn != null) {
+                if (mCsIn.moveToFirst()) {
                     do {
-                        mInSum = mCs.getFloat(0);
+                        mInSum = mCsIn.getFloat(0);
 
-                    } while (mCs.moveToNext());
+                    } while (mCsIn.moveToNext());
                 }
                 mShowInNum = String.format("%.2f", mInSum);
                 mInNumTv.setText("+" + mShowInNum);

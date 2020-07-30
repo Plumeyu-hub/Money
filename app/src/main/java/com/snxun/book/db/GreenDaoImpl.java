@@ -1,5 +1,7 @@
 package com.snxun.book.db;
 
+import android.database.Cursor;
+
 import com.snxun.book.greendaolib.GreenDaoManager;
 import com.snxun.book.greendaolib.dao.BillTableDao;
 import com.snxun.book.greendaolib.dao.UserTableDao;
@@ -184,5 +186,21 @@ public class GreenDaoImpl implements DbHelper {
                 .where(BillTableDao.Properties.Account.eq(account))
                 .buildDelete().executeDeleteWithoutDetachingEntities();
         return true;
+    }
+
+    /**
+     * 求和
+     *
+     * @param date    日期
+     * @param account 用户名
+     * @param symbol  符号
+     * @return
+     */
+    @Override
+    public Cursor sumBillInfo(String date, String account, int symbol) {
+        return GreenDaoManager.get().getDaoSession()
+                //.getBillTableDao()
+                .getDatabase().rawQuery("select sum(money) from BILL_TABLE where date like ? and account=? and symbol=?",
+                new String[]{date + "%", account + "", String.valueOf(symbol)});
     }
 }
