@@ -2,6 +2,7 @@ package com.snxun.book.db;
 
 import com.snxun.book.greendaolib.table.BillTable;
 import com.snxun.book.greendaolib.table.UserTable;
+import com.snxun.book.ui.money.update.UpdateBean;
 
 import java.util.List;
 
@@ -75,4 +76,12 @@ public interface DbHelper {
      */
     List<BillTable> getSearchBillInfo(String account, String condition);
 
+    /**
+     * 修改指定账单id的指定数据
+     *
+     * @param id         账单id
+     * @param updateBean 修改的数据
+     * @return
+     */
+    public boolean updateBillInfo(Long id, UpdateBean updateBean);
 }

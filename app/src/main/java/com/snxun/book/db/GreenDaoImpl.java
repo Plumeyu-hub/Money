@@ -5,6 +5,7 @@ import com.snxun.book.greendaolib.dao.BillTableDao;
 import com.snxun.book.greendaolib.dao.UserTableDao;
 import com.snxun.book.greendaolib.table.BillTable;
 import com.snxun.book.greendaolib.table.UserTable;
+import com.snxun.book.ui.money.update.UpdateBean;
 
 import java.util.List;
 
@@ -143,26 +144,30 @@ public class GreenDaoImpl implements DbHelper {
     }
 
 
-//    /**
-//     * 修改指定账单id的指定数据
-//     *
-//     * @param id 账单id
-//     * @return
-//     */
-//    @Override
-//    public boolean updateBillInfo(Long id) {
-//        GreenDaoManager.get().getDaoSession()
-//                .getBillTableDao()
-//                .queryBuilder()
-//                .where(BillTableDao.Properties.Id.eq(id))
-//        return true;
-//
-//        List<Note> list = mNoteDao.queryBuilder()
-//        //            .where(NoteDao.Properties.Num.eq(1))
-//        //            .list();
-//        //    for (int i = 0; i < list.size(); i++){
-//        //        mNoteDao.delete(listnum.get(i));s
-//        //    }
-//    }
+    /**
+     * 修改指定账单id的指定数据
+     *
+     * @param id         账单id
+     * @param updateBean 修改的数据
+     * @return
+     */
+    @Override
+    public boolean updateBillInfo(Long id, UpdateBean updateBean) {
+        BillTable billTable = GreenDaoManager.get().getDaoSession()
+                .getBillTableDao()
+                .queryBuilder()
+                .where(BillTableDao.Properties.Id.eq(id))
+                .build()
+                .unique();
+        if (billTable == null) {
+            return false;
+        }
+        billTable.setMoney(updateBean.getMoney());
+        billTable.setDate(updateBean.getDate());
+        billTable.setMode(updateBean.getMode());
+        billTable.setRemark(updateBean.getRemark());
+        GreenDaoManager.get().getDaoSession().getBillTableDao().updateInTx(billTable);
+        return true;
+    }
 
 }

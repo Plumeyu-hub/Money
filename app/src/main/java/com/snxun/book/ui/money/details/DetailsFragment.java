@@ -26,10 +26,13 @@ import com.snxun.book.R;
 import com.snxun.book.base.BaseFragment;
 import com.snxun.book.db.DbFactory;
 import com.snxun.book.event.AddDetailsEvent;
+import com.snxun.book.event.DetailsUpdateEvent;
+import com.snxun.book.event.RefreshEvent;
 import com.snxun.book.greendaolib.table.BillTable;
 import com.snxun.book.ui.money.adapter.RvListAdapter;
 import com.snxun.book.ui.money.add.AddActivity;
 import com.snxun.book.ui.money.search.SearchActivity;
+import com.snxun.book.ui.money.update.UpdateActivity;
 import com.snxun.book.ui.my.AboutActivity;
 import com.snxun.book.ui.my.ClearActivity;
 import com.snxun.book.ui.my.ExportActivity;
@@ -125,14 +128,6 @@ public class DetailsFragment extends BaseFragment {
      * 退出应用的弹窗
      */
     private PopupWindow mPopupWindow;
-    /**
-     * 当前点击的list的id
-     */
-    private int mPosition;
-    /**
-     * 数据源
-     */
-    private BillTable mBillTable;
 
     @Override
     protected void startCreate() {
@@ -176,17 +171,16 @@ public class DetailsFragment extends BaseFragment {
     protected void setListeners(View view) {
         super.setListeners(view);
 
-        //                //点击RVlist跳转UpdateActivity
-        //                mRvListAdapter.setOnItemClickListener(new RvListAdapter.OnItemClickListener() {
-        //                    @Override
-        //                    public void onClick(int position) {
-        //                        mBillBean = mDetailsList.get(position);
-        //                        //给UpdateActivity页面传递信息
-        //                        EventBus.getDefault().postSticky(new DetailsUpdateEvent(mBillBean));
-        //                        UpdateActivity.start(getContext());
-        //                        mPosition = position;
-        //                    }
-        //                });
+        //点击RVlist跳转UpdateActivity
+        mRvListAdapter.setOnItemClickListener(new RvListAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                BillTable billTable = mDetailsList.get(position);
+                //EventBus的黏性postSticky
+                EventBus.getDefault().postSticky(new DetailsUpdateEvent(billTable));
+                UpdateActivity.start(getContext());
+            }
+        });
 
         // 长按RVlist按删除
         mRvListAdapter.setOnItemLongClickListener(new RvListAdapter.OnItemLongClickListener() {
@@ -511,6 +505,16 @@ public class DetailsFragment extends BaseFragment {
         }
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onAddDetailsEvent(RefreshEvent event) {
+        if (event.getRefresh()) {
+            String date = mMonthSelectorBtn.getText().toString().trim();
+            String year = date.substring(0, 4);
+            String month = date.substring(5, 7);
+            refreshList(year, month);
+        }
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
@@ -528,6 +532,7 @@ public class DetailsFragment extends BaseFragment {
         // 设置空列表的时候，显示为一张图片
         //mDetailsList.setEmptyView(getActivity().findViewById(R.id.details_empty_lin));
     }
+
 }
 
 

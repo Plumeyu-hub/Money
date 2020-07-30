@@ -1,19 +1,19 @@
 package com.snxun.book.event;
 
-import com.snxun.book.ui.money.bean.DataBean;
+import com.snxun.book.greendaolib.table.BillTable;
 
 /**
  * @author wangshy
  * @date 2020/07/23
  */
 public class DetailsUpdateEvent {
-    DataBean mdataBean;
+    BillTable billTable;
 
-    public DetailsUpdateEvent(DataBean mdataBean) {
-        this.mdataBean=mdataBean;
+    public DetailsUpdateEvent(BillTable billTable) {
+        this.billTable=billTable;
     }
 
-    public DataBean getDataBean() {
-        return mdataBean;
+    public BillTable getBillTable() {
+        return billTable;
     }
 }

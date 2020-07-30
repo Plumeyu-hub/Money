@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
 import com.snxun.book.db.DbFactory;
+import com.snxun.book.event.RefreshEvent;
 import com.snxun.book.event.SearchUpdateEvent;
 import com.snxun.book.greendaolib.table.BillTable;
 import com.snxun.book.ui.money.adapter.RvListAdapter;
@@ -69,19 +70,7 @@ public class SearchActivity extends BaseActivity {
      * 当前登录的用户ID
      */
     private String mAccount;
-    /**
-     * 当前点击跳转至Update的列表Id
-     */
-    private int mPosition;
 
-    /**
-     * 注册EventBus
-     */
-    //    @Override
-    //    protected void startCreate() {
-    //        super.startCreate();
-    //        EventBus.getDefault().register(this);
-    //    }
     @Override
     protected int getLayoutId() {
         return R.layout.activity_search;
@@ -107,7 +96,6 @@ public class SearchActivity extends BaseActivity {
         mRecyclerView.setAdapter(mRvListAdapter);
     }
 
-
     /**
      * 设置监听
      */
@@ -127,15 +115,7 @@ public class SearchActivity extends BaseActivity {
         mSreachBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String searchText = mSearchTextEdit.getText().toString().trim();
-                if (TextUtils.isEmpty(searchText)) {
-                    mSearchList.clear();
-                    // 设置空列表的时候，显示为一张图片
-                    //mSearchLv.setEmptyView(findViewById(R.id.search_empty_lin));
-                } else {
-                    // 展示关联的数据
-                    refreshList(searchText);
-                }
+                refreshList();
             }
         });
 
@@ -155,7 +135,6 @@ public class SearchActivity extends BaseActivity {
                 //EventBus的黏性postSticky
                 EventBus.getDefault().postSticky(new SearchUpdateEvent(billTable));
                 UpdateActivity.start(getContext());
-                mPosition = position;
             }
         });
 
@@ -181,14 +160,6 @@ public class SearchActivity extends BaseActivity {
     private void showUserInfo() {
         //获取SharedPreferences对象
         mAccount = SpManager.get().getUserAccount();
-    }
-
-    public void refreshList(String searchText) {
-        mSearchList = DbFactory.create().getSearchBillInfo(mAccount, searchText);
-        mRvListAdapter.setData(mSearchList);
-        mRvListAdapter.notifyDataSetChanged();
-        // 设置空列表的时候，显示为一张图片
-        //mDetailsList.setEmptyView(getActivity().findViewById(R.id.details_empty_lin));
     }
 
     /**
@@ -221,8 +192,9 @@ public class SearchActivity extends BaseActivity {
                     return;
                 }
                 ToastUtils.showShort(getContext(), R.string.delete_yes);
-                String searchText = mSearchTextEdit.getText().toString().trim();
-                refreshList(searchText);
+                refreshList();
+                boolean refresh = true;
+                EventBus.getDefault().post(new RefreshEvent(refresh));
             }
         });
 
@@ -236,20 +208,23 @@ public class SearchActivity extends BaseActivity {
         builder.create().show();
     }
 
-    //    @Subscribe(threadMode = ThreadMode.MAIN)
-    //    public void onUpdateSearchEvent(UpdateSearchEvent event) {
-    //        dataBean = event.getDataBean();
-    //        //更改修改过的List
-    //        mSearchList.set(mPosition, dataBean);
-    //        mRvListAdapter.notifyDataSetChanged();
-    //    }
+    public void refreshList() {
+        String searchText = mSearchTextEdit.getText().toString().trim();
+        if (TextUtils.isEmpty(searchText)) {
+            mSearchList.clear();
+            // 设置空列表的时候，显示为一张图片
+            //mSearchLv.setEmptyView(findViewById(R.id.search_empty_lin));
+        } else {
+            // 展示关联的数据
+            mSearchList = DbFactory.create().getSearchBillInfo(mAccount, searchText);
+            mRvListAdapter.setData(mSearchList);
+            mRvListAdapter.notifyDataSetChanged();
+        }
+    }
 
-    //    /**
-    //     * 解注册EventBus
-    //     */
-    //    @Override
-    //    public void finish() {
-    //        super.finish();
-    //        EventBus.getDefault().unregister(this);
-    //    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshList();
+    }
 }

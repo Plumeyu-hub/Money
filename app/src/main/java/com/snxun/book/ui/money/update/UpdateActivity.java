@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.AdapterView;
@@ -14,13 +15,17 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
 import com.snxun.book.config.Constants;
+import com.snxun.book.db.DbFactory;
+import com.snxun.book.event.DetailsUpdateEvent;
+import com.snxun.book.event.RefreshEvent;
 import com.snxun.book.event.SearchUpdateEvent;
 import com.snxun.book.greendaolib.table.BillTable;
-import com.snxun.book.utils.sp.SpManager;
+import com.snxun.book.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -88,11 +93,6 @@ public class UpdateActivity extends BaseActivity {
     LinearLayout mUpdateBtn;
 
     /**
-     * 当前登录的用户ID
-     */
-    private String mAccount;
-
-    /**
      * 时间
      * 定义显示时间控件
      */
@@ -103,7 +103,7 @@ public class UpdateActivity extends BaseActivity {
      * 修改后保存的数据
      */
     private String mDate, mMode, mRemarks;
-    private Long mMoney;
+    private Long mId, mMoney;
 
     /**
      * 注册EventBus
@@ -142,122 +142,74 @@ public class UpdateActivity extends BaseActivity {
             }
         });
 
-        //        // 修改
-        //        mUpdateBtn.setOnClickListener(new OnClickListener() {
-        //
-        //            @Override
-        //            public void onClick(View arg0) {
-        //                // 获取修改后的信息
-        //                String mUpdateMoney = mUpdateMoneyEdit.getText().toString();
-        //                mDaytime = mUpdateDateEdit.getText().toString();
-        //                mRemarks = mUpdateRemarksEdit.getText().toString();
-        //                // 规范过得出的金额
-        //                String rightMoney;
-        //                if (TextUtils.isEmpty(mUpdateMoney)) {
-        //                    Toast.makeText(UpdateActivity.this, "请输入金额",
-        //                            Toast.LENGTH_LONG).show();
-        //                    return;
-        //                } else if (mUpdateMoney.indexOf('.') == 0) {
-        //                    Toast.makeText(UpdateActivity.this, "请输入正确的金额",
-        //                            Toast.LENGTH_LONG).show();
-        //                    return;
-        //                } else if (mUpdateMoney.lastIndexOf('.') == (mUpdateMoney.length() - 1)) {
-        //                    Toast.makeText(UpdateActivity.this, "请输入正确的金额",
-        //                            Toast.LENGTH_LONG).show();
-        //                    return;
-        //                } else {
-        //                    //计算小数点出现的个数
-        //                    int dotNum = 0;
-        //                    // 将金额字符串转为数组
-        //                    char[] moneyArray = mUpdateMoney.toCharArray();
-        //                    for (int k = 0; k < moneyArray.length; k++) {
-        //                        if (moneyArray[k] == '.') {
-        //                            dotNum++;
-        //                        }
-        //                    }
-        //                    // 记录小数点后两位
-        //                    if (dotNum == 1) {
-        //                        //返回某个指定的字符串值在字符串中首次出现的位置
-        //                        int dotFirst = mUpdateMoney.indexOf('.');
-        //                        //字符串的长度
-        //                        int length = mUpdateMoney.length();
-        //                        if (length - dotFirst == 2) {
-        //                            rightMoney = mUpdateMoney.substring(0,
-        //                                    mUpdateMoney.indexOf('.'))
-        //                                    + mUpdateMoney.substring(mUpdateMoney.indexOf('.'),
-        //                                    mUpdateMoney.indexOf('.') + 2);
-        //                        } else {
-        //                            rightMoney = mUpdateMoney.substring(0,
-        //                                    mUpdateMoney.indexOf('.'))
-        //                                    + mUpdateMoney.substring(mUpdateMoney.indexOf('.'),
-        //                                    mUpdateMoney.indexOf('.') + 3);
-        //                        }
-        //                    } else {
-        //                        rightMoney = mUpdateMoney;
-        //                    }
-        //                }
-        //                //给金额加上正负号
-        //                mMoney = mUpdateSymbolMoneyTv.getText().toString() + rightMoney;
-        //                //把int操作用户名转换成string
-        //                String userIdString = String.valueOf(mUserId);
-        //                if ((mUpdateSymbolMoneyTv.getText().toString()).equals("-")) {
-        //                    // 修改数据
-        //                    // 在存储工具类里面存储要操作的数据，以键值对的方式存储，键表示标的列名，值就是要操作的值
-        //                    mCv = new ContentValues();
-        //                    // cv.put("aoid", up_id);
-        //                    mCv.put("aocategory", mCategory);
-        //                    mCv.put("aomoney", rightMoney);
-        //                    mCv.put("aoaccount", mAccount);
-        //                    mCv.put("aoremarks", mRemarks);
-        //                    mCv.put("aotime", mDaytime);
-        //                    // 修改数据，返回修改成功的行数，失败则返回0
-        //                    num = mDb.update("expenditure", mCv, "aoid=? and aouserid=?",
-        //                            new String[]{mId + "", userIdString + ""});
-        //                    if (num > 0) {
-        //                        Toast.makeText(UpdateActivity.this,
-        //                                "修改成功" + num, Toast.LENGTH_SHORT).show();
-        //                        DataBean dataBean = new DataBean(mCategory, mMoney,
-        //                                mAccount, mRemarks, mDaytime, mId,
-        //                                mUserId);
-        //                        EventBus.getDefault().post(new UpdateSearchEvent(dataBean));
-        //                        EventBus.getDefault().post(new UpdateDetailsEvent(dataBean));
-        //                        finish();
-        //                    } else {
-        //                        Toast.makeText(UpdateActivity.this,
-        //                                "修改失败" + num, Toast.LENGTH_SHORT).show();
-        //                    }
-        //                } else if ((mUpdateSymbolMoneyTv.getText().toString()).equals("+")) {
-        //                    // 修改数据
-        //                    // 在存储工具类里面存储要操作的数据，以键值对的方式存储，键表示标的列名，值就是要操作的值
-        //                    mCv = new ContentValues();
-        //                    mCv.put("aicategory", mCategory);
-        //                    mCv.put("aimoney", rightMoney);
-        //                    mCv.put("aiaccount", mAccount);
-        //                    mCv.put("airemarks", mRemarks);
-        //                    mCv.put("aitime", mDaytime);
-        //                    // 修改数据，返回修改成功的行数，失败则返回0
-        //                    num = mDb.update("income", mCv, "aiid=? and aiuserid=?",
-        //                            new String[]{mId + "", userIdString + ""});
-        //                    if (num > 0) {
-        //                        Toast.makeText(UpdateActivity.this,
-        //                                "修改成功" + num, Toast.LENGTH_SHORT).show();
-        //                        DataBean dataBean = new DataBean(mCategory, mMoney,
-        //                                mAccount, mRemarks, mDaytime, mId,
-        //                                mUserId);
-        //                        EventBus.getDefault().post(new UpdateSearchEvent(dataBean));
-        //                        EventBus.getDefault().post(new UpdateDetailsEvent(dataBean));
-        //                        finish();
-        //                    } else {
-        //                        Toast.makeText(UpdateActivity.this,
-        //                                "修改失败" + num, Toast.LENGTH_SHORT).show();
-        //                    }
-        //                } else {
-        //                    Toast.makeText(UpdateActivity.this, "修改失败",
-        //                            Toast.LENGTH_SHORT).show();
-        //                }
-        //            }
-        //        });
-        //
+        // 修改
+        mUpdateBtn.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // 获取修改后的信息
+                mDate = mUpdateDateEdit.getText().toString();
+                mRemarks = mUpdateRemarksEdit.getText().toString();
+                String MoneyEdit = mUpdateMoneyEdit.getText().toString();
+                // 规范过得出的金额
+                String moneyStr;
+                if (TextUtils.isEmpty(MoneyEdit)) {
+                    Toast.makeText(UpdateActivity.this, "请输入金额",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                } else if (MoneyEdit.indexOf('.') == 0) {
+                    Toast.makeText(UpdateActivity.this, "请输入正确的金额",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                } else if (MoneyEdit.lastIndexOf('.') == (MoneyEdit.length() - 1)) {
+                    Toast.makeText(UpdateActivity.this, "请输入正确的金额",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                } else {
+                    //计算小数点出现的个数
+                    int dotNum = 0;
+                    // 将金额字符串转为数组
+                    char[] moneyArray = MoneyEdit.toCharArray();
+                    for (char c : moneyArray) {
+                        if (c == '.') {
+                            dotNum++;
+                        }
+                    }
+                    // 记录小数点后两位
+                    if (dotNum == 1) {
+                        //返回某个指定的字符串值在字符串中首次出现的位置
+                        int dotFirst = MoneyEdit.indexOf('.');
+                        //字符串的长度
+                        int length = MoneyEdit.length();
+                        if (length - dotFirst == 2) {
+                            moneyStr = MoneyEdit.substring(0,
+                                    MoneyEdit.indexOf('.'))
+                                    + MoneyEdit.substring(MoneyEdit.indexOf('.'),
+                                    MoneyEdit.indexOf('.') + 2);
+                        } else {
+                            moneyStr = MoneyEdit.substring(0,
+                                    MoneyEdit.indexOf('.'))
+                                    + MoneyEdit.substring(MoneyEdit.indexOf('.'),
+                                    MoneyEdit.indexOf('.') + 3);
+                        }
+                    } else {
+                        moneyStr = MoneyEdit;
+                    }
+                }
+                mMoney = Long.valueOf(moneyStr);
+                UpdateBean updateBean = new UpdateBean(mMoney, mDate, mMode, mRemarks);
+                boolean isSaveSuccess = DbFactory.create().updateBillInfo(mId, updateBean);
+                if (!isSaveSuccess) {
+                    ToastUtils.showShort(getContext(), "数据保存失败");
+                    return;
+                }
+                ToastUtils.showShort(getContext(), "数据保存成功");
+                boolean refresh = true;
+                EventBus.getDefault().post(new RefreshEvent(refresh));
+                finish();
+            }
+        });
+
 
         // sp账户
         // 设置下拉列表的条目被选择监听器
@@ -288,17 +240,8 @@ public class UpdateActivity extends BaseActivity {
     @Override
     protected void initData() {
         super.initData();
-        showUserInfo();
         setSp();
         showData();
-    }
-
-    /**
-     * 获取当前登录用户的Id
-     */
-    private void showUserInfo() {
-        //获取SharedPreferences对象
-        mAccount = SpManager.get().getUserAccount();
     }
 
     public void updateDate() {
@@ -358,6 +301,7 @@ public class UpdateActivity extends BaseActivity {
      * 获取传递过来的数据并显示
      */
     public void showData() {
+        mId = mBillTable.getId();
         mUpdateCategoryTv.setText(mBillTable.getCategory());
         int symbol = mBillTable.getSymbol();
         mUpdateSymbolMoneyTv.setText(String.valueOf((symbol == Constants.EXPENDITURE ? "-" : "+")));
@@ -369,11 +313,10 @@ public class UpdateActivity extends BaseActivity {
             if (modeStr.equals(mSpItem[i])) {
                 // 设置sp的值等于传递过来的值
                 mUpdateModeSp.setSelection(i, true);
-                //mAccount = mSpItem[i];
+                mMode = mSpItem[i];
                 break;
             }
         }
-
         mUpdateMoneyEdit.setSelection(mUpdateMoneyEdit.length());// 将光标移至文字末尾
         mUpdateRemarksEdit.setSelection(mUpdateRemarksEdit.length());// 将光标移至文字末尾
     }
@@ -384,10 +327,10 @@ public class UpdateActivity extends BaseActivity {
         mBillTable = event.getBillTable();
     }
 
-    //    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    //    public void onDetailsUpdateEvent(DetailsUpdateEvent event) {
-    //        mBillTable = event.getDataBean();
-    //    }
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onDetailsUpdateEvent(DetailsUpdateEvent event) {
+        mBillTable = event.getBillTable();
+    }
 
     /**
      * 解注册
