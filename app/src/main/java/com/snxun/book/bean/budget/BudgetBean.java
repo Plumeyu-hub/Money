@@ -1,4 +1,4 @@
-package com.snxun.book.ui.my.budget.bean;
+package com.snxun.book.bean.budget;
 
 import java.io.Serializable;
 

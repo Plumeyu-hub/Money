@@ -4,7 +4,7 @@ import android.database.Cursor;
 
 import com.snxun.book.greendaolib.table.BillTable;
 import com.snxun.book.greendaolib.table.UserTable;
-import com.snxun.book.ui.money.update.UpdateBean;
+import com.snxun.book.bean.update.UpdateBean;
 
 import java.util.List;
 

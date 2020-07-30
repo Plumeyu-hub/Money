@@ -94,6 +94,12 @@
 
         </activity>
 
+        <activity
+            android:name=".ui.my.demo.retrofit.RetrofitActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
+
         <receiver android:name=".ui.my.RemindReceiver" >
         </receiver>
     </application>

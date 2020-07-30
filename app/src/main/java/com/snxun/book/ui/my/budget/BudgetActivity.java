@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
 import com.snxun.book.ui.my.budget.adapter.RvListBudgetAdapter;
-import com.snxun.book.ui.my.budget.bean.BudgetBean;
+import com.snxun.book.bean.budget.BudgetBean;
 import com.snxun.book.utils.sp.SpManager;
 
 import java.util.ArrayList;

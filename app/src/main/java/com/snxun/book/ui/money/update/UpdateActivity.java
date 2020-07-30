@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
+import com.snxun.book.bean.update.UpdateBean;
 import com.snxun.book.config.Constants;
 import com.snxun.book.db.DbFactory;
 import com.snxun.book.event.DetailsUpdateEvent;

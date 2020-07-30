@@ -5,13 +5,14 @@ import android.os.Bundle;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+
+import com.trello.rxlifecycle4.components.support.RxAppCompatActivity;
 
 /**
  * @author Wangshy
  * @date 2020/07/14
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends RxAppCompatActivity {
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

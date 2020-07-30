@@ -19,7 +19,7 @@ import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
 import com.snxun.book.ui.money.details.DetailsFragment;
 import com.snxun.book.ui.money.graph.GraphFragment;
-import com.snxun.book.ui.money.main.bean.TabMainBean;
+import com.snxun.book.bean.main.TabMainBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

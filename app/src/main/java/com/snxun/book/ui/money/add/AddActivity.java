@@ -16,7 +16,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.tabs.TabLayout;
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
-import com.snxun.book.ui.money.main.bean.TabMainBean;
+import com.snxun.book.bean.main.TabMainBean;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

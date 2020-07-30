@@ -1,4 +1,4 @@
-package com.snxun.book.ui.money.update;
+package com.snxun.book.bean.update;
 
 import java.io.Serializable;
 

@@ -19,6 +19,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.snxun.book.R;
 import com.google.android.material.tabs.TabLayout;
+import com.snxun.book.bean.demo.TabBean;
 
 /**
  * TabLayout+ViewPager展示类

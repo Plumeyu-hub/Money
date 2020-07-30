@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseFragment;
+import com.snxun.book.bean.add.RvGrBean;
 import com.snxun.book.config.Constants;
 import com.snxun.book.db.DbFactory;
 import com.snxun.book.event.AddDetailsEvent;

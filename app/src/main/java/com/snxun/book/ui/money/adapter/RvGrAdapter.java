@@ -11,7 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.snxun.book.R;
-import com.snxun.book.ui.money.add.RvGrBean;
+import com.snxun.book.bean.add.RvGrBean;
 
 import java.util.List;
 
