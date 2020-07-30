@@ -13,7 +13,7 @@ import org.greenrobot.greendao.annotation.Generated;
 @Entity
 public class BillTable {
     /** 主键，编号 */
-    @Id(autoincrement = true)
+    @Id
     private Long id;
     /** 类别 */
     @NotNull
