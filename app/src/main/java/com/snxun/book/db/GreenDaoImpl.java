@@ -170,4 +170,19 @@ public class GreenDaoImpl implements DbHelper {
         return true;
     }
 
+    /**
+     * 删除指定用户名的账单
+     *
+     * @param account 用户名
+     * @return
+     */
+    @Override
+    public boolean deleteAllBillInfo(String account) {
+        GreenDaoManager.get().getDaoSession()
+                .getBillTableDao()
+                .queryBuilder()
+                .where(BillTableDao.Properties.Account.eq(account))
+                .buildDelete().executeDeleteWithoutDetachingEntities();
+        return true;
+    }
 }

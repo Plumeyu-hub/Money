@@ -84,4 +84,12 @@ public interface DbHelper {
      * @return
      */
     public boolean updateBillInfo(Long id, UpdateBean updateBean);
+
+    /**
+     * 删除指定用户名的账单
+     *
+     * @param account 用户名
+     * @return
+     */
+    public boolean deleteAllBillInfo(String account);
 }
