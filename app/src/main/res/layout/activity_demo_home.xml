@@ -87,6 +87,20 @@
             android:textAllCaps="false"
             android:textColor="@android:color/white" />
 
+        <Button
+            android:id="@+id/retrofit_btn"
+            style="@style/Widget.AppCompat.Button.Small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@color/color_FF6B6A"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:text="@string/demo_retrofit"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white" />
+
+
     </LinearLayout>
 
 </androidx.core.widget.NestedScrollView>

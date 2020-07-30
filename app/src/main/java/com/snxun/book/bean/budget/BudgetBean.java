@@ -28,6 +28,9 @@ public class BudgetBean implements Serializable {
      */
     private boolean isSelected;
 
+    public BudgetBean() {
+    }
+
     public BudgetBean(String mMoney, String mRemarks, String mDate, int mId,
                       int mUserId, boolean isSelected) {
         super();

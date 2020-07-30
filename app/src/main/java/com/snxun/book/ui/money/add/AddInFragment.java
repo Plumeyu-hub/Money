@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.lodz.android.core.utils.ToastUtils;
 import com.snxun.book.R;
 import com.snxun.book.base.BaseFragment;
 import com.snxun.book.bean.add.RvGrBean;
@@ -26,7 +27,6 @@ import com.snxun.book.db.DbFactory;
 import com.snxun.book.event.AddDetailsEvent;
 import com.snxun.book.event.SubmitRemarkEvent;
 import com.snxun.book.ui.money.adapter.RvGrAdapter;
-import com.snxun.book.utils.ToastUtils;
 import com.snxun.book.utils.sp.SpManager;
 
 import org.greenrobot.eventbus.EventBus;

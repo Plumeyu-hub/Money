@@ -5,10 +5,10 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.lodz.android.core.utils.ToastUtils;
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
 import com.snxun.book.db.DbFactory;
-import com.snxun.book.utils.ToastUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

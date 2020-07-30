@@ -8,13 +8,13 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.lodz.android.core.utils.ToastUtils;
+import com.lodz.android.core.utils.UiHandler;
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
 import com.snxun.book.db.DbFactory;
 import com.snxun.book.greendaolib.table.UserTable;
 import com.snxun.book.ui.money.main.MainActivity;
-import com.snxun.book.utils.ToastUtils;
-import com.snxun.book.utils.UiHandler;
 import com.snxun.book.utils.sp.SpManager;
 
 import butterknife.BindView;

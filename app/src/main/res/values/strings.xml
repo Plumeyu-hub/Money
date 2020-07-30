@@ -123,9 +123,15 @@
     <string name="demo_rv_test">RecyclerView样例</string>
     <string name="demo_gr_test">RV的GR样例</string>
     <string name="demo_eventbus">EventBus样例</string>
+    <string name="demo_retrofit">Retrofit样例</string>
     <string name="demo_go_other">跳转其他页面</string>
     <string name="demo_input_hint">请输入文字</string>
     <string name="demo_send_event">发送数据事件</string>
+    <string name="demo_post">post请求</string>
+    <string name="demo_get">get请求</string>
+    <string name="demo_request_body">RequestBody请求</string>
+
+
 
     <!-- 退出应用 -->
     <string name="exit_pop">确定退出此应用吗？</string>

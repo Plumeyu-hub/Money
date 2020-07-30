@@ -10,6 +10,7 @@ import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
 import com.snxun.book.ui.my.demo.event.EventActivity;
 import com.snxun.book.ui.my.demo.gr.GrActivity;
+import com.snxun.book.ui.my.demo.retrofit.RetrofitActivity;
 import com.snxun.book.ui.my.demo.rv.RvActivity;
 import com.snxun.book.ui.my.demo.tab.TabTestActivity;
 
@@ -43,7 +44,9 @@ public class DemoHomeActivity extends BaseActivity {
     /** Eventbus样例按钮 */
     @BindView(R.id.eventbus_case_btn)
     Button mEventbusCaseBtn;
-
+    /** Retrofit样例按钮 */
+    @BindView(R.id.retrofit_btn)
+    Button mRetrofitBtn;
 
 
     @Override
@@ -91,6 +94,13 @@ public class DemoHomeActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 EventActivity.start(getContext());
+            }
+        });
+
+        mRetrofitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                RetrofitActivity.start(getContext());
             }
         });
     }

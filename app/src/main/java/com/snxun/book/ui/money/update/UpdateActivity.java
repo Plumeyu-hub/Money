@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.lodz.android.core.utils.ToastUtils;
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
 import com.snxun.book.bean.update.UpdateBean;
@@ -26,7 +27,6 @@ import com.snxun.book.event.DetailsUpdateEvent;
 import com.snxun.book.event.RefreshEvent;
 import com.snxun.book.event.SearchUpdateEvent;
 import com.snxun.book.greendaolib.table.BillTable;
-import com.snxun.book.utils.ToastUtils;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;

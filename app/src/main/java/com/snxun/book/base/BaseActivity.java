@@ -6,7 +6,8 @@ import android.os.Bundle;
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
 
-import com.trello.rxlifecycle4.components.support.RxAppCompatActivity;
+import com.trello.rxlifecycle3.components.support.RxAppCompatActivity;
+
 
 /**
  * @author Wangshy
