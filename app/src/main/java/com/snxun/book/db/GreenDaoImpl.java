@@ -216,4 +216,19 @@ public class GreenDaoImpl implements DbHelper {
             return "0.00";
         }
     }
+
+    /**
+     * 制定用户所有的账单数据
+     *
+     * @param account 用户名
+     * @return
+     */
+    @Override
+    public Cursor allBillInfo(String account) {
+        return GreenDaoManager.get().getDaoSession()
+                .getDatabase().rawQuery("select * from BILL_TABLE where account=?",
+                        new String[]{account + ""});
+    }
+
+
 }
