@@ -2,7 +2,6 @@ package com.snxun.book.ui.money.graph;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -115,16 +114,9 @@ public class GraphFragment extends BaseFragment {
     PieChart mPiechart;
 
     /**
-     * 计算支出、收入、结余的值
-     */
-    private float mOutSum = 0;
-    private float mInSum = 0;
-    private float mCountSum = 0;
-    /**
      * 展示的每月支出和收入（无符号）
      */
-    String mShowInNum, mShowOutNum;// 每月支出和收入
-
+    String outText, inText;// 每月支出和收入
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_graph;
@@ -261,64 +253,33 @@ public class GraphFragment extends BaseFragment {
             mGraphMonthBtn.setTextColor(Color.WHITE);
 
             // 条件
-            String years = String.valueOf(mYear);
-            int monthn = mMonth + 1;
+            String yearStr = String.valueOf(mYear);
+            int monthInt = mMonth + 1;
             String months;
             if ((mMonth + 1) < 10) {
-                months = String.valueOf("0" + monthn);
+                months = String.valueOf("0" + monthInt);
             } else {
-                months = String.valueOf(monthn);
+                months = String.valueOf(monthInt);
             }
-            String condition = String.valueOf(years + months);
+            String date = String.valueOf(yearStr + months);
             // System.out.println(condition);
 
-            // 删除指定数据
-            Cursor mCs = DbFactory.create().sumBillInfo(condition,mAccount, Constants.EXPENDITURE);
+            /**
+             * 计算支出、收入、结余的值
+             */
+            outText= DbFactory.create().sumBillInfo(date,mAccount, Constants.EXPENDITURE);
+            inText = DbFactory.create().sumBillInfo(date,mAccount, Constants.INCOME);
+            mOutNumTv.setText("-" + outText);
+            mOutTextTv.setText(monthInt + "月支出");
+                mInNumTv.setText("+" + inText);
+                mInTextTv.setText(monthInt + "月收入");
 
-//            mCs = mDb.rawQuery(
-//                    "select sum(aomoney) from expenditure where aotime like ? and aouserid=?",
-//                    new String[] { condition + "%", userId + "" });
-//
-            if (mCs != null) {
-                if (mCs.moveToFirst()) {
-                    do {
-                        mOutSum = mCs.getFloat(0);
-
-                    } while (mCs.moveToNext());
-                }
-                // System.out.println(outsum);
-                mShowOutNum = String.format("%.2f", mOutSum);
-                mOutNumTv.setText("-" + mShowOutNum);
-                mOutTextTv.setText(monthn + "月支出");
-            } else {
-                mOutNumTv.setText("0.00");
-                mOutTextTv.setText(monthn + "月支出");
-            }
-            Cursor mCsIn = DbFactory.create().sumBillInfo(condition,mAccount, Constants.INCOME);
-
-            if (mCsIn != null) {
-                if (mCsIn.moveToFirst()) {
-                    do {
-                        mInSum = mCsIn.getFloat(0);
-
-                    } while (mCsIn.moveToNext());
-                }
-                mShowInNum = String.format("%.2f", mInSum);
-                mInNumTv.setText("+" + mShowInNum);
-                mInTextTv.setText(monthn + "月收入");
-            } else {
-                mInNumTv.setText("0.00");
-                mInTextTv.setText(monthn + "月收入");
-            }
-            mCountSum = mInSum - mOutSum;
+            float balance = Float.parseFloat(inText) - Float.parseFloat(outText);
             PieData mPieData = getPieData(4, 100);
             showChart(mPiechart, mPieData);
-            String resultcount = String.format("%.2f", mCountSum);
-            mBalanceNumTv.setText(resultcount);
-            mBalanceTextTv.setText(monthn + "月结余");
-
+            mBalanceNumTv.setText(String.format("%.2f", balance));
+            mBalanceTextTv.setText(monthInt + "月结余");
         }
-
     };
 
     // 绘图
@@ -375,8 +336,8 @@ public class GraphFragment extends BaseFragment {
          * 将一个饼形图分成四部分，四部分的数值比例为14:14:34:38 所以 14代表的百分比就是14%
          */
 
-        float innum = Float.parseFloat(mShowInNum);
-        float outnum = Float.parseFloat(mShowOutNum);
+        float innum = Float.parseFloat(outText);
+        float outnum = Float.parseFloat(inText);
 
         // float quarterly1 = 80.3f;
         // float quarterly2 = 5f;

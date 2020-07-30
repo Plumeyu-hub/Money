@@ -197,10 +197,23 @@ public class GreenDaoImpl implements DbHelper {
      * @return
      */
     @Override
-    public Cursor sumBillInfo(String date, String account, int symbol) {
-        return GreenDaoManager.get().getDaoSession()
+    public String sumBillInfo(String date, String account, int symbol) {
+        Cursor cs = GreenDaoManager.get().getDaoSession()
                 //.getBillTableDao()
                 .getDatabase().rawQuery("select sum(money) from BILL_TABLE where date like ? and account=? and symbol=?",
-                new String[]{date + "%", account + "", String.valueOf(symbol)});
+                        new String[]{date + "%", account + "", String.valueOf(symbol)});
+        Long sumLong = null;
+        String sum;
+        if (cs != null) {
+            if (cs.moveToFirst()) {
+                do {
+                    sumLong = cs.getLong(0);
+                } while (cs.moveToNext());
+            }
+            sum = String.format("%.2f", Float.valueOf(sumLong));
+            return sum;
+        } else {
+            return "0.00";
+        }
     }
 }

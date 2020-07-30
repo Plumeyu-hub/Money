@@ -1,7 +1,5 @@
 package com.snxun.book.db;
 
-import android.database.Cursor;
-
 import com.snxun.book.greendaolib.table.BillTable;
 import com.snxun.book.greendaolib.table.UserTable;
 import com.snxun.book.ui.money.update.UpdateBean;
@@ -103,5 +101,5 @@ public interface DbHelper {
      * @param symbol  符号
      * @return
      */
-    public Cursor sumBillInfo(String date, String account, int symbol);
+    public String sumBillInfo(String date, String account, int symbol);
 }
