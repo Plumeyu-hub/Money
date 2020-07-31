@@ -133,6 +133,22 @@ public class RetrofitActivity extends BaseActivity {
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .map(new Function<String, String>() {
+                    @Override
+                    public String apply(String s) throws Exception {
+                        // 显隐控件（不耗时）
+                        return s;
+                    }
+                })
+                .observeOn(Schedulers.io())
+                .map(new Function<String, String>() {
+                    @Override
+                    public String apply(String s) throws Exception {
+                        //数据库操作（耗时）
+                        return s;
+                    }
+                })
+                .observeOn(AndroidSchedulers.mainThread())
                 .compose(this.bindUntilEvent(ActivityEvent.DESTROY))
                 .subscribe(new ProgressObserver<String>() {
                     @Override

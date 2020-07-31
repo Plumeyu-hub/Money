@@ -10,7 +10,7 @@ public class BudgetRequestBean extends BaseRequestBean {
 
     /** 日期 */
     public String date;
-    /** 梳理 */
+    /** 数量 */
     public int num;
 
     public BudgetRequestBean() {

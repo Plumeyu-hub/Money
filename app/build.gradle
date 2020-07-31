@@ -28,18 +28,12 @@ android {
 
 dependencies {
 
-    implementation 'androidx.appcompat:appcompat:1.1.0'
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'me.majiajie:pager-bottom-tab-strip:2.3.0X'
-    implementation 'com.google.android.material:material:1.1.0'
-    implementation 'androidx.viewpager:viewpager:1.0.0'
-    implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
     // butterknife
     implementation 'com.jakewharton:butterknife:10.2.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.1'
-    // EventBus
-    implementation 'org.greenrobot:eventbus:3.2.0'
 
 //    // RxJava
 //    implementation 'io.reactivex.rxjava3:rxjava:3.0.4'
