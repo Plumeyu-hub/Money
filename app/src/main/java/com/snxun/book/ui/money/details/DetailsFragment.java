@@ -292,7 +292,7 @@ public class DetailsFragment extends BaseFragment {
         view.findViewById(R.id.about_btn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), AboutActivity.class));
+                AboutActivity.start(getContext());
             }
         });
 
