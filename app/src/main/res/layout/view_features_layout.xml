@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/btn_re"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingStart="20dp"
+        android:paddingEnd="10dp">
+
+        <TextView
+            android:id="@+id/icon_img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:drawableStart="@drawable/ic_export"
+            android:textColor="@android:color/white" />
+
+        <TextView
+            android:id="@+id/text_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_toEndOf="@id/icon_img"
+            android:gravity="center"
+            android:paddingStart="20dp"
+            android:text="@string/drawer_export"
+            android:textColor="@color/color_333333"
+            android:textSize="16sp"
+            tools:ignore="RelativeOverlap,RtlSymmetry" />
+
+        <TextView
+            android:id="@+id/next_img"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:drawableEnd="@drawable/ic_right"
+            android:textColor="@android:color/white" />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/line_view"
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="@color/color_FF6B6A" />
+</LinearLayout>
