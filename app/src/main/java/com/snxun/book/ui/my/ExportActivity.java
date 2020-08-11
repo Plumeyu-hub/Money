@@ -33,7 +33,7 @@ public class ExportActivity extends BaseActivity {
      * 导出数据按钮
      */
     @BindView(R.id.export_btn)
-    ImageView mExportBtn;
+    com.snxun.book.widget.ContentLayout mExportBtn;
 
     /**
      * 当前登录的用户ID

@@ -27,7 +27,7 @@ public class ClearActivity extends BaseActivity {
      * 数据清除按钮
      */
     @BindView(R.id.clear_btn)
-    ImageView mClearBtn;
+    com.snxun.book.widget.ContentLayout mClearBtn;
 
     /**
      * 当前登录的用户ID

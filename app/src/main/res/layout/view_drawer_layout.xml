@@ -18,8 +18,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:drawableStart="@drawable/ic_export"
-            android:textColor="@android:color/white" />
+            android:drawableStart="@drawable/ic_export" />
 
         <TextView
             android:id="@+id/text_tv"

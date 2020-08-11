@@ -21,11 +21,17 @@
         <attr name="expandViewId" format="reference" />
     </declare-styleable>
 
+    <!--侧拉栏-->
     <declare-styleable name="DrawerLayout">
-        <attr name="btnRe" format="reference"/>
-        <attr name="iconImg" format="reference"/>
-        <attr name="textTv" format="string"/>
-        <attr name="nextImg" format="reference"/>
+        <attr name="iconImg" format="reference" />
+        <attr name="textTv" format="string" />
+        <attr name="nextImg" format="reference" />
+    </declare-styleable>
+
+    <!--内容栏-->
+    <declare-styleable name="ContentLayout">
+        <attr name="text" format="string" />
+        <attr name="img" format="reference" />
     </declare-styleable>
 
 </resources>

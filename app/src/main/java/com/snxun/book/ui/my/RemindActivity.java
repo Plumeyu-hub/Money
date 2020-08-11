@@ -29,7 +29,7 @@ public class RemindActivity extends BaseActivity {
 	 * 定时按钮
 	 */
 	@BindView(R.id.remind_btn)
-	ImageView mRemindBtn;
+	com.snxun.book.widget.ContentLayout mRemindBtn;
 
 	private Boolean bool = false;
 	private SharedPreferences.Editor editor;
@@ -37,8 +37,6 @@ public class RemindActivity extends BaseActivity {
 	private Calendar calendar;// 时间对象
 	private AlarmManager manager;// 定时服务
 	private PendingIntent pIntent;// 延时意图
-
-
 
 	@Override
 	protected int getLayoutId() {
@@ -68,7 +66,7 @@ public class RemindActivity extends BaseActivity {
 				if (bool == false) {// ic_switch_nor
 					setAlarm();
 				} else {// on
-					mRemindBtn.setBackgroundResource(R.drawable.ic_switch_nor);
+					mRemindBtn.setIcon(R.drawable.ic_switch_nor);
 					bool = false;
 					editor.putBoolean("remember", bool);
 					editor.commit();
@@ -88,9 +86,11 @@ public class RemindActivity extends BaseActivity {
 		editor = sharedPreferences.edit();
 		bool = sharedPreferences.getBoolean("remember", false);
 		if (bool == false) {// ic_switch_nor
-			mRemindBtn.setBackgroundResource(R.drawable.ic_switch_nor);
+			mRemindBtn.setIcon(R.drawable.ic_switch_nor);
+			//mRemindBtn.setBackgroundResource(R.drawable.ic_switch_nor);
 		} else {// on
-			mRemindBtn.setBackgroundResource(R.drawable.ic_switch_sel);
+			mRemindBtn.setIcon(R.drawable.ic_switch_sel);
+			//mRemindBtn.setBackgroundResource(R.drawable.ic_switch_sel);
 		}
 
 		calendar = Calendar.getInstance();// 初始化，以当前系统时间填充
@@ -135,7 +135,8 @@ public class RemindActivity extends BaseActivity {
 								calendar.getTimeInMillis(),
 								10 * 1000, pIntent);
 
-						mRemindBtn.setBackgroundResource(R.drawable.ic_switch_sel);
+						mRemindBtn.setIcon(R.drawable.ic_switch_sel);
+						//mRemindBtn.setBackgroundResource(R.drawable.ic_switch_sel);
 						bool = true;
 						editor.putBoolean("remember", bool);
 						editor.commit();
