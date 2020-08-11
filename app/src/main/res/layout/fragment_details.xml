@@ -223,7 +223,7 @@
                 android:layout_height="0.5dp"
                 android:background="@color/color_FF6B6A" />
 
-            <com.snxun.book.widget.FeaturesLayout
+            <com.snxun.book.widget.DrawerLayout
                 android:id="@+id/budget_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -231,7 +231,7 @@
                 app:nextImg="@drawable/ic_right"
                 app:textTv="@string/drawer_budget" />
 
-            <com.snxun.book.widget.FeaturesLayout
+            <com.snxun.book.widget.DrawerLayout
                 android:id="@+id/export_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -239,7 +239,7 @@
                 app:nextImg="@drawable/ic_right"
                 app:textTv="@string/drawer_export" />
 
-            <com.snxun.book.widget.FeaturesLayout
+            <com.snxun.book.widget.DrawerLayout
                 android:id="@+id/clear_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -247,7 +247,7 @@
                 app:nextImg="@drawable/ic_right"
                 app:textTv="@string/drawer_clear" />
 
-            <com.snxun.book.widget.FeaturesLayout
+            <com.snxun.book.widget.DrawerLayout
                 android:id="@+id/set_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -255,7 +255,7 @@
                 app:nextImg="@drawable/ic_right"
                 app:textTv="@string/drawer_set" />
 
-            <com.snxun.book.widget.FeaturesLayout
+            <com.snxun.book.widget.DrawerLayout
                 android:id="@+id/help_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -263,7 +263,7 @@
                 app:nextImg="@drawable/ic_right"
                 app:textTv="@string/drawer_help" />
 
-            <com.snxun.book.widget.FeaturesLayout
+            <com.snxun.book.widget.DrawerLayout
                 android:id="@+id/about_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -271,7 +271,7 @@
                 app:nextImg="@drawable/ic_right"
                 app:textTv="@string/drawer_about" />
 
-            <com.snxun.book.widget.FeaturesLayout
+            <com.snxun.book.widget.DrawerLayout
                 android:id="@+id/demo_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -279,7 +279,7 @@
                 app:nextImg="@drawable/ic_right"
                 app:textTv="@string/demo_home_title" />
 
-            <com.snxun.book.widget.FeaturesLayout
+            <com.snxun.book.widget.DrawerLayout
                 android:id="@+id/exit_btn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -22,7 +22,7 @@ import butterknife.ButterKnife;
  * @author wangshy
  * @date 2020/08/10
  */
-public class FeaturesLayout extends RelativeLayout {
+public class DrawerLayout extends RelativeLayout {
 
     /**
      * 整个布局，btn
@@ -51,23 +51,23 @@ public class FeaturesLayout extends RelativeLayout {
     View mLineView;
 
 
-    public FeaturesLayout(Context context) {
+    public DrawerLayout(Context context) {
         super(context);
         init(null);
     }
 
-    public FeaturesLayout(Context context, AttributeSet attrs) {
+    public DrawerLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
     }
 
-    public FeaturesLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public DrawerLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public FeaturesLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public DrawerLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(attrs);
     }
@@ -85,20 +85,20 @@ public class FeaturesLayout extends RelativeLayout {
     private void config(AttributeSet attrs) {
         TypedArray typedArray = null;
         if (attrs != null) {
-            typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.FeaturesLayout);
+            typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.DrawerLayout);
         }
 
-        Drawable iconDrawable = typedArray == null ? null : typedArray.getDrawable(R.styleable.FeaturesLayout_iconImg);
+        Drawable iconDrawable = typedArray == null ? null : typedArray.getDrawable(R.styleable.DrawerLayout_iconImg);
         if (iconDrawable != null) {
             setTitleName(iconDrawable);
         }
 
-        String text = typedArray == null ? "" : typedArray.getString(R.styleable.FeaturesLayout_textTv);
+        String text = typedArray == null ? "" : typedArray.getString(R.styleable.DrawerLayout_textTv);
         if (!TextUtils.isEmpty(text)) {
             setTitleName(text);
         }
 
-        Drawable nextDrawable = typedArray == null ? null : typedArray.getDrawable(R.styleable.FeaturesLayout_nextImg);
+        Drawable nextDrawable = typedArray == null ? null : typedArray.getDrawable(R.styleable.DrawerLayout_nextImg);
         if (nextDrawable != null) {
             mNextImg.setCompoundDrawablesWithIntrinsicBounds(nextDrawable, null, null, null);
             //mNextImg.setImageDrawable(nextDrawable);
