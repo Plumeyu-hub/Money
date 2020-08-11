@@ -26,11 +26,6 @@ import butterknife.ButterKnife;
 
 public class BudgetActivity extends BaseActivity {
     /**
-     * 返回按钮
-     */
-    @BindView(R.id.budget_back_btn)
-    ImageView mBudgetBackBtn;
-    /**
      * 预算刷新按钮
      */
     @BindView(R.id.budget_refresh_btn)
@@ -69,7 +64,20 @@ public class BudgetActivity extends BaseActivity {
     @Override
     protected void findViews() {
         ButterKnife.bind(this);
+        initTitleLayout();
         initRecyclerView();
+    }
+
+    private void initTitleLayout() {
+        showTitleBar();
+        //getTitleLayout().addExpandView((vi)R.layout.view_budget_layout);
+        getTitleLayout().setTitleName(R.string.drawer_budget);
+    }
+
+    @Override
+    protected void clickBackBtn() {
+        super.clickBackBtn();
+        finish();
     }
 
     /**
@@ -92,14 +100,6 @@ public class BudgetActivity extends BaseActivity {
     @Override
     protected void setListeners() {
         super.setListeners();
-
-        //返回
-        mBudgetBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         //预算刷新
         mBudgetRefreshBtn.setOnClickListener(new View.OnClickListener() {
@@ -166,27 +166,27 @@ public class BudgetActivity extends BaseActivity {
                 String bremarks = cs.getString(cs.getColumnIndex("remarks"));
                 int buserid = cs.getInt(cs.getColumnIndex("userid"));
 
-//                Cursor csa;
-//                float bsum = 0;
-//                csa = mDb.rawQuery(
-//                        "select sum(aomoney) from expenditure where aotime=? and aouserid=?",
-//                        new String[]{btime + "", userId + ""});
-//
-//                if (csa != null) {
-//                    if (cs.moveToFirst()) {
-//                        do {
-//                            bsum = cs.getFloat(0);
-//                        } while (cs.moveToNext());
-//                    }
-//                    float fmoney = Float.parseFloat(bmoney);
-//                    if (bsum > fmoney) {
-//                        cid = true;
-//                    }
-//                }
+                //                Cursor csa;
+                //                float bsum = 0;
+                //                csa = mDb.rawQuery(
+                //                        "select sum(aomoney) from expenditure where aotime=? and aouserid=?",
+                //                        new String[]{btime + "", userId + ""});
+                //
+                //                if (csa != null) {
+                //                    if (cs.moveToFirst()) {
+                //                        do {
+                //                            bsum = cs.getFloat(0);
+                //                        } while (cs.moveToNext());
+                //                    }
+                //                    float fmoney = Float.parseFloat(bmoney);
+                //                    if (bsum > fmoney) {
+                //                        cid = true;
+                //                    }
+                //                }
 
-//                for (int i = 0; i < mGrDataList.size(); i++) {
-//                    mBudgetList.get(i).setIsSelected(i == bid);
-//                }
+                //                for (int i = 0; i < mGrDataList.size(); i++) {
+                //                    mBudgetList.get(i).setIsSelected(i == bid);
+                //                }
                 budgetBean = new BudgetBean(bmoney, bremarks, btime, bid, buserid,
                         cid);
                 mBudgetList.add(budgetBean);
@@ -219,12 +219,12 @@ public class BudgetActivity extends BaseActivity {
                         if (num > 0) {
                             Toast.makeText(getContext(),
                                     R
-                                            .string.delete_yes+ num, Toast.LENGTH_SHORT)
+                                            .string.delete_yes + num, Toast.LENGTH_SHORT)
                                     .show();
                             // TODO: 2020/07/24 string文件错乱
-//                            Toast.makeText(getContext(),
-//                                    R.string.delete_text+ num, Toast.LENGTH_SHORT)
-//                                    .show();
+                            //                            Toast.makeText(getContext(),
+                            //                                    R.string.delete_text+ num, Toast.LENGTH_SHORT)
+                            //                                    .show();
                             // 删掉长按的item
                             mBudgetList.remove(position);
                             // 动态更新listview

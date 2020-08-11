@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.snxun.book.R;
@@ -24,11 +23,6 @@ import butterknife.ButterKnife;
 
 public class ExportActivity extends BaseActivity {
 
-    /**
-     * 返回按钮
-     */
-    @BindView(R.id.export_back_btn)
-    ImageView mExportBackBtn;
     /**
      * 导出数据按钮
      */
@@ -49,19 +43,23 @@ public class ExportActivity extends BaseActivity {
     @Override
     protected void findViews() {
         ButterKnife.bind(this);
+        initTitleLayout();
+    }
+
+    private void initTitleLayout() {
+        showTitleBar();
+        getTitleLayout().setTitleName(R.string.drawer_export);
+    }
+
+    @Override
+    protected void clickBackBtn() {
+        super.clickBackBtn();
+        finish();
     }
 
     @Override
     protected void setListeners() {
         super.setListeners();
-
-        //返回
-        mExportBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         //导出数据
         mExportBtn.setOnClickListener(new View.OnClickListener() {

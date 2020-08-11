@@ -3,7 +3,6 @@ package com.snxun.book.ui.my;
 import android.app.AlertDialog.Builder;
 import android.content.DialogInterface;
 import android.view.View;
-import android.widget.ImageView;
 
 import com.lodz.android.core.utils.ToastUtils;
 import com.snxun.book.R;
@@ -18,11 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ClearActivity extends BaseActivity {
-    /**
-     * 返回按钮
-     */
-    @BindView(R.id.clear_back_btn)
-    ImageView mClearBackBtn;
+
     /**
      * 数据清除按钮
      */
@@ -43,6 +38,18 @@ public class ClearActivity extends BaseActivity {
     @Override
     protected void findViews() {
         ButterKnife.bind(this);
+        initTitleLayout();
+    }
+
+    private void initTitleLayout() {
+        showTitleBar();
+        getTitleLayout().setTitleName(R.string.drawer_help);
+    }
+
+    @Override
+    protected void clickBackBtn() {
+        super.clickBackBtn();
+        finish();
     }
 
     /**
@@ -51,14 +58,6 @@ public class ClearActivity extends BaseActivity {
     @Override
     protected void setListeners() {
         super.setListeners();
-
-        //返回
-        mClearBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         //数据清除
         mClearBtn.setOnClickListener(new View.OnClickListener() {

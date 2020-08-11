@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
@@ -29,9 +28,6 @@ public class DemoHomeActivity extends BaseActivity {
         context.startActivity(starter);
     }
 
-    /** 返回按钮 */
-    @BindView(R.id.back_btn)
-    TextView mBackBtn;
     /** tablayout样例按钮 */
     @BindView(R.id.tab_case_btn)
     Button mTabCaseBtn;
@@ -57,17 +53,23 @@ public class DemoHomeActivity extends BaseActivity {
     @Override
     protected void findViews(){
         ButterKnife.bind(this);
+        initTitleLayout();
+    }
+
+    private void initTitleLayout() {
+        showTitleBar();
+        getTitleLayout().setTitleName(R.string.demo_home_title);
+    }
+
+    @Override
+    protected void clickBackBtn() {
+        super.clickBackBtn();
+        finish();
     }
 
     @Override
     protected void setListeners() {
         super.setListeners();
-        mBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         mTabCaseBtn.setOnClickListener(new View.OnClickListener() {
             @Override

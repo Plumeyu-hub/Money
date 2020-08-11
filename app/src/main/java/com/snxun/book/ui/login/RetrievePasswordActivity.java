@@ -4,7 +4,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.lodz.android.core.utils.ToastUtils;
@@ -20,11 +19,6 @@ import butterknife.ButterKnife;
  */
 public class RetrievePasswordActivity extends BaseActivity {
 
-	/**
-	 * 返回按钮
-	 */
-	@BindView(R.id.retrieve_password_return_btn)
-	ImageView mRetrievePasswordReturnBtn;
 	/**
 	 * 用户名
 	 */
@@ -59,6 +53,18 @@ public class RetrievePasswordActivity extends BaseActivity {
 	@Override
 	protected void findViews() {
 		ButterKnife.bind(this);
+		initTitleLayout();
+	}
+
+	private void initTitleLayout() {
+		showTitleBar();
+		getTitleLayout().setTitleName(R.string.retrieve_password_title);
+	}
+
+	@Override
+	protected void clickBackBtn() {
+		super.clickBackBtn();
+		finish();
 	}
 
 	/**
@@ -67,14 +73,6 @@ public class RetrievePasswordActivity extends BaseActivity {
 	@Override
 	protected void setListeners() {
 		super.setListeners();
-
-		//返回
-		mRetrievePasswordReturnBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				finish();
-			}
-		});
 
 		//找回密码
 		mRetrievePasswordBtn.setOnClickListener(new OnClickListener() {

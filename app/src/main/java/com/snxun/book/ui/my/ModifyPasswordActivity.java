@@ -7,7 +7,7 @@ import android.content.DialogInterface;
 import android.database.sqlite.SQLiteDatabase;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.snxun.book.R;
@@ -20,15 +20,10 @@ import butterknife.ButterKnife;
 public class ModifyPasswordActivity extends BaseActivity {
 
     /**
-     * 返回按钮
-     */
-    @BindView(R.id.modify_pw_back_tv)
-    ImageView mModifyPwBackTv;
-    /**
      * 确定修改密码按钮
      */
-    @BindView(R.id.modify_pw_btn)
-    ImageView mModifyPwBtn;
+    @BindView(R.id.modify_pw_yes_btn)
+    TextView mModifyPwYesBtn;
     /**
      * 密码1
      */
@@ -64,6 +59,18 @@ public class ModifyPasswordActivity extends BaseActivity {
     @Override
     protected void findViews() {
         ButterKnife.bind(this);
+        initTitleLayout();
+    }
+
+    private void initTitleLayout() {
+        showTitleBar();
+        getTitleLayout().setTitleName(R.string.persoal_info_modify_pw);
+    }
+
+    @Override
+    protected void clickBackBtn() {
+        super.clickBackBtn();
+        finish();
     }
 
     /**
@@ -73,16 +80,8 @@ public class ModifyPasswordActivity extends BaseActivity {
     protected void setListeners() {
         super.setListeners();
 
-        //返回
-        mModifyPwBackTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
-
         //确定修改密码
-        mModifyPwBtn.setOnClickListener(new View.OnClickListener() {
+        mModifyPwYesBtn.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 pwOne = mModifyPwPasswordEdit.getText().toString().trim();
                 pwTow = mModifyPwPasswordTwoEdit.getText().toString().trim();

@@ -16,11 +16,6 @@ import butterknife.ButterKnife;
 public class RegisteredActivity extends BaseActivity {
 
 	/**
-	 * 返回按钮
-	 */
-	@BindView(R.id.registered_back_btn)
-	ImageView mRegisteredBackBtn;
-	/**
 	 * 用户名
 	 */
 	@BindView(R.id.registered_username_edit)
@@ -60,6 +55,18 @@ public class RegisteredActivity extends BaseActivity {
 	@Override
 	protected void findViews() {
 		ButterKnife.bind(this);
+		initTitleLayout();
+	}
+
+	private void initTitleLayout() {
+		showTitleBar();
+		getTitleLayout().setTitleName(R.string.app_registered);
+	}
+
+	@Override
+	protected void clickBackBtn() {
+		super.clickBackBtn();
+		finish();
 	}
 
 	/**
@@ -68,14 +75,6 @@ public class RegisteredActivity extends BaseActivity {
 	@Override
 	protected void setListeners() {
 		super.setListeners();
-
-		//返回
-		mRegisteredBackBtn.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View view) {
-				finish();
-			}
-		});
 
 		mRegisteredBtn.setOnClickListener(new View.OnClickListener() {
 

@@ -60,6 +60,13 @@ public class LoginActivity extends BaseActivity {
     @Override
     protected void findViews() {
         ButterKnife.bind(this);
+        initTitleLayout();
+    }
+
+    private void initTitleLayout() {
+        showTitleBar();
+        getTitleLayout().needBackButton(false);
+        getTitleLayout().setTitleName(R.string.app_login);
     }
 
     /**

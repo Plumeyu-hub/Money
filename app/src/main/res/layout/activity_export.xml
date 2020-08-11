@@ -7,32 +7,6 @@
     android:background="#fff"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="50dp">
-
-        <ImageView
-            android:id="@+id/export_back_btn"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_centerVertical="true"
-            android:contentDescription="@string/app_name"
-            android:src="@drawable/ic_left" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/drawer_export"
-            android:textColor="@color/color_333333"
-            android:textSize="20sp" />
-    </RelativeLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#a3a3a3" />
-
     <com.snxun.book.widget.ContentLayout
         android:id="@+id/export_btn"
         android:layout_width="match_parent"

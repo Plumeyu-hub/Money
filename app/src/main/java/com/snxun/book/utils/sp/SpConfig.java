@@ -17,4 +17,6 @@ public class SpConfig {
     public static final String USER_ACCOUNT = "user_account";
     /** 用户登录状态 */
     public static final String USER_STATUS = "user_stutas";
+    /** 用户定时记账的状态 */
+    public static final String REMIND_STATUS =  "remind_stutas";
 }
