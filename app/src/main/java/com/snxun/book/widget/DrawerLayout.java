@@ -78,7 +78,7 @@ public class DrawerLayout extends RelativeLayout {
     }
 
     private void findViews() {
-        LayoutInflater.from(getContext()).inflate(R.layout.view_features_layout, this);
+        LayoutInflater.from(getContext()).inflate(R.layout.view_drawer_layout, this);
         ButterKnife.bind(this);
     }
 
