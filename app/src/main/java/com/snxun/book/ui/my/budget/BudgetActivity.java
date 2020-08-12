@@ -25,16 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class BudgetActivity extends BaseActivity {
-    /**
-     * 预算刷新按钮
-     */
-    @BindView(R.id.budget_refresh_btn)
-    ImageView mBudgetRefreshBtn;
-    /**
-     * 新增预算按钮
-     */
-    @BindView(R.id.budget_add_btn)
-    ImageView mBudgetAddBtn;
+
     /**
      * 数据库
      */
@@ -70,7 +61,30 @@ public class BudgetActivity extends BaseActivity {
 
     private void initTitleLayout() {
         showTitleBar();
-        //getTitleLayout().addExpandView((vi)R.layout.view_budget_layout);
+        View view =View.inflate(getContext(),R.layout.view_budget_layout,null);
+        getTitleLayout().addExpandView(view);
+        /**
+         * 预算刷新按钮
+         */
+        ImageView mBudgetRefreshBtn=getTitleLayout().getExpandView().findViewById(R.id.budget_refresh_btn);
+        /**
+         * 新增预算按钮
+         */
+        ImageView mBudgetAddBtn=getTitleLayout().getExpandView().findViewById(R.id.budget_add_btn);
+
+        //预算刷新
+        mBudgetRefreshBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                refreshBudget();
+            }
+        });
+
+        //新增预算
+        mBudgetAddBtn.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                AddBudgetActivity.start(getContext());
+            }
+        });
         getTitleLayout().setTitleName(R.string.drawer_budget);
     }
 
@@ -101,19 +115,7 @@ public class BudgetActivity extends BaseActivity {
     protected void setListeners() {
         super.setListeners();
 
-        //预算刷新
-        mBudgetRefreshBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                refreshBudget();
-            }
-        });
 
-        //新增预算
-        mBudgetAddBtn.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                AddBudgetActivity.start(getContext());
-            }
-        });
 
         // 长按RVlist按删除
         mRvListBudgetAdapter.setOnItemLongClickListener(new RvListBudgetAdapter.OnItemLongClickListener() {

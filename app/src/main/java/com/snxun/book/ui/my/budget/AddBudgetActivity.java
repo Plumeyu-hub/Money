@@ -12,7 +12,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,11 +35,6 @@ public class AddBudgetActivity extends BaseActivity {
         context.startActivity(starter);
     }
 
-    /**
-     * 返回按钮
-     */
-    @BindView(R.id.add_budget_back_btn)
-    ImageView mAddBudgetBackBtn;
     /**
      * 确认添加按钮
      */
@@ -86,6 +80,18 @@ public class AddBudgetActivity extends BaseActivity {
     @Override
     protected void findViews() {
         ButterKnife.bind(this);
+        initTitleLayout();
+    }
+
+    private void initTitleLayout() {
+        showTitleBar();
+        getTitleLayout().setTitleName(R.string.add_budget_title);
+    }
+
+    @Override
+    protected void clickBackBtn() {
+        super.clickBackBtn();
+        finish();
     }
 
     /**
@@ -94,14 +100,6 @@ public class AddBudgetActivity extends BaseActivity {
     @Override
     protected void setListeners() {
         super.setListeners();
-
-        //返回
-        mAddBudgetBackBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
 
         //确认添加预算
         mAddBudgetBtn.setOnClickListener(new View.OnClickListener() {
