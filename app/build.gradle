@@ -7,7 +7,7 @@ android {
     defaultConfig {
         applicationId "com.snxun.book"
         minSdkVersion 19
-        targetSdkVersion 21
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
 
@@ -47,5 +47,10 @@ dependencies {
     implementation 'cn.lodz:Component:2.1.2'
 
     implementation project(path: ':greendaolib')
+
+    // 权限申请
+    implementation 'org.permissionsdispatcher:permissionsdispatcher:4.7.0'
+    annotationProcessor 'org.permissionsdispatcher:permissionsdispatcher-processor:4.7.0'
+
 
 }
