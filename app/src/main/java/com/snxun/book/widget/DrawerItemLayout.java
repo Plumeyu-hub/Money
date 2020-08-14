@@ -24,7 +24,7 @@ import butterknife.ButterKnife;
  * @author wangshy
  * @date 2020/08/10
  */
-public class DrawerLayout extends LinearLayout {
+public class DrawerItemLayout extends LinearLayout {
 
     /**
      * 整个布局，btn
@@ -47,23 +47,23 @@ public class DrawerLayout extends LinearLayout {
     @BindView(R.id.next_img)
     TextView mNextImg;
 
-    public DrawerLayout(Context context) {
+    public DrawerItemLayout(Context context) {
         super(context);
         init(null);
     }
 
-    public DrawerLayout(Context context, AttributeSet attrs) {
+    public DrawerItemLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs);
     }
 
-    public DrawerLayout(Context context, AttributeSet attrs, int defStyleAttr) {
+    public DrawerItemLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public DrawerLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public DrawerItemLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         init(attrs);
     }
@@ -74,27 +74,27 @@ public class DrawerLayout extends LinearLayout {
     }
 
     private void findViews() {
-        LayoutInflater.from(getContext()).inflate(R.layout.view_drawer_layout, this);
+        LayoutInflater.from(getContext()).inflate(R.layout.view_drawer_item_layout, this);
         ButterKnife.bind(this);
     }
 
     private void config(AttributeSet attrs) {
         TypedArray typedArray = null;
         if (attrs != null) {
-            typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.DrawerLayout);
+            typedArray = getContext().obtainStyledAttributes(attrs, R.styleable.DrawerItemLayout);
         }
 
-        Drawable iconDrawable = typedArray == null ? null : typedArray.getDrawable(R.styleable.DrawerLayout_iconImg);
+        Drawable iconDrawable = typedArray == null ? null : typedArray.getDrawable(R.styleable.DrawerItemLayout_iconImg);
         if (iconDrawable != null) {
             setDrawable(iconDrawable, mIconImg);
         }
 
-        String text = typedArray == null ? "" : typedArray.getString(R.styleable.DrawerLayout_textTv);
+        String text = typedArray == null ? "" : typedArray.getString(R.styleable.DrawerItemLayout_textTv);
         if (!TextUtils.isEmpty(text)) {
             setTitleName(text);
         }
 
-        Drawable nextDrawable = typedArray == null ? null : typedArray.getDrawable(R.styleable.DrawerLayout_nextImg);
+        Drawable nextDrawable = typedArray == null ? null : typedArray.getDrawable(R.styleable.DrawerItemLayout_nextImg);
         if (nextDrawable != null) {
             setDrawable(nextDrawable, mNextImg);
         }

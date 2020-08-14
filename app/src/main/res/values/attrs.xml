@@ -22,7 +22,7 @@
     </declare-styleable>
 
     <!--侧拉栏-->
-    <declare-styleable name="DrawerLayout">
+    <declare-styleable name="DrawerItemLayout">
         <attr name="iconImg" format="reference" />
         <attr name="textTv" format="string" />
         <attr name="nextImg" format="reference" />
