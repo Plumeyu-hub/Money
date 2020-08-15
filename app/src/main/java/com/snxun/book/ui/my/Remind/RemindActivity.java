@@ -1,4 +1,4 @@
-package com.snxun.book.ui.my;
+package com.snxun.book.ui.my.Remind;
 
 import android.app.AlarmManager;
 import android.app.AlertDialog;

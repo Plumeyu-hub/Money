@@ -40,7 +40,7 @@ import com.snxun.book.ui.my.ExportActivity;
 import com.snxun.book.ui.my.HelpActivity;
 import com.snxun.book.ui.my.MessageActivity;
 import com.snxun.book.ui.my.PersonalInfoActivity;
-import com.snxun.book.ui.my.RemindActivity;
+import com.snxun.book.ui.my.Remind.RemindActivity;
 import com.snxun.book.ui.my.SetActivity;
 import com.snxun.book.ui.my.budget.BudgetActivity;
 import com.snxun.book.ui.my.demo.home.DemoHomeActivity;

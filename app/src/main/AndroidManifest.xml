@@ -23,7 +23,7 @@
         <activity android:name=".ui.money.main.MainActivity" />
         <activity android:name=".ui.money.add.AddActivity" />
         <activity android:name=".ui.my.MessageActivity" />
-        <activity android:name=".ui.my.RemindActivity" />
+        <activity android:name=".ui.my.Remind.RemindActivity" />
         <activity android:name=".ui.my.SetActivity" />
         <activity android:name=".ui.my.HelpActivity" />
         <activity android:name=".ui.my.AboutActivity" />
@@ -81,7 +81,7 @@
 
         </activity>
 
-        <receiver android:name=".ui.my.RemindReceiver" />
+        <receiver android:name=".ui.my.Remind.RemindReceiver" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
