@@ -8,8 +8,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 
 import androidx.core.app.NotificationCompat;
@@ -42,10 +40,6 @@ public class RemindReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        /* start another activity - MyAlarm to display the alarm */
-
-        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(),
-                R.mipmap.ic_launcher);
         Intent intent1 = new Intent(context, AddActivity.class);
         // 延时意图
         PendingIntent pIntent = PendingIntent.getActivity(context, 0, intent1, 0);

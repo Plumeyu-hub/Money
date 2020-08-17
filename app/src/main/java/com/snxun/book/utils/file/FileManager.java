@@ -40,11 +40,14 @@ public class FileManager {
     private static void initPath() {
         String rootPath = "";
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            //Android10.0适配
+            //getExternalFilesDir里传空表示获取顶层目录
             File file = App.get().getExternalFilesDir("");
             if (file != null){
                 rootPath = file.getAbsolutePath();
             }
         }
+        //对变量判空，如果为空说明不是10.0的版本获取存储根目录
         if (TextUtils.isEmpty(rootPath)){
             rootPath = StorageUtils.getInternalStoragePath(App.get());// 先获取内置存储路径
             if (TextUtils.isEmpty(rootPath)){// 内置为空再获取外置

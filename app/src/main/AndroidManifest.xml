@@ -4,6 +4,8 @@
 
     <!-- 这个权限用于进行写入扩展存储，向扩展卡写入数据 -->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <!-- 后台服务改为前台服务 -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".App"
@@ -93,6 +95,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_paths" />
         </provider>
+
+        <service android:name=".ui.my.Remind.RemindService" />
     </application>
 
 </manifest>

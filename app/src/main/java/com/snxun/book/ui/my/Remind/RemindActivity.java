@@ -1,19 +1,24 @@
 package com.snxun.book.ui.my.Remind;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
+import android.os.Build;
+import android.os.SystemClock;
 import android.view.View;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
+import com.snxun.book.event.RemindEvent;
 import com.snxun.book.utils.sp.SpManager;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.Calendar;
+import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,8 +32,7 @@ public class RemindActivity extends BaseActivity {
     com.snxun.book.widget.ContentLayout mRemindBtn;
 
     private Calendar calendar;// 时间对象
-    private AlarmManager manager;// 定时服务
-    private PendingIntent pIntent;// 延时意图
+    private Intent intent;
 
     @Override
     protected int getLayoutId() {
@@ -67,10 +71,8 @@ public class RemindActivity extends BaseActivity {
                     mRemindBtn.setIcon(R.drawable.ic_switch_nor);
                     //存储定时记账的状态
                     SpManager.get().setRemindStatus(false);
-                    // 取消定时闹钟
-                    manager.cancel(pIntent);
+                    stopService(intent);
                 }
-
             }
         });
     }
@@ -88,18 +90,8 @@ public class RemindActivity extends BaseActivity {
         }
 
         calendar = Calendar.getInstance();// 初始化，以当前系统时间填充
-        manager = (AlarmManager) this.getSystemService(ALARM_SERVICE);
-
-        // Intent i = new Intent(this, AddActivity.class);
-        // pIntent = PendingIntent.getActivity(this, 0, i,
-        // PendingIntent.FLAG_UPDATE_CURRENT);
-
-        // Intent intent = new Intent();
-        // intent.setAction("com.example.android_27.A");
-        // pIntent = PendingIntent.getBroadcast(RemindActivity.this, 0x102,
-        // intent, 0);
-        pIntent = PendingIntent.getBroadcast(RemindActivity.this, 0,
-                new Intent(this, RemindReceiver.class), 0);
+        intent = new Intent();
+        intent.setClass(this, RemindService.class);
     }
 
     // 设置定时闹钟
@@ -114,27 +106,39 @@ public class RemindActivity extends BaseActivity {
                     public void onTimeSet(TimePicker arg0, int nowHour,
                                           int nowMin) {
                         // TODO Auto-generated method stub
-                        calendar.setTimeInMillis(System.currentTimeMillis());
+                        long firstTime = SystemClock.elapsedRealtime(); // 开机之后到现在的运行时间(包括睡眠时间)
+                        //当前时间
+                        long systemTime = System.currentTimeMillis();
+                        calendar.setTimeInMillis(systemTime);
+                        // 这里时区需要设置一下，不然会有8个小时的时间差
+                        calendar.setTimeZone(TimeZone.getTimeZone("GMT+8"));
                         calendar.set(Calendar.HOUR_OF_DAY, nowHour);// 设置小时数
                         calendar.set(Calendar.MINUTE, nowMin);// 设置分钟数
-                        calendar.set(Calendar.SECOND, 0);// 设置秒数
+                        //calendar.set(Calendar.SECOND, 0);
+                        //calendar.set(Calendar.MILLISECOND, 0);
+                        // 选择的定时时间
+                        long selectTime = calendar.getTimeInMillis();
+                        // 如果当前时间大于设置的时间，那么就从第二天的设定时间开始
+                        if(systemTime > selectTime) {
+                            Toast.makeText(getContext(),"设置的时间小于当前时间", Toast.LENGTH_SHORT).show();
+                            calendar.add(Calendar.DAY_OF_MONTH, 1);
+                            selectTime = calendar.getTimeInMillis();
+                        }
+                        // 计算现在时间到设定时间的时间差
+                        long time = selectTime - systemTime;
+                        firstTime += time;
 
-                        // 设置一次闹钟
-                        // manager.ic_set(AlarmManager.RTC_WAKEUP,
-                        // calendar.getTimeInMillis(), pIntent);
-                        // tv.setText("设置了一次闹钟，时间为"+nowHour+":"+nowMin);
+                        EventBus.getDefault().post(new RemindEvent(firstTime));
 
-                        // 设置重复闹钟
-                        manager.setRepeating(AlarmManager.RTC_WAKEUP,
-                                calendar.getTimeInMillis(),
-                                10 * 1000, pIntent);
+                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                            startForegroundService(intent);
+                        } else {
+                            startService(intent);
+                        }
 
                         mRemindBtn.setIcon(R.drawable.ic_switch_sel);
                         //存储定时记账的状态
                         SpManager.get().setRemindStatus(true);
-                        // tv.setText("设置了重複闹钟，时间为" + nowHour + ":" + nowMin
-                        // + ",每次重复间隔为10s");
-
                     }
                 }, hour, min, true).show();
 
