@@ -287,6 +287,19 @@
                 app:nextImg="@drawable/ic_right"
                 app:textTv="@string/drawer_exit" />
 
+            <com.snxun.book.widget.DrawerItemLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconImg="@drawable/ic_exit_app"
+                app:nextImg="@drawable/ic_right"
+                app:textTv="@string/drawer_exit" />
+
+            <com.snxun.book.widget.DrawerItemLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:iconImg="@drawable/ic_exit_app"
+                app:nextImg="@drawable/ic_right"
+                app:textTv="@string/drawer_exit" />
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 </androidx.drawerlayout.widget.DrawerLayout>
