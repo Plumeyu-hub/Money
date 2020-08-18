@@ -96,7 +96,9 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
-        <service android:name=".ui.my.Remind.RemindService" />
+        <service android:name=".ui.my.Remind.RemindService"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 
 </manifest>

@@ -5,10 +5,8 @@ import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
 import android.os.Build;
-import android.os.SystemClock;
 import android.view.View;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.snxun.book.R;
 import com.snxun.book.base.BaseActivity;
@@ -18,7 +16,6 @@ import com.snxun.book.utils.sp.SpManager;
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.Calendar;
-import java.util.TimeZone;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -60,7 +57,6 @@ public class RemindActivity extends BaseActivity {
     @Override
     protected void setListeners() {
         super.setListeners();
-
         mRemindBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,16 +85,13 @@ public class RemindActivity extends BaseActivity {
             //mRemindBtn.setBackgroundResource(R.drawable.ic_switch_sel);
         }
 
-        calendar = Calendar.getInstance();// 初始化，以当前系统时间填充
-        intent = new Intent();
-        intent.setClass(this, RemindService.class);
+        intent = new Intent(getContext(), RemindService.class);
     }
 
     // 设置定时闹钟
     public void setAlarm() {
-        int hour = calendar.get(Calendar.HOUR_OF_DAY);// 获取当前的小时数
-        int min = calendar.get(Calendar.MINUTE);// 获取当前的分钟数
-
+        // 实例化一个Calendar类，并取当前时间
+        Calendar calendar = Calendar.getInstance();
         new TimePickerDialog(this, AlertDialog.THEME_HOLO_LIGHT,
                 new OnTimeSetListener() {
 
@@ -106,30 +99,24 @@ public class RemindActivity extends BaseActivity {
                     public void onTimeSet(TimePicker arg0, int nowHour,
                                           int nowMin) {
                         // TODO Auto-generated method stub
-                        long firstTime = SystemClock.elapsedRealtime(); // 开机之后到现在的运行时间(包括睡眠时间)
-                        //当前时间
-                        long systemTime = System.currentTimeMillis();
-                        calendar.setTimeInMillis(systemTime);
-                        // 这里时区需要设置一下，不然会有8个小时的时间差
-                        calendar.setTimeZone(TimeZone.getTimeZone("GMT+8"));
-                        calendar.set(Calendar.HOUR_OF_DAY, nowHour);// 设置小时数
-                        calendar.set(Calendar.MINUTE, nowMin);// 设置分钟数
-                        //calendar.set(Calendar.SECOND, 0);
-                        //calendar.set(Calendar.MILLISECOND, 0);
-                        // 选择的定时时间
-                        long selectTime = calendar.getTimeInMillis();
-                        // 如果当前时间大于设置的时间，那么就从第二天的设定时间开始
-                        if(systemTime > selectTime) {
-                            Toast.makeText(getContext(),"设置的时间小于当前时间", Toast.LENGTH_SHORT).show();
-                            calendar.add(Calendar.DAY_OF_MONTH, 1);
-                            selectTime = calendar.getTimeInMillis();
+                        Calendar c = Calendar.getInstance();//获取日期对象
+                        c.setTimeInMillis(System.currentTimeMillis());        //设置Calendar对象
+                        c.set(Calendar.HOUR_OF_DAY, nowHour);//设置闹钟小时数
+                        c.set(Calendar.MINUTE, nowMin);//设置闹钟的分钟数
+                        c.set(Calendar.SECOND, 0);                //设置闹钟的秒数
+                        c.set(Calendar.MILLISECOND, 0);            //设置闹钟的毫秒数
+
+                        // 当前时间
+                        Calendar currentTime = Calendar.getInstance();
+                        long nowTime = currentTime.getTimeInMillis();
+                        long setTime = c.getTimeInMillis();
+                        //如果设置的闹钟时间比当前时间还小，你不能将闹钟定在过去，所以令其往前加一天
+                        if (setTime <= nowTime) {
+                            EventBus.getDefault().postSticky(new RemindEvent(calendar.getTimeInMillis() + 24 * 60 * 60 * 1000));
+                        } else {
+                            EventBus.getDefault().postSticky(new RemindEvent(setTime));
                         }
-                        // 计算现在时间到设定时间的时间差
-                        long time = selectTime - systemTime;
-                        firstTime += time;
-
-                        EventBus.getDefault().post(new RemindEvent(firstTime));
-
+                        //后台服务改为前台服务:启动前台服务
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                             startForegroundService(intent);
                         } else {
@@ -140,7 +127,7 @@ public class RemindActivity extends BaseActivity {
                         //存储定时记账的状态
                         SpManager.get().setRemindStatus(true);
                     }
-                }, hour, min, true).show();
+                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true).show();
 
     }
 }

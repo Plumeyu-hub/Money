@@ -5,6 +5,7 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 import androidx.annotation.Nullable;
 
@@ -20,8 +21,11 @@ import org.greenrobot.eventbus.ThreadMode;
  */
 public class RemindService extends Service {
 
-    private static final int TIME_INTERVAL = 600000; // 10min 1000 * 60 * 10
-    private long time;
+    private static final int TIME_INTERVAL = 60000; // 2min 1000 * 60 * 2
+    //AlarmManager.INTERVAL_DAY
+    private long mTime;
+    private AlarmManager alarmManager;
+    private PendingIntent pIntent;
 
     public RemindService() {
     }
@@ -45,8 +49,8 @@ public class RemindService extends Service {
      */
     @Override
     public void onCreate() {
-        //System.out.println("onCreate invoke");
         super.onCreate();
+        Log.d("Service", "onCreate");
     }
 
 
@@ -61,21 +65,21 @@ public class RemindService extends Service {
      */
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        Log.d("Service", "onStartCommand");
         // 在你需要订阅的类里去注册EventBus
         EventBus.getDefault().register(this);
-        PendingIntent pIntent = PendingIntent.getBroadcast(RemindService.this, 0,
+        alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
+        pIntent = PendingIntent.getBroadcast(RemindService.this, 0,
                 new Intent(this, RemindReceiver.class), 0);
-        AlarmManager manager = (AlarmManager) getSystemService(ALARM_SERVICE);
-        manager.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                time,
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP,
+                mTime,
                 TIME_INTERVAL, pIntent);
-
         return super.onStartCommand(intent, flags, startId);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void RemindEvent(RemindEvent event) {
-        time = event.getTime();
+        mTime = event.getTime();
     }
 
     /**
@@ -84,7 +88,8 @@ public class RemindService extends Service {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        //System.out.println("onDestroy invoke");
+        Log.d("Service", "onDestroy");
+        alarmManager.cancel(pIntent);
         EventBus.getDefault().unregister(this);
     }
 
